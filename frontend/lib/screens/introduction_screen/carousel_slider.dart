@@ -29,10 +29,16 @@ class _CarouselSliderState extends State<CarouselSlider> {
     });
     _timer = Timer.periodic(Duration(seconds: 3), (timer) {
       if (_controller.page == _imagePaths.length - 1) {
-        _controller.animateToPage(0, duration: Duration(milliseconds: 500), curve: Curves.easeIn);
-      }
-      else {
-        _controller.nextPage(duration: Duration(milliseconds: 500), curve: Curves.easeIn);
+        _controller.animateToPage(
+          0,
+          duration: Duration(milliseconds: 500),
+          curve: Curves.easeIn,
+        );
+      } else {
+        _controller.nextPage(
+          duration: Duration(milliseconds: 500),
+          curve: Curves.easeIn,
+        );
       }
     });
   }
