@@ -1,0 +1,27 @@
+services:
+  flutter-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: virtour-flutter-app
+    volumes:
+      - .:/app
+      - flutter-cache:/root/.pub-cache
+      - gradle-cache:/root/.gradle
+    
+    # This block is now in the correct 'map' format
+    environment:
+      FLUTTER_HOME: /home/mobiledevops/flutter-sdk
+      ANDROID_HOME: /home/mobiledevops/android8-sdk
+      STDIN_OPEN: true
+      ANDROID_ADB_SERVER_ADDRESS: host.docker.internal
+    
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+    tty: true
+    command: bash
+
+volumes:
+  flutter-cache:
+  gradle-cache:

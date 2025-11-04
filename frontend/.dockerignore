@@ -1,0 +1,49 @@
+# Build outputs
+build/
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+
+# Android
+android/.gradle/
+android/build/
+android/captures/
+android/local.properties
+android/gradlew
+android/gradlew.bat
+android/gradle-wrapper.jar
+android/key.properties
+android/**/*.keystore
+android/**/*.jks
+
+# iOS (if applicable)
+ios/Pods/
+ios/.symlinks/
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
+
+# IDE
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+
+# Misc
+.DS_Store
+*.log
+*.swp
+*.swo
+*~
+
+# Git
+.git/
+.gitignore
+
+# Docker
+Dockerfile
+.dockerignore
+docker-compose.yml
