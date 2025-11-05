@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:virtour_frontend/components/custom_text_field.dart';
 import 'package:virtour_frontend/constants/colors.dart';
 
 class SignUpForm extends StatefulWidget {
@@ -13,20 +14,12 @@ class _SignUpFormState extends State<SignUpForm> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _repeatPasswordController =
       TextEditingController();
-  final FocusNode _usernameFocusNode = FocusNode();
-  final FocusNode _passwordFocusNode = FocusNode();
-  final FocusNode _repeatPasswordFocusNode = FocusNode();
-  bool _obscureText = true;
-  bool _rObscureText = true;
 
   @override
   void dispose() {
     _usernameController.dispose();
     _passwordController.dispose();
     _repeatPasswordController.dispose();
-    _usernameFocusNode.dispose();
-    _passwordFocusNode.dispose();
-    _repeatPasswordFocusNode.dispose();
     super.dispose();
   }
 
@@ -35,123 +28,37 @@ class _SignUpFormState extends State<SignUpForm> {
     return Container(
       color: Colors.white,
       child: SingleChildScrollView(
-        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.manual,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 70),
             Padding(
               padding: const EdgeInsets.only(left: 52, right: 48),
-              child: const Text(
-                "Username",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 16,
-                  fontFamily: "BeVietnamPro",
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            const SizedBox(height: 10),
-            Padding(
-              padding: const EdgeInsets.only(left: 52, right: 48),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Color(0xffd9d9d9),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: TextField(
-                  focusNode: _usernameFocusNode,
-                  controller: _usernameController,
-                  decoration: InputDecoration(
-                    hintText: "Username",
-                    contentPadding: EdgeInsets.only(left: 10, top: 13),
-                    border: InputBorder.none,
-                    prefixIcon: Icon(Icons.person),
-                  ),
-                ),
+              child: MyTextField(
+                textEditingController: _usernameController,
+                label: "Username",
+                prefixIcon: Icons.person,
               ),
             ),
             const SizedBox(height: 30),
             Padding(
               padding: const EdgeInsets.only(left: 52, right: 48),
-              child: const Text(
-                "Password",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 16,
-                  fontFamily: "BeVietnamPro",
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            const SizedBox(height: 10),
-            Padding(
-              padding: const EdgeInsets.only(left: 52, right: 48),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Color(0xffd9d9d9),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: TextField(
-                  focusNode: _passwordFocusNode,
-                  controller: _passwordController,
-                  obscureText: _obscureText,
-                  decoration: InputDecoration(
-                    hintText: "Password",
-                    contentPadding: EdgeInsets.only(left: 10, top: 13),
-                    border: InputBorder.none,
-                    prefixIcon: Icon(Icons.lock),
-                    suffixIcon: IconButton(
-                      icon: Icon(
-                        _obscureText ? Icons.visibility : Icons.visibility_off,
-                      ),
-                      onPressed: () =>
-                          setState(() => _obscureText = !_obscureText),
-                    ),
-                  ),
-                ),
+              child: MyTextField(
+                textEditingController: _passwordController,
+                label: "Password",
+                prefixIcon: Icons.lock,
+                obscureText: true,
               ),
             ),
             const SizedBox(height: 30),
             Padding(
               padding: const EdgeInsets.only(left: 52, right: 48),
-              child: const Text(
-                "Repeat Password",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 16,
-                  fontFamily: "BeVietnamPro",
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            const SizedBox(height: 10),
-            Padding(
-              padding: const EdgeInsets.only(left: 52, right: 48),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Color(0xffd9d9d9),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: TextField(
-                  focusNode: _repeatPasswordFocusNode,
-                  controller: _repeatPasswordController,
-                  obscureText: _rObscureText,
-                  decoration: InputDecoration(
-                    hintText: "Repeat Password",
-                    contentPadding: EdgeInsets.only(left: 10, top: 13),
-                    border: InputBorder.none,
-                    prefixIcon: Icon(Icons.lock),
-                    suffixIcon: IconButton(
-                      icon: Icon(
-                        _rObscureText ? Icons.visibility : Icons.visibility_off,
-                      ),
-                      onPressed: () =>
-                          setState(() => _rObscureText = !_rObscureText),
-                    ),
-                  ),
-                ),
+              child: MyTextField(
+                textEditingController: _repeatPasswordController,
+                label: "Repeat Password",
+                prefixIcon: Icons.lock,
+                obscureText: true,
               ),
             ),
             const SizedBox(height: 30),
@@ -200,9 +107,7 @@ class _SignUpFormState extends State<SignUpForm> {
                 width: double.infinity,
                 height: 80,
                 child: ElevatedButton(
-                  onPressed: () {
-
-                  },
+                  onPressed: () {},
                   style: ElevatedButton.styleFrom(
                     backgroundColor: kThemeColor,
                     shape: RoundedRectangleBorder(

@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:virtour_frontend/screens/authenciation_screen/sign_in_form.dart';
 import 'package:virtour_frontend/screens/authenciation_screen/sign_up_form.dart';
 import '../../constants/colors.dart';
-
-enum AuthMode { signUp, signIn }
-
 class AuthenciationScreen extends StatefulWidget {
   const AuthenciationScreen({super.key});
 
@@ -12,18 +9,21 @@ class AuthenciationScreen extends StatefulWidget {
   State<AuthenciationScreen> createState() => _AuthenciationScreenState();
 }
 
-class _AuthenciationScreenState extends State<AuthenciationScreen> {
-  AuthMode _authMode = AuthMode.signUp;
+class _AuthenciationScreenState extends State<AuthenciationScreen>
+    with SingleTickerProviderStateMixin {
   bool _didInitialize = false;
-  int _formKey = 0;
+  late final TabController _tabController;
 
-  void _switchAuthMode(AuthMode newMode) {
-    if (_authMode != newMode) {
-      setState(() {
-        _authMode = newMode;
-        _formKey++;
-      });
-    }
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 2, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
   }
 
   @override
@@ -35,9 +35,9 @@ class _AuthenciationScreenState extends State<AuthenciationScreen> {
       if (routeArgs is Map<String, String>) {
         final mode = routeArgs['mode'];
         if (mode == 'signIn') {
-          _authMode = AuthMode.signIn;
+          _tabController.index = 1;
         } else if (mode == 'signUp') {
-          _authMode = AuthMode.signUp;
+          _tabController.index = 0;
         }
       }
     }
@@ -73,84 +73,60 @@ class _AuthenciationScreenState extends State<AuthenciationScreen> {
         ),
         centerTitle: true,
       ),
-      body: Column(
-        children: [
-          const SizedBox(height: 70),
-          Row(
-            children: [
-              Expanded(
-                child: GestureDetector(
-                  onTap: () => _switchAuthMode(AuthMode.signUp),
-                  child: Container(
-                    alignment: Alignment.center,
-                    height: 70,
-                    decoration: BoxDecoration(
-                      color: _authMode == AuthMode.signUp
-                          ? Colors.white
-                          : kThemeColor,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(15),
-                        topRight: Radius.circular(15),
-                      ),
-                    ),
+      body: SizedBox(
+        width: double.infinity,
+        height: double.infinity,
+        child: Column(
+          children: [
+            const SizedBox(height: 77),
+            TabBar(
+              controller: _tabController,
+              isScrollable: false,
+              indicator: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(15),
+                  topRight: Radius.circular(15),
+                ),
+              ),
+              indicatorSize: TabBarIndicatorSize.tab,
+              dividerColor: Colors.transparent,
+              labelColor: Colors.black,
+              unselectedLabelColor: Colors.white,
+              tabs: [
+                SizedBox(
+                  height: 54,
+                  child: Tab(
                     child: Text(
                       "Sign up",
                       style: TextStyle(
-                        color: _authMode == AuthMode.signUp
-                            ? Colors.black
-                            : Colors.white,
                         fontFamily: "BeVietnamPro",
-                        fontSize: 28,
+                        fontSize: 24,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
                   ),
                 ),
-              ),
-              Expanded(
-                child: GestureDetector(
-                  onTap: () => _switchAuthMode(AuthMode.signIn),
-                  child: Container(
-                    alignment: Alignment.center,
-                    height: 70,
-                    decoration: BoxDecoration(
-                      color: _authMode == AuthMode.signIn
-                          ? Colors.white
-                          : kThemeColor,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(15),
-                        topRight: Radius.circular(15),
-                      ),
-                    ),
-                    child: Text(
-                      "Sign in",
-                      style: TextStyle(
-                        color: _authMode == AuthMode.signIn
-                            ? Colors.black
-                            : Colors.white,
-                        fontFamily: "BeVietnamPro",
-                        fontSize: 28,
-                        fontWeight: FontWeight.w700,
-                      ),
+                Tab(
+                  child: Text(
+                    "Sign in",
+                    style: TextStyle(
+                      fontFamily: "BeVietnamPro",
+                      fontSize: 24,
+                      fontWeight: FontWeight.w700,
                     ),
                   ),
                 ),
-              ),
-            ],
-          ),
-          Expanded(
-            child: IndexedStack(
-              index: _authMode == AuthMode.signIn ? 0 : 1,
-              children: [
-                SizedBox(
-                  height: double.infinity,
-                  child: SignInForm(key: ValueKey('signIn-$_formKey'))
-                ),
-                SignUpForm(key: ValueKey('signUp-$_formKey')),
               ],
             ),
-          ),
-        ],
+            Expanded(
+              child: TabBarView(
+                controller: _tabController,
+                children: [SignUpForm(), SignInForm()],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
