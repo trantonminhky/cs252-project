@@ -1,8 +1,6 @@
 services:
   flutter-app:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: 4funzies/virtour-app:latest
     container_name: virtour-flutter-app
     volumes:
       - .:/app
@@ -23,4 +21,4 @@ services:
     command: bash
 volumes:
   flutter-cache:
-  gradle-cache:
+  gradle-cache: 
