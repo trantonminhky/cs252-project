@@ -19,10 +19,12 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/images/introduction_scene_background.png"),
+                image: AssetImage(
+                  "assets/images/introduction_scene_background.png",
+                ),
                 fit: BoxFit.cover,
-              )
-            )
+              ),
+            ),
           ),
           Padding(
             padding: EdgeInsets.all(10.0),
@@ -61,7 +63,11 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
                         ),
                       ),
                       onPressed: () {
-                        print("GetStarted");
+                        Navigator.pushReplacementNamed(
+                          context,
+                          "/auth",
+                          arguments: {"mode": "signUp"},
+                        );
                       },
                       child: Text(
                         "Get started",
@@ -93,7 +99,11 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
                       splashColor: Color.fromRGBO(204, 240, 213, 0.3),
                       borderRadius: BorderRadius.circular(3),
                       onTap: () {
-                        print("Sign in");
+                        Navigator.pushReplacementNamed(
+                          context,
+                          "/auth",
+                          arguments: {"mode": "signIn"},
+                        );
                       },
                       child: Text(
                         "Sign in",
@@ -118,7 +128,7 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
             child: Container(
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(15)
+                borderRadius: BorderRadius.circular(15),
               ),
               padding: EdgeInsets.only(top: 15, left: 10, right: 10),
               height: 120,
@@ -127,7 +137,7 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children:[
+                    children: [
                       Text(
                         "Unification Palace",
                         style: TextStyle(
@@ -135,7 +145,7 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
                           fontFamily: "Inter",
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
-                        )
+                        ),
                       ),
                       Text(
                         "Go to the main gate",
@@ -143,22 +153,24 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
                           fontSize: 16,
                           fontFamily: "Inter",
                           color: Colors.black,
-                        )
+                        ),
                       ),
                       const SizedBox(height: 10),
                       SizedBox(
                         width: 110,
                         height: 40,
                         child: Card(
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5),
+                          ),
                           color: kThemeColor,
                           child: Row(
-                            children:[
+                            children: [
                               const SizedBox(width: 3),
                               Icon(
-                                  Icons.star_border_outlined,
-                                  color: Colors.white,
-                                  size: 18
+                                Icons.star_border_outlined,
+                                color: Colors.white,
+                                size: 18,
                               ),
                               const SizedBox(width: 3),
                               Padding(
@@ -168,20 +180,20 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontFamily: "Inter",
-                                    color: Colors.white
-                                  )
+                                    color: Colors.white,
+                                  ),
                                 ),
-                              )
-                            ]
-                          )
+                              ),
+                            ],
+                          ),
                         ),
-                      )
-                    ]
+                      ),
+                    ],
                   ),
                 ],
               ),
             ),
-          )
+          ),
         ],
       ),
     );

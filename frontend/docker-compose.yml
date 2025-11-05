@@ -21,7 +21,6 @@ services:
 
     tty: true
     command: bash
-
 volumes:
   flutter-cache:
   gradle-cache:
