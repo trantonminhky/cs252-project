@@ -23,8 +23,6 @@ This project runs in a self-contained Docker environment.
     - **On macOS:** Add the following line to your `~/.zshrc` or `~/.bash_profile`: `export PATH="$PATH:/Users/<your-username>/Library/Android/sdk/platform-tools"`
         
     - **Verify:** Close and reopen your terminal, then run `adb version`. You should see the version information.
-        
-4. **Start your Emulator:** Inside Android Studio, use the **Device Manager** to create and start an Android Emulator.
     
 
 ## First-Time Setup
@@ -38,7 +36,7 @@ This project runs in a self-contained Docker environment.
     cd [your-project-folder]/frontend
     ```
     
-2. **Configure ADB:** Run this command in your local terminal (PowerShell, CMD, or Terminal) to allow Docker to see your emulator.
+2. **Start your Emulator and Configure ADB:** Inside Android Studio, use the **Device Manager (In "More Actions")** to create and start an Android Emulator. Run this command in your local terminal (PowerShell, CMD, or Terminal) to allow Docker to see your emulator.
     
     Bash
     
