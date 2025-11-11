@@ -33,7 +33,6 @@ This project runs in a self-contained Docker environment.
     
     ```
     git clone [your-repo-url]
-    cd [your-project-folder]/frontend
     ```
     
 2. **Start your Emulator and Configure ADB:** Inside Android Studio, use the **Device Manager (In "More Actions")** to create and start an Android Emulator. Run this command in your local terminal (PowerShell, CMD, or Terminal) to allow Docker to see your emulator.
@@ -90,13 +89,18 @@ This project runs in a self-contained Docker environment.
     
 
 ## Daily Workflow
-
+### IMPORTANT: you don't `cd frontend` to run in there anymore.
 1. Make sure your Android Emulator is running.
     
 2. Check that ADB can see it: `adb devices`
     
-3. Start the container: `docker-compose up -d`
+3. Start the container: `docker-compose up -d` (run this in the root folder) 
     
 4. Get a shell in the container: `docker-compose exec flutter-app bash`
     
 5. Run the app: `flutter run`
+
+## If there is a Matrix-4 error
+1. In the shell of the container (example: `root@f0eae64d2a6f:/app#`): run `flutter clean`
+2. run `flutter pub get`
+3. run `flutter run`
