@@ -1,0 +1,40 @@
+services:
+  flutter-app:
+    image: 4funzies/cultour-app:latest
+    container_name: cultour-flutter-app
+    volumes:
+      - ./frontend:/app 
+      - /app/build 
+      - flutter-cache:/root/.pub-cache
+      - gradle-cache:/root/.gradle
+    environment:
+      FLUTTER_HOME: /home/mobiledevops/flutter-sdk
+      ANDROID_HOME: /home/mobiledevops/android8-sdk
+      STDIN_OPEN: true
+      ANDROID_ADB_SERVER_ADDRESS: host.docker.internal
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    tty: true
+    command: bash # This container will start and wait for you to exec in
+    networks:
+      - cultour-net
+
+  backend:
+    image: 4funzies/cultour-backend:latest 
+    container_name: cultour-backend
+    ports:
+      - "3000:3000"
+    volumes:
+      - backend-cache:/root/.npm
+    networks:
+      - cultour-net
+
+volumes:
+  flutter-cache:
+  gradle-cache:
+  backend-cache:
+
+# This network allows 'flutter-app' to talk to 'backend' by name
+networks:
+  cultour-net:
+    driver: bridge
