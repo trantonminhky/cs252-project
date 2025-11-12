@@ -10,3 +10,4 @@ yarn-error.log*
 dist/
 build/
 coverage/
+package-lock.json

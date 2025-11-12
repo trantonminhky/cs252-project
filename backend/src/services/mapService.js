@@ -13,7 +13,7 @@ class MapService {
   getMapTileUrl(style = 'streets') {
     return {
       tilesUrl: `${this.baseUrl}/maps/${style}/{z}/{x}/{y}.png?key=${this.apiKey}`,
-      attribution: 'MapTiler OpenStreeMap contributors',
+      attribution: 'MapTiler OpenStreetMap contributors',
       maxZoom: 18,
       minZoom: 0
     };
