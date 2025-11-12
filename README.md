@@ -102,5 +102,25 @@ This project runs in a self-contained Docker environment.
 
 ## If there is a Matrix-4 error
 1. In the shell of the container (example: `root@f0eae64d2a6f:/app#`): run `flutter clean`
+
 2. run `flutter pub get`
+
 3. run `flutter run`
+
+## Adding data to mongodb
+1. Each **subfolder** of the folder **"data"** is a **database**
+
+2. Each **json file** in the **subfolder** is a **collection**
+
+3. **To add new data:**
+    * Place your `.json` file into the appropriate folder (e.g., `data/cultour/my_new_data.json`).
+    * Run this command in your terminal to import the new file immediately:
+        ```bash
+        docker exec -it cultour-db bash /docker-entrypoint-initdb.d/init-mongo.sh
+        ```
+
+4. **Verify:**
+    * Go to `http://localhost:8081`
+    * **Username:** `bruh`
+    * **Password:** `lmao`
+    * View **cultour** -> View your new collection.
