@@ -1,3 +1,6 @@
+// SOMEONE PLEASE GIVE ME OPENAI API KEY
+// ALSO IF YOU ARE USING AI TOOLS, MAKE SURE TO SET INDENTATION TO 4 SPACES INSTEAD OF 2 SPACES
+
 // library imports
 const express = require('express');
 const helmet = require('helmet');
