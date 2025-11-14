@@ -1,4 +1,4 @@
-const AIService = require('../services/ai/aiService');
+const AIService = require('../services/AIService');
 
 class AIController {
 	async ask(req, res, next) {

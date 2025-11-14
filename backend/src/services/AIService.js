@@ -6,8 +6,8 @@ const client = new OpenAI({ apiKey: config.openAI.apiKey });
 
 class AIService {
 	constructor() {
-		this.apiKey = config.openai.apiKey;
-		this.baseUrl = config.openai.baseUrl || 'https://api.openai.com/v1';
+		this.apiKey = config.openAI.apiKey;
+		this.baseUrl = config.openAI.baseUrl || 'https://api.openai.com/v1';
 	}
 
 	// Send a prompt to the AI model and get a response
