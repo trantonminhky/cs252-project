@@ -1,4 +1,5 @@
 const mapService = require('../services/mapService');
+const geocodeService = require('../services/geocode/geocode');
 
 // Sample spots (replace with database later)
 const tourismSpots = [
@@ -62,7 +63,7 @@ class MapController {
                 });
             }
 
-            const result = await mapService.geocode(address);
+            const result = await geocodeService.geocode(address);
 
             res.json({
                 success: true,
@@ -85,7 +86,7 @@ class MapController {
                 });
             }
 
-            const result = await mapService.reverseGeocode(parseFloat(lat), parseFloat(lon));
+            const result = await geocodeService.reverseGeocode(parseFloat(lat), parseFloat(lon));
 
             res.json({
                 success: true,
