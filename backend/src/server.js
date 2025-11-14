@@ -1,11 +1,11 @@
-const express = require('express')
-const helmet = require('helmet')
-const rateLimit = require('express-rate-limit')
-const config = require('./config/config')
-const corsMiddleware = require('./middleware/cors')
-const errorHandler = require('./middleware/errorHandler')
-const mapRoutes = require('./routes/mapRoutes')
-const morgan = require('morgan')
+const express = require('express');
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
+const config = require('./config/config');
+const corsMiddleware = require('./middleware/cors');
+const errorHandler = require('./middleware/errorHandler');
+const mapRoutes = require('./routes/mapRoutes');
+const morgan = require('morgan');
 
 const app = express();
 
