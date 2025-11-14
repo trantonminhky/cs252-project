@@ -11,3 +11,4 @@ dist/
 build/
 coverage/
 package-lock.json
+../.idea/
