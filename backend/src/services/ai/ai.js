@@ -2,7 +2,7 @@ const axios = require('axios');
 const OpenAI = require('openai');
 const config = require('../../config/config');
 
-const client = new OpenAI({ apiKey: config.openai.apiKey });
+const client = new OpenAI({ apiKey: config.openAI.apiKey });
 
 class AIService {
 	constructor() {
@@ -17,3 +17,17 @@ class AIService {
 		if (!prompt) {
 			throw new Error('Prompt is required');
 		}
+
+		try {
+			const response = await client.responses.create({
+				model: model,
+				input: prompt
+			});
+			console.log('AI response:', response.output_text);
+		} catch (err) {
+			throw new Error(`Prompt failed: ${err.message}`);
+		}
+	}
+}
+
+module.exports = new AIService();

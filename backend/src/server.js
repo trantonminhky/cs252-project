@@ -63,7 +63,8 @@ app.get('/', (req, res) => {
             searchNearby: '/api/map/search/nearby?lat=<lat>&lon=<lon>&radius=<radius>',
             tourismSpots: '/api/map/tourism-spots',
             tourismSpotsNearby: '/api/map/tourism-spots/nearby?lat=<lat>&lon=<lon>&radius=<radius>',
-            staticMap: '/api/map/static-map?lat=<lat>&lon=<lon>'
+            staticMap: '/api/map/static-map?lat=<lat>&lon=<lon>',
+			ask: 'api/ai/ask?prompt=<prompt>'
         }
     });
 });
