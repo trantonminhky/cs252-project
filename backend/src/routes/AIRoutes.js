@@ -1,26 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const mapController = require('../controllers/mapController');
+const AIController = require('../controllers/AIController');
 
-// Map config
-router.get('/config', mapController.getMapConfig);
-
-// Geocoding
-router.get('/geocode', mapController.geocode);
-router.get('/reverse-geocode', mapController.reverseGeocode);
-
-// Rouitng
-router.post('/route', mapController.getRoute);
-
-// Search
-router.get('/search/nearby', mapController.searchNearby);
-
-// Tourism spots
-router.get('/tourism-spots', mapController.getTourismSpots);
-router.get('/tourism-spots/nearby', mapController.getTourismSpotsNearby);
-router.get('/tourism-spots/:id', mapController.getTourismSpotById);
-
-// Static map
-router.get('/static-map', mapController.getStaticMap);
+// AI ask endpoint
+router.get('/ask', AIController.ask);
 
 module.exports = router;
