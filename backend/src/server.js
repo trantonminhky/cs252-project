@@ -1,11 +1,17 @@
+// library imports
 const express = require('express');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
+const morgan = require('morgan');
+
+// local imports
 const config = require('./config/config');
 const corsMiddleware = require('./middleware/cors');
 const errorHandler = require('./middleware/errorHandler');
+
+// route imports
 const mapRoutes = require('./routes/mapRoutes');
-const morgan = require('morgan');
+const AIRoutes = require('./routes/AIRoutes');
 
 const app = express();
 
@@ -47,6 +53,7 @@ app.get('/health', (req, res) => {
 
 // API route
 app.use('/api/map', mapRoutes);
+app.use('/api/ai', AIRoutes);
 
 // Root endpoint
 app.get('/', (req, res) => {
