@@ -18,8 +18,8 @@ const config = {
 		max: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS) || 100
 	},
 
-	openAI: {
-		apiKey: process.env.OPENAI_API_KEY,
+	gemini: {
+		apiKey: process.env.GEMINI_API_KEY,
 	}
 };
 
