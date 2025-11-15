@@ -16,16 +16,15 @@ class AIService {
 	}
 
 	// Send a prompt to the AI model and get a response
-
-
 	async sendPrompt(prompt, model = 'gemini-flash-latest') {
 		if (!prompt) {
 			throw new Error('Prompt is required');
 		}
 
 		try {
-			const response = await gemini.ask("Hello, world!", {model: model});
+			const response = await gemini.ask(prompt, {model: model});
 			console.log(response);
+			return response;
 		} catch (err) {
 			throw new Error(`Prompt failed: ${err.message}`);
 		}
