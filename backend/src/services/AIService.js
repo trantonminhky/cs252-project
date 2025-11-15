@@ -13,7 +13,6 @@ import("gemini-ai").then(async ({ default: Gemini }) => {
 class AIService {
 	constructor() {
 		this.apiKey = config.gemini.apiKey;
-		this.baseUrl = config.gemini.baseUrl || 'https://api.openai.com/v1';
 	}
 
 	// Send a prompt to the AI model and get a response
