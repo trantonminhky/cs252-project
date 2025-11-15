@@ -2,7 +2,7 @@ name: virtour_frontend
 description: "frontend for Virtour app"
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
-publish_to: "none" # Remove this line if you wish to publish to pub.dev
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -30,7 +30,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  http: ^1.2.2
+  http: ^1.5.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -45,7 +45,7 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^4.0.0
+  flutter_lints: ^5.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -59,10 +59,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/images/introduction_scene_background.png
-    - assets/images/map1.png
-    - assets/images/map2.png
-    - assets/images/map3.png
+   - assets/images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
@@ -77,21 +74,21 @@ flutter:
   # example:
 
   fonts:
-    - family: Bayon
-      fonts:
-        - asset: assets/fonts/Bayon-Regular.ttf
+   - family: Bayon
+     fonts:
+       - asset: assets/fonts/Bayon-Regular.ttf
 
-    - family: BeVietnamPro
-      fonts:
-        - asset: assets/fonts/BeVietnamPro-ExtraBold.ttf
-          weight: 800
+   - family: BeVietnamPro
+     fonts:
+       - asset: assets/fonts/BeVietnamPro-ExtraBold.ttf
+         weight: 800
 
-    - family: Inter
-      fonts:
-        - asset: assets/fonts/Inter-Regular.ttf
-          style: normal
-        - asset: assets/fonts/Inter-Italic.ttf
-          style: italic
+   - family: Inter
+     fonts:
+       - asset: assets/fonts/Inter-Regular.ttf
+         style: normal
+       - asset: assets/fonts/Inter-Italic.ttf
+         style: italic
 
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
