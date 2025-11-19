@@ -15,6 +15,7 @@ const errorHandler = require('./middleware/errorHandler');
 // route imports
 const mapRoutes = require('./routes/mapRoutes');
 const AIRoutes = require('./routes/AIRoutes');
+const geocodeRoutes = require('./routes/geocodeRoutes');
 
 const app = express();
 
@@ -56,6 +57,7 @@ app.get('/health', (req, res) => {
 
 // API route
 app.use('/api/map', mapRoutes);
+app.use('/api/geocode', geocodeRoutes);
 app.use('/api/ai', AIRoutes);
 
 // Root endpoint
@@ -67,9 +69,10 @@ app.get('/', (req, res) => {
         endpoints: {
             health: '/health',
 
+            geocode: '/api/geocode/geocode?address=<address>',
+            reverseGeocode: '/api/geocode/reverse-geocode?lat=<lat>&lon=<lon>',
+
             mapConfig: '/api/map/config',
-            geocode: '/api/map/geocode?address=<address>',
-            reverseGeocode: '/api/map/reverse-geocode?lat=<lat>&lon=<lon>',
             route: '/api/map/route (POST)',
             searchNearby: '/api/map/search/nearby?lat=<lat>&lon=<lon>&radius=<radius>',
             tourismSpots: '/api/map/tourism-spots',
