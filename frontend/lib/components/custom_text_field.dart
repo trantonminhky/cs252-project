@@ -53,7 +53,7 @@ class _MyTextFieldState extends State<MyTextField> {
         const SizedBox(height: 10),
         Container(
           decoration: BoxDecoration(
-            color: Color(0xffd9d9d9),
+            color: const Color(0xffd9d9d9),
             borderRadius: BorderRadius.circular(15),
           ),
           child: TextField(
@@ -66,21 +66,23 @@ class _MyTextFieldState extends State<MyTextField> {
               filled: true,
               fillColor: Colors.white,
               enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(width: 2),
+                borderSide: const BorderSide(width: 2),
                 borderRadius: BorderRadius.circular(16),
               ),
               focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(width: 2),
+                borderSide: const BorderSide(width: 2),
                 borderRadius: BorderRadius.circular(16),
               ),
               prefixIcon: Icon(widget.prefixIcon),
               prefixIconConstraints: widget.prefixIcon == null
-                  ? BoxConstraints(maxHeight: 48, maxWidth: 10)
+                  ? const BoxConstraints(maxHeight: 48, maxWidth: 10)
                   : null,
               suffixIcon: widget.obscureText
                   ? IconButton(
                       icon: Icon(
-                        _isObscured ? CupertinoIcons.eye : CupertinoIcons.eye_slash,
+                        _isObscured
+                            ? CupertinoIcons.eye
+                            : CupertinoIcons.eye_slash,
                       ),
                       onPressed: () {
                         setState(() => _isObscured = !_isObscured);

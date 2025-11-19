@@ -34,7 +34,7 @@ class _SignUpContainerState extends State<SignUpContainer> {
     return Container(
       width: MediaQuery.of(context).size.width,
       height: 796,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(32),

@@ -38,7 +38,7 @@ class IntroductionScreen extends StatelessWidget {
                       context,
                       CupertinoPageRoute(
                         builder: (context) {
-                          return AuthenciationScreen(initialIndex: 0);
+                          return const AuthenciationScreen(initialIndex: 0);
                         },
                       ),
                     );
@@ -49,11 +49,11 @@ class IntroductionScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(13),
                     ),
                   ),
-                  child: SizedBox(
+                  child: const SizedBox(
                     width: 288,
                     height: 52,
                     child: Center(
-                      child: const Text(
+                      child: Text(
                         "Sign up",
                         style: TextStyle(
                           color: Colors.white,
@@ -86,12 +86,12 @@ class IntroductionScreen extends StatelessWidget {
                           context,
                           CupertinoPageRoute(
                             builder: (context) {
-                              return AuthenciationScreen(initialIndex: 1);
+                              return const AuthenciationScreen(initialIndex: 1);
                             },
                           ),
                         );
                       },
-                      child: Text(
+                      child: const Text(
                         "Sign in",
                         style: TextStyle(
                           decoration: TextDecoration.underline,
