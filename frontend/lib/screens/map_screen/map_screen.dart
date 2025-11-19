@@ -3,6 +3,7 @@ import "package:flutter_map/flutter_map.dart";
 import "package:latlong2/latlong.dart";
 import "package:virtour_frontend/components/bottom_bar.dart";
 import "package:virtour_frontend/components/briefings.dart";
+import "package:virtour_frontend/screens/home_screen/home_screen.dart";
 
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key});
@@ -22,6 +23,24 @@ class _MapScreenState extends State<MapScreen> {
     setState(() {
       _selectedIndex = index;
     });
+
+    // Navigate based on selected index
+    switch (index) {
+      case 0: // Home
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const HomeScreen()),
+        );
+        break;
+      case 1: // Trips
+        // TODO: Navigate to Trips screen when created
+        break;
+      case 2: // Map - already here, do nothing
+        break;
+      case 3: // Profile
+        // TODO: Navigate to Profile screen when created
+        break;
+    }
   }
 
   @override
@@ -65,7 +84,7 @@ class _MapScreenState extends State<MapScreen> {
                         shape: BoxShape.circle,
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.3),
+                            color: Colors.black.withValues(alpha: 0.3),
                             blurRadius: 8,
                             offset: const Offset(0, 2),
                           ),
@@ -92,7 +111,7 @@ class _MapScreenState extends State<MapScreen> {
               title: 'Bà Thiên Hậu Pagoda',
               subtitle:
                   '710 Nguyễn Trãi, Phường 11, Quận 5, Thành phố Hồ Chí Minh, Vietnam',
-              imageUrl: 'https://placehold.co/372x167',
+              imageUrl: 'assets/images/places/Ba_Thien_Hau.jpg',
             ),
           ),
         ],

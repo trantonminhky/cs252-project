@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+enum TextFieldIconType { noIcon, withIcon }
+
 class MyTextField extends StatefulWidget {
   final TextEditingController textEditingController;
   final String label;
@@ -8,6 +10,7 @@ class MyTextField extends StatefulWidget {
   final bool digitsOnly;
   final IconData? prefixIcon;
   final bool obscureText;
+  final bool isSearchField;
 
   const MyTextField({
     super.key,
@@ -17,6 +20,7 @@ class MyTextField extends StatefulWidget {
     this.digitsOnly = false,
     this.prefixIcon,
     this.obscureText = false,
+    this.isSearchField = false,
   });
 
   @override
@@ -73,10 +77,15 @@ class _MyTextFieldState extends State<MyTextField> {
                 borderSide: const BorderSide(width: 2),
                 borderRadius: BorderRadius.circular(16),
               ),
-              prefixIcon: Icon(widget.prefixIcon),
-              prefixIconConstraints: widget.prefixIcon == null
-                  ? const BoxConstraints(maxHeight: 48, maxWidth: 10)
-                  : null,
+              prefixIcon: widget.isSearchField
+                  ? const Icon(CupertinoIcons.search)
+                  : (widget.prefixIcon != null
+                      ? Icon(widget.prefixIcon)
+                      : null),
+              prefixIconConstraints:
+                  (widget.prefixIcon == null && !widget.isSearchField)
+                      ? const BoxConstraints(maxHeight: 48, maxWidth: 10)
+                      : null,
               suffixIcon: widget.obscureText
                   ? IconButton(
                       icon: Icon(

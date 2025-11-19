@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:virtour_frontend/components/custom_text_field.dart';
 import 'package:virtour_frontend/constants/colors.dart';
-import 'package:virtour_frontend/screens/map_screen/map_screen.dart';
+import 'package:virtour_frontend/screens/home_screen/home_screen.dart';
 
 class SignInForm extends StatefulWidget {
   const SignInForm({super.key});
@@ -168,7 +168,7 @@ class _SignInFormState extends State<SignInForm> {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const MapScreen(),
+                        builder: (context) => const HomeScreen(),
                       ),
                     );
                   },

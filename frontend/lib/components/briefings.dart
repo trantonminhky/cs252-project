@@ -31,6 +31,15 @@ class Briefing extends StatelessWidget {
   }
 
   Widget _buildHorizontalBriefing() {
+    final bool isAssetImage = imageUrl?.startsWith('../assets/') ??
+        imageUrl?.startsWith('assets/') ??
+        false;
+    final String? cleanedImageUrl = imageUrl?.replaceFirst('../', '');
+    final ImageProvider imageProvider = isAssetImage
+        ? AssetImage(cleanedImageUrl!)
+        : NetworkImage(imageUrl ?? "https://via.placeholder.com/372x167")
+            as ImageProvider;
+
     return Container(
       width: 372,
       height: 167,
@@ -59,9 +68,12 @@ class Briefing extends StatelessWidget {
                     height: 167,
                     decoration: ShapeDecoration(
                       image: DecorationImage(
-                        image: NetworkImage(
-                            imageUrl ?? "https://placehold.co/372x167"),
+                        image: imageProvider,
                         fit: BoxFit.cover,
+                        colorFilter: ColorFilter.mode(
+                          Colors.black.withValues(alpha: 0.25),
+                          BlendMode.darken,
+                        ),
                       ),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16),
@@ -127,6 +139,15 @@ class Briefing extends StatelessWidget {
   }
 
   Widget _buildVerticalBriefing() {
+    final bool isAssetImage = imageUrl?.startsWith('../assets/') ??
+        imageUrl?.startsWith('assets/') ??
+        false;
+    final String? cleanedImageUrl = imageUrl?.replaceFirst('../', '');
+    final ImageProvider imageProvider = isAssetImage
+        ? AssetImage(cleanedImageUrl!)
+        : NetworkImage(imageUrl ?? "https://via.placeholder.com/176x300")
+            as ImageProvider;
+
     return Container(
       decoration: ShapeDecoration(
         color: Colors.white,
@@ -151,8 +172,12 @@ class Briefing extends StatelessWidget {
             ),
             decoration: ShapeDecoration(
               image: DecorationImage(
-                image: NetworkImage(imageUrl ?? "https://placehold.co/176x300"),
+                image: imageProvider,
                 fit: BoxFit.cover,
+                colorFilter: ColorFilter.mode(
+                  Colors.black.withValues(alpha: 0.25),
+                  BlendMode.darken,
+                ),
               ),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(16),
@@ -230,6 +255,15 @@ class Briefing extends StatelessWidget {
   }
 
   Widget _buildFullBriefing() {
+    final bool isAssetImage = imageUrl?.startsWith('../assets/') ??
+        imageUrl?.startsWith('assets/') ??
+        false;
+    final String? cleanedImageUrl = imageUrl?.replaceFirst('../', '');
+    final ImageProvider imageProvider = isAssetImage
+        ? AssetImage(cleanedImageUrl!)
+        : NetworkImage(imageUrl ?? "https://via.placeholder.com/372x300")
+            as ImageProvider;
+
     return Container(
       width: 372,
       height: 300,
@@ -245,8 +279,12 @@ class Briefing extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 21, vertical: 16),
         decoration: ShapeDecoration(
           image: DecorationImage(
-            image: NetworkImage(imageUrl ?? "https://placehold.co/372x300"),
+            image: imageProvider,
             fit: BoxFit.cover,
+            colorFilter: ColorFilter.mode(
+              Colors.black.withValues(alpha: 0.25),
+              BlendMode.darken,
+            ),
           ),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),

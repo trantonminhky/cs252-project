@@ -39,7 +39,7 @@ class BottomNavBar extends StatelessWidget {
             label: 'Trips',
           ),
           BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.map_pin),
+            icon: Icon(CupertinoIcons.location_solid),
             label: 'Map',
           ),
           BottomNavigationBarItem(

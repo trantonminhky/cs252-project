@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:virtour_frontend/screens/map_screen/map_screen.dart';
+import 'package:virtour_frontend/screens/home_screen/home_screen.dart';
 
 class SignUpForm extends StatefulWidget {
   const SignUpForm({super.key});
@@ -255,7 +255,7 @@ class _SignUpFormState extends State<SignUpForm> {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const MapScreen(),
+                    builder: (context) => const HomeScreen(),
                   ),
                 );
               },
