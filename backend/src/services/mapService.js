@@ -19,39 +19,6 @@ class MapService {
 		};
 	}
 
-	// Convert address to coordinates
-	// param - Address or place name
-	// return - Location data
-	async geocode(query) {
-		try {
-			const response = await axios.get(`${this.baseUrl}/geocoding/${encodeURIComponent(query)}.json`, {
-				params: {
-					key: this.apiKey,
-					limit: 5
-				}
-			});
-			return response.data;
-		} catch (error) {
-			throw new Error(`Geocoding failed: ${error.message}`);
-		}
-	}
-
-	// Convert coordinates to address
-	// para - latitude, longtitude
-	// return - address data
-	async reverseGeocode(lat, lon) {
-		try {
-			const response = await axios.get(`${this.baseUrl}/geocoding/${lon},${lat}.json`, {
-				params: {
-					key: this.apiKey
-				}
-			});
-			return response.data;
-		} catch (error) {
-			throw new Error(`Reverse geocoding failed: ${error.message}`);
-		}
-	}
-
 	// Get route between two points
 	// param - array of [lon,lat] pairs
 	// return - route data

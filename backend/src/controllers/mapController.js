@@ -1,5 +1,5 @@
 const mapService = require('../services/mapService');
-const geocodeService = require('../services/geocode/geocode');
+const geocodeService = require('../services/geocodeService');
 
 // Sample spots (replace with database later)
 const tourismSpots = [
