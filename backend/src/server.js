@@ -15,6 +15,7 @@ const errorHandler = require('./middleware/errorHandler');
 const mapRoutes = require('./routes/mapRoutes');
 const AIRoutes = require('./routes/AIRoutes');
 const geocodeRoutes = require('./routes/geocodeRoutes');
+const profileRoutes = require('./routes/profileRoutes');
 
 const app = express();
 
@@ -58,6 +59,7 @@ app.get('/health', (req, res) => {
 app.use('/api/map', mapRoutes);
 app.use('/api/geocode', geocodeRoutes);
 app.use('/api/ai', AIRoutes);
+app.use('/api/profile', profileRoutes);
 
 // Root endpoint
 app.get('/', (req, res) => {
@@ -78,6 +80,7 @@ app.get('/', (req, res) => {
 			tourismSpotsNearby: '/api/map/tourism-spots/nearby?lat=<lat>&lon=<lon>&radius=<radius>',
 			staticMap: '/api/map/static-map?lat=<lat>&lon=<lon>',
 
+			test: 'profile/test?user=<user>',
 			login: '/profile/login?username=<username>&password=<password>',
 			register: '/profile/register?username=<username>&password=<password>',
 
