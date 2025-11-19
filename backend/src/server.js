@@ -66,7 +66,8 @@ app.get('/', (req, res) => {
         version: '1.0.0',
         endpoints: {
             health: '/health',
-            mapConfig: 'api/map/config',
+
+            mapConfig: '/api/map/config',
             geocode: '/api/map/geocode?address=<address>',
             reverseGeocode: '/api/map/reverse-geocode?lat=<lat>&lon=<lon>',
             route: '/api/map/route (POST)',
@@ -74,7 +75,11 @@ app.get('/', (req, res) => {
             tourismSpots: '/api/map/tourism-spots',
             tourismSpotsNearby: '/api/map/tourism-spots/nearby?lat=<lat>&lon=<lon>&radius=<radius>',
             staticMap: '/api/map/static-map?lat=<lat>&lon=<lon>',
-			ask: 'api/ai/ask?prompt=<prompt>'
+
+			login: '/profile/login?username=<username>&password=<password>',
+			register: '/profile/register?username=<username>&password=<password>',
+
+			ask: '/api/ai/ask?prompt=<prompt>'
         }
     });
 });
