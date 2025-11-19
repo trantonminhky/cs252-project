@@ -47,3 +47,5 @@ class GeocodeController {
 		}
 	}
 }
+
+module.exports = new GeocodeController();
