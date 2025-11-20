@@ -82,7 +82,6 @@ app.get('/', (req, res) => {
 
 			test_set: '/api/profile/test-set (POST) body: { "user": "<user>", "pass": "<pass>" }',
 			test_get: '/api/profile/test-get?user=<user>',
-			clear: 'api/profile/dangerous/clear',
 			login: '/profile/login?username=<username>&password=<password>',
 			register: '/profile/register?username=<username>&password=<password>',
 
