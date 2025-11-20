@@ -3,16 +3,19 @@ const ProfileService = require('../services/profileService');
 class ProfileController {
 	async test_set(req, res, next) {
 		try {
-			const { user } = req.query;
+			const { user, pass } = req.query;
 
-			if (!user) {
+			if (!user || !pass) {
 				return res.status(400).json({
 					success: false,
-					error: { message: 'user is required' }
+					error: { message: 'user or pass is required' }
 				});
 			}
 
-			const result = await ProfileService.test_set(user);
+			console.log(user);
+			console.log(pass);
+
+			const result = await ProfileService.test_set(user, pass);
 
 			res.json({
 				success: true,

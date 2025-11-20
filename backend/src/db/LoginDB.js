@@ -8,16 +8,17 @@ class LoginDB {
 	set(key, val) {
 		try {
 			this.db.set(key, val);
-			console.log(`LoginDB set key=${key} val=${val} success`);
+			console.log(`LoginDB set key=${key} val=${JSON.stringify(val)} success`);
 		} catch (err) {
 			console.error(err);
 		}
 	}
 
-	get(key) {
+	get(key, path) {
 		try {
-			this.db.get(key);
-			console.log(`LoginDB get key=${key} returns `)
+			const value = this.db.get(key, path);
+			console.log(`LoginDB get key=${key} returns ${value}`)
+			return value;
 		} catch (err) {
 			console.error(err);
 		}

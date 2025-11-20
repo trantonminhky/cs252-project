@@ -4,14 +4,17 @@ const config = require('../config/config');
 const db = require('../db/LoginDB');
 
 class ProfileService {
-	async test_set(user) {
+	async test_set(user, pass) {
 		if (!user) {
 			throw new Error('User is required');
 		}
 
 		try {
-			db.set('user', user);
-			return "Success";
+			db.set(user, {
+				username: user,
+				password: pass
+			});
+			return `Success (${db.get(user, 'username')} set to ${db.get(user, 'password')})`;
 		} catch (err) {
 			throw new Error("failed");
 		}
@@ -24,17 +27,19 @@ class ProfileService {
 
 		try {
 			const response = {}
-			if (!db.has(user)) {
+			console.log(db.get(user, 'password'))
+			if (!db.get(user, 'password')) {
 				response.success = false;
 				response.data = null;
 			} else {
-				const val = db.get(user);
+				const val = db.get(user, 'password');
 				response.success = true;
 				response.data = val;
 			}
-			
+
 			return response;
 		} catch (err) {
+			console.error(err);
 			throw new Error("failed");
 		}
 	}
