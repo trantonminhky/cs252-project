@@ -1,3 +1,14 @@
+/*
+	{
+		"token1": {
+			"username": "username",
+			"createdAt": "milliseconds"
+		}
+	}
+*/
+
+
+
 class SessionTokensDB {
 	constructor() {
 		import('enmap').then(async ({ default: Enmap }) => {

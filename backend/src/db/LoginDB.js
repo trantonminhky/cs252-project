@@ -1,3 +1,17 @@
+/*
+	{
+		user1: {
+			"username": "username",
+			"password": "password",
+			sessionToken: {
+				"data": "sessionTokenValue",
+				"createdAt": "milliseconds"
+			}
+		}, ...
+	}
+*/
+
+
 class LoginDB {
 	constructor() {
 		import('enmap').then(async ({ default: Enmap }) => {
