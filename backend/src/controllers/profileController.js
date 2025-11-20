@@ -3,7 +3,8 @@ const ProfileService = require('../services/profileService');
 class ProfileController {
 	async test_set(req, res, next) {
 		try {
-			const { user, pass } = req.query;
+			const user = req.body.username;
+			const pass = req.body.password;
 
 			if (!user || !pass) {
 				return res.status(400).json({
