@@ -43,6 +43,15 @@ class ProfileService {
 			throw new Error("failed");
 		}
 	}
+
+	async clear() {
+		try {
+			db.clear();
+			return "Suceess";
+		} catch (err) {
+			console.error(err);
+		}
+	}
 }
 
 module.exports = new ProfileService();
