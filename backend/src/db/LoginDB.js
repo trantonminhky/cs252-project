@@ -23,6 +23,14 @@ class LoginDB {
 			console.error(err);
 		}
 	}
+
+	clear() {
+		try {
+			this.db.clear();
+		} catch (err) {
+			console.error(err);
+		}
+	}
 }
 
 module.exports = new LoginDB();

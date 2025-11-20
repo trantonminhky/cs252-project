@@ -47,7 +47,7 @@ class ProfileService {
 	async clear() {
 		try {
 			db.clear();
-			return "Suceess";
+			return "Clear success";
 		} catch (err) {
 			console.error(err);
 		}
