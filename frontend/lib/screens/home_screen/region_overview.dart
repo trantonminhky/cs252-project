@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:flutter/cupertino.dart";
 import "package:virtour_frontend/components/bottom_bar.dart";
 import "package:virtour_frontend/components/briefings.dart";
 import "package:virtour_frontend/components/cards.dart";
@@ -46,6 +47,15 @@ class _RegionOverviewState extends State<RegionOverview> {
 
   @override
   Widget build(BuildContext context) {
+    // Calculate card width (screen width - 40px padding)
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final double cardWidth = screenWidth - 40;
+
+    // Original briefing width is 372, height is 300
+    // Scale factor to match card width while maintaining aspect ratio
+    final double scaleFactor = cardWidth / 372;
+    final double briefingHeight = 300 * scaleFactor;
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -53,23 +63,35 @@ class _RegionOverviewState extends State<RegionOverview> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Positioned at y=48
-              const SizedBox(height: 48),
-              // Full Briefing
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                child: Briefing(
-                  size: BriefingSize.full,
-                  title: "Sai Gon",
-                  category: "Region",
-                  imageUrl: "assets/images/places/Saigon.png",
+              // Back button
+              Padding(
+                padding: const EdgeInsets.only(left: 10, top: 10),
+                child: IconButton(
+                  icon: const Icon(CupertinoIcons.back, size: 40),
+                  onPressed: () => Navigator.pop(context),
+                ),
+              ),
+              // Push content down by 24px
+              const SizedBox(height: 24),
+              // Full Briefing - scaled to match card width
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: SizedBox(
+                  width: cardWidth,
+                  height: briefingHeight,
+                  child: const Briefing(
+                    size: BriefingSize.full,
+                    title: "Sai Gon",
+                    category: "Region",
+                    imageUrl: "assets/images/places/Saigon.png",
+                  ),
                 ),
               ),
               // Description section with grey background
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Container(
-                  width: 372,
+                  width: cardWidth,
                   color: Colors.grey[100],
                   padding: const EdgeInsets.all(20),
                   child: Column(
