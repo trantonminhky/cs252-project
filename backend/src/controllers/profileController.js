@@ -28,17 +28,27 @@ class ProfileController {
 
 	async login(req, res, next) {
 		try {
-			const { user } = req.query;
+			const { user, pass } = req.query;
 
-			if (!user) {
+			if (!user || !pass) {
 				return res.status(400).json({
 					success: false,
-					error: { message: 'user is required' }
+					error: { message: 'user or pass is required' }
 				});
 			}
 
 			const response = await ProfileService.login(user);
-			res.json(response);
+			if (!response.success) {
+				res.status(401).json({
+					success: false,
+					data: `Access Denied (${response.data})`
+				})
+			} else {
+				res.status(200).json({
+					success: true,
+					data: response.data
+				})
+			}
 		} catch (err) {
 			next(err);
 		}
