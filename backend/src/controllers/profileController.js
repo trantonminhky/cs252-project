@@ -1,7 +1,7 @@
 const ProfileService = require('../services/profileService');
 
 class ProfileController {
-	async test(req, res, next) {
+	async test_set(req, res, next) {
 		try {
 			const { user } = req.query;
 
@@ -12,7 +12,7 @@ class ProfileController {
 				});
 			}
 
-			const result = await ProfileService.test(user);
+			const result = await ProfileService.test_set(user);
 
 			res.json({
 				success: true,

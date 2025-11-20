@@ -9,7 +9,7 @@ import('enmap').then(async ({ default: Enmap }) => {
 });
 
 class ProfileService {
-	async test(user) {
+	async test_set(user) {
 		if (!user) {
 			throw new Error('User is required');
 		}
