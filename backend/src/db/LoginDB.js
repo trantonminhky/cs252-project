@@ -5,10 +5,10 @@ class LoginDB {
 		});
 	}
 
-	set(key, val) {
+	set(key, val, path) {
 		try {
-			this.db.set(key, val);
-			console.log(`LoginDB set key=${key} val=${JSON.stringify(val)} success`);
+			this.db.set(key, val, path);
+			console.log(`LoginDB set key=${key} val=${JSON.stringify(val)} success at path ${path}`);
 		} catch (err) {
 			console.error(err);
 		}

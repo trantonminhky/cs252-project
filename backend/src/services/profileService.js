@@ -17,8 +17,13 @@ class ProfileService {
 		try {
 			db.set(user, {
 				username: user,
-				password: pass
+				password: pass,
+				sessionToken: {
+					data: generateToken32(),
+					createdAt: Date.now()
+				}
 			});
+
 			return `Success (${db.get(user, 'username')} set to ${db.get(user, 'password')})`;
 		} catch (err) {
 			throw new Error("failed");
@@ -41,8 +46,18 @@ class ProfileService {
 				response.success = false;
 				response.data = "WRONG_PASSWORD";
 			} else {
+				const createdAtMillisecond = db.get(user, "sessionToken.createdAt");
+				if (Date.now() - createdAtMillisecond >= 1800000) { // if token lifetime is over 30 minutes
+					db.set(user, token, "sessionToken.data");
+					db.set(user, Date.now(), "sessionToken.createdAt");
+				}
+				const token = db.get(user, "sessionToken.data");
+
 				response.success = true;
-				response.data = generateToken32();
+				response.data = {
+					token: token,
+					createdAt: (new Date(createdAtMillisecond)).toString()
+				}
 			}
 
 			return response;
