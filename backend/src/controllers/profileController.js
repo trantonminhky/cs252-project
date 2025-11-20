@@ -17,7 +17,7 @@ class ProfileController {
 
 			const result = await ProfileService.register(user, pass);
 
-			res.json({
+			res.status(201).json({
 				success: true,
 				data: result
 			});

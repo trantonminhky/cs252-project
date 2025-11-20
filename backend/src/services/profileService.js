@@ -1,12 +1,17 @@
 const axios = require('axios');
 const config = require('../config/config');
+const crypto = require('crypto');
 
 const db = require('../db/LoginDB');
 
+function generateToken32() {
+	return crypto.randomBytes(24).toString('base64').slice(0, 32);
+}
+
 class ProfileService {
 	async register(user, pass) {
-		if (!user) {
-			throw new Error('User is required');
+		if (!user || !pass) {
+			throw new Error('User or pass is required');
 		}
 
 		try {
@@ -20,21 +25,24 @@ class ProfileService {
 		}
 	}
 
-	async login(user) {
-		if (!user) {
-			throw new Error('User is required');
+	async login(user, pass) {
+		if (!user || !pass) {
+			throw new Error('User or pass is required');
 		}
 
 		try {
 			const response = {}
-			console.log(db.get(user, 'password'))
-			if (!db.get(user, 'password')) {
+			const password = db.get(user, 'password');
+			
+			if (!password) {
 				response.success = false;
-				response.data = null;
+				response.data = "NO_USER_FOUND";
+			} else if (password !== pass) {
+				response.success = false;
+				response.data = "WRONG_PASSWORD";
 			} else {
-				const val = db.get(user, 'password');
 				response.success = true;
-				response.data = val;
+				response.data = generateToken32();
 			}
 
 			return response;
