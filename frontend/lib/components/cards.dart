@@ -48,11 +48,23 @@ class Cards extends StatelessWidget {
             // Image
             ClipRRect(
               borderRadius: BorderRadius.circular(6),
-              child: Image.network(
+              child: Image.asset(
                 imageUrl,
                 width: 80,
                 height: 80,
                 fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  return Container(
+                    width: 80,
+                    height: 80,
+                    color: Colors.grey[300],
+                    child: const Icon(
+                      Icons.image_not_supported,
+                      color: Colors.grey,
+                      size: 40,
+                    ),
+                  );
+                },
               ),
             ),
             const SizedBox(width: 12),
@@ -116,11 +128,23 @@ class Cards extends StatelessWidget {
                 ClipRRect(
                   borderRadius:
                       const BorderRadius.vertical(top: Radius.circular(8)),
-                  child: Image.network(
+                  child: Image.asset(
                     imageUrl,
                     width: double.infinity,
                     height: 160,
                     fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Container(
+                        width: double.infinity,
+                        height: 160,
+                        color: Colors.grey[300],
+                        child: const Icon(
+                          Icons.image_not_supported,
+                          color: Colors.grey,
+                          size: 60,
+                        ),
+                      );
+                    },
                   ),
                 ),
                 // Heart icon
@@ -208,11 +232,23 @@ class Cards extends StatelessWidget {
             ClipRRect(
               borderRadius:
                   const BorderRadius.vertical(top: Radius.circular(8)),
-              child: Image.network(
+              child: Image.asset(
                 imageUrl,
                 width: double.infinity,
                 height: 120,
                 fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  return Container(
+                    width: double.infinity,
+                    height: 120,
+                    color: Colors.grey[300],
+                    child: const Icon(
+                      Icons.image_not_supported,
+                      color: Colors.grey,
+                      size: 50,
+                    ),
+                  );
+                },
               ),
             ),
             // Content

@@ -3,6 +3,7 @@ import "package:virtour_frontend/components/bottom_bar.dart";
 import "package:virtour_frontend/components/briefings.dart";
 import "package:virtour_frontend/components/custom_text_field.dart";
 import "package:virtour_frontend/screens/map_screen/map_screen.dart";
+import "package:virtour_frontend/screens/home_screen/region_overview.dart";
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -84,39 +85,80 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     const SizedBox(height: 16),
-                    SizedBox(
+                    Container(
+                      color: Colors.transparent,
                       height: 320,
                       child: ListView(
                         physics: const BouncingScrollPhysics(),
                         scrollDirection: Axis.horizontal,
                         padding: const EdgeInsets.symmetric(horizontal: 20),
-                        children: const [
-                          Briefing(
-                            size: BriefingSize.vert,
-                            title: "Sài Gòn",
-                            category: "Văn hóa",
-                            imageUrl: "../assets/images/places/Saigon.png",
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const RegionOverview(),
+                                ),
+                              );
+                            },
+                            child: const Briefing(
+                              size: BriefingSize.vert,
+                              title: "Sài Gòn",
+                              category: "Văn hóa",
+                              imageUrl: "../assets/images/places/Saigon.png",
+                            ),
                           ),
-                          SizedBox(width: 16),
-                          Briefing(
-                            size: BriefingSize.vert,
-                            title: "Hà Nội",
-                            category: "Lịch sử",
-                            imageUrl: "../assets/images/places/Ha_Noi.jpg",
+                          const SizedBox(width: 16),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const RegionOverview(),
+                                ),
+                              );
+                            },
+                            child: const Briefing(
+                              size: BriefingSize.vert,
+                              title: "Hà Nội",
+                              category: "Lịch sử",
+                              imageUrl: "../assets/images/places/Ha_Noi.jpg",
+                            ),
                           ),
-                          SizedBox(width: 16),
-                          Briefing(
-                            size: BriefingSize.vert,
-                            title: "Đà Nẵng",
-                            category: "Du lịch",
-                            imageUrl: "../assets/images/places/Da_Nang.jpg",
+                          const SizedBox(width: 16),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const RegionOverview(),
+                                ),
+                              );
+                            },
+                            child: const Briefing(
+                              size: BriefingSize.vert,
+                              title: "Đà Nẵng",
+                              category: "Du lịch",
+                              imageUrl: "../assets/images/places/Da_Nang.jpg",
+                            ),
                           ),
-                          SizedBox(width: 16),
-                          Briefing(
-                            size: BriefingSize.vert,
-                            title: "Huế",
-                            category: "Di sản",
-                            imageUrl: "../assets/images/places/Hue.jpg",
+                          const SizedBox(width: 16),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const RegionOverview(),
+                                ),
+                              );
+                            },
+                            child: const Briefing(
+                              size: BriefingSize.vert,
+                              title: "Huế",
+                              category: "Di sản",
+                              imageUrl: "../assets/images/places/Hue.jpg",
+                            ),
                           ),
                         ],
                       ),
@@ -187,7 +229,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     const SizedBox(height: 16),
-                    SizedBox(
+                    Container(
+                      color: Colors.transparent,
                       height: 320,
                       child: ListView(
                         physics: const BouncingScrollPhysics(),

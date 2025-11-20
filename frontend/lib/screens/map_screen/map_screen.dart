@@ -54,7 +54,7 @@ class _MapScreenState extends State<MapScreen> {
             mapController: _mapController,
             options: MapOptions(
               initialCenter: _pagodaLocation,
-              initialZoom: 15.0,
+              initialZoom: 10.0,
               minZoom: 5.0,
               maxZoom: 18.0,
               interactionOptions: const InteractionOptions(
