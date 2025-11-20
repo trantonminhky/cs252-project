@@ -62,47 +62,49 @@ class _RegionOverviewState extends State<RegionOverview> {
                   size: BriefingSize.full,
                   title: "Sai Gon",
                   category: "Region",
-                  imageUrl: "assets/images/regions/saigon.jpg",
+                  imageUrl: "assets/images/places/Saigon.png",
                 ),
               ),
               // Description section with grey background
-              Container(
-                width: double.infinity,
-                color: Colors.grey[100],
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      _isExpanded
-                          ? "Saigon is the former name of Ho Chi Minh City, one of the most attractive tourist destinations in Vietnam. The name Saigon has intrigued travelers for centuries with its blend of French colonial architecture, bustling markets, and vibrant street life. This dynamic metropolis offers visitors an unforgettable experience, from historic landmarks like the Notre Dame Cathedral and Independence Palace to the authentic flavors of Vietnamese cuisine found in every corner. Whether you're exploring the Cu Chi Tunnels, shopping at Ben Thanh Market, or simply watching life unfold from a sidewalk café, Saigon captivates with its energy and charm."
-                          : "Saigon is the former name of Ho Chi Minh City, one of the most attractive tourist destinations in Vietnam. The name Saigon has intrigued travelers for centuries with its blend of French colonial architecture, bustling markets, and vibrant street life...",
-                      style: const TextStyle(
-                        fontSize: 14,
-                        fontFamily: "BeVietnamPro",
-                        color: Colors.black87,
-                        height: 1.5,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          _isExpanded = !_isExpanded;
-                        });
-                      },
-                      child: Text(
-                        _isExpanded ? "Read Less" : "Read More",
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Container(
+                  width: 372,
+                  color: Colors.grey[100],
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        _isExpanded
+                            ? "Saigon is the former name of Ho Chi Minh City, one of the most attractive tourist destinations in Vietnam. The name Saigon has intrigued travelers for centuries with its blend of French colonial architecture, bustling markets, and vibrant street life. This dynamic metropolis offers visitors an unforgettable experience, from historic landmarks like the Notre Dame Cathedral and Independence Palace to the authentic flavors of Vietnamese cuisine found in every corner. Whether you're exploring the Cu Chi Tunnels, shopping at Ben Thanh Market, or simply watching life unfold from a sidewalk café, Saigon captivates with its energy and charm."
+                            : "Saigon is the former name of Ho Chi Minh City, one of the most attractive tourist destinations in Vietnam. The name Saigon has intrigued travelers for centuries with its blend of French colonial architecture, bustling markets, and vibrant street life...",
                         style: const TextStyle(
                           fontSize: 14,
                           fontFamily: "BeVietnamPro",
-                          fontWeight: FontWeight.w600,
-                          color: Colors.blue,
+                          color: Colors.black87,
+                          height: 1.5,
                         ),
                       ),
-                    ),
-                  ],
+                      const SizedBox(height: 8),
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _isExpanded = !_isExpanded;
+                          });
+                        },
+                        child: Text(
+                          _isExpanded ? "Read Less" : "Read More",
+                          style: const TextStyle(
+                            fontSize: 14,
+                            fontFamily: "BeVietnamPro",
+                            fontWeight: FontWeight.w600,
+                            color: Color(0xffd72323),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               const SizedBox(height: 24),
@@ -128,47 +130,43 @@ class _RegionOverviewState extends State<RegionOverview> {
                   children: [
                     Cards(
                       size: CardSize.list,
-                      title: "Củ Chi tunnels",
+                      title: "Cu Chi Tunnels",
                       chips: [
                         (label: "Historical", backgroundColor: Colors.amber),
-                        (label: "Vietnam war", backgroundColor: Colors.red),
-                        (label: "Top-rated", backgroundColor: Colors.green)
+                        (label: "Top-rated", backgroundColor: Colors.red)
                       ],
-                      imageUrl: "assets/images/places/cu_chi_tunnels.jpg",
+                      imageUrl: "assets/images/places/Cu_Chi_Tunnel.jpg",
                     ),
                     SizedBox(height: 16),
                     Cards(
                       size: CardSize.list,
                       title: "Ben Thanh Market",
                       chips: [
-                        (label: "Cultural", backgroundColor: Colors.blue),
-                        (label: "Shopping", backgroundColor: Colors.purple),
-                        (label: "Must-visit", backgroundColor: Colors.orange)
+                        (label: "Cultural", backgroundColor: Colors.amber),
+                        (label: "Shopping", backgroundColor: Colors.blue),
+                        (label: "Must-visit", backgroundColor: Colors.red)
                       ],
-                      imageUrl: "assets/images/places/ben_thanh_market.jpg",
+                      imageUrl: "assets/images/places/Ben_Thanh_Market.jpg",
                     ),
                     SizedBox(height: 16),
                     Cards(
                       size: CardSize.list,
                       title: "Independence Palace",
                       chips: [
-                        (label: "Landmark", backgroundColor: Colors.teal),
-                        (label: "Architecture", backgroundColor: Colors.brown),
+                        (label: "Landmark", backgroundColor: Colors.amber),
+                        (label: "Architecture", backgroundColor: Colors.red),
                       ],
-                      imageUrl: "assets/images/places/independence_palace.jpg",
+                      imageUrl: "assets/images/places/Independence_Palace.jpg",
                     ),
                     SizedBox(height: 16),
                     Cards(
                       size: CardSize.list,
                       title: "Notre Dame Cathedral",
                       chips: [
-                        (label: "Religious", backgroundColor: Colors.indigo),
-                        (
-                          label: "French Colonial",
-                          backgroundColor: Colors.grey
-                        ),
+                        (label: "Religious", backgroundColor: Colors.blue),
+                        (label: "French Colonial", backgroundColor: Colors.red),
                       ],
-                      imageUrl: "assets/images/places/notre_dame.jpg",
+                      imageUrl: "assets/images/places/Notre_Dame_Cathedral.jpg",
                     ),
                     SizedBox(height: 20),
                   ],
