@@ -24,7 +24,18 @@ class ProfileService {
 				}
 			});
 
-			return `Success (${db.get(user, 'username')} set to ${db.get(user, 'password')})`;
+			const response = {};
+			response.success = true;
+			response.data = {
+				username: db.get(user, 'username'),
+				password: db.get(user, 'password'),
+				sessionToken: {
+					data: db.get(user, 'sessionToken.data'),
+					createdAt: db.get(user, 'sessionToken.createdAt')
+				}
+			}
+
+			return response;
 		} catch (err) {
 			throw new Error("failed");
 		}
