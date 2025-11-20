@@ -8,6 +8,7 @@ function generateToken32() {
 	return crypto.randomBytes(24).toString('base64').slice(0, 32);
 }
 
+// TO-DO: IMPLEMENT PASSWORD ENCRYPTION INSTEAD OF PLAINTEXT STORAGE
 class ProfileService {
 	async register(user, pass) {
 		if (!user || !pass) {

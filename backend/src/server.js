@@ -55,6 +55,7 @@ app.get('/health', (req, res) => {
 	});
 });
 
+// TODO: MAKE ENDPOINTS ALSO ACCEPT USER SESSION TOKEN
 // API route
 app.use('/api/map', mapRoutes);
 app.use('/api/geocode', geocodeRoutes);
