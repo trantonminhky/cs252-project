@@ -5,4 +5,6 @@ const profileController = require('../controllers/profileController');
 router.post('/test-set', profileController.test_set);
 router.get('/test-get', profileController.test_get);
 
+router.get('/dangerous/clear', profileController.clear);
+
 module.exports = router;
