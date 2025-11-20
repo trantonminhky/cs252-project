@@ -44,6 +44,15 @@ class ProfileController {
 			next(err);
 		}
 	}
+
+	async clear(req, res, next) {
+		try {
+			const response = await ProfileService.clear();
+			res.json(response);
+		} catch (err) {
+			next(err);
+		}
+	}
 }
 
 module.exports = new ProfileController();
