@@ -1,0 +1,82 @@
+[
+  {
+    "name": "Ha Long Bay",
+    "location": {
+      "city": "Quang Ninh",
+      "country": "Vietnam",
+      "coordinates": {
+        "latitude": 20.9101,
+        "longitude": 107.1839
+      }
+    },
+    "category": "Natural Heritage",
+    "description": "Emerald waters and thousands of towering limestone islands topped by rainforests.",
+    "rating": 4.8,
+    "visitor_count": 2600000,
+    "image_url": "https://example.com/halong.jpg"
+  },
+  {
+    "name": "Hoi An Ancient Town",
+    "location": {
+      "city": "Quang Nam",
+      "country": "Vietnam",
+      "coordinates": {
+        "latitude": 15.8801,
+        "longitude": 108.3380
+      }
+    },
+    "category": "Cultural Heritage",
+    "description": "A well-preserved example of a Southeast Asian trading port dating from the 15th to the 19th century.",
+    "rating": 4.9,
+    "visitor_count": 4000000,
+    "image_url": "https://example.com/hoian.jpg"
+  },
+  {
+    "name": "Imperial City of Hue",
+    "location": {
+      "city": "Hue",
+      "country": "Vietnam",
+      "coordinates": {
+        "latitude": 16.4689,
+        "longitude": 107.5776
+      }
+    },
+    "category": "Historical",
+    "description": "A vast 19th-century citadel, surrounded by a moat and thick stone walls. It encompasses the Imperial City, with palaces and shrines.",
+    "rating": 4.7,
+    "visitor_count": 2000000,
+    "image_url": "https://example.com/hue.jpg"
+  },
+  {
+    "name": "Angkor Wat",
+    "location": {
+      "city": "Siem Reap",
+      "country": "Cambodia",
+      "coordinates": {
+        "latitude": 13.4125,
+        "longitude": 103.8670
+      }
+    },
+    "category": "Religious Site",
+    "description": "The largest religious structure in the world by land area, originally constructed as a Hindu temple.",
+    "rating": 5.0,
+    "visitor_count": 2200000,
+    "image_url": "https://example.com/angkor.jpg"
+  },
+  {
+    "name": "Kyoto Imperial Palace",
+    "location": {
+      "city": "Kyoto",
+      "country": "Japan",
+      "coordinates": {
+        "latitude": 35.0254,
+        "longitude": 135.7621
+      }
+    },
+    "category": "Historical",
+    "description": "The former ruling palace of the Emperor of Japan, surrounded by the spacious Kyoto Gyoen National Garden.",
+    "rating": 4.6,
+    "visitor_count": 1500000,
+    "image_url": "https://example.com/kyoto.jpg"
+  }
+]

@@ -1,0 +1,76 @@
+services:
+  flutter-app:
+    image: 4funzies/cultour-app:latest
+    container_name: cultour-flutter-app
+    volumes:
+      - ./frontend:/app 
+      - /app/build 
+      - flutter-cache:/root/.pub-cache
+      - gradle-cache:/root/.gradle
+    environment:
+      FLUTTER_HOME: /home/mobiledevops/flutter-sdk
+      ANDROID_HOME: /home/mobiledevops/android8-sdk
+      STDIN_OPEN: true
+      ANDROID_ADB_SERVER_ADDRESS: host.docker.internal
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    tty: true
+    command: bash 
+    networks:
+      - cultour-net
+
+  backend:
+    image: 4funzies/cultour-backend:latest 
+    container_name: cultour-backend
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=mongodb://mongo:27017/cultour
+    volumes:
+      - backend-cache:/root/.npm
+    networks:
+      - cultour-net
+    depends_on:
+      - mongo
+
+  mongo: 
+    image: mongo:latest
+    container_name: cultour-db
+    restart: always
+    volumes:
+      - mongodb_data:/data/db
+      - ./data:/tmp/data 
+      - ./data/init-mongo.sh:/docker-entrypoint-initdb.d/init-mongo.sh:ro
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - cultour-net
+
+  mongo-express:
+    image: mongo-express:latest
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_SERVER: mongo
+      ME_CONFIG_MONGODB_PORT: 27017
+      ME_CONFIG_BASICAUTH_USERNAME: bruh
+      ME_CONFIG_BASICAUTH_PASSWORD: lmao
+    depends_on:
+      mongo:
+        condition: service_healthy
+    networks:
+      - cultour-net
+
+volumes:
+  flutter-cache:
+  gradle-cache:
+  backend-cache:
+  mongodb_data:
+
+networks:
+  cultour-net:
+    driver: bridge

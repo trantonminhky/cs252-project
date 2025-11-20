@@ -1,0 +1,70 @@
+[
+  {
+    "name": "Bun Cha Huong Lien",
+    "location": {
+      "city": "Hanoi",
+      "country": "Vietnam",
+      "coordinates": {
+        "latitude": 21.0185,
+        "longitude": 105.8546
+      }
+    },
+    "category": "Culinary Heritage",
+    "description": "Famous noodle shop visited by Anthony Bourdain and Barack Obama. Known for its traditional grilled pork and noodles.",
+    "rating": 4.6,
+    "visitor_count": 850000,
+    "image_url": "https://example.com/buncha.jpg",
+    "specialty": "Bun Cha Obama"
+  },
+  {
+    "name": "Banh Mi Phuong",
+    "location": {
+      "city": "Hoi An",
+      "country": "Vietnam",
+      "coordinates": {
+        "latitude": 15.8781,
+        "longitude": 108.3285
+      }
+    },
+    "category": "Street Food",
+    "description": "Described by Anthony Bourdain as the best banh mi in the world, featuring a secret family sauce.",
+    "rating": 4.8,
+    "visitor_count": 1200000,
+    "image_url": "https://example.com/banhmi.jpg",
+    "specialty": "Mixed Banh Mi"
+  },
+  {
+    "name": "Pho Hoa Pasteur",
+    "location": {
+      "city": "Ho Chi Minh City",
+      "country": "Vietnam",
+      "coordinates": {
+        "latitude": 10.7881,
+        "longitude": 106.6897
+      }
+    },
+    "category": "Traditional Restaurant",
+    "description": "One of the oldest and most consistent Pho establishments in Saigon, serving authentic southern-style pho.",
+    "rating": 4.5,
+    "visitor_count": 950000,
+    "image_url": "https://example.com/phohoa.jpg",
+    "specialty": "Pho Bo"
+  },
+  {
+    "name": "Cuc Gach Quan",
+    "location": {
+      "city": "Ho Chi Minh City",
+      "country": "Vietnam",
+      "coordinates": {
+        "latitude": 10.7921,
+        "longitude": 106.6845
+      }
+    },
+    "category": "Fine Dining",
+    "description": "A restaurant set in a restored French colonial villa, famous for serving traditional Vietnamese home-cooked meals.",
+    "rating": 4.7,
+    "visitor_count": 300000,
+    "image_url": "https://example.com/cucgach.jpg",
+    "specialty": "Soft Shell Crab"
+  }
+]
