@@ -28,16 +28,16 @@ class ProfileController {
 
 	async login(req, res, next) {
 		try {
-			const { user, pass } = req.query;
+			const { username, password } = req.query;
 
-			if (!user || !pass) {
+			if (!username || !password) {
 				return res.status(400).json({
 					success: false,
 					error: { message: 'user or pass is required' }
 				});
 			}
 
-			const response = await ProfileService.login(user);
+			const response = await ProfileService.login(username, password);
 			if (!response.success) {
 				res.status(401).json({
 					success: false,

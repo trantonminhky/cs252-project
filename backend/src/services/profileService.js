@@ -33,7 +33,7 @@ class ProfileService {
 		try {
 			const response = {}
 			const password = db.get(user, 'password');
-			
+
 			if (!password) {
 				response.success = false;
 				response.data = "NO_USER_FOUND";
@@ -48,7 +48,6 @@ class ProfileService {
 			return response;
 		} catch (err) {
 			console.error(err);
-			throw new Error("failed");
 		}
 	}
 
