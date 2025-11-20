@@ -4,7 +4,7 @@ const config = require('../config/config');
 const db = require('../db/LoginDB');
 
 class ProfileService {
-	async test_set(user, pass) {
+	async register(user, pass) {
 		if (!user) {
 			throw new Error('User is required');
 		}
@@ -20,7 +20,7 @@ class ProfileService {
 		}
 	}
 
-	async test_get(user) {
+	async login(user) {
 		if (!user) {
 			throw new Error('User is required');
 		}

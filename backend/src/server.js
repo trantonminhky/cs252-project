@@ -80,10 +80,8 @@ app.get('/', (req, res) => {
 			tourismSpotsNearby: '/api/map/tourism-spots/nearby?lat=<lat>&lon=<lon>&radius=<radius>',
 			staticMap: '/api/map/static-map?lat=<lat>&lon=<lon>',
 
-			test_set: '/api/profile/test-set (POST) body: { "user": "<user>", "pass": "<pass>" }',
-			test_get: '/api/profile/test-get?user=<user>',
-			login: '/profile/login?username=<username>&password=<password>',
-			register: '/profile/register?username=<username>&password=<password>',
+			register: '/api/profile/register (POST) body: { "user": "<user>", "pass": "<pass>" }',
+			login: '/api/profile/test-get?user=<user>',
 
 			ask: '/api/ai/ask?prompt=<prompt>'
 		}

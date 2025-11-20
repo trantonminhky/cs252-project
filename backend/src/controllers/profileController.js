@@ -1,11 +1,13 @@
 const ProfileService = require('../services/profileService');
 
 class ProfileController {
-	async test_set(req, res, next) {
+	async register(req, res, next) {
 		try {
 			const user = req.body.username;
-			const pass = req.body.password;
-
+			const pass = req.body.password;		
+			console.log(user);
+			console.log(pass);
+			
 			if (!user || !pass) {
 				return res.status(400).json({
 					success: false,
@@ -13,10 +15,7 @@ class ProfileController {
 				});
 			}
 
-			console.log(user);
-			console.log(pass);
-
-			const result = await ProfileService.test_set(user, pass);
+			const result = await ProfileService.register(user, pass);
 
 			res.json({
 				success: true,
@@ -27,7 +26,7 @@ class ProfileController {
 		}
 	}
 
-	async test_get(req, res, next) {
+	async login(req, res, next) {
 		try {
 			const { user } = req.query;
 
@@ -38,7 +37,7 @@ class ProfileController {
 				});
 			}
 
-			const response = await ProfileService.test_get(user);
+			const response = await ProfileService.login(user);
 			res.json(response);
 		} catch (err) {
 			next(err);
