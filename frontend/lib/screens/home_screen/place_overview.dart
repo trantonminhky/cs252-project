@@ -100,6 +100,10 @@ class PlaceOverview extends StatelessWidget {
                   },
                   style: TextButton.styleFrom(
                     backgroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 14,
+                    ),
                     side: const BorderSide(color: Colors.black, width: 2),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(16),
@@ -129,7 +133,10 @@ class PlaceOverview extends StatelessWidget {
                   },
                   style: TextButton.styleFrom(
                     backgroundColor: const Color(0xffd72323),
-                    fixedSize: const Size(109, 52),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 14,
+                    ),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(13),
                     ),

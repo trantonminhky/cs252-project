@@ -3,8 +3,6 @@ import "package:flutter/cupertino.dart";
 import "package:virtour_frontend/components/bottom_bar.dart";
 import "package:virtour_frontend/components/briefings.dart";
 import "package:virtour_frontend/components/cards.dart";
-import "package:virtour_frontend/screens/map_screen/map_screen.dart";
-import "package:virtour_frontend/screens/home_screen/home_screen.dart";
 import "package:virtour_frontend/screens/home_screen/place_overview.dart";
 import "package:virtour_frontend/screens/home_screen/helpers.dart";
 import "package:virtour_frontend/screens/data factories/filter_type.dart";
@@ -27,7 +25,6 @@ class RegionOverview extends StatefulWidget {
 }
 
 class _RegionOverviewState extends State<RegionOverview> {
-  int _selectedIndex = 0; // Home is selected
   bool _isExpanded = false; // Track "Read More" state
 
   // Data state
@@ -71,34 +68,6 @@ class _RegionOverviewState extends State<RegionOverview> {
         _errorMessage = e.toString();
         _isLoading = false;
       });
-    }
-  }
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-
-    // Navigate based on selected index
-    switch (index) {
-      case 0: // Home
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const HomeScreen()),
-        );
-        break;
-      case 1: // Trips
-        // TODO: Navigate to Trips screen when created
-        break;
-      case 2: // Map
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const MapScreen()),
-        );
-        break;
-      case 3: // Profile
-        // TODO: Navigate to Profile screen when created
-        break;
     }
   }
 
@@ -337,9 +306,8 @@ class _RegionOverviewState extends State<RegionOverview> {
                     ),
                   ),
       ),
-      bottomNavigationBar: BottomNavBar(
-        selectedIndex: _selectedIndex,
-        onTap: _onItemTapped,
+      bottomNavigationBar: const BottomNavBar(
+        selectedIndex: 0, // Home screen (region overview is part of home flow)
       ),
     );
   }

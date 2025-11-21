@@ -3,7 +3,6 @@ import "package:flutter_map/flutter_map.dart";
 import "package:latlong2/latlong.dart";
 import "package:virtour_frontend/components/bottom_bar.dart";
 import "package:virtour_frontend/components/briefings.dart";
-import "package:virtour_frontend/screens/home_screen/home_screen.dart";
 
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key});
@@ -13,35 +12,10 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
-  int _selectedIndex = 2; // Map is selected
   final MapController _mapController = MapController();
 
   // Bà Thiên Hậu Pagoda coordinates (example location)
   final LatLng _pagodaLocation = LatLng(10.7549, 106.6551);
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-
-    // Navigate based on selected index
-    switch (index) {
-      case 0: // Home
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const HomeScreen()),
-        );
-        break;
-      case 1: // Trips
-        // TODO: Navigate to Trips screen when created
-        break;
-      case 2: // Map - already here, do nothing
-        break;
-      case 3: // Profile
-        // TODO: Navigate to Profile screen when created
-        break;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -116,9 +90,8 @@ class _MapScreenState extends State<MapScreen> {
           ),
         ],
       ),
-      bottomNavigationBar: BottomNavBar(
-        selectedIndex: _selectedIndex,
-        onTap: _onItemTapped,
+      bottomNavigationBar: const BottomNavBar(
+        selectedIndex: 2, // Map screen
       ),
     );
   }

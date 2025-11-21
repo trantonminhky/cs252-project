@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:virtour_frontend/components/custom_text_field.dart';
-import 'package:virtour_frontend/screens/home_screen/home_screen.dart';
 
 class SignUpForm2 extends StatelessWidget {
   final Function onNext;
@@ -55,18 +54,12 @@ class SignUpForm2 extends StatelessWidget {
           ),
           const SizedBox(height: 94),
           TextButton(
-            onPressed: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const HomeScreen(),
-                ),
-              );
-            },
+            onPressed: () => onNext(),
             style: TextButton.styleFrom(
               backgroundColor: const Color(0xffd72323),
               fixedSize: const Size(109, 52),
               shape: RoundedRectangleBorder(
+                side: const BorderSide(color: Colors.black, width: 2),
                 borderRadius: BorderRadius.circular(13),
               ),
             ),

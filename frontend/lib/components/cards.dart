@@ -35,6 +35,11 @@ class Cards extends StatelessWidget {
 
   // List variant - horizontal layout with image on left
   Widget _buildListCard(BuildContext context) {
+    // Check if the image is an asset or network image
+    final bool isAssetImage =
+        imageUrl.startsWith('../assets/') || imageUrl.startsWith('assets/');
+    final String cleanedImageUrl = imageUrl.replaceFirst('../', '');
+
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -48,24 +53,35 @@ class Cards extends StatelessWidget {
             // Image
             ClipRRect(
               borderRadius: BorderRadius.circular(6),
-              child: Image.asset(
-                imageUrl,
-                width: 80,
-                height: 80,
-                fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) {
-                  return Container(
-                    width: 80,
-                    height: 80,
-                    color: Colors.grey[300],
-                    child: const Icon(
-                      Icons.image_not_supported,
-                      color: Colors.grey,
-                      size: 40,
+              child: isAssetImage
+                  ? Image.asset(
+                      cleanedImageUrl,
+                      width: 80,
+                      height: 80,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                        return Container(
+                          width: 80,
+                          height: 80,
+                          color: Colors.grey.shade300,
+                          child: const Icon(Icons.image_not_supported),
+                        );
+                      },
+                    )
+                  : Image.network(
+                      imageUrl,
+                      width: 80,
+                      height: 80,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                        return Container(
+                          width: 80,
+                          height: 80,
+                          color: Colors.grey.shade300,
+                          child: const Icon(Icons.image_not_supported),
+                        );
+                      },
                     ),
-                  );
-                },
-              ),
             ),
             const SizedBox(width: 12),
             // Title
@@ -112,6 +128,11 @@ class Cards extends StatelessWidget {
 
   // Vert variant - vertical layout with image on top
   Widget _buildVertCard(BuildContext context) {
+    // Check if the image is an asset or network image
+    final bool isAssetImage =
+        imageUrl.startsWith('../assets/') || imageUrl.startsWith('assets/');
+    final String cleanedImageUrl = imageUrl.replaceFirst('../', '');
+
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -128,24 +149,35 @@ class Cards extends StatelessWidget {
                 ClipRRect(
                   borderRadius:
                       const BorderRadius.vertical(top: Radius.circular(8)),
-                  child: Image.asset(
-                    imageUrl,
-                    width: double.infinity,
-                    height: 160,
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) {
-                      return Container(
-                        width: double.infinity,
-                        height: 160,
-                        color: Colors.grey[300],
-                        child: const Icon(
-                          Icons.image_not_supported,
-                          color: Colors.grey,
-                          size: 60,
+                  child: isAssetImage
+                      ? Image.asset(
+                          cleanedImageUrl,
+                          width: double.infinity,
+                          height: 160,
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) {
+                            return Container(
+                              width: double.infinity,
+                              height: 160,
+                              color: Colors.grey.shade300,
+                              child: const Icon(Icons.image_not_supported),
+                            );
+                          },
+                        )
+                      : Image.network(
+                          imageUrl,
+                          width: double.infinity,
+                          height: 160,
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) {
+                            return Container(
+                              width: double.infinity,
+                              height: 160,
+                              color: Colors.grey.shade300,
+                              child: const Icon(Icons.image_not_supported),
+                            );
+                          },
                         ),
-                      );
-                    },
-                  ),
                 ),
                 // Heart icon
                 Positioned(
@@ -218,6 +250,11 @@ class Cards extends StatelessWidget {
 
   // Horiz variant - horizontal layout with full-width image on top
   Widget _buildHorizCard(BuildContext context) {
+    // Check if the image is an asset or network image
+    final bool isAssetImage =
+        imageUrl.startsWith('../assets/') || imageUrl.startsWith('assets/');
+    final String cleanedImageUrl = imageUrl.replaceFirst('../', '');
+
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -232,24 +269,35 @@ class Cards extends StatelessWidget {
             ClipRRect(
               borderRadius:
                   const BorderRadius.vertical(top: Radius.circular(8)),
-              child: Image.asset(
-                imageUrl,
-                width: double.infinity,
-                height: 120,
-                fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) {
-                  return Container(
-                    width: double.infinity,
-                    height: 120,
-                    color: Colors.grey[300],
-                    child: const Icon(
-                      Icons.image_not_supported,
-                      color: Colors.grey,
-                      size: 50,
+              child: isAssetImage
+                  ? Image.asset(
+                      cleanedImageUrl,
+                      width: double.infinity,
+                      height: 120,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                        return Container(
+                          width: double.infinity,
+                          height: 120,
+                          color: Colors.grey.shade300,
+                          child: const Icon(Icons.image_not_supported),
+                        );
+                      },
+                    )
+                  : Image.network(
+                      imageUrl,
+                      width: double.infinity,
+                      height: 120,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                        return Container(
+                          width: double.infinity,
+                          height: 120,
+                          color: Colors.grey.shade300,
+                          child: const Icon(Icons.image_not_supported),
+                        );
+                      },
                     ),
-                  );
-                },
-              ),
             ),
             // Content
             Padding(

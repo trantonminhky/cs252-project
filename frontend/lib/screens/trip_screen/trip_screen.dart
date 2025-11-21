@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:virtour_frontend/components/bottom_bar.dart";
 
 //placeholder code to test functionality in place_overview
 class TripScreen extends StatelessWidget {
@@ -12,6 +13,9 @@ class TripScreen extends StatelessWidget {
       ),
       body: const Center(
         child: Text("This is the Trip Screen"),
+      ),
+      bottomNavigationBar: const BottomNavBar(
+        selectedIndex: 1, // Trips screen
       ),
     );
   }

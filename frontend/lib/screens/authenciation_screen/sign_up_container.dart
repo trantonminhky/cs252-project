@@ -29,6 +29,10 @@ class _SignUpContainerState extends State<SignUpContainer> {
     setState(() => _index = newIndex);
   }
 
+  void navigateToHome() {
+    Navigator.pushReplacementNamed(context, '/home');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -52,7 +56,7 @@ class _SignUpContainerState extends State<SignUpContainer> {
               passwordController: passwordController,
             ),
             SignUpForm2(
-              onNext: () {},
+              onNext: navigateToHome,
               onPrevious: () => changeIndex(0),
               nameController: nameController,
               ageController: ageController,

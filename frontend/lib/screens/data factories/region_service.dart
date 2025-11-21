@@ -1,7 +1,6 @@
 import "package:virtour_frontend/screens/data factories/filter_type.dart";
 import "package:virtour_frontend/screens/data factories/place.dart";
 import "package:virtour_frontend/screens/data factories/region.dart";
-import "package:virtour_frontend/screens/home_screen/region_overview.dart";
 
 //this is an interface for fetching region data from database
 class RegionService {
@@ -63,7 +62,7 @@ class RegionService {
           id: 'cu-chi-tunnels',
           name: 'Cu Chi Tunnels',
           categories: const ['historical', 'most-visited'],
-          imageUrl: 'assets/images/places/cu_chi_tunnels.jpg',
+          imageUrl: 'assets/images/places/Cu_Chi_Tunnel.jpg',
           description:
               'An immense network of underground tunnels used during the Vietnam War.',
           type: FilterType.historical,
@@ -74,7 +73,7 @@ class RegionService {
           id: 'notre_dame_cathedral',
           name: 'Notre Dame Cathedral',
           categories: const ['religious', 'landmark'],
-          imageUrl: 'assets/images/places/notre_dame_cathedral.jpg',
+          imageUrl: 'assets/images/places/Notre_Dame_Cathedral.jpg',
           description:
               'A stunning French colonial cathedral in the heart of Saigon.',
           type: FilterType.religion,
@@ -85,7 +84,7 @@ class RegionService {
           id: 'ba_thien_hau_pagoda',
           name: 'Ba Thien Hau Pagoda',
           categories: const ['religious', 'cultural'],
-          imageUrl: 'assets/images/places/ba_thien_hau_pagoda.jpg',
+          imageUrl: 'assets/images/places/Ba_Thien_Hau.jpg',
           description:
               'A beautiful Chinese temple dedicated to the goddess of the sea.',
           type: FilterType.religion,
@@ -96,7 +95,7 @@ class RegionService {
           id: 'ben-thanh-market',
           name: 'Ben Thanh Market',
           categories: const ['shopping', 'most-visited'],
-          imageUrl: 'assets/images/places/ben_thanh_market.jpg',
+          imageUrl: 'assets/images/places/Ben_Thanh_Market.jpg',
           description:
               'A vibrant marketplace offering local food, souvenirs, and handicrafts.',
           type: FilterType.culture,
@@ -107,7 +106,7 @@ class RegionService {
           id: 'independence_palace',
           name: 'Independence Palace',
           categories: const ['historical', 'landmark'],
-          imageUrl: 'assets/images/places/independence_palace.jpg',
+          imageUrl: 'assets/images/places/Independence_Palace.jpg',
           description:
               'Historic landmark and former presidential palace of South Vietnam.',
           type: FilterType.historical,
@@ -118,7 +117,7 @@ class RegionService {
           id: 'notre_dame_cathedral',
           name: 'Notre Dame Cathedral',
           categories: const ['religious', 'landmark'],
-          imageUrl: 'assets/images/places/notre_dame_cathedral.jpg',
+          imageUrl: 'assets/images/places/Notre_Dame_Cathedral.jpg',
           description:
               'A stunning French colonial cathedral in the heart of Saigon.',
           type: FilterType.religion,

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:virtour_frontend/screens/home_screen/home_screen.dart';
 
 class SignUpForm extends StatefulWidget {
   const SignUpForm({super.key});
@@ -16,6 +15,8 @@ class _SignUpFormState extends State<SignUpForm> {
   final FocusNode _usernameFocusNode = FocusNode();
   final FocusNode _passwordFocusNode = FocusNode();
   final FocusNode _repeatPasswordFocusNode = FocusNode();
+  final bool _obscureText = true;
+  final bool _rObscureText = true;
 
   @override
   void dispose() {
@@ -250,44 +251,33 @@ class _SignUpFormState extends State<SignUpForm> {
           Positioned(
             left: 152,
             top: 790,
-            child: InkWell(
-              onTap: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const HomeScreen(),
-                  ),
-                );
-              },
-              child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 32, vertical: 17),
-                decoration: ShapeDecoration(
-                  color: Colors.transparent,
-                  shape: RoundedRectangleBorder(
-                    side: const BorderSide(width: 2, color: Colors.white),
-                    borderRadius: BorderRadius.circular(13),
-                  ),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 17),
+              decoration: ShapeDecoration(
+                color: Colors.black.withValues(alpha: 0),
+                shape: RoundedRectangleBorder(
+                  side: const BorderSide(width: 2),
+                  borderRadius: BorderRadius.circular(13),
                 ),
-                child: const Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  spacing: 10,
-                  children: [
-                    Text(
-                      'Next',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontFamily: 'Be Vietnam',
-                        fontWeight: FontWeight.w600,
-                        height: 0.90,
-                      ),
+              ),
+              child: const Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                spacing: 10,
+                children: [
+                  Text(
+                    'Next',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontFamily: 'Be Vietnam',
+                      fontWeight: FontWeight.w600,
+                      height: 0.90,
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),

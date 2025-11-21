@@ -2,7 +2,6 @@ import "package:flutter/material.dart";
 import "package:virtour_frontend/components/bottom_bar.dart";
 import "package:virtour_frontend/components/briefings.dart";
 import "package:virtour_frontend/components/custom_text_field.dart";
-import "package:virtour_frontend/screens/map_screen/map_screen.dart";
 import "package:virtour_frontend/screens/home_screen/region_overview.dart";
 import "package:virtour_frontend/screens/data factories/filter_type.dart";
 
@@ -14,32 +13,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _selectedIndex = 0; // Home is selected
   final TextEditingController _searchController = TextEditingController();
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-
-    // Navigate based on selected index
-    switch (index) {
-      case 0: // Home - already here, do nothing
-        break;
-      case 1: // Trips
-        // TODO: Navigate to Trips screen when created
-        break;
-      case 2: // Map
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const MapScreen()),
-        );
-        break;
-      case 3: // Profile
-        // TODO: Navigate to Profile screen when created
-        break;
-    }
-  }
 
   @override
   void dispose() {
@@ -298,9 +272,8 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavBar(
-        selectedIndex: _selectedIndex,
-        onTap: _onItemTapped,
+      bottomNavigationBar: const BottomNavBar(
+        selectedIndex: 0, // Home screen
       ),
     );
   }
