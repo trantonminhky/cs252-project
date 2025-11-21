@@ -2,7 +2,9 @@ const axios = require('axios');
 const config = require('../config/config');
 const crypto = require('crypto');
 
-const db = require('../db/LoginDB');
+const LoginDB = require('../db/LoginDB');
+const SessionTokensDB = require('../db/SessionTokensDB');
+const { Session } = require('inspector');
 
 function generateToken32() {
 	return crypto.randomBytes(24).toString('base64url').slice(0, 32);
@@ -15,24 +17,32 @@ class ProfileService {
 			throw new Error('User or pass is required');
 		}
 
+		const token = generateToken32();
+		const tokenCreatedAt = Date.now();
+
 		try {
-			db.set(user, {
+			LoginDB.set(user, {
 				username: user,
 				password: pass,
 				sessionToken: {
-					data: generateToken32(),
-					createdAt: Date.now()
+					data: token,
+					createdAt: tokenCreatedAt
 				}
+			});
+
+			SessionTokensDB.set(token, {
+				username: user,
+				createdAt: tokenCreatedAt
 			});
 
 			const response = {};
 			response.success = true;
 			response.data = {
-				username: db.get(user, 'username'),
-				password: db.get(user, 'password'),
+				username: LoginDB.get(user, 'username'),
+				password: LoginDB.get(user, 'password'),
 				sessionToken: {
-					data: db.get(user, 'sessionToken.data'),
-					createdAt: db.get(user, 'sessionToken.createdAt')
+					data: LoginDB.get(user, 'sessionToken.data'),
+					createdAt: LoginDB.get(user, 'sessionToken.createdAt')
 				}
 			}
 
@@ -49,7 +59,7 @@ class ProfileService {
 
 		try {
 			const response = {}
-			const password = db.get(user, 'password');
+			const password = LoginDB.get(user, 'password');
 
 			if (!password) {
 				response.success = false;
@@ -58,12 +68,12 @@ class ProfileService {
 				response.success = false;
 				response.data = "WRONG_PASSWORD";
 			} else {
-				const createdAtMillisecond = db.get(user, "sessionToken.createdAt");
+				const createdAtMillisecond = LoginDB.get(user, "sessionToken.createdAt");
 				if (Date.now() - createdAtMillisecond >= 1800000) { // if token lifetime is over 30 minutes
-					db.set(user, token, "sessionToken.data");
-					db.set(user, Date.now(), "sessionToken.createdAt");
+					LoginDB.set(user, token, "sessionToken.data");
+					LoginDB.set(user, Date.now(), "sessionToken.createdAt");
 				}
-				const token = db.get(user, "sessionToken.data");
+				const token = LoginDB.get(user, "sessionToken.data");
 
 				response.success = true;
 				response.data = {
@@ -80,7 +90,7 @@ class ProfileService {
 
 	async clear() {
 		try {
-			db.clear();
+			LoginDB.clear();
 			return "Clear success";
 		} catch (err) {
 			console.error(err);
