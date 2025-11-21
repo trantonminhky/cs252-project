@@ -14,7 +14,18 @@ class GeocodeController {
 				})
 			}
 
-			let isAuthorized;
+			let authorizationStatus = SessionTokensDB.check(credentials);
+			if (authorizationStatus == "BAD_TOKEN") {
+				return res.status(401).json({
+					success: false,
+					error: { message: authorizationStatus }
+				});
+			} else if (authorizationStatus == "EXPIRED_TOKEN") {
+				return res.status(401).json({
+					success: false,
+					error: { message: authorizationStatus }
+				});
+			}
 
 			if (!address) {
 				return res.status(400).json({
@@ -25,7 +36,7 @@ class GeocodeController {
 
 			const result = await geocodeService.geocode(address);
 
-			res.json({
+			res.status(200).json({
 				success: true,
 				data: result
 			});
