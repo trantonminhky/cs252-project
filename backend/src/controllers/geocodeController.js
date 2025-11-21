@@ -1,10 +1,20 @@
 const geocodeService = require('../services/geocodeService');
+const SessionTokensDB = require('../db/SessionTokensDB');
 
 class GeocodeController {
 	// Geocode an address
 	async geocode(req, res, next) {
 		try {
-			const { address } = req.query;
+			const { address, credentials } = req.query;
+
+			if (!credentials) {
+				return res.status(401).json({
+					success: false,
+					error: { message: 'Access Denied (NO_CREDENTIAL)' }
+				})
+			}
+
+			let isAuthorized;
 
 			if (!address) {
 				return res.status(400).json({

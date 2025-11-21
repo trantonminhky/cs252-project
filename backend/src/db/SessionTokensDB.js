@@ -8,6 +8,8 @@
 	...
 */
 
+const TOKEN_LIFETIME_MS = 60000
+
 
 class SessionTokensDB {
 	constructor() {
@@ -58,6 +60,16 @@ class SessionTokensDB {
 			return exp;
 		} catch (err) {
 			console.error(err);
+		}
+	}
+
+	check(token) {
+		try {
+			if (!this.db.has(token)) return "BAD_TOKEN"; // bad token
+			if (Date.now() - this.db.get(token, "createdAt") >= TOKEN_LIFETIME_MS) return "EXPIRED_TOKEN"; // expired token
+			return "VALID"
+		} catch (err) {
+
 		}
 	}
 }
