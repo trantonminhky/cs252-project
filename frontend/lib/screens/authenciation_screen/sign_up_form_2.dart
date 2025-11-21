@@ -67,7 +67,6 @@ class SignUpForm2 extends StatelessWidget {
               backgroundColor: const Color(0xffd72323),
               fixedSize: const Size(109, 52),
               shape: RoundedRectangleBorder(
-                side: const BorderSide(color: Colors.black, width: 2),
                 borderRadius: BorderRadius.circular(13),
               ),
             ),

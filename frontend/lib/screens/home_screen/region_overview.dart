@@ -5,6 +5,8 @@ import "package:virtour_frontend/components/briefings.dart";
 import "package:virtour_frontend/components/cards.dart";
 import "package:virtour_frontend/screens/map_screen/map_screen.dart";
 import "package:virtour_frontend/screens/home_screen/home_screen.dart";
+import "package:virtour_frontend/screens/home_screen/place_overview.dart";
+import "package:virtour_frontend/screens/home_screen/helpers.dart";
 import "package:virtour_frontend/screens/data factories/filter_type.dart";
 import "package:virtour_frontend/screens/data factories/region.dart";
 import "package:virtour_frontend/screens/data factories/place.dart";
@@ -238,7 +240,7 @@ class _RegionOverviewState extends State<RegionOverview> {
                                 Text(
                                   _isExpanded
                                       ? (_region?.description ?? "")
-                                      : _getTruncatedDescription(
+                                      : getTruncatedDescription(
                                           _region?.description ?? ""),
                                   style: const TextStyle(
                                     fontSize: 14,
@@ -294,11 +296,22 @@ class _RegionOverviewState extends State<RegionOverview> {
                               children: _filteredPlaces!.map((place) {
                                 return Column(
                                   children: [
-                                    Cards(
-                                      size: CardSize.list,
-                                      title: place.name,
-                                      chips: _getChipsFromPlace(place),
-                                      imageUrl: place.imageUrl,
+                                    GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                PlaceOverview(place: place),
+                                          ),
+                                        );
+                                      },
+                                      child: Cards(
+                                        size: CardSize.list,
+                                        title: place.name,
+                                        chips: getChipsFromPlace(place),
+                                        imageUrl: place.imageUrl,
+                                      ),
                                     ),
                                     const SizedBox(height: 16),
                                   ],
@@ -363,45 +376,5 @@ class _RegionOverviewState extends State<RegionOverview> {
         }
       },
     );
-  }
-
-  // Helper method to truncate description
-  String _getTruncatedDescription(String description) {
-    if (description.length <= 200) return description;
-    return '${description.substring(0, 200)}...';
-  }
-
-  // Helper method to convert place categories to chips
-  List<({String label, Color backgroundColor})> _getChipsFromPlace(
-      Place place) {
-    return place.categories.map((category) {
-      // Map categories to colors
-      Color color;
-      switch (category.toLowerCase()) {
-        case 'historical':
-          color = Colors.amber;
-          break;
-        case 'religious':
-          color = Colors.blue;
-          break;
-        case 'cultural':
-          color = Colors.green;
-          break;
-        case 'most-visited':
-        case 'top-rated':
-        case 'must-visit':
-          color = Colors.red;
-          break;
-        case 'shopping':
-          color = Colors.purple;
-          break;
-        case 'landmark':
-          color = Colors.orange;
-          break;
-        default:
-          color = Colors.grey;
-      }
-      return (label: category, backgroundColor: color);
-    }).toList();
   }
 }
