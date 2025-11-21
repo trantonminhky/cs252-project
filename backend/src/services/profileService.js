@@ -2,7 +2,6 @@ const crypto = require('crypto');
 
 const LoginDB = require('../db/LoginDB');
 const SessionTokensDB = require('../db/SessionTokensDB');
-const { Session } = require('inspector');
 
 function generateToken32() {
 	return crypto.randomBytes(24).toString('base64url').slice(0, 32);

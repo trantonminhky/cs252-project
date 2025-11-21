@@ -14,3 +14,5 @@ class DBService {
 		return exports
 	}
 }
+
+module.exports = new DBService();
