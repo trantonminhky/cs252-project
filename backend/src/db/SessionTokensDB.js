@@ -4,9 +4,9 @@
 			"username": "username",
 			"createdAt": "milliseconds"
 		}
-	}
+	},
+	...
 */
-
 
 
 class SessionTokensDB {
@@ -30,6 +30,15 @@ class SessionTokensDB {
 			const value = this.db.get(key, path);
 			console.log(`SessionTokensDB get key=${key} returns ${value}`)
 			return value;
+		} catch (err) {
+			console.error(err);
+		}
+	}
+
+	delete(key, path) {
+		try {
+			this.db.delete(key, path);
+			console.log(`SessionTokensDB delete key=${key}`);
 		} catch (err) {
 			console.error(err);
 		}
