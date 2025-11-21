@@ -10,6 +10,8 @@ function generateToken32() {
 	return crypto.randomBytes(24).toString('base64url').slice(0, 32);
 }
 
+const SESSION_TOKEN_LIFETIME_MS = 60000;
+
 // TO-DO: IMPLEMENT PASSWORD ENCRYPTION INSTEAD OF PLAINTEXT STORAGE
 class ProfileService {
 	async register(user, pass) {
@@ -61,24 +63,29 @@ class ProfileService {
 			const response = {}
 			const password = LoginDB.get(user, 'password');
 
-			if (!password) {
+			if (!password) { // if this user does not exist
 				response.success = false;
 				response.data = "NO_USER_FOUND";
-			} else if (password !== pass) {
+			} else if (password !== pass) { // if password mismatch
 				response.success = false;
 				response.data = "WRONG_PASSWORD";
 			} else {
 				const createdAtMillisecond = LoginDB.get(user, "sessionToken.createdAt");
-				if (Date.now() - createdAtMillisecond >= 1800000) { // if token lifetime is over 30 minutes
+				let token = generateToken32();
+				let tokenCreatedAt = Date.now();
+
+				if (tokenCreatedAt - createdAtMillisecond >= SESSION_TOKEN_LIFETIME_MS) { // if token lifetime is over 30 minutes
 					LoginDB.set(user, token, "sessionToken.data");
-					LoginDB.set(user, Date.now(), "sessionToken.createdAt");
+					LoginDB.set(user, tokenCreatedAt, "sessionToken.createdAt");
+				} else {
+					token = LoginDB.get(user, "sessionToken.data");
+					tokenCreatedAt = createdAtMillisecond;
 				}
-				const token = LoginDB.get(user, "sessionToken.data");
 
 				response.success = true;
 				response.data = {
 					token: token,
-					createdAt: (new Date(createdAtMillisecond)).toString()
+					createdAt: (new Date(tokenCreatedAt)).toString()
 				}
 			}
 
