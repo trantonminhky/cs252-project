@@ -15,15 +15,10 @@ class GeocodeController {
 			}
 
 			let authorizationStatus = SessionTokensDB.check(credentials);
-			if (authorizationStatus == "BAD_TOKEN") {
+			if (authorizationStatus != "VALID") {
 				return res.status(401).json({
 					success: false,
-					error: { message: authorizationStatus }
-				});
-			} else if (authorizationStatus == "EXPIRED_TOKEN") {
-				return res.status(401).json({
-					success: false,
-					error: { message: authorizationStatus }
+					error: { message: `Access Denied (${authorizationStatus})` }
 				});
 			}
 
