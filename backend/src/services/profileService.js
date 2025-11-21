@@ -70,22 +70,29 @@ class ProfileService {
 				response.success = false;
 				response.data = "WRONG_PASSWORD";
 			} else {
-				const createdAtMillisecond = LoginDB.get(user, "sessionToken.createdAt");
-				let token = generateToken32();
-				let tokenCreatedAt = Date.now();
+				const oldCreatedAt = LoginDB.get(user, "sessionToken.createdAt");
+				let oldToken = LoginDB.get(user, "sessionToken.data");
+				let newToken = generateToken32();
+				let newCreatedAt = Date.now();
 
-				if (tokenCreatedAt - createdAtMillisecond >= SESSION_TOKEN_LIFETIME_MS) { // if token lifetime is over 30 minutes
-					LoginDB.set(user, token, "sessionToken.data");
-					LoginDB.set(user, tokenCreatedAt, "sessionToken.createdAt");
+				if (newCreatedAt - oldCreatedAt >= SESSION_TOKEN_LIFETIME_MS) { // if token expires
+					LoginDB.set(user, newToken, "sessionToken.data");
+					LoginDB.set(user, newCreatedAt, "sessionToken.createdAt");
+
+					SessionTokensDB.set(newToken, {
+						username: user,
+						createdAt: newCreatedAt
+					});
+					SessionTokensDB.delete(oldToken);
 				} else {
-					token = LoginDB.get(user, "sessionToken.data");
-					tokenCreatedAt = createdAtMillisecond;
+					newToken = LoginDB.get(user, "sessionToken.data");
+					newCreatedAt = oldCreatedAt;
 				}
 
 				response.success = true;
 				response.data = {
-					token: token,
-					createdAt: (new Date(tokenCreatedAt)).toString()
+					token: newToken,
+					createdAt: (new Date(newCreatedAt)).toString()
 				}
 			}
 
