@@ -45,6 +45,15 @@ class LoginDB {
 			console.error(err);
 		}
 	}
+
+	export() {
+		try {
+			const exp = this.db.export();
+			return exp;
+		} catch (err) {
+			console.error(err);
+		}
+	}
 }
 
 module.exports = new LoginDB();
