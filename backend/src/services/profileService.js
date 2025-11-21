@@ -1,5 +1,3 @@
-const axios = require('axios');
-const config = require('../config/config');
 const crypto = require('crypto');
 
 const LoginDB = require('../db/LoginDB');
