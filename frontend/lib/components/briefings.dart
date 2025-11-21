@@ -31,9 +31,8 @@ class Briefing extends StatelessWidget {
   }
 
   Widget _buildHorizontalBriefing() {
-    final bool isAssetImage = imageUrl?.startsWith('../assets/') ??
-        imageUrl?.startsWith('assets/') ??
-        false;
+    final bool isAssetImage = imageUrl?.startsWith('../assets/') == true ||
+        imageUrl?.startsWith('assets/') == true;
     final String? cleanedImageUrl = imageUrl?.replaceFirst('../', '');
     final ImageProvider imageProvider = isAssetImage
         ? AssetImage(cleanedImageUrl!)
@@ -135,9 +134,8 @@ class Briefing extends StatelessWidget {
   }
 
   Widget _buildVerticalBriefing() {
-    final bool isAssetImage = imageUrl?.startsWith('../assets/') ??
-        imageUrl?.startsWith('assets/') ??
-        false;
+    final bool isAssetImage = imageUrl?.startsWith('../assets/') == true ||
+        imageUrl?.startsWith('assets/') == true;
     final String? cleanedImageUrl = imageUrl?.replaceFirst('../', '');
     final ImageProvider imageProvider = isAssetImage
         ? AssetImage(cleanedImageUrl!)
@@ -223,9 +221,8 @@ class Briefing extends StatelessWidget {
   }
 
   Widget _buildFullBriefing() {
-    final bool isAssetImage = imageUrl?.startsWith('../assets/') ??
-        imageUrl?.startsWith('assets/') ??
-        false;
+    final bool isAssetImage = imageUrl?.startsWith('../assets/') == true ||
+        imageUrl?.startsWith('assets/') == true;
     final String? cleanedImageUrl = imageUrl?.replaceFirst('../', '');
     final ImageProvider imageProvider = isAssetImage
         ? AssetImage(cleanedImageUrl!)

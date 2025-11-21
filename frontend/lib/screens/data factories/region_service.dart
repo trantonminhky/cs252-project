@@ -25,7 +25,7 @@ class RegionService {
       return const Region(
         id: "sg",
         name: "Sài Gòn",
-        imageUrl: "assets/images/places/Saigon.jpg",
+        imageUrl: "assets/images/places/Saigon.png",
         description:
             'Saigon is the former name of Ho Chi Minh City, one of the most attractive tourist destinations in Vietnam. The name Saigon has intrigued travelers for centuries with its blend of French colonial architecture, bustling markets, and vibrant street life. This dynamic metropolis offers visitors an unforgettable experience, from historic landmarks like the Notre Dame Cathedral and Independence Palace to the authentic flavors of Vietnamese cuisine found in every corner. Whether you\'re exploring the Cu Chi Tunnels, shopping at Ben Thanh Market, or simply watching life unfold from a sidewalk café, Saigon captivates with its energy and charm.',
         placesId: [

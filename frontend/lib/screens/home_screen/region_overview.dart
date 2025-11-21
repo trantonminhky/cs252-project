@@ -218,9 +218,10 @@ class _RegionOverviewState extends State<RegionOverview> {
                             height: briefingHeight,
                             child: Briefing(
                               size: BriefingSize.full,
-                              title: _region?.name ?? "",
+                              title: _region?.name ?? "Saigon",
                               category: "Region",
-                              imageUrl: _region?.imageUrl ?? "",
+                              imageUrl: _region?.imageUrl ??
+                                  "../assets/images/places/Saigon.png",
                             ),
                           ),
                         ),
@@ -242,6 +243,7 @@ class _RegionOverviewState extends State<RegionOverview> {
                                   style: const TextStyle(
                                     fontSize: 14,
                                     fontFamily: "BeVietnamPro",
+                                    fontWeight: FontWeight.w400,
                                     color: Colors.black87,
                                     height: 1.5,
                                   ),
@@ -334,8 +336,15 @@ class _RegionOverviewState extends State<RegionOverview> {
     final bool isSelected = widget.currentFilter == filterType;
     return FilterChip(
       avatar: CircleAvatar(
-        backgroundColor: isSelected ? Colors.blueAccent : Colors.grey,
+        foregroundColor: isSelected ? Colors.white : Colors.grey,
+        backgroundColor: isSelected ? Colors.white : Colors.grey,
         child: Icon(icon, color: Colors.white, size: 16),
+      ),
+      disabledColor: Colors.white,
+      selectedColor: const Color(0xffe0e0e0),
+      side: BorderSide(
+        color: isSelected ? Colors.black : Colors.grey,
+        width: 2,
       ),
       label: Text(label),
       selected: isSelected,
