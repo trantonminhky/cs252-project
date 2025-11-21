@@ -7,7 +7,7 @@ function generateToken32() {
 	return crypto.randomBytes(24).toString('base64url').slice(0, 32);
 }
 
-const SESSION_TOKEN_LIFETIME_MS = 60000;
+const SESSION_TOKEN_LIFETIME_MS = 1800000;
 
 // TO-DO: IMPLEMENT PASSWORD ENCRYPTION INSTEAD OF PLAINTEXT STORAGE
 class ProfileService {
