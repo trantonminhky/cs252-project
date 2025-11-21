@@ -4,6 +4,7 @@ import "package:virtour_frontend/components/briefings.dart";
 import "package:virtour_frontend/components/custom_text_field.dart";
 import "package:virtour_frontend/screens/map_screen/map_screen.dart";
 import "package:virtour_frontend/screens/home_screen/region_overview.dart";
+import "package:virtour_frontend/screens/data factories/filter_type.dart";
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -98,7 +99,12 @@ class _HomeScreenState extends State<HomeScreen> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const RegionOverview(),
+                                  //this is mock data, hooking up with db later
+                                  builder: (context) => const RegionOverview(
+                                    regionId: "01",
+                                    regionName: "Sài Gòn",
+                                    currentFilter: FilterType.regionOverview,
+                                  ),
                                 ),
                               );
                             },
@@ -115,7 +121,11 @@ class _HomeScreenState extends State<HomeScreen> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const RegionOverview(),
+                                  builder: (context) => const RegionOverview(
+                                    regionId: "01",
+                                    regionName: "Sài Gòn",
+                                    currentFilter: FilterType.regionOverview,
+                                  ),
                                 ),
                               );
                             },
@@ -132,7 +142,11 @@ class _HomeScreenState extends State<HomeScreen> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const RegionOverview(),
+                                  builder: (context) => const RegionOverview(
+                                    regionId: "01",
+                                    regionName: "Sài Gòn",
+                                    currentFilter: FilterType.regionOverview,
+                                  ),
                                 ),
                               );
                             },
@@ -149,7 +163,11 @@ class _HomeScreenState extends State<HomeScreen> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const RegionOverview(),
+                                  builder: (context) => const RegionOverview(
+                                    regionId: "01",
+                                    regionName: "Sài Gòn",
+                                    currentFilter: FilterType.regionOverview,
+                                  ),
                                 ),
                               );
                             },

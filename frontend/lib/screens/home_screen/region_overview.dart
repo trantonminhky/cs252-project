@@ -5,9 +5,20 @@ import "package:virtour_frontend/components/briefings.dart";
 import "package:virtour_frontend/components/cards.dart";
 import "package:virtour_frontend/screens/map_screen/map_screen.dart";
 import "package:virtour_frontend/screens/home_screen/home_screen.dart";
+import "package:virtour_frontend/screens/data factories/filter_type.dart";
+import "package:virtour_frontend/screens/data factories/region.dart";
+import "package:virtour_frontend/screens/data factories/place.dart";
+import "package:virtour_frontend/screens/data factories/region_service.dart";
 
 class RegionOverview extends StatefulWidget {
-  const RegionOverview({super.key});
+  final String regionId;
+  final String regionName;
+  final FilterType currentFilter;
+  const RegionOverview(
+      {super.key,
+      required this.regionId,
+      required this.regionName,
+      required this.currentFilter});
 
   @override
   State<RegionOverview> createState() => _RegionOverviewState();
@@ -16,6 +27,50 @@ class RegionOverview extends StatefulWidget {
 class _RegionOverviewState extends State<RegionOverview> {
   int _selectedIndex = 0; // Home is selected
   bool _isExpanded = false; // Track "Read More" state
+
+  // Data state
+  Region? _region;
+  List<Place>? _filteredPlaces;
+  bool _isLoading = true;
+  String? _errorMessage;
+
+  final RegionService _regionService = RegionService();
+
+  @override
+  void initState() {
+    super.initState();
+    _loadRegionData();
+  }
+
+  Future<void> _loadRegionData() async {
+    setState(() {
+      _isLoading = true;
+      _errorMessage = null;
+    });
+
+    try {
+      // Fetch region data
+      final region = await _regionService.getRegionbyId(widget.regionId);
+
+      // Fetch all places for this region (service uses regionId, not placeIds list)
+      final places = await _regionService.fetchPlaceById(widget.regionId);
+
+      // Filter places based on current filter
+      final filteredPlaces =
+          _regionService.filterPlaces(places, widget.currentFilter);
+
+      setState(() {
+        _region = region;
+        _filteredPlaces = filteredPlaces;
+        _isLoading = false;
+      });
+    } catch (e) {
+      setState(() {
+        _errorMessage = e.toString();
+        _isLoading = false;
+      });
+    }
+  }
 
   void _onItemTapped(int index) {
     setState(() {
@@ -59,149 +114,285 @@ class _RegionOverviewState extends State<RegionOverview> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Back button
-              Padding(
-                padding: const EdgeInsets.only(left: 10, top: 10),
-                child: IconButton(
-                  icon: const Icon(CupertinoIcons.back, size: 40),
-                  onPressed: () => Navigator.pop(context),
-                ),
-              ),
-              // Push content down by 24px
-              const SizedBox(height: 24),
-              // Full Briefing - scaled to match card width
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: SizedBox(
-                  width: cardWidth,
-                  height: briefingHeight,
-                  child: const Briefing(
-                    size: BriefingSize.full,
-                    title: "Sai Gon",
-                    category: "Region",
-                    imageUrl: "assets/images/places/Saigon.png",
-                  ),
-                ),
-              ),
-              // Description section with grey background
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Container(
-                  width: cardWidth,
-                  color: Colors.grey[100],
-                  padding: const EdgeInsets.all(20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        _isExpanded
-                            ? "Saigon is the former name of Ho Chi Minh City, one of the most attractive tourist destinations in Vietnam. The name Saigon has intrigued travelers for centuries with its blend of French colonial architecture, bustling markets, and vibrant street life. This dynamic metropolis offers visitors an unforgettable experience, from historic landmarks like the Notre Dame Cathedral and Independence Palace to the authentic flavors of Vietnamese cuisine found in every corner. Whether you're exploring the Cu Chi Tunnels, shopping at Ben Thanh Market, or simply watching life unfold from a sidewalk café, Saigon captivates with its energy and charm."
-                            : "Saigon is the former name of Ho Chi Minh City, one of the most attractive tourist destinations in Vietnam. The name Saigon has intrigued travelers for centuries with its blend of French colonial architecture, bustling markets, and vibrant street life...",
-                        style: const TextStyle(
-                          fontSize: 14,
-                          fontFamily: "BeVietnamPro",
-                          color: Colors.black87,
-                          height: 1.5,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            _isExpanded = !_isExpanded;
-                          });
-                        },
-                        child: Text(
-                          _isExpanded ? "Read Less" : "Read More",
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontFamily: "BeVietnamPro",
+        child: _isLoading
+            ? const Center(child: CircularProgressIndicator())
+            : _errorMessage != null
+                ? Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(Icons.error_outline,
+                            size: 48, color: Colors.red),
+                        const SizedBox(height: 16),
+                        const Text(
+                          'Error loading region',
+                          style: TextStyle(
+                            fontSize: 18,
                             fontWeight: FontWeight.w600,
-                            color: Color(0xffd72323),
                           ),
                         ),
-                      ),
-                    ],
+                        const SizedBox(height: 8),
+                        Text(
+                          _errorMessage!,
+                          style: TextStyle(color: Colors.grey[600]),
+                          textAlign: TextAlign.center,
+                        ),
+                        const SizedBox(height: 16),
+                        ElevatedButton(
+                          onPressed: _loadRegionData,
+                          child: const Text('Retry'),
+                        ),
+                      ],
+                    ),
+                  )
+                : SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Back button
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10, top: 10),
+                          child: IconButton(
+                            icon: const Icon(CupertinoIcons.back, size: 40),
+                            onPressed: () => Navigator.pop(context),
+                          ),
+                        ),
+                        const SizedBox(height: 24),
+                        // Filters
+                        SizedBox(
+                          height: 50,
+                          child: ListView(
+                            scrollDirection: Axis.horizontal,
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                            children: [
+                              _buildFilterChip(
+                                FilterType.regionOverview,
+                                "Region overview",
+                                CupertinoIcons.book,
+                              ),
+                              const SizedBox(width: 8),
+                              _buildFilterChip(
+                                FilterType.architecture,
+                                "Architecture",
+                                Icons.account_balance,
+                              ),
+                              const SizedBox(width: 8),
+                              _buildFilterChip(
+                                FilterType.ethnic,
+                                "Ethnic",
+                                CupertinoIcons.person,
+                              ),
+                              const SizedBox(width: 8),
+                              _buildFilterChip(
+                                FilterType.origin,
+                                "Origin",
+                                Icons.public,
+                              ),
+                              const SizedBox(width: 8),
+                              _buildFilterChip(
+                                FilterType.religion,
+                                "Religion",
+                                Icons.church,
+                              ),
+                              const SizedBox(width: 8),
+                              _buildFilterChip(
+                                FilterType.culture,
+                                "Culture",
+                                CupertinoIcons.heart,
+                              ),
+                              const SizedBox(width: 8),
+                              _buildFilterChip(
+                                FilterType.historical,
+                                "Historical",
+                                CupertinoIcons.time,
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        // Briefing
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: SizedBox(
+                            width: cardWidth,
+                            height: briefingHeight,
+                            child: Briefing(
+                              size: BriefingSize.full,
+                              title: _region?.name ?? "",
+                              category: "Region",
+                              imageUrl: _region?.imageUrl ?? "",
+                            ),
+                          ),
+                        ),
+                        // Description section with grey background
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: Container(
+                            width: cardWidth,
+                            color: Colors.grey[100],
+                            padding: const EdgeInsets.all(20),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  _isExpanded
+                                      ? (_region?.description ?? "")
+                                      : _getTruncatedDescription(
+                                          _region?.description ?? ""),
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    fontFamily: "BeVietnamPro",
+                                    color: Colors.black87,
+                                    height: 1.5,
+                                  ),
+                                ),
+                                const SizedBox(height: 8),
+                                GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      _isExpanded = !_isExpanded;
+                                    });
+                                  },
+                                  child: Text(
+                                    _isExpanded ? "Read Less" : "Read More",
+                                    style: const TextStyle(
+                                      fontSize: 14,
+                                      fontFamily: "BeVietnamPro",
+                                      fontWeight: FontWeight.w600,
+                                      color: Color(0xffd72323),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 24),
+                        // "Where to go?" heading
+                        const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 20),
+                          child: Text(
+                            "Where to go?",
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 20,
+                              fontFamily: "BeVietnamPro",
+                              fontWeight: FontWeight.w700,
+                              letterSpacing: -1,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        // Cards section - dynamically generated from filtered places
+                        if (_filteredPlaces != null &&
+                            _filteredPlaces!.isNotEmpty)
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                            child: Column(
+                              children: _filteredPlaces!.map((place) {
+                                return Column(
+                                  children: [
+                                    Cards(
+                                      size: CardSize.list,
+                                      title: place.name,
+                                      chips: _getChipsFromPlace(place),
+                                      imageUrl: place.imageUrl,
+                                    ),
+                                    const SizedBox(height: 16),
+                                  ],
+                                );
+                              }).toList(),
+                            ),
+                          )
+                        else
+                          const Padding(
+                            padding: EdgeInsets.all(40),
+                            child: Center(
+                              child: Text(
+                                "No places found for this filter",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            ),
+                          ),
+                        const SizedBox(height: 20),
+                      ],
+                    ),
                   ),
-                ),
-              ),
-              const SizedBox(height: 24),
-              // "Where to go?" heading - aligned left with briefing
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                child: Text(
-                  "Where to go?",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 20,
-                    fontFamily: "BeVietnamPro",
-                    fontWeight: FontWeight.w700,
-                    letterSpacing: -1,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 16),
-              // Cards section - aligned left with briefing
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                child: Column(
-                  children: [
-                    Cards(
-                      size: CardSize.list,
-                      title: "Cu Chi Tunnels",
-                      chips: [
-                        (label: "Historical", backgroundColor: Colors.amber),
-                        (label: "Top-rated", backgroundColor: Colors.red)
-                      ],
-                      imageUrl: "assets/images/places/Cu_Chi_Tunnel.jpg",
-                    ),
-                    SizedBox(height: 16),
-                    Cards(
-                      size: CardSize.list,
-                      title: "Ben Thanh Market",
-                      chips: [
-                        (label: "Cultural", backgroundColor: Colors.amber),
-                        (label: "Shopping", backgroundColor: Colors.blue),
-                        (label: "Must-visit", backgroundColor: Colors.red)
-                      ],
-                      imageUrl: "assets/images/places/Ben_Thanh_Market.jpg",
-                    ),
-                    SizedBox(height: 16),
-                    Cards(
-                      size: CardSize.list,
-                      title: "Independence Palace",
-                      chips: [
-                        (label: "Landmark", backgroundColor: Colors.amber),
-                        (label: "Architecture", backgroundColor: Colors.red),
-                      ],
-                      imageUrl: "assets/images/places/Independence_Palace.jpg",
-                    ),
-                    SizedBox(height: 16),
-                    Cards(
-                      size: CardSize.list,
-                      title: "Notre Dame Cathedral",
-                      chips: [
-                        (label: "Religious", backgroundColor: Colors.blue),
-                        (label: "French Colonial", backgroundColor: Colors.red),
-                      ],
-                      imageUrl: "assets/images/places/Notre_Dame_Cathedral.jpg",
-                    ),
-                    SizedBox(height: 20),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
       ),
       bottomNavigationBar: BottomNavBar(
         selectedIndex: _selectedIndex,
         onTap: _onItemTapped,
       ),
     );
+  }
+
+  // Helper method to build filter chips
+  Widget _buildFilterChip(FilterType filterType, String label, IconData icon) {
+    final bool isSelected = widget.currentFilter == filterType;
+    return FilterChip(
+      avatar: CircleAvatar(
+        backgroundColor: isSelected ? Colors.blueAccent : Colors.grey,
+        child: Icon(icon, color: Colors.white, size: 16),
+      ),
+      label: Text(label),
+      selected: isSelected,
+      onSelected: (selected) {
+        if (selected && !isSelected) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => RegionOverview(
+                regionId: widget.regionId,
+                regionName: widget.regionName,
+                currentFilter: filterType,
+              ),
+            ),
+          );
+        }
+      },
+    );
+  }
+
+  // Helper method to truncate description
+  String _getTruncatedDescription(String description) {
+    if (description.length <= 200) return description;
+    return '${description.substring(0, 200)}...';
+  }
+
+  // Helper method to convert place categories to chips
+  List<({String label, Color backgroundColor})> _getChipsFromPlace(
+      Place place) {
+    return place.categories.map((category) {
+      // Map categories to colors
+      Color color;
+      switch (category.toLowerCase()) {
+        case 'historical':
+          color = Colors.amber;
+          break;
+        case 'religious':
+          color = Colors.blue;
+          break;
+        case 'cultural':
+          color = Colors.green;
+          break;
+        case 'most-visited':
+        case 'top-rated':
+        case 'must-visit':
+          color = Colors.red;
+          break;
+        case 'shopping':
+          color = Colors.purple;
+          break;
+        case 'landmark':
+          color = Colors.orange;
+          break;
+        default:
+          color = Colors.grey;
+      }
+      return (label: category, backgroundColor: color);
+    }).toList();
   }
 }
