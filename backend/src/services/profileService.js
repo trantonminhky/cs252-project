@@ -12,8 +12,18 @@ const SESSION_TOKEN_LIFETIME_MS = 1800000;
 // TO-DO: IMPLEMENT PASSWORD ENCRYPTION INSTEAD OF PLAINTEXT STORAGE
 class ProfileService {
 	async register(user, pass) {
+		const response = {};
+
 		if (!user || !pass) {
-			throw new Error('User or pass is required');
+			response.success = false;
+			response.statusCode = 400;
+			response.data = "Username or password is required (BAD_REQUEST)";
+		}
+
+		if (LoginDB.has(user)) {
+			response.success = false;
+			response.statusCode = 409;
+			response.data = "Username already taken (CONFLICT)";
 		}
 
 		const token = generateToken32();
@@ -34,7 +44,6 @@ class ProfileService {
 				createdAt: tokenCreatedAt
 			});
 
-			const response = {};
 			response.success = true;
 			response.data = {
 				username: LoginDB.get(user, 'username'),
@@ -47,7 +56,9 @@ class ProfileService {
 
 			return response;
 		} catch (err) {
-			throw new Error("failed");
+			response.success = false;
+			response.statusCode = 500;
+			response.data = "Something went wrong (INTERNAL_SERVER_ERROR)";
 		}
 	}
 
