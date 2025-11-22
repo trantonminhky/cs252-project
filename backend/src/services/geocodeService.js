@@ -21,9 +21,9 @@ class GeocodeService {
 		// if no query is specified
 		if (!query) {
 			return (new ServiceResponse(
-				success = false,
-				statusCode = 400,
-				message = "Query is required"
+				false,
+				400,
+				"Query is required"
 			).get());
 		}
 
@@ -35,18 +35,19 @@ class GeocodeService {
 					limit
 				}
 			});
+			
 			const response = new ServiceResponse(
-				success = true,
-				statusCode = 200,
-				message = "Success",
-				data = resp.data
+				true,
+				200,
+				"Success",
+				resp.data
 			);
 			return response.get();
 		} catch (err) {
 			return new ServiceResponse(
-				success = false,
-				statusCode = 500,
-				message = "Something went wrong"
+				false,
+				500,
+				"Something went wrong"
 			).get();
 		}
 	}

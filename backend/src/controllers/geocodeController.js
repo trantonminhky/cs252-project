@@ -30,6 +30,7 @@ class GeocodeController {
 			}
 
 			const response = await geocodeService.geocode(address);
+			console.log(response);
 
 			res.status(response.statusCode).json(response);
 		} catch (error) {

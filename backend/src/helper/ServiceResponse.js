@@ -72,8 +72,8 @@ class ServiceResponse {
 			success: this.success,
 			statusCode: this.statusCode,
 			payload: {
-				message: `${message} (${friendlyHttpStatus[this.statusCode]})`,
-				data: data
+				message: `${this.payload.message} (${friendlyHttpStatus[this.statusCode]})`,
+				data: this.payload.data
 			}
 		}
 	}
