@@ -22,7 +22,7 @@ class LoginDB {
 	set(key, val, path) {
 		try {
 			this.db.set(key, val, path);
-			console.log(`LoginDB set key=${key} val=${JSON.stringify(val)} success at path ${path}`);
+			// console.log(`LoginDB set key=${key} val=${JSON.stringify(val)} success at path ${path}`);
 		} catch (err) {
 			console.error(err);
 		}
@@ -31,7 +31,16 @@ class LoginDB {
 	get(key, path) {
 		try {
 			const value = this.db.get(key, path);
-			console.log(`LoginDB get key=${key} returns ${value}`)
+			// console.log(`LoginDB get key=${key} returns ${value}`)
+			return value;
+		} catch (err) {
+			console.error(err);
+		}
+	}
+
+	has(key) {
+		try {
+			const value = this.db.has(key);;
 			return value;
 		} catch (err) {
 			console.error(err);

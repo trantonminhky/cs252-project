@@ -21,7 +21,7 @@ class SessionTokensDB {
 	set(key, val, path) {
 		try {
 			this.db.set(key, val, path);
-			console.log(`SessionTokensDB set key=${key} val=${JSON.stringify(val)} success at path ${path}`);
+			// console.log(`SessionTokensDB set key=${key} val=${JSON.stringify(val)} success at path ${path}`);
 		} catch (err) {
 			console.error(err);
 		}
@@ -30,7 +30,7 @@ class SessionTokensDB {
 	get(key, path) {
 		try {
 			const value = this.db.get(key, path);
-			console.log(`SessionTokensDB get key=${key} returns ${value}`)
+			// console.log(`SessionTokensDB get key=${key} returns ${value}`)
 			return value;
 		} catch (err) {
 			console.error(err);
@@ -40,7 +40,7 @@ class SessionTokensDB {
 	delete(key, path) {
 		try {
 			this.db.delete(key, path);
-			console.log(`SessionTokensDB delete key=${key}`);
+			// console.log(`SessionTokensDB delete key=${key}`);
 		} catch (err) {
 			console.error(err);
 		}
