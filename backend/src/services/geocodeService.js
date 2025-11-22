@@ -44,6 +44,7 @@ class GeocodeService {
 			);
 			return response.get();
 		} catch (err) {
+			console.log(err);
 			return new ServiceResponse(
 				false,
 				500,
@@ -59,9 +60,15 @@ class GeocodeService {
 	 * @returns {Object} Response
 	 */
 	async reverseGeocode(lat, lon) {
+		// if latitudes and longitudes are not provided
 		if (lat == null || lon == null) {
-			throw new Error('Latitude and longitude are required for reverse geocoding');
+			return (new ServiceResponse(
+				false,
+				400,
+				"Latitude and longitude are required"
+			).get());
 		}
+
 		try {
 			const url = `${this.baseUrl}/geocoding/${lon},${lat}.json`;
 			const resp = await axios.get(url, {
@@ -69,9 +76,21 @@ class GeocodeService {
 					key: this.apiKey
 				}
 			});
-			return resp.data;
+
+			const response = new ServiceResponse(
+				true,
+				200,
+				"Success",
+				resp.data
+			);
+			return response.get();
 		} catch (err) {
-			throw new Error(`Reverse geocoding failed: ${err.message}`);
+			console.log(err);
+			return (new ServiceResponse(
+				false,
+				500,
+				"Something went wrong"
+			).get());
 		}
 	}
 
