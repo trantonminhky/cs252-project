@@ -22,6 +22,7 @@ class ProfileService {
 	 * @returns {Object} Response
 	 */
 	async register(user, pass) {
+		// if username or password is not provided
 		if (!user || !pass) {
 			return (new ServiceResponse(
 				false,
@@ -30,15 +31,17 @@ class ProfileService {
 			).get());
 		}
 
+		// if the username is already registered
 		if (LoginDB.has(user)) {
-			response.success = false;
-			response.statusCode = 409;
-			response.data = "Username already taken (CONFLICT)";
-			return response;
+			return (new ServiceResponse(
+				false,
+				409,
+				"Username already taken"
+			).get());
 		}
 
-		const token = generateToken32();
-		const tokenCreatedAt = Date.now();
+		const token = generateToken32(); // user session token
+		const tokenCreatedAt = Date.now(); // session token created timestamp in ms
 
 		try {
 			LoginDB.set(user, {
@@ -55,22 +58,24 @@ class ProfileService {
 				createdAt: tokenCreatedAt
 			});
 
-			response.success = true;
-			response.data = {
-				username: LoginDB.get(user, 'username'),
-				password: LoginDB.get(user, 'password'),
-				sessionToken: {
-					data: LoginDB.get(user, 'sessionToken.data'),
-					createdAt: LoginDB.get(user, 'sessionToken.createdAt')
-				}
-			}
+			const response = new ServiceResponse(true, 200, "Success", {
+				// ======================POTENTIALLY SENSITIVE DATA==============================
+				// username: LoginDB.get(user, 'username'),
+				// password: LoginDB.get(user, 'password'),
+				// sessionToken: {
+				// 	data: LoginDB.get(user, 'sessionToken.data'),
+				// 	createdAt: LoginDB.get(user, 'sessionToken.createdAt')
+				// }
+				// ==============================================================================
+			});
 
-			return response;
+			return response.get();
 		} catch (err) {
-			response.success = false;
-			response.statusCode = 500;
-			response.data = "Something went wrong (INTERNAL_SERVER_ERROR)";
-			return response;
+			return (new ServiceResponse(
+				false,
+				500,
+				"Something went wrong"
+			).get());
 		}
 	}
 
