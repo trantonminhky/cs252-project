@@ -8,7 +8,12 @@ class GeocodeService {
 		this.baseUrl = config.maptiler.baseUrl;
 	}
 
-	// Geocode an address/query string -> returns response.data from MapTiler
+	/**
+	 * Sends query to OpenMapTiles to return geocoded address.
+	 * @param {string} query - Address to query OpenMapTiles
+	 * @param {number|undefined} limit - Maximum number of results returned
+	 * @returns {Response} Response 
+	 */
 	async geocode(query, limit = 5) {
 		if (!query) {
 			throw new Error('Geocode query is required');
