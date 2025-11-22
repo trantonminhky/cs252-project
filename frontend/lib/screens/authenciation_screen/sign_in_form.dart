@@ -157,9 +157,10 @@ class _SignInFormState extends State<SignInForm> {
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: kThemeColor,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 14),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(13),
-                      side: const BorderSide(color: Colors.black, width: 2),
+                      borderRadius: BorderRadius.circular(16),
                     ),
                     fixedSize: const Size(135, 52),
                   ),
