@@ -8,7 +8,7 @@
 	...
 */
 
-const TOKEN_LIFETIME_MS = 60000
+const TOKEN_LIFETIME_MS = 1800000;
 
 
 class SessionTokensDB {

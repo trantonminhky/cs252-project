@@ -86,7 +86,7 @@ class ProfileService {
 				let newToken = generateToken32();
 				let newCreatedAt = Date.now();
 
-				if (newCreatedAt - oldCreatedAt >= SESSION_TOKEN_LIFETIME_MS) { // if token expires
+				if (SessionTokensDB.check(oldToken) !== "valid") { // if token expires
 					LoginDB.set(user, newToken, "sessionToken.data");
 					LoginDB.set(user, newCreatedAt, "sessionToken.createdAt");
 
