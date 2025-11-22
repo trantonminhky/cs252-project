@@ -30,7 +30,6 @@ class GeocodeController {
 			}
 
 			const response = await geocodeService.geocode(address);
-			console.log(response);
 
 			res.status(response.statusCode).json(response);
 		} catch (error) {
@@ -41,21 +40,33 @@ class GeocodeController {
 	// Reverse geocode coordinates
 	async reverseGeocode(req, res, next) {
 		try {
-			const { lat, lon } = req.query;
+			const { lat, lon, credentials } = req.query;
+
+			if (!credentials) {
+				return res.status(401).json({
+					success: false,
+					error: { message: 'Access denied, no credentials (UNAUTHORIZED)' }
+				})
+			}
+
+			let authorizationStatus = SessionTokensDB.check(credentials);
+			if (authorizationStatus !== "valid") {
+				return res.status(401).json({
+					success: false,
+					error: { message: `Access denied, ${authorizationStatus} (UNAUTHORIZED)` }
+				});
+			}
 
 			if (!lat || !lon) {
 				return res.status(400).json({
 					success: false,
-					error: { message: 'Latitude and longtitude parameters are required' }
+					error: { message: 'Latitude and longtitude parameters are required (BAD_REQUEST)' }
 				});
 			}
 
-			const result = await geocodeService.reverseGeocode(parseFloat(lat), parseFloat(lon));
+			const response = await geocodeService.reverseGeocode(parseFloat(lat), parseFloat(lon));
 
-			res.json({
-				success: true,
-				data: result
-			});
+			res.status(response.statusCode).json(response);
 		} catch (error) {
 			next(error);
 		}
