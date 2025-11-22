@@ -163,9 +163,18 @@ class ProfileService {
 	async clear() {
 		try {
 			LoginDB.clear();
-			return "Clear success";
+			return (new ServiceResponse(
+				true,
+				200,
+				"Success"
+			));
 		} catch (err) {
 			console.error(err);
+			return (new ServiceResponse(
+				false,
+				500,
+				"Something went wrong"
+			).get());
 		}
 	}
 }
