@@ -18,12 +18,14 @@ class ProfileService {
 			response.success = false;
 			response.statusCode = 400;
 			response.data = "Username or password is required (BAD_REQUEST)";
+			return response;
 		}
 
 		if (LoginDB.has(user)) {
 			response.success = false;
 			response.statusCode = 409;
 			response.data = "Username already taken (CONFLICT)";
+			return response;
 		}
 
 		const token = generateToken32();
@@ -59,6 +61,7 @@ class ProfileService {
 			response.success = false;
 			response.statusCode = 500;
 			response.data = "Something went wrong (INTERNAL_SERVER_ERROR)";
+			return response;
 		}
 	}
 
