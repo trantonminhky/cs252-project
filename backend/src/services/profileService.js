@@ -11,7 +11,8 @@ function generateToken32() {
 
 // TO-DO: IMPLEMENT PASSWORD ENCRYPTION INSTEAD OF PLAINTEXT STORAGE
 /**
- * 
+ * Profile service provider class.
+ * @class
  */
 class ProfileService {
 	async register(user, pass) {
