@@ -15,6 +15,12 @@ function generateToken32() {
  * @class
  */
 class ProfileService {
+	/**
+	 * Registers a user to a new profile given username and password.
+	 * @param {String} user - Username
+	 * @param {String} pass - Password
+	 * @returns {Object} Response
+	 */
 	async register(user, pass) {
 		if (!user || !pass) {
 			return (new ServiceResponse(
