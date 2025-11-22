@@ -1,6 +1,7 @@
 services:
   flutter-app:
-    image: 4funzies/cultour-app:latest
+    # image: 4funzies/cultour-app:latest
+    build: ./frontend
     container_name: cultour-flutter-app
     volumes:
       - ./frontend:/app 
