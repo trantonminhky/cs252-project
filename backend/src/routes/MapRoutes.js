@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const mapController = require('../controllers/mapController');
+const mapController = require('../controllers/MapController');
 
 // Map config
 router.get('/config', mapController.getMapConfig);
