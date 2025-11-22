@@ -28,22 +28,12 @@ class ProfileController {
 			if (!username || !password) {
 				return res.status(400).json({
 					success: false,
-					error: { message: 'user or pass is required' }
+					error: { message: 'Username or password is required (BAD_REQUEST)' }
 				});
 			}
 
 			const response = await ProfileService.login(username, password);
-			if (!response.success) {
-				res.status(401).json({
-					success: false,
-					data: `Access Denied (${response.data})`
-				})
-			} else {
-				res.status(200).json({
-					success: true,
-					data: response.data
-				})
-			}
+			res.status(response.statusCode).json(response);
 		} catch (err) {
 			next(err);
 		}
