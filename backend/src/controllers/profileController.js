@@ -4,23 +4,18 @@ class ProfileController {
 	async register(req, res, next) {
 		try {
 			const user = req.body.username;
-			const pass = req.body.password;		
-			console.log(user);
-			console.log(pass);
+			const pass = req.body.password;
 			
 			if (!user || !pass) {
 				return res.status(400).json({
 					success: false,
-					error: { message: 'user or pass is required' }
+					error: { message: 'Username or password is required (BAD_REQUEST)' }
 				});
 			}
 
-			const result = await ProfileService.register(user, pass);
+			const response = await ProfileService.register(user, pass);
 
-			res.status(201).json({
-				success: true,
-				data: result
-			});
+			res.status(response.statusCode).json(response);
 		} catch (error) {
 			next(error);
 		}
