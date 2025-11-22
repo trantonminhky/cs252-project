@@ -1,5 +1,6 @@
 const ProfileService = require('../services/ProfileService');
 
+// TO-DO: DOCUMENT CONTROLLER CLASSES
 class ProfileController {
 	async register(req, res, next) {
 		try {
