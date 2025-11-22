@@ -1,7 +1,7 @@
 // src/services/geocode/geocode.js
 const axios = require('axios');
 
-const Response = require('../helper/Response');
+const ServiceResponse = require('../helper/ServiceResponse');
 const config = require('../config/config');
 
 class GeocodeService {
@@ -14,13 +14,13 @@ class GeocodeService {
 	 * Sends query to OpenMapTiles to return geocoded address.
 	 * @param {string} query - Address to query OpenMapTiles
 	 * @param {number|undefined} limit - Maximum number of results returned
-	 * @returns {Response} Response 
+	 * @returns {ServiceResponse} Response 
 	 */
 	async geocode(query, limit = 5) {
 
 		// if no query is specified
 		if (!query) {
-			return (new Response(
+			return (new ServiceResponse(
 				success = false,
 				statusCode = 400,
 				message = "Query is required"
@@ -35,9 +35,19 @@ class GeocodeService {
 					limit
 				}
 			});
-			return resp.data;
+			const response = new ServiceResponse(
+				success = true,
+				statusCode = 200,
+				message = "Success",
+				data = resp.data
+			);
+			return response.get();
 		} catch (err) {
-			throw new Error(`Geocoding failed: ${err.message}`);
+			return new ServiceResponse(
+				success = false,
+				statusCode = 500,
+				message = "Something went wrong"
+			)
 		}
 	}
 

@@ -46,7 +46,7 @@ const friendlyHttpStatus = {
  * Service response representation.
  * @class
  */
-class Response {
+class ServiceResponse {
 	/**
 	 * Response constructor.
 	 * @constructor
@@ -79,4 +79,4 @@ class Response {
 	}
 }
 
-module.exports = Response;
+module.exports = ServiceResponse;
