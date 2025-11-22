@@ -13,7 +13,7 @@ class GeocodeService {
 	/**
 	 * Sends query to OpenMapTiles to return geocoded address.
 	 * @param {string} query - Address to query OpenMapTiles
-	 * @param {number|undefined} limit - Maximum number of results returned
+	 * @param {number|undefined} limit - Maximum number of results returned. Default is 5
 	 * @returns {Object} Response 
 	 */
 	async geocode(query, limit = 5) {
@@ -52,7 +52,12 @@ class GeocodeService {
 		}
 	}
 
-	// Reverse geocode (lat, lon) -> returns response.data from MapTiler
+	/**
+	 * Sends latitude and longitude to OpenMapTiles to get reverse-geocoded address.
+	 * @param {Number} lat - Latitude
+	 * @param {Number} lon - Longitude
+	 * @returns {Object} Response
+	 */
 	async reverseGeocode(lat, lon) {
 		if (lat == null || lon == null) {
 			throw new Error('Latitude and longitude are required for reverse geocoding');
