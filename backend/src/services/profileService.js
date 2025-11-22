@@ -75,6 +75,12 @@ class ProfileService {
 		}
 	}
 
+	/**
+	 * Logins a user.
+	 * @param {String} user - Username
+	 * @param {String} pass - Password
+	 * @returns {Object} Response
+	 */
 	async login(user, pass) {
 		if (!user || !pass) {
 			throw new Error('User or pass is required');
