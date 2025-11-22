@@ -10,7 +10,7 @@ class GeocodeController {
 			if (!credentials) {
 				return res.status(401).json({
 					success: false,
-					error: { message: 'Access Denied (NO_CREDENTIAL)' }
+					error: { message: 'Access denied, no credentials (UNAUTHORIZED)' }
 				})
 			}
 
@@ -18,7 +18,7 @@ class GeocodeController {
 			if (authorizationStatus != "VALID") {
 				return res.status(401).json({
 					success: false,
-					error: { message: `Access Denied (${authorizationStatus})` }
+					error: { message: `Access Denied, ()` }
 				});
 			}
 
