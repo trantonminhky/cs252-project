@@ -27,16 +27,16 @@ class _CarouselSliderState extends State<CarouselSlider> {
     _images = List.generate(_imagePaths.length, (index) {
       return Image.asset(_imagePaths[index], fit: BoxFit.cover);
     });
-    _timer = Timer.periodic(Duration(seconds: 3), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 3), (timer) {
       if (_controller.page == _imagePaths.length - 1) {
         _controller.animateToPage(
           0,
-          duration: Duration(milliseconds: 500),
+          duration: const Duration(milliseconds: 500),
           curve: Curves.easeIn,
         );
       } else {
         _controller.nextPage(
-          duration: Duration(milliseconds: 500),
+          duration: const Duration(milliseconds: 500),
           curve: Curves.easeIn,
         );
       }
@@ -73,7 +73,7 @@ class _CarouselSliderState extends State<CarouselSlider> {
             ),
           ),
         ),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: List.generate(_imagePaths.length, (index) {
@@ -83,14 +83,14 @@ class _CarouselSliderState extends State<CarouselSlider> {
                 onTap: () {
                   _controller.animateToPage(
                     index,
-                    duration: Duration(milliseconds: 300),
+                    duration: const Duration(milliseconds: 300),
                     curve: Curves.easeIn,
                   );
                 },
                 child: CircleAvatar(
                   backgroundColor: index == _currentIndex
-                      ? Color(0xffFFFBCC)
-                      : Color(0xffffffff),
+                      ? const Color(0xffFFFBCC)
+                      : const Color(0xffffffff),
                   radius: 10,
                 ),
               ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:virtour_frontend/constants/colors.dart';
 
 class SignUpForm extends StatefulWidget {
   const SignUpForm({super.key});
@@ -16,8 +15,8 @@ class _SignUpFormState extends State<SignUpForm> {
   final FocusNode _usernameFocusNode = FocusNode();
   final FocusNode _passwordFocusNode = FocusNode();
   final FocusNode _repeatPasswordFocusNode = FocusNode();
-  bool _obscureText = true;
-  bool _rObscureText = true;
+  final bool _obscureText = true;
+  final bool _rObscureText = true;
 
   @override
   void dispose() {
@@ -33,196 +32,275 @@ class _SignUpFormState extends State<SignUpForm> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
-      child: SingleChildScrollView(
-        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 70),
-            Padding(
-              padding: const EdgeInsets.only(left: 52, right: 48),
-              child: const Text(
-                "Username",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 16,
-                  fontFamily: "BeVietnamPro",
-                  fontWeight: FontWeight.bold,
+      width: 412,
+      height: 917,
+      clipBehavior: Clip.antiAlias,
+      decoration: const BoxDecoration(color: Colors.white),
+      child: Stack(
+        children: [
+          Positioned(
+            left: -26,
+            top: -11,
+            child: Container(
+              width: 596,
+              height: 335,
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: NetworkImage("https://placehold.co/596x335"),
+                  fit: BoxFit.cover,
                 ),
               ),
             ),
-            const SizedBox(height: 10),
-            Padding(
-              padding: const EdgeInsets.only(left: 52, right: 48),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Color(0xffd9d9d9),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: TextField(
-                  focusNode: _usernameFocusNode,
-                  controller: _usernameController,
-                  decoration: InputDecoration(
-                    hintText: "Username",
-                    contentPadding: EdgeInsets.only(left: 10, top: 13),
-                    border: InputBorder.none,
-                    prefixIcon: Icon(Icons.person),
-                  ),
+          ),
+          Positioned(
+            left: 0,
+            top: 169,
+            child: Container(
+              width: 412,
+              height: 796,
+              decoration: ShapeDecoration(
+                color: const Color(0xFFF6F6F6),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(32),
                 ),
               ),
             ),
-            const SizedBox(height: 30),
-            Padding(
-              padding: const EdgeInsets.only(left: 52, right: 48),
-              child: const Text(
-                "Password",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 16,
-                  fontFamily: "BeVietnamPro",
-                  fontWeight: FontWeight.bold,
+          ),
+          Positioned(
+            left: 51,
+            top: 150,
+            child: Container(
+              padding: const EdgeInsets.all(4),
+              decoration: ShapeDecoration(
+                color: const Color(0xFFF6F6F6),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(50),
                 ),
               ),
-            ),
-            const SizedBox(height: 10),
-            Padding(
-              padding: const EdgeInsets.only(left: 52, right: 48),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Color(0xffd9d9d9),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: TextField(
-                  focusNode: _passwordFocusNode,
-                  controller: _passwordController,
-                  obscureText: _obscureText,
-                  decoration: InputDecoration(
-                    hintText: "Password",
-                    contentPadding: EdgeInsets.only(left: 10, top: 13),
-                    border: InputBorder.none,
-                    prefixIcon: Icon(Icons.lock),
-                    suffixIcon: IconButton(
-                      icon: Icon(
-                        _obscureText ? Icons.visibility : Icons.visibility_off,
-                      ),
-                      onPressed: () =>
-                          setState(() => _obscureText = !_obscureText),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 30),
-            Padding(
-              padding: const EdgeInsets.only(left: 52, right: 48),
-              child: const Text(
-                "Repeat Password",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 16,
-                  fontFamily: "BeVietnamPro",
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            const SizedBox(height: 10),
-            Padding(
-              padding: const EdgeInsets.only(left: 52, right: 48),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Color(0xffd9d9d9),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: TextField(
-                  focusNode: _repeatPasswordFocusNode,
-                  controller: _repeatPasswordController,
-                  obscureText: _rObscureText,
-                  decoration: InputDecoration(
-                    hintText: "Repeat Password",
-                    contentPadding: EdgeInsets.only(left: 10, top: 13),
-                    border: InputBorder.none,
-                    prefixIcon: Icon(Icons.lock),
-                    suffixIcon: IconButton(
-                      icon: Icon(
-                        _rObscureText ? Icons.visibility : Icons.visibility_off,
-                      ),
-                      onPressed: () =>
-                          setState(() => _rObscureText = !_rObscureText),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 30),
-            Center(
-              child: Text(
-                "or",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontFamily: "BeVietnamPro",
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  width: 100,
-                  height: 60,
-                  child: Card(
-                    color: Color(0xffd9d9d9),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    elevation: 3,
-                  ),
-                ),
-                const SizedBox(width: 80),
-                SizedBox(
-                  width: 100,
-                  height: 60,
-                  child: Card(
-                    color: Color(0xffd9d9d9),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    elevation: 3,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 80),
-            Center(
-              child: SizedBox(
-                width: double.infinity,
-                height: 80,
-                child: ElevatedButton(
-                  onPressed: () {
-
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: kThemeColor,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                  ),
-                  child: Text(
-                    "Sign up",
-                    style: TextStyle(
-                      fontSize: 24,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    width: 151,
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                    decoration: ShapeDecoration(
                       color: Colors.white,
-                      fontFamily: "BeVietnamPro",
-                      fontWeight: FontWeight.w700,
+                      shape: RoundedRectangleBorder(
+                        side: const BorderSide(
+                          width: 2,
+                          strokeAlign: BorderSide.strokeAlignOutside,
+                        ),
+                        borderRadius: BorderRadius.circular(500),
+                      ),
+                      shadows: const [
+                        BoxShadow(
+                          color: Color(0x14000000),
+                          blurRadius: 17,
+                          offset: Offset(0, 6),
+                          spreadRadius: 0,
+                        )
+                      ],
+                    ),
+                    child: const Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      spacing: 10,
+                      children: [
+                        Text(
+                          'Sign up',
+                          style: TextStyle(
+                            color: Color(0xFF1E1E1E),
+                            fontSize: 14,
+                            fontFamily: 'SF Pro',
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
+                  Container(
+                    width: 151,
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                    decoration: ShapeDecoration(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(500),
+                      ),
+                    ),
+                    child: const Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      spacing: 10,
+                      children: [
+                        Text(
+                          'Sign in',
+                          style: TextStyle(
+                            color: Color(0xFF1E1E1E),
+                            fontSize: 12,
+                            fontFamily: 'Be Vietnam',
+                            fontWeight: FontWeight.w400,
+                            height: 1.33,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Positioned(
+            left: 30,
+            top: 474,
+            child: Container(
+              width: 352,
+              height: 52,
+              decoration: ShapeDecoration(
+                color: const Color(0xFFF6F6F6),
+                shape: RoundedRectangleBorder(
+                  side: const BorderSide(width: 2),
+                  borderRadius: BorderRadius.circular(16),
+                ),
+              ),
+              child: const Stack(
+                children: [
+                  Positioned(
+                    left: 15,
+                    top: 16,
+                    child: Text(
+                      'Email address',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                        fontFamily: 'Be Vietnam',
+                        fontWeight: FontWeight.w400,
+                        height: 1.25,
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: 15,
+                    top: -27,
+                    child: Text(
+                      'Email address/Username',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                        fontFamily: 'Be Vietnam',
+                        fontWeight: FontWeight.w700,
+                        height: 1.25,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Positioned(
+            left: 30,
+            top: 624,
+            child: Container(
+              width: 352,
+              height: 52,
+              decoration: ShapeDecoration(
+                color: const Color(0xFFF6F6F6),
+                shape: RoundedRectangleBorder(
+                  side: const BorderSide(width: 2),
+                  borderRadius: BorderRadius.circular(16),
+                ),
+              ),
+              child: const Stack(
+                children: [
+                  Positioned(
+                    left: 15,
+                    top: 16,
+                    child: Text(
+                      'Place some text here.',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                        fontFamily: 'Be Vietnam',
+                        fontWeight: FontWeight.w400,
+                        height: 1.25,
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: 15,
+                    top: -27,
+                    child: Text(
+                      'Password',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                        fontFamily: 'Be Vietnam',
+                        fontWeight: FontWeight.w700,
+                        height: 1.25,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Positioned(
+            left: 152,
+            top: 790,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 17),
+              decoration: ShapeDecoration(
+                color: Colors.black.withValues(alpha: 0),
+                shape: RoundedRectangleBorder(
+                  side: const BorderSide(width: 2),
+                  borderRadius: BorderRadius.circular(13),
+                ),
+              ),
+              child: const Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                spacing: 10,
+                children: [
+                  Text(
+                    'Next',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontFamily: 'Be Vietnam',
+                      fontWeight: FontWeight.w600,
+                      height: 0.90,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const Positioned(
+            left: 20,
+            top: 318,
+            child: SizedBox(
+              width: 364,
+              height: 46,
+              child: Text(
+                'Sign up to save all your progress!',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 24,
+                  fontFamily: 'Be Vietnam',
+                  fontWeight: FontWeight.w700,
+                  height: 1,
+                  letterSpacing: -1,
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

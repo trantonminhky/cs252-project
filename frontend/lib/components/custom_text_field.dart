@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+enum TextFieldIconType { noIcon, withIcon }
+
 class MyTextField extends StatefulWidget {
   final TextEditingController textEditingController;
   final String label;
@@ -8,6 +10,7 @@ class MyTextField extends StatefulWidget {
   final bool digitsOnly;
   final IconData? prefixIcon;
   final bool obscureText;
+  final bool isSearchField;
 
   const MyTextField({
     super.key,
@@ -17,6 +20,7 @@ class MyTextField extends StatefulWidget {
     this.digitsOnly = false,
     this.prefixIcon,
     this.obscureText = false,
+    this.isSearchField = false,
   });
 
   @override
@@ -53,7 +57,7 @@ class _MyTextFieldState extends State<MyTextField> {
         const SizedBox(height: 10),
         Container(
           decoration: BoxDecoration(
-            color: Color(0xffd9d9d9),
+            color: const Color(0xffd9d9d9),
             borderRadius: BorderRadius.circular(15),
           ),
           child: TextField(
@@ -66,21 +70,28 @@ class _MyTextFieldState extends State<MyTextField> {
               filled: true,
               fillColor: Colors.white,
               enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(width: 2),
+                borderSide: const BorderSide(width: 2),
                 borderRadius: BorderRadius.circular(16),
               ),
               focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(width: 2),
+                borderSide: const BorderSide(width: 2),
                 borderRadius: BorderRadius.circular(16),
               ),
-              prefixIcon: Icon(widget.prefixIcon),
-              prefixIconConstraints: widget.prefixIcon == null
-                  ? BoxConstraints(maxHeight: 48, maxWidth: 10)
-                  : null,
+              prefixIcon: widget.isSearchField
+                  ? const Icon(CupertinoIcons.search)
+                  : (widget.prefixIcon != null
+                      ? Icon(widget.prefixIcon)
+                      : null),
+              prefixIconConstraints:
+                  (widget.prefixIcon == null && !widget.isSearchField)
+                      ? const BoxConstraints(maxHeight: 48, maxWidth: 10)
+                      : null,
               suffixIcon: widget.obscureText
                   ? IconButton(
                       icon: Icon(
-                        _isObscured ? CupertinoIcons.eye : CupertinoIcons.eye_slash,
+                        _isObscured
+                            ? CupertinoIcons.eye
+                            : CupertinoIcons.eye_slash,
                       ),
                       onPressed: () {
                         setState(() => _isObscured = !_isObscured);

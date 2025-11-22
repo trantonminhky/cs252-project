@@ -29,12 +29,16 @@ class _SignUpContainerState extends State<SignUpContainer> {
     setState(() => _index = newIndex);
   }
 
+  void navigateToHome() {
+    Navigator.pushReplacementNamed(context, '/home');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
       height: 796,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(32),
@@ -52,7 +56,7 @@ class _SignUpContainerState extends State<SignUpContainer> {
               passwordController: passwordController,
             ),
             SignUpForm2(
-              onNext: () {},
+              onNext: navigateToHome,
               onPrevious: () => changeIndex(0),
               nameController: nameController,
               ageController: ageController,
