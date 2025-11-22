@@ -9,6 +9,31 @@ function generateToken32() {
 	return crypto.randomBytes(24).toString('base64url').slice(0, 32);
 }
 
+function renewToken(user) {
+	const oldCreatedAt = LoginDB.get(user, "sessionToken.createdAt");
+	const oldToken = LoginDB.get(user, "sessionToken.data");
+	let newToken = generateToken32();
+	let newCreatedAt = Date.now();
+
+	if (SessionTokensDB.check(oldToken) !== "valid") { // if token expires
+		LoginDB.set(user, newToken, "sessionToken.data");
+		LoginDB.set(user, newCreatedAt, "sessionToken.createdAt");
+
+		SessionTokensDB.set(newToken, {
+			username: user,
+			createdAt: newCreatedAt
+		});
+		SessionTokensDB.delete(oldToken);
+	} else {
+		newToken = LoginDB.get(user, "sessionToken.data");
+		newCreatedAt = oldCreatedAt;
+	}
+	return {
+		data: newToken,
+		createdAt: newCreatedAt
+	}
+}
+
 // TO-DO: IMPLEMENT PASSWORD ENCRYPTION INSTEAD OF PLAINTEXT STORAGE
 /**
  * Profile service provider class.
@@ -60,13 +85,17 @@ class ProfileService {
 
 			const response = new ServiceResponse(
 				true,
-				200,
+				201,
 				"Success",
-				LoginDB.get(user, 'sessionToken.data')
+				{
+					token: LoginDB.get(user, 'sessionToken.data'),
+					createdAt: (new Date(LoginDB.get(user, 'sessionToken.createdAt'))).toString()
+				}
 			);
 
 			return response.get();
 		} catch (err) {
+			console.error(err);
 			return (new ServiceResponse(
 				false,
 				500,
@@ -82,50 +111,52 @@ class ProfileService {
 	 * @returns {Object} Response
 	 */
 	async login(user, pass) {
+		// if no username or password is provided
 		if (!user || !pass) {
-			throw new Error('User or pass is required');
+			return (new ServiceResponse(
+				false,
+				400,
+				"Username or password is required"
+			).get());
+		}
+
+		const password = LoginDB.get(user, 'password');
+		if (!password) { // if this user does not exist
+			return (new ServiceResponse(
+				false,
+				401,
+				"Username does not exist"
+			).get());
+		}
+
+		if (password !== pass) { // if password mismatch
+			return (new ServiceResponse(
+				false,
+				401,
+				"Wrong password"
+			).get());
 		}
 
 		try {
-			const response = {}
-			const password = LoginDB.get(user, 'password');
-
-			if (!password) { // if this user does not exist
-				response.success = false;
-				response.data = "NO_USER_FOUND";
-			} else if (password !== pass) { // if password mismatch
-				response.success = false;
-				response.data = "WRONG_PASSWORD";
-			} else {
-				const oldCreatedAt = LoginDB.get(user, "sessionToken.createdAt");
-				let oldToken = LoginDB.get(user, "sessionToken.data");
-				let newToken = generateToken32();
-				let newCreatedAt = Date.now();
-
-				if (SessionTokensDB.check(oldToken) !== "valid") { // if token expires
-					LoginDB.set(user, newToken, "sessionToken.data");
-					LoginDB.set(user, newCreatedAt, "sessionToken.createdAt");
-
-					SessionTokensDB.set(newToken, {
-						username: user,
-						createdAt: newCreatedAt
-					});
-					SessionTokensDB.delete(oldToken);
-				} else {
-					newToken = LoginDB.get(user, "sessionToken.data");
-					newCreatedAt = oldCreatedAt;
+			const token = renewToken(user);
+			const response = new ServiceResponse(
+				true,
+				200,
+				"Success",
+				{
+					token: token.data,
+					createdAt: (new Date(token.createdAt)).toString()
 				}
+			)
 
-				response.success = true;
-				response.data = {
-					token: newToken,
-					createdAt: (new Date(newCreatedAt)).toString()
-				}
-			}
-
-			return response;
+			return response.get();
 		} catch (err) {
 			console.error(err);
+			return (new ServiceResponse(
+				false,
+				500,
+				"Something went wrong"
+			).get());
 		}
 	}
 
