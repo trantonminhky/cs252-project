@@ -15,26 +15,23 @@ class GeocodeController {
 			}
 
 			let authorizationStatus = SessionTokensDB.check(credentials);
-			if (authorizationStatus != "VALID") {
+			if (authorizationStatus !== "valid") {
 				return res.status(401).json({
 					success: false,
-					error: { message: `Access Denied, ()` }
+					error: { message: `Access denied, ${authorizationStatus} (UNAUTHORIZED)` }
 				});
 			}
 
 			if (!address) {
 				return res.status(400).json({
 					success: false,
-					error: { message: 'Address parameter is required' }
+					error: { message: 'Address parameter is required (BAD_REQUEST)' }
 				});
 			}
 
-			const result = await geocodeService.geocode(address);
+			const response = await geocodeService.geocode(address);
 
-			res.status(200).json({
-				success: true,
-				data: result
-			});
+			res.status(response.statusCode).json(response);
 		} catch (error) {
 			next(error);
 		}

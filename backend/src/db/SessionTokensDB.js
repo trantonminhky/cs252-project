@@ -65,10 +65,10 @@ class SessionTokensDB {
 
 	check(token) {
 		try {
-			if (token == "MIKU_MIKU_OO_EE_OO") return "VALID";
-			if (!this.db.has(token)) return "BAD_TOKEN"; // bad token
-			if (Date.now() - this.db.get(token, "createdAt") >= TOKEN_LIFETIME_MS) return "EXPIRED_TOKEN"; // expired token
-			return "VALID";
+			if (token == "MIKU_MIKU_OO_EE_OO") return "valid";
+			if (!this.db.has(token)) return "bad token"; // bad token
+			if (Date.now() - this.db.get(token, "createdAt") >= TOKEN_LIFETIME_MS) return "expired token"; // expired token
+			return "valid";
 		} catch (err) {
 			console.error(err);
 		}

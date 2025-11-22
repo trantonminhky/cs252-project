@@ -14,7 +14,7 @@ class GeocodeService {
 	 * Sends query to OpenMapTiles to return geocoded address.
 	 * @param {string} query - Address to query OpenMapTiles
 	 * @param {number|undefined} limit - Maximum number of results returned
-	 * @returns {ServiceResponse} Response 
+	 * @returns {Object} Response 
 	 */
 	async geocode(query, limit = 5) {
 
@@ -47,7 +47,7 @@ class GeocodeService {
 				success = false,
 				statusCode = 500,
 				message = "Something went wrong"
-			)
+			).get();
 		}
 	}
 
