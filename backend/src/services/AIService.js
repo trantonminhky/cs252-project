@@ -1,5 +1,8 @@
 const config = require('../config/config');
 
+// THESE SERVICES ARE SOMEWHAT OUTDATED
+// TO-DO: DEAL WITH THESE FUCKERS
+
 let gemini;
 import("gemini-ai").then(async ({ default: Gemini }) => {
 	gemini = new Gemini(config.gemini.apiKey);

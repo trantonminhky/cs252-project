@@ -1,6 +1,7 @@
 const geocodeService = require('../services/GeocodeService');
 const SessionTokensDB = require('../db/SessionTokensDB');
 
+// TO-DO: DOCUMENT CONTROLLER CLASSES
 class GeocodeController {
 	// Geocode an address
 	async geocode(req, res, next) {

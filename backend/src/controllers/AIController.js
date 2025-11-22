@@ -1,5 +1,6 @@
 const AIService = require('../services/AIService');
 
+// TO-DO: DOCUMENT CONTROLLER CLASSES
 class AIController {
 	async ask(req, res, next) {
 		try {
