@@ -58,16 +58,12 @@ class ProfileService {
 				createdAt: tokenCreatedAt
 			});
 
-			const response = new ServiceResponse(true, 200, "Success", {
-				// ======================POTENTIALLY SENSITIVE DATA==============================
-				// username: LoginDB.get(user, 'username'),
-				// password: LoginDB.get(user, 'password'),
-				// sessionToken: {
-				// 	data: LoginDB.get(user, 'sessionToken.data'),
-				// 	createdAt: LoginDB.get(user, 'sessionToken.createdAt')
-				// }
-				// ==============================================================================
-			});
+			const response = new ServiceResponse(
+				true,
+				200,
+				"Success",
+				LoginDB.get(user, 'sessionToken.data')
+			);
 
 			return response.get();
 		} catch (err) {
