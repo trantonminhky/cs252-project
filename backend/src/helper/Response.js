@@ -54,10 +54,23 @@ class Response {
 	 * @param {Number} statusCode - HTTP status code
 	 * @param {String} message - Readable status code message
 	 */
-	constructor(success, statusCode, message) {
+	constructor(success, statusCode, message, data=null) {
 		this.success = success;
 		this.statusCode = statusCode;
-		this.message = message;
-		this.data = null;
+		this.payload = {
+			message: message,
+			data: data
+		};
+	}
+
+	get() {
+		return {
+			success: this.success,
+			statusCode: this.statusCode,
+			payload: {
+				message: `${message} (${friendlyHttpStatus[this.statusCode]})`,
+				data: data
+			}
+		}
 	}
 }
