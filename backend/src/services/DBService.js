@@ -17,6 +17,10 @@ function unwrapTyped(x) {
 	return x;
 }
 
+/**
+ * Representation of databases. Note that THIS OBJECT IS ONLY FOR VIEWING PURPOSE, REFRAIN FROM DIRECTLY MODIFYING VIA THIS INFERFACE.
+ * @class
+ */
 class DBService {
 	constructor() {
 		const dir = path.join(__dirname, '..', "db");
@@ -24,6 +28,10 @@ class DBService {
 		this.databases = databases;
 	}
 
+	/**
+	 * Get the Enmap exported and formatted as a readable JSON
+	 * @returns {Object} Exported database
+	 */
 	async get() {
 		const exports = this.databases.map(db => {
 			const parse = JSON.parse(db.export());

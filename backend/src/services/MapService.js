@@ -1,6 +1,9 @@
 const axios = require('axios');
 const config = require('../config/config');
 
+// THESE SERVICES ARE SOMEWHAT OUTDATED
+// TO-DO: DEAL WITH THESE FUCKERS
+
 class MapService {
 	constructor() {
 		this.apiKey = config.maptiler.apiKey;
