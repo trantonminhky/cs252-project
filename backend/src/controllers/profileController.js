@@ -41,8 +41,25 @@ class ProfileController {
 
 	async clear(req, res, next) {
 		try {
+			// let's be real you are not gonna clear some random db without my credentials
+			const { credentials } = req.query;
+			
+			if (!credentials) {
+				return res.status(401).json({
+					success: false,
+					error: { message: 'Access denied, no credentials (UNAUTHORIZED)' }
+				});
+			}
+
+			if (credentials !== process.env.DATABASE_CLEAR_CREDENTIALS) {
+				return res.status(401).json({
+					success: false,
+					error: { message: 'Access denied, wrong credentials (UNAUTHORIZED)' }
+				});
+			}
+
 			const response = await ProfileService.clear();
-			res.json(response);
+			res.status(response.statusCode).json(response);
 		} catch (err) {
 			next(err);
 		}
