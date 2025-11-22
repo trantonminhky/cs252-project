@@ -1,6 +1,6 @@
 // src/services/geocode/geocode.js
 const axios = require('axios');
-const config = require('../../config/config');
+const config = require('../config/config');
 
 class GeocodeService {
 	constructor() {

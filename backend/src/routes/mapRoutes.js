@@ -5,10 +5,6 @@ const mapController = require('../controllers/mapController');
 // Map config
 router.get('/config', mapController.getMapConfig);
 
-// Geocoding
-router.get('/geocode', mapController.geocode);
-router.get('/reverse-geocode', mapController.reverseGeocode);
-
 // Rouitng
 router.post('/route', mapController.getRoute);
 
