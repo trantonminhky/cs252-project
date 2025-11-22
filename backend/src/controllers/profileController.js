@@ -1,4 +1,4 @@
-const ProfileService = require('../services/profileService');
+const ProfileService = require('../services/ProfileService');
 
 class ProfileController {
 	async register(req, res, next) {
