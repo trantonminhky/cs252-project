@@ -1,4 +1,4 @@
-const mapService = require('../services/mapService');
+const mapService = require('../services/MapService');
 
 // Sample spots (replace with database later)
 const tourismSpots = [
