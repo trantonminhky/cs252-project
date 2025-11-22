@@ -1,5 +1,7 @@
 // src/services/geocode/geocode.js
 const axios = require('axios');
+
+const Response = require('../helper/Response');
 const config = require('../config/config');
 
 class GeocodeService {
@@ -15,9 +17,16 @@ class GeocodeService {
 	 * @returns {Response} Response 
 	 */
 	async geocode(query, limit = 5) {
+		
+		// if no query is specified
 		if (!query) {
-			throw new Error('Geocode query is required');
+			return (new Response(
+				success = false,
+				statusCode = 400,
+				message = "Query is required"
+			).get());
 		}
+
 		try {
 			const url = `${this.baseUrl}/geocoding/${encodeURIComponent(query)}.json`;
 			const resp = await axios.get(url, {
