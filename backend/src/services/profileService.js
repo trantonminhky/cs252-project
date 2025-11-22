@@ -1,5 +1,7 @@
 const crypto = require('crypto');
 
+const ServiceResponse = require('../helper/ServiceResponse');
+
 const LoginDB = require('../db/LoginDB');
 const SessionTokensDB = require('../db/SessionTokensDB');
 
@@ -7,18 +9,18 @@ function generateToken32() {
 	return crypto.randomBytes(24).toString('base64url').slice(0, 32);
 }
 
-const SESSION_TOKEN_LIFETIME_MS = 1800000;
-
 // TO-DO: IMPLEMENT PASSWORD ENCRYPTION INSTEAD OF PLAINTEXT STORAGE
+/**
+ * 
+ */
 class ProfileService {
 	async register(user, pass) {
-		const response = {};
-
 		if (!user || !pass) {
-			response.success = false;
-			response.statusCode = 400;
-			response.data = "Username or password is required (BAD_REQUEST)";
-			return response;
+			return (new ServiceResponse(
+				false,
+				400,
+				"Username or password is required"
+			).get());
 		}
 
 		if (LoginDB.has(user)) {

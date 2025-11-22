@@ -4,6 +4,10 @@ const axios = require('axios');
 const ServiceResponse = require('../helper/ServiceResponse');
 const config = require('../config/config');
 
+/**
+ * Geocode service provider class.
+ * @class
+ */
 class GeocodeService {
 	constructor() {
 		this.apiKey = config.maptiler.apiKey;
