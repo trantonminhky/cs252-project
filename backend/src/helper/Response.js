@@ -63,6 +63,10 @@ class Response {
 		};
 	}
 
+	/**
+	 * Get Object representation of this.
+	 * @returns {Object} Object
+	 */
 	get() {
 		return {
 			success: this.success,

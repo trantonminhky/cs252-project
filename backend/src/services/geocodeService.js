@@ -17,7 +17,7 @@ class GeocodeService {
 	 * @returns {Response} Response 
 	 */
 	async geocode(query, limit = 5) {
-		
+
 		// if no query is specified
 		if (!query) {
 			return (new Response(
