@@ -1,4 +1,4 @@
-const geocodeService = require('../services/geocodeService');
+const geocodeService = require('../services/GeocodeService');
 const SessionTokensDB = require('../db/SessionTokensDB');
 
 class GeocodeController {
