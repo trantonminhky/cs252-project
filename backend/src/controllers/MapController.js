@@ -1,5 +1,6 @@
-const mapService = require('../services/mapService');
+const mapService = require('../services/MapService');
 
+// TO-DO: DOCUMENT CONTROLLER CLASSES
 // Sample spots (replace with database later)
 const tourismSpots = [
     {

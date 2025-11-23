@@ -26,7 +26,7 @@ class _SignInFormState extends State<SignInForm> {
     return Container(
       width: MediaQuery.of(context).size.width,
       height: 796,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(32),
@@ -57,7 +57,7 @@ class _SignInFormState extends State<SignInForm> {
                 alignment: Alignment.topRight,
                 child: InkWell(
                   onTap: () {},
-                  child: Text(
+                  child: const Text(
                     "Forgot password?",
                     style: TextStyle(
                       fontFamily: "BeVietnamPro",
@@ -71,20 +71,18 @@ class _SignInFormState extends State<SignInForm> {
                   ),
                 ),
               ),
-
               const SizedBox(height: 48),
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   TextButton(
                     style: TextButton.styleFrom(
                       shape: RoundedRectangleBorder(
-                        side: BorderSide(color: Colors.black, width: 2),
+                        side: const BorderSide(color: Colors.black, width: 2),
                         borderRadius: BorderRadius.circular(13),
                       ),
-                      fixedSize: Size(167, 58),
-                      padding: EdgeInsets.symmetric(
+                      fixedSize: const Size(167, 58),
+                      padding: const EdgeInsets.symmetric(
                         horizontal: 20,
                         vertical: 14,
                       ),
@@ -102,7 +100,7 @@ class _SignInFormState extends State<SignInForm> {
                           ),
                         ),
                         const SizedBox(width: 10),
-                        Text(
+                        const Text(
                           "Google",
                           style: TextStyle(
                             color: Colors.black,
@@ -114,15 +112,14 @@ class _SignInFormState extends State<SignInForm> {
                       ],
                     ),
                   ),
-
                   TextButton(
                     style: TextButton.styleFrom(
                       shape: RoundedRectangleBorder(
-                        side: BorderSide(color: Colors.black, width: 2),
+                        side: const BorderSide(color: Colors.black, width: 2),
                         borderRadius: BorderRadius.circular(13),
                       ),
-                      fixedSize: Size(167, 58),
-                      padding: EdgeInsets.symmetric(
+                      fixedSize: const Size(167, 58),
+                      padding: const EdgeInsets.symmetric(
                         horizontal: 20,
                         vertical: 14,
                       ),
@@ -140,7 +137,7 @@ class _SignInFormState extends State<SignInForm> {
                           ),
                         ),
                         const SizedBox(width: 10),
-                        Text(
+                        const Text(
                           "Apple",
                           style: TextStyle(
                             color: Colors.black,
@@ -154,9 +151,7 @@ class _SignInFormState extends State<SignInForm> {
                   ),
                 ],
               ),
-
               const SizedBox(height: 149),
-
               Align(
                 alignment: Alignment.center,
                 child: ElevatedButton(
@@ -164,12 +159,14 @@ class _SignInFormState extends State<SignInForm> {
                     backgroundColor: kThemeColor,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(13),
-                      side: BorderSide(color: Colors.black, width: 2),
+                      side: const BorderSide(color: Colors.black, width: 2),
                     ),
-                    fixedSize: Size(135, 52),
+                    fixedSize: const Size(135, 52),
                   ),
-                  onPressed: () {},
-                  child: Text(
+                  onPressed: () {
+                    Navigator.pushReplacementNamed(context, '/home');
+                  },
+                  child: const Text(
                     "Sign in",
                     style: TextStyle(
                       color: Colors.white,

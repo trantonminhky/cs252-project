@@ -1,13 +1,12 @@
-const axios = require('axios');
-// const OpenAI = require('openai');
 const config = require('../config/config');
+
+// THESE SERVICES ARE SOMEWHAT OUTDATED
+// TO-DO: DEAL WITH THESE FUCKERS
 
 let gemini;
 import("gemini-ai").then(async ({ default: Gemini }) => {
 	gemini = new Gemini(config.gemini.apiKey);
 });
-
-// const client = new OpenAI({ apiKey: config.openAI.apiKey });
 
 
 class AIService {

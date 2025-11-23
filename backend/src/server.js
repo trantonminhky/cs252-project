@@ -12,10 +12,11 @@ const corsMiddleware = require('./middleware/cors');
 const errorHandler = require('./middleware/errorHandler');
 
 // route imports
-const mapRoutes = require('./routes/mapRoutes');
+const MapRoutes = require('./routes/MapRoutes');
 const AIRoutes = require('./routes/AIRoutes');
-const geocodeRoutes = require('./routes/geocodeRoutes');
-const profileRoutes = require('./routes/profileRoutes');
+const GeocodeRoutes = require('./routes/GeocodeRoutes');
+const ProfileRoutes = require('./routes/ProfileRoutes');
+const DBRoutes = require('./routes/DBRoutes');
 
 const app = express();
 
@@ -56,10 +57,11 @@ app.get('/health', (req, res) => {
 });
 
 // API route
-app.use('/api/map', mapRoutes);
-app.use('/api/geocode', geocodeRoutes);
+app.use('/api/map', MapRoutes);
+app.use('/api/geocode', GeocodeRoutes);
 app.use('/api/ai', AIRoutes);
-app.use('/api/profile', profileRoutes);
+app.use('/api/profile', ProfileRoutes);
+app.use('/api/db', DBRoutes);
 
 // Root endpoint
 app.get('/', (req, res) => {
@@ -83,7 +85,9 @@ app.get('/', (req, res) => {
 			register: '/api/profile/register (POST) body: { "username": "<user>", "password": "<pass>" }',
 			login: '/api/profile/test-get?username=<user>&password=<pass>',
 
-			ask: '/api/ai/ask?prompt=<prompt>'
+			ask: '/api/ai/ask?prompt=<prompt>',
+
+			db: '/api/db/dangerous/get'
 		}
 	});
 });

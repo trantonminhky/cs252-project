@@ -1,4 +1,3 @@
-
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -52,13 +51,12 @@ class _AuthenciationScreenState extends State<AuthenciationScreen>
             filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
             child: Container(color: Colors.black.withValues(alpha: 0.1)),
           ),
-
           Positioned(
             top: 180,
             child: Container(
               width: MediaQuery.of(context).size.width,
               height: 796,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(32),
@@ -67,17 +65,16 @@ class _AuthenciationScreenState extends State<AuthenciationScreen>
               ),
               child: TabBarView(
                 controller: _tabController,
-                children: [SignUpContainer(), SignInForm()],
+                children: const [SignUpContainer(), SignInForm()],
               ),
             ),
           ),
-
           Positioned(
             top: 165,
             child: Container(
               width: 310,
               height: 41,
-              padding: EdgeInsets.all(3.0),
+              padding: const EdgeInsets.all(3.0),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(50),
@@ -94,7 +91,7 @@ class _AuthenciationScreenState extends State<AuthenciationScreen>
                   ),
                 ),
                 indicatorSize: TabBarIndicatorSize.tab,
-                tabs: [
+                tabs: const [
                   Tab(
                     child: SizedBox(
                       height: 33,
@@ -103,7 +100,7 @@ class _AuthenciationScreenState extends State<AuthenciationScreen>
                         child: Text(
                           "Sign up",
                           style: TextStyle(
-                            color: const Color(0xFF1E1E1E),
+                            color: Color(0xFF1E1E1E),
                             fontSize: 14,
                             fontFamily: 'BeVietnamPro',
                             fontWeight: FontWeight.w600,
@@ -120,7 +117,7 @@ class _AuthenciationScreenState extends State<AuthenciationScreen>
                         child: Text(
                           "Sign in",
                           style: TextStyle(
-                            color: const Color(0xFF1E1E1E),
+                            color: Color(0xFF1E1E1E),
                             fontSize: 14,
                             fontFamily: 'BeVietnamPro',
                             fontWeight: FontWeight.w600,
@@ -133,13 +130,12 @@ class _AuthenciationScreenState extends State<AuthenciationScreen>
               ),
             ),
           ),
-
           Positioned(
             top: 45,
             left: 10,
             child: IconButton(
               color: Colors.white,
-              icon: Icon(CupertinoIcons.back, size: 40),
+              icon: const Icon(CupertinoIcons.back, size: 40),
               onPressed: () {
                 Navigator.pop(context);
               },

@@ -25,12 +25,12 @@ class SignUpForm2 extends StatelessWidget {
           Align(
             alignment: Alignment.topLeft,
             child: IconButton(
-              icon: Icon(CupertinoIcons.back, size: 40),
-              onPressed: () => onPrevious(),          
+              icon: const Icon(CupertinoIcons.back, size: 40),
+              onPressed: () => onPrevious(),
             ),
           ),
           const SizedBox(height: 49),
-          Text(
+          const Text(
             "We would like to know more about you...",
             style: TextStyle(
               color: Colors.black,
@@ -40,36 +40,30 @@ class SignUpForm2 extends StatelessWidget {
               letterSpacing: -1,
             ),
           ),
-
           const SizedBox(height: 83),
-
           MyTextField(
             textEditingController: nameController,
             label: "Name",
             hintText: "First name - Last name",
           ),
-
           const SizedBox(height: 71),
-
           MyTextField(
             textEditingController: ageController,
             label: "Age",
             digitsOnly: true,
           ),
-
           const SizedBox(height: 94),
-
           TextButton(
-            onPressed: () => onNext,
+            onPressed: () => onNext(),
             style: TextButton.styleFrom(
-              backgroundColor: Color(0xffd72323),
-              fixedSize: Size(109, 52),
+              backgroundColor: const Color(0xffd72323),
+              fixedSize: const Size(109, 52),
               shape: RoundedRectangleBorder(
-                side: BorderSide(color: Colors.black, width: 2),
+                side: const BorderSide(color: Colors.black, width: 2),
                 borderRadius: BorderRadius.circular(13),
               ),
             ),
-            child: Text(
+            child: const Text(
               "Done",
               style: TextStyle(
                 color: Colors.white,
