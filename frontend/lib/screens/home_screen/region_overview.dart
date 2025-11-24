@@ -28,15 +28,18 @@ class _RegionOverviewState extends State<RegionOverview> {
 
   // Data state
   Region? _region;
+  List<Place>? _allPlaces; // Store all places
   List<Place>? _filteredPlaces;
   bool _isLoading = true;
   String? _errorMessage;
+  FilterType _currentFilter = FilterType.regionOverview;
 
   final RegionService _regionService = RegionService();
 
   @override
   void initState() {
     super.initState();
+    _currentFilter = widget.currentFilter;
     _loadRegionData();
   }
 
@@ -55,10 +58,11 @@ class _RegionOverviewState extends State<RegionOverview> {
 
       // Filter places based on current filter
       final filteredPlaces =
-          _regionService.filterPlaces(places, widget.currentFilter);
+          _regionService.filterPlaces(places, _currentFilter);
 
       setState(() {
         _region = region;
+        _allPlaces = places; // Store all places
         _filteredPlaces = filteredPlaces;
         _isLoading = false;
       });
@@ -68,6 +72,15 @@ class _RegionOverviewState extends State<RegionOverview> {
         _isLoading = false;
       });
     }
+  }
+
+  void _updateFilter(FilterType newFilter) {
+    if (_allPlaces == null) return;
+
+    setState(() {
+      _currentFilter = newFilter;
+      _filteredPlaces = _regionService.filterPlaces(_allPlaces!, newFilter);
+    });
   }
 
   @override
@@ -310,7 +323,7 @@ class _RegionOverviewState extends State<RegionOverview> {
 
   // Helper method to build filter chips
   Widget _buildFilterChip(FilterType filterType, String label, IconData icon) {
-    final bool isSelected = widget.currentFilter == filterType;
+    final bool isSelected = _currentFilter == filterType;
     return FilterChip(
       avatar: CircleAvatar(
         foregroundColor: isSelected ? Colors.white : Colors.grey,
@@ -327,16 +340,7 @@ class _RegionOverviewState extends State<RegionOverview> {
       selected: isSelected,
       onSelected: (selected) {
         if (selected && !isSelected) {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => RegionOverview(
-                regionId: widget.regionId,
-                regionName: widget.regionName,
-                currentFilter: filterType,
-              ),
-            ),
-          );
+          _updateFilter(filterType);
         }
       },
     );

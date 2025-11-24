@@ -118,6 +118,12 @@ class PlaceOverview extends ConsumerWidget {
                 TextButton(
                   onPressed: () {
                     ref.read(tripProvider.notifier).addPlace(place);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('${place.name} added to Saves'),
+                        duration: const Duration(seconds: 2),
+                      ),
+                    );
                   },
                   style: TextButton.styleFrom(
                     backgroundColor: const Color(0xffd72323),

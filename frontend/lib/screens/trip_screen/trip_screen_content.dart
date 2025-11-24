@@ -115,53 +115,80 @@ class _TripScreenContentState extends ConsumerState<TripScreenContent>
                       itemCount: placesList.length,
                       itemBuilder: (context, index) {
                         final place = placesList[index];
-                        return Padding(
-                          padding: const EdgeInsets.only(bottom: 16.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(8),
-                                child: SizedBox(
-                                  width: double.infinity,
-                                  height: 100,
-                                  // should be Image.network once data is ready
-                                  child: Image.asset(
-                                    place.imageUrl,
-                                    fit: BoxFit.cover,
-                                    errorBuilder: (context, error, stackTrace) {
-                                      return Container(
-                                        color: Colors.grey[300],
-                                        child: const Icon(
-                                          Icons.image_not_supported,
-                                          size: 40,
-                                        ),
-                                      );
-                                    },
+                        return Dismissible(
+                          key: Key(place.name + place.address),
+                          direction: DismissDirection.endToStart,
+                          onDismissed: (direction) {
+                            ref.read(tripProvider.notifier).removePlace(place);
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text('${place.name} removed'),
+                                duration: const Duration(seconds: 2),
+                              ),
+                            );
+                          },
+                          background: Container(
+                            alignment: Alignment.centerRight,
+                            padding: const EdgeInsets.only(right: 20),
+                            decoration: BoxDecoration(
+                              color: Colors.red,
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: const Icon(
+                              Icons.delete,
+                              color: Colors.white,
+                              size: 32,
+                            ),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(bottom: 16.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(8),
+                                  child: SizedBox(
+                                    width: double.infinity,
+                                    height: 100,
+                                    // should be Image.network once data is ready
+                                    child: Image.asset(
+                                      place.imageUrl,
+                                      fit: BoxFit.cover,
+                                      errorBuilder:
+                                          (context, error, stackTrace) {
+                                        return Container(
+                                          color: Colors.grey[300],
+                                          child: const Icon(
+                                            Icons.image_not_supported,
+                                            size: 40,
+                                          ),
+                                        );
+                                      },
+                                    ),
                                   ),
                                 ),
-                              ),
-                              const SizedBox(height: 7),
-                              Text(
-                                place.name,
-                                style: const TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 16,
-                                  fontFamily: "BeVietnamPro",
-                                  fontWeight: FontWeight.w700,
+                                const SizedBox(height: 7),
+                                Text(
+                                  place.name,
+                                  style: const TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 16,
+                                    fontFamily: "BeVietnamPro",
+                                    fontWeight: FontWeight.w700,
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(height: 7),
-                              Text(
-                                place.address,
-                                style: const TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 12,
-                                  fontFamily: "BeVietnamPro",
-                                  fontWeight: FontWeight.w400,
+                                const SizedBox(height: 7),
+                                Text(
+                                  place.address,
+                                  style: const TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 12,
+                                    fontFamily: "BeVietnamPro",
+                                    fontWeight: FontWeight.w400,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         );
                       },

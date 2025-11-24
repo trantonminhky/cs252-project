@@ -15,8 +15,6 @@ class _SignUpFormState extends State<SignUpForm> {
   final FocusNode _usernameFocusNode = FocusNode();
   final FocusNode _passwordFocusNode = FocusNode();
   final FocusNode _repeatPasswordFocusNode = FocusNode();
-  final bool _obscureText = true;
-  final bool _rObscureText = true;
 
   @override
   void dispose() {
