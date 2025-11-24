@@ -9,7 +9,6 @@ if [[ -z "$LINK" ]]; then
 fi
 
 curl -X POST \
-  -H 'Content-Type: application/json' \
-  -H 'Accept: application/json' \
-  --data "{\"content\":\"New Tunnel: $LINK\"}" \
-  "https://discord.com/api/webhooks/1426913821553070101/wdt3pYQqe_QI8c9wWGCfozf-V4YY1Xl-wt-zHkId4hSNamO5WQz89T1iqhU1d79psNd0"
+  -H "Content-Type: application/json" \
+  --data "{\"embeds\":[{\"title\":\"NEW TUNNEL CREATED\",\"description\":\"$LINK\",\"color\":65535,\"footer\":{\"text\":\"con cu\"}}]}" \
+  "https://discord.com/api/webhooks/1442462919337181354/eVviM40zdSo_kHaC8NC9Q5fsg91FIrCzJRpVTGpdmpaL7JLQNNozX1tFvkU3u8-OjsVl"
