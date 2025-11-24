@@ -1,5 +1,3 @@
-import "place.dart";
-
 class Region {
   final String id;
   final String name;
