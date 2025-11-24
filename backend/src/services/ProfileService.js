@@ -56,6 +56,15 @@ class ProfileService {
 			).get());
 		}
 
+		// if no name or age is not provided
+		if (!name || !age) {
+			return (new ServiceResponse(
+				false,
+				400,
+				"User info is required"
+			).get());
+		}
+
 		// if the username is already registered
 		if (UserDB.has(user)) {
 			return (new ServiceResponse(
