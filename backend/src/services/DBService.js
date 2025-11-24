@@ -38,7 +38,7 @@ class DBService {
 			const data = {};
 			for (const entry of parse.v.keys.v) {
 				data[entry.v.key.v] = unwrapTyped(JSON.parse(entry.v.value.v));
-				console.log(entry.v);
+				// console.log(entry.v);
 			}
 			return data;
 		});

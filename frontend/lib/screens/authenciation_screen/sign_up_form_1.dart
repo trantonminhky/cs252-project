@@ -4,46 +4,46 @@ import 'package:virtour_frontend/components/custom_text_field.dart';
 
 class SignUpForm1 extends StatelessWidget {
   final Function onNext;
-  final TextEditingController emailController;
+  final TextEditingController usernameController;
   final TextEditingController passwordController;
   const SignUpForm1({
     super.key,
     required this.onNext,
-    required this.emailController,
+    required this.usernameController,
     required this.passwordController,
   });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 149, left: 20, right: 30),
+      padding: const EdgeInsets.only(top: 16, left: 32, right: 32),
       child: Column(
         children: [
           const Text(
             "Sign up to save all your progress!",
             style: TextStyle(
               color: Colors.black,
-              fontSize: 23,
+              fontSize: 24,
               fontFamily: "BeVietnamPro",
               fontWeight: FontWeight.w700,
               letterSpacing: -1,
             ),
           ),
-          const SizedBox(height: 85),
+          const SizedBox(height: 48),
           MyTextField(
-            textEditingController: emailController,
+            textEditingController: usernameController,
             label: "Email address/Username",
             hintText: "Email address",
             prefixIcon: CupertinoIcons.person,
           ),
-          const SizedBox(height: 71),
+          const SizedBox(height: 48),
           MyTextField(
             textEditingController: passwordController,
             label: "Password",
             prefixIcon: CupertinoIcons.lock,
             obscureText: true,
           ),
-          const SizedBox(height: 114),
+          const SizedBox(height: 96),
           TextButton(
             onPressed: () => onNext(),
             style: TextButton.styleFrom(

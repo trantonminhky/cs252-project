@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:virtour_frontend/components/custom_text_field.dart';
 import 'package:virtour_frontend/constants/colors.dart';
+import 'package:virtour_frontend/screens/authenciation_screen/auth_service.dart';
 
 class SignInForm extends StatefulWidget {
   const SignInForm({super.key});
@@ -13,12 +14,49 @@ class SignInForm extends StatefulWidget {
 class _SignInFormState extends State<SignInForm> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  AuthService authService = AuthService();
+  bool _isLoading = false;
 
   @override
   void dispose() {
     _usernameController.dispose();
     _passwordController.dispose();
     super.dispose();
+  }
+
+  void _showSnackBar(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        duration: const Duration(seconds: 3),
+      ),
+    );
+  }
+
+  Future<void> _handleSignIn() async {
+    if (_usernameController.text.isEmpty) {
+      _showSnackBar("Please enter your username.");
+      return;
+    }
+    if (_passwordController.text.isEmpty) {
+      _showSnackBar("Please enter your password.");
+      return;
+    }
+    setState(() => _isLoading = true);
+    final result = await authService.signIn(
+        _usernameController.text, _passwordController.text);
+    setState(() => _isLoading = false);
+    switch (result['success']) {
+      case true:
+        _showSnackBar("Sign in successful! Navigating to home...");
+        Navigator.pushReplacementNamed(context, '/home');
+        break;
+      case false:
+        _showSnackBar("Sign in failed. Reason: ${result['message']}");
+        break;
+      default:
+        _showSnackBar("An unexpected error occurred.");
+    }
   }
 
   @override
@@ -157,24 +195,32 @@ class _SignInFormState extends State<SignInForm> {
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: kThemeColor,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 14),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(13),
-                      side: const BorderSide(color: Colors.black, width: 2),
+                      borderRadius: BorderRadius.circular(16),
                     ),
                     fixedSize: const Size(135, 52),
                   ),
-                  onPressed: () {
-                    Navigator.pushReplacementNamed(context, '/home');
-                  },
-                  child: const Text(
-                    "Sign in",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontFamily: "BeVietnamPro",
-                      fontSize: 24,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
+                  onPressed: _isLoading ? null : _handleSignIn,
+                  child: _isLoading
+                      ? const SizedBox(
+                          width: 24,
+                          height: 24,
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                            strokeWidth: 2,
+                          ),
+                        )
+                      : const Text(
+                          "Sign in",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: "BeVietnamPro",
+                            fontSize: 24,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
                 ),
               ),
             ],

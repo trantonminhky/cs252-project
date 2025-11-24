@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:virtour_frontend/screens/authenciation_screen/auth_service.dart';
 
 class SignUpForm extends StatefulWidget {
   const SignUpForm({super.key});
@@ -10,6 +11,8 @@ class SignUpForm extends StatefulWidget {
 class _SignUpFormState extends State<SignUpForm> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _ageController = TextEditingController();
   final TextEditingController _repeatPasswordController =
       TextEditingController();
   final FocusNode _usernameFocusNode = FocusNode();
