@@ -1,3 +1,4 @@
+import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:virtour_frontend/components/briefings.dart";
 import "package:virtour_frontend/components/custom_text_field.dart";
@@ -71,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             onTap: () {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(
+                                CupertinoPageRoute(
                                   //this is mock data, hooking up with db later
                                   builder: (context) => const RegionOverview(
                                     regionId: "01",
@@ -93,7 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             onTap: () {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(
+                                CupertinoPageRoute(
                                   builder: (context) => const RegionOverview(
                                     regionId: "01",
                                     regionName: "Sài Gòn",
@@ -114,7 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             onTap: () {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(
+                                CupertinoPageRoute(
                                   builder: (context) => const RegionOverview(
                                     regionId: "01",
                                     regionName: "Sài Gòn",
@@ -135,7 +136,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             onTap: () {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(
+                                CupertinoPageRoute(
                                   builder: (context) => const RegionOverview(
                                     regionId: "01",
                                     regionName: "Sài Gòn",

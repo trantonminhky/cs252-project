@@ -2,6 +2,7 @@ import "package:dotted_border/dotted_border.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:virtour_frontend/providers/trip_provider.dart";
+import "package:virtour_frontend/screens/trip_screen/trip_screen_content.dart";
 
 class TripScreen extends ConsumerWidget {
   const TripScreen({super.key});
@@ -13,7 +14,7 @@ class TripScreen extends ConsumerWidget {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.only(left: 20),
+          padding: const EdgeInsets.only(left: 20, right: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -124,7 +125,7 @@ class TripScreen extends ConsumerWidget {
                         ),
                       ),
                     )
-                  : const Text("cc"),
+                  : const Expanded(child: TripScreenContent()),
             ],
           ),
         ),
