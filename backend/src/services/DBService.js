@@ -32,7 +32,7 @@ class DBService {
 	 * Get the Enmap exported and formatted as a readable JSON
 	 * @returns {Object} Exported database
 	 */
-	async get() {
+	async exportAll() {
 		const exports = this.databases.map(db => {
 			const parse = JSON.parse(db.export());
 			const data = {};
