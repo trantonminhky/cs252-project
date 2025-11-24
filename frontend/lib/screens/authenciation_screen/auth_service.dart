@@ -4,7 +4,7 @@ import "package:shared_preferences/shared_preferences.dart";
 class AuthService {
   late final Dio _dio;
   static const String _baseUrl =
-      "https://jackets-myth-correctly-passes.trycloudflare.com/";
+      "https://jackets-myth-correctly-passes.trycloudflare.com";
   AuthService() {
     _dio = Dio(BaseOptions(
       baseUrl: _baseUrl,
@@ -14,51 +14,36 @@ class AuthService {
         "Content-Type": "application/json",
       },
     ));
-    _dio.interceptors.add(InterceptorsWrapper(
-      onRequest: (options, handler) async {
-        final prefs = await SharedPreferences.getInstance();
-        final token = prefs.getString("auth_token");
-        if (token != null) {
-          options.headers["Authorization"] = "Bearer $token";
-        }
-        return handler.next(options);
-      },
-    ));
+    // _dio.interceptors.add(InterceptorsWrapper(
+    //   onRequest: (options, handler) async {
+    //     final prefs = await SharedPreferences.getInstance();
+    //     final token = prefs.getString("auth_token");
+    //     if (token != null) {
+    //       options.headers["Authorization"] = "Bearer $token";
+    //     }
+    //     return handler.next(options);
+    //   },
+    // ));
   }
 
   Future<Map<String, dynamic>> signIn(String username, String password) async {
     final response = await _dio.get(
         "$_baseUrl/api/profile/login?username=$username&password=$password");
+    final body = response.data as Map<String, dynamic>;
+
     switch (response.statusCode) {
       case 200:
         final prefs = await SharedPreferences.getInstance();
-        await prefs.setString("auth_token", response.data["token"]);
+        final payload = body["payload"] as Map<String, dynamic>;
+        final data = payload["data"] as Map<String, dynamic>;
+        final token = data["token"] as String;
+        await prefs.setString("auth_token", token);
         return response.data;
-      case 400:
-        return {
-          'success': false,
-          'message': response.data["message"] ?? "Bad Request"
-        };
-      case 401:
-        return {
-          'success': false,
-          'message': response.data["message"] ?? "Unauthorized"
-        };
-      case 403:
-        return {
-          'success': false,
-          'message': response.data["message"] ?? "Forbidden"
-        };
-      case 500:
-        return {
-          'success': false,
-          'message': response.data["message"] ?? "Internal Server Error"
-        };
       default:
-        return {
-          'success': false,
-          'message': 'Unexpected error: ${response.statusCode}'
-        };
+        final success = body["success"] as bool;
+        final payload = body["payload"] as Map<String, dynamic>;
+        final message = payload["message"] as String;
+        return {'success': success, 'message': message};
     }
   }
 
@@ -70,36 +55,20 @@ class AuthService {
       "name": name,
       "age": age,
     });
+    final prefs = await SharedPreferences.getInstance();
+    final body = response.data as Map<String, dynamic>;
     switch (response.statusCode) {
-      case 201:
-        final prefs = await SharedPreferences.getInstance();
-        await prefs.setString("auth_token", response.data["token"]);
+      case 200:
+        final payload = body["payload"] as Map<String, dynamic>;
+        final data = payload["data"] as Map<String, dynamic>;
+        final token = data["token"] as String;
+        await prefs.setString("auth_token", token);
         return response.data;
-      case 400:
-        return {
-          'success': false,
-          'message': response.data["message"] ?? "Bad Request"
-        };
-      case 401:
-        return {
-          'success': false,
-          'message': response.data["message"] ?? "Unauthorized"
-        };
-      case 403:
-        return {
-          'success': false,
-          'message': response.data["message"] ?? "Forbidden"
-        };
-      case 500:
-        return {
-          'success': false,
-          'message': response.data["message"] ?? "Internal Server Error"
-        };
       default:
-        return {
-          'success': false,
-          'message': 'Unexpected error: ${response.statusCode}'
-        };
+        final success = body["success"] as bool;
+        final payload = body["payload"] as Map<String, dynamic>;
+        final message = payload["message"] as String;
+        return {'success': success, 'message': message};
     }
   }
 }

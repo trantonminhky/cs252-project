@@ -19,17 +19,9 @@ class SignUpForm2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 30, left: 20, right: 30),
+      padding: const EdgeInsets.only(top: 16, left: 32, right: 32),
       child: Column(
         children: [
-          Align(
-            alignment: Alignment.topLeft,
-            child: IconButton(
-              icon: const Icon(CupertinoIcons.back, size: 40),
-              onPressed: () => onPrevious(),
-            ),
-          ),
-          const SizedBox(height: 49),
           const Text(
             "We would like to know more about you...",
             style: TextStyle(
@@ -40,36 +32,85 @@ class SignUpForm2 extends StatelessWidget {
               letterSpacing: -1,
             ),
           ),
-          const SizedBox(height: 83),
+          const SizedBox(height: 24),
           MyTextField(
             textEditingController: nameController,
             label: "Name",
             hintText: "First name - Last name",
           ),
-          const SizedBox(height: 71),
+          const SizedBox(height: 48),
           MyTextField(
             textEditingController: ageController,
             label: "Age",
             digitsOnly: true,
           ),
-          const SizedBox(height: 94),
-          TextButton(
-            onPressed: () => onNext(),
-            style: TextButton.styleFrom(
-              backgroundColor: const Color(0xffd72323),
-              fixedSize: const Size(109, 52),
-              shape: RoundedRectangleBorder(
-                side: const BorderSide(color: Colors.black, width: 2),
-                borderRadius: BorderRadius.circular(13),
-              ),
-            ),
-            child: const Text(
-              "Done",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-                fontFamily: "BeVietnamPro",
-                fontWeight: FontWeight.w600,
+          const SizedBox(height: 96),
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 48,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 32),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () => onPrevious(),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 32, vertical: 16),
+                        decoration: ShapeDecoration(
+                          color: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            side: const BorderSide(
+                                width: 2,
+                                strokeAlign: BorderSide.strokeAlignInside),
+                            borderRadius: BorderRadius.circular(13),
+                          ),
+                        ),
+                        child: const Center(
+                          child: Text(
+                            'Back',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 16,
+                              fontFamily: 'Be Vietnam',
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 20),
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () => onNext(),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 32, vertical: 16),
+                        decoration: ShapeDecoration(
+                          color: Color(0xffd72323),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                        ),
+                        child: const Center(
+                          child: Text(
+                            'Done',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontFamily: 'Be Vietnam',
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
