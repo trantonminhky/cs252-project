@@ -1,6 +1,5 @@
-# Cultour - Turn your bleak trip into peak shi*t
-
-lorem ipsum
+# Cultour - Turn your bleak trip into peak sh*t
+bro pls stop commit farming 
 
 # Project Setup (with Docker)
 
