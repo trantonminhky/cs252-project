@@ -1,3 +1,7 @@
+# Cultour - Turn your bleak trip into peak shi*t
+
+lorem ipsum
+
 # Project Setup (with Docker)
 
 This project runs in a self-contained Docker environment.
