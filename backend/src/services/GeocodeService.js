@@ -10,8 +10,7 @@ const config = require('../config/config');
  */
 class GeocodeService {
 	constructor() {
-		this.apiKey = config.maptiler.apiKey;
-		this.baseUrl = config.maptiler.baseUrl;
+		this.baseUrl = config.openStreetMap.baseUrl;
 	}
 
 	/**
@@ -32,7 +31,7 @@ class GeocodeService {
 		}
 
 		try {
-			const url = `${this.baseUrl}/geocoding/${encodeURIComponent(query)}.json`;
+			const url = `${this.baseUrl}/search?format=jsonv2&q=${encodeURIComponent(query)}`;
 			const resp = await axios.get(url, {
 				params: {
 					key: this.apiKey,

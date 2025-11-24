@@ -9,6 +9,10 @@ const config = {
 		baseUrl: 'https://api.maptiler.com'
 	},
 
+	openStreetMap: {
+		baseUrl: 'https://nominatim.openstreetmap.org'
+	}
+
 	cors: {
 		allowedOrigins: process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',') : ['http://localhost:3000']
 	},
