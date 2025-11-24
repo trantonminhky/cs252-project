@@ -110,13 +110,21 @@ class ProfileService {
 	 * @param {String} pass - Password
 	 * @returns {Object} Response
 	 */
-	async login(user, pass) {
+	async login(user, pass, name, age) {
 		// if no username or password is provided
 		if (!user || !pass) {
 			return (new ServiceResponse(
 				false,
 				400,
 				"Username or password is required"
+			).get());
+		}
+
+		if (!name || !age) {
+			return (new ServiceResponse(
+				false,
+				400,
+				"Missing user info"
 			).get());
 		}
 
