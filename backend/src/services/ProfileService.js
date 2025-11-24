@@ -119,8 +119,9 @@ class ProfileService {
 				"Username or password is required"
 			).get());
 		}
-
-		if (!name || !age) {
+		
+		// if no name or age
+		if (!name || !age) { 
 			return (new ServiceResponse(
 				false,
 				400,
@@ -129,7 +130,8 @@ class ProfileService {
 		}
 
 		const password = UserDB.get(user, 'password');
-		if (!password) { // if this user does not exist
+		// if this user does not exist
+		if (!password) { 
 			return (new ServiceResponse(
 				false,
 				401,
@@ -137,7 +139,8 @@ class ProfileService {
 			).get());
 		}
 
-		if (password !== pass) { // if password mismatch
+		// if password mismatch
+		if (password !== pass) { 
 			return (new ServiceResponse(
 				false,
 				401,
