@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:virtour_frontend/screens/authenciation_screen/sign_up_form_1.dart';
 import 'package:virtour_frontend/screens/authenciation_screen/sign_up_form_2.dart';
+import 'package:virtour_frontend/screens/authenciation_screen/auth_service.dart';
 
 class SignUpContainer extends StatefulWidget {
   const SignUpContainer({super.key});
@@ -11,14 +12,14 @@ class SignUpContainer extends StatefulWidget {
 
 class _SignUpContainerState extends State<SignUpContainer> {
   int _index = 0;
-  final emailController = TextEditingController();
+  final usernameController = TextEditingController();
   final passwordController = TextEditingController();
   final nameController = TextEditingController();
   final ageController = TextEditingController();
 
   @override
   void dispose() {
-    emailController.dispose();
+    usernameController.dispose();
     passwordController.dispose();
     nameController.dispose();
     ageController.dispose();
@@ -52,7 +53,7 @@ class _SignUpContainerState extends State<SignUpContainer> {
           children: [
             SignUpForm1(
               onNext: () => changeIndex(1),
-              emailController: emailController,
+              usernameController: usernameController,
               passwordController: passwordController,
             ),
             SignUpForm2(

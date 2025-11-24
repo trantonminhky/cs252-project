@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:virtour_frontend/screens/authenciation_screen/auth_service.dart';
 
 class SignUpForm extends StatefulWidget {
   const SignUpForm({super.key});
@@ -10,6 +11,8 @@ class SignUpForm extends StatefulWidget {
 class _SignUpFormState extends State<SignUpForm> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _ageController = TextEditingController();
   final TextEditingController _repeatPasswordController =
       TextEditingController();
   final FocusNode _usernameFocusNode = FocusNode();
@@ -17,6 +20,8 @@ class _SignUpFormState extends State<SignUpForm> {
   final FocusNode _repeatPasswordFocusNode = FocusNode();
   final bool _obscureText = true;
   final bool _rObscureText = true;
+  bool _isLoading = false;
+  AuthService authService = AuthService();
 
   @override
   void dispose() {
@@ -27,6 +32,55 @@ class _SignUpFormState extends State<SignUpForm> {
     _passwordFocusNode.dispose();
     _repeatPasswordFocusNode.dispose();
     super.dispose();
+  }
+
+//helper for error
+  void _showSnackBar(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        duration: const Duration(seconds: 3),
+      ),
+    );
+  }
+
+  Future<void> _handleSignUp() async {
+    if (_usernameController.text.isEmpty) {
+      _showSnackBar("Username cannot be empty");
+      return;
+    } else if (_passwordController.text.isEmpty) {
+      _showSnackBar("Password cannot be empty");
+      return;
+    } else if (_nameController.text.isEmpty) {
+      _showSnackBar("Name cannot be empty");
+      return;
+    } else if (_ageController.text.isEmpty) {
+      _showSnackBar("Age cannot be empty");
+      return;
+    }
+
+    setState(() => _isLoading = true);
+    final result = await authService.signUp(
+      _usernameController.text,
+      _passwordController.text,
+      _nameController.text,
+      int.parse(_ageController.text),
+    );
+    setState(() => _isLoading = false);
+    if (result.isEmpty) {
+      _showSnackBar("Cannot receive response.");
+    }
+    switch (result['success']) {
+      case true:
+        _showSnackBar("Sign up successful, please sign in to continue.");
+        Navigator.pushReplacementNamed(context, '/sign-in');
+        break;
+      case false:
+        _showSnackBar("Sign up failed. Reason: ${result['message']}");
+        break;
+      default:
+        _showSnackBar("An unexpected error occurred.");
+    }
   }
 
   @override
@@ -251,33 +305,37 @@ class _SignUpFormState extends State<SignUpForm> {
           Positioned(
             left: 152,
             top: 790,
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 17),
-              decoration: ShapeDecoration(
-                color: Colors.black.withValues(alpha: 0),
-                shape: RoundedRectangleBorder(
-                  side: const BorderSide(width: 2),
-                  borderRadius: BorderRadius.circular(13),
-                ),
-              ),
-              child: const Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                spacing: 10,
-                children: [
-                  Text(
-                    'Next',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontFamily: 'Be Vietnam',
-                      fontWeight: FontWeight.w600,
-                      height: 0.90,
-                    ),
+            child: GestureDetector(
+              onTap: _isLoading ? null : _handleSignUp,
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 32, vertical: 17),
+                decoration: ShapeDecoration(
+                  color: Colors.black.withValues(alpha: 0),
+                  shape: RoundedRectangleBorder(
+                    side: const BorderSide(width: 2),
+                    borderRadius: BorderRadius.circular(13),
                   ),
-                ],
+                ),
+                child: const Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  spacing: 10,
+                  children: [
+                    Text(
+                      'Next',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontFamily: 'Be Vietnam',
+                        fontWeight: FontWeight.w600,
+                        height: 0.90,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
