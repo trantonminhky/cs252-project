@@ -32,12 +32,7 @@ class GeocodeService {
 
 		try {
 			const url = `${this.baseUrl}/search?format=jsonv2&q=${encodeURIComponent(query)}`;
-			const resp = await axios.get(url, {
-				params: {
-					key: this.apiKey,
-					limit
-				}
-			});
+			const resp = await axios.get(url);
 			
 			const response = new ServiceResponse(
 				true,
@@ -73,12 +68,8 @@ class GeocodeService {
 		}
 
 		try {
-			const url = `${this.baseUrl}/geocoding/${lon},${lat}.json`;
-			const resp = await axios.get(url, {
-				params: {
-					key: this.apiKey
-				}
-			});
+			const url = `${this.baseUrl}/reverse?format=jsonv2&lat=${lat}&lon=${lon}`;
+			const resp = await axios.get(url);
 
 			const response = new ServiceResponse(
 				true,
