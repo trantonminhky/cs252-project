@@ -6,7 +6,9 @@ class ProfileController {
 		try {
 			const user = req.body.username;
 			const pass = req.body.password;
-			
+			const name = req.body.name;
+			const age = req.body.age;
+
 			if (!user || !pass) {
 				return res.status(400).json({
 					success: false,
@@ -14,7 +16,14 @@ class ProfileController {
 				});
 			}
 
-			const response = await ProfileService.register(user, pass);
+			if (!name || !age) {
+				return res.status(400).json({
+					success: false,
+					error: { message: 'User info is required (BAD_REQUEST)' }
+				});
+			}
+
+			const response = await ProfileService.register(user, pass, name, age);
 
 			res.status(response.statusCode).json(response);
 		} catch (error) {
@@ -44,7 +53,7 @@ class ProfileController {
 		try {
 			// let's be real you are not gonna clear some random db without my credentials
 			const { credentials } = req.query;
-			
+
 			if (!credentials) {
 				return res.status(401).json({
 					success: false,
