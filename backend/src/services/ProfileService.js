@@ -81,6 +81,8 @@ class ProfileService {
 			UserDB.set(user, {
 				username: user,
 				password: pass,
+				name: name,
+				age: age,
 				sessionToken: {
 					data: token,
 					createdAt: tokenCreatedAt
