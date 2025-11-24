@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:virtour_frontend/components/custom_text_field.dart';
 import 'package:virtour_frontend/constants/colors.dart';
+import 'package:virtour_frontend/screens/main_layout.dart';
 
 class SignInForm extends StatefulWidget {
   const SignInForm({super.key});
@@ -164,7 +165,10 @@ class _SignInFormState extends State<SignInForm> {
                     fixedSize: const Size(135, 52),
                   ),
                   onPressed: () {
-                    Navigator.pushReplacementNamed(context, '/home');
+                    Navigator.of(context)
+                        .pushReplacement(CupertinoPageRoute(builder: (context) {
+                      return const MainLayout();
+                    }));
                   },
                   child: const Text(
                     "Sign in",

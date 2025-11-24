@@ -1,18 +1,18 @@
 import "package:flutter/material.dart";
 import "package:flutter/cupertino.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:virtour_frontend/components/briefings.dart";
-import "package:virtour_frontend/screens/data factories/place.dart";
+import "package:virtour_frontend/screens/data_factories/place.dart";
 import "package:virtour_frontend/screens/home_screen/helpers.dart";
-import "package:virtour_frontend/screens/map_screen/map_screen.dart";
-import "package:virtour_frontend/screens/trip_screen/trip_screen.dart";
+import "package:virtour_frontend/providers/trip_provider.dart";
 
-class PlaceOverview extends StatelessWidget {
+class PlaceOverview extends ConsumerWidget {
   final Place place;
 
   const PlaceOverview({super.key, required this.place});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     // Calculate card width (screen width - 40px padding)
     final double screenWidth = MediaQuery.of(context).size.width;
     final double cardWidth = screenWidth - 40;
@@ -90,14 +90,7 @@ class PlaceOverview extends StatelessWidget {
               const SizedBox(height: 48),
               Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                 TextButton(
-                  onPressed: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const MapScreen(),
-                      ),
-                    );
-                  },
+                  onPressed: () {},
                   style: TextButton.styleFrom(
                     backgroundColor: Colors.white,
                     padding: const EdgeInsets.symmetric(
@@ -124,12 +117,7 @@ class PlaceOverview extends StatelessWidget {
                 ),
                 TextButton(
                   onPressed: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const TripScreen(),
-                      ),
-                    );
+                    ref.read(tripProvider.notifier).addPlace(place);
                   },
                   style: TextButton.styleFrom(
                     backgroundColor: const Color(0xffd72323),

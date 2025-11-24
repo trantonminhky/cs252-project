@@ -1,6 +1,6 @@
-import "package:virtour_frontend/screens/data factories/filter_type.dart";
-import "package:virtour_frontend/screens/data factories/place.dart";
-import "package:virtour_frontend/screens/data factories/region.dart";
+import "package:virtour_frontend/screens/data_factories/filter_type.dart";
+import "package:virtour_frontend/screens/data_factories/place.dart";
+import "package:virtour_frontend/screens/data_factories/region.dart";
 
 //this is an interface for fetching region data from database
 class RegionService {

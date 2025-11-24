@@ -13,7 +13,7 @@ class Cards extends StatelessWidget {
   final VoidCallback? onFavoriteTap;
 
   const Cards({
-    Key? key,
+    super.key,
     required this.size,
     required this.imageUrl,
     required this.title,
@@ -22,7 +22,7 @@ class Cards extends StatelessWidget {
     this.onTap,
     this.isFavorite = false,
     this.onFavoriteTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

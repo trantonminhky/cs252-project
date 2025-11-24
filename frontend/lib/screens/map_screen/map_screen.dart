@@ -1,7 +1,6 @@
 import "package:flutter/material.dart";
 import "package:flutter_map/flutter_map.dart";
 import "package:latlong2/latlong.dart";
-import "package:virtour_frontend/components/bottom_bar.dart";
 import "package:virtour_frontend/components/briefings.dart";
 
 class MapScreen extends StatefulWidget {
@@ -15,7 +14,7 @@ class _MapScreenState extends State<MapScreen> {
   final MapController _mapController = MapController();
 
   // Bà Thiên Hậu Pagoda coordinates (example location)
-  final LatLng _pagodaLocation = LatLng(10.7549, 106.6551);
+  final LatLng _pagodaLocation = const LatLng(10.7549, 106.6551);
 
   @override
   Widget build(BuildContext context) {
@@ -89,9 +88,6 @@ class _MapScreenState extends State<MapScreen> {
             ),
           ),
         ],
-      ),
-      bottomNavigationBar: const BottomNavBar(
-        selectedIndex: 2, // Map screen
       ),
     );
   }
