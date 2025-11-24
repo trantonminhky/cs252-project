@@ -106,10 +106,11 @@ app.use(errorHandler);
 // Start server
 const PORT = config.port;
 app.listen(PORT, () => {
-	console.log(`1. Server is running on port ${PORT}`);
-	console.log(`2. Environment: ${config.env}`);
-	console.log(`3. Map tiles ready with OpenMapTiles`);
-	console.log(`\n API Docummentation: http://localhost:${PORT}/`)
+	// console.log(`1. Server is running on port ${PORT}`);
+	// console.log(`2. Environment: ${config.env}`);
+	// console.log(`3. Map tiles ready with OpenMapTiles`);
+	// console.log(`\n API Docummentation: http://localhost:${PORT}/`)
+	console.clear();
 });
 
 module.exports = app;
