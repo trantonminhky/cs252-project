@@ -2,7 +2,7 @@ const crypto = require('crypto');
 
 const ServiceResponse = require('../helper/ServiceResponse');
 
-const LoginDB = require('../db/LoginDB');
+const UserDB = require('../db/UserDB');
 const SessionTokensDB = require('../db/SessionTokensDB');
 
 function generateToken32() {
@@ -10,14 +10,14 @@ function generateToken32() {
 }
 
 function renewToken(user) {
-	const oldCreatedAt = LoginDB.get(user, "sessionToken.createdAt");
-	const oldToken = LoginDB.get(user, "sessionToken.data");
+	const oldCreatedAt = UserDB.get(user, "sessionToken.createdAt");
+	const oldToken = UserDB.get(user, "sessionToken.data");
 	let newToken = generateToken32();
 	let newCreatedAt = Date.now();
 
 	if (SessionTokensDB.check(oldToken) !== "valid") { // if token expires
-		LoginDB.set(user, newToken, "sessionToken.data");
-		LoginDB.set(user, newCreatedAt, "sessionToken.createdAt");
+		UserDB.set(user, newToken, "sessionToken.data");
+		UserDB.set(user, newCreatedAt, "sessionToken.createdAt");
 
 		SessionTokensDB.set(newToken, {
 			username: user,
@@ -25,7 +25,7 @@ function renewToken(user) {
 		});
 		SessionTokensDB.delete(oldToken);
 	} else {
-		newToken = LoginDB.get(user, "sessionToken.data");
+		newToken = UserDB.get(user, "sessionToken.data");
 		newCreatedAt = oldCreatedAt;
 	}
 	return {
@@ -57,7 +57,7 @@ class ProfileService {
 		}
 
 		// if the username is already registered
-		if (LoginDB.has(user)) {
+		if (UserDB.has(user)) {
 			return (new ServiceResponse(
 				false,
 				409,
@@ -69,7 +69,7 @@ class ProfileService {
 		const tokenCreatedAt = Date.now(); // session token created timestamp in ms
 
 		try {
-			LoginDB.set(user, {
+			UserDB.set(user, {
 				username: user,
 				password: pass,
 				sessionToken: {
@@ -88,8 +88,8 @@ class ProfileService {
 				201,
 				"Success",
 				{
-					token: LoginDB.get(user, 'sessionToken.data'),
-					createdAt: (new Date(LoginDB.get(user, 'sessionToken.createdAt'))).toString()
+					token: UserDB.get(user, 'sessionToken.data'),
+					createdAt: (new Date(UserDB.get(user, 'sessionToken.createdAt'))).toString()
 				}
 			);
 
@@ -120,7 +120,7 @@ class ProfileService {
 			).get());
 		}
 
-		const password = LoginDB.get(user, 'password');
+		const password = UserDB.get(user, 'password');
 		if (!password) { // if this user does not exist
 			return (new ServiceResponse(
 				false,
@@ -162,7 +162,7 @@ class ProfileService {
 
 	async clear() {
 		try {
-			LoginDB.clear();
+			UserDB.clear();
 			return (new ServiceResponse(
 				true,
 				200,
