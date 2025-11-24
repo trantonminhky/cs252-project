@@ -4,12 +4,12 @@ import 'package:virtour_frontend/components/custom_text_field.dart';
 
 class SignUpForm1 extends StatelessWidget {
   final Function onNext;
-  final TextEditingController emailController;
+  final TextEditingController usernameController;
   final TextEditingController passwordController;
   const SignUpForm1({
     super.key,
     required this.onNext,
-    required this.emailController,
+    required this.usernameController,
     required this.passwordController,
   });
 
@@ -31,7 +31,7 @@ class SignUpForm1 extends StatelessWidget {
           ),
           const SizedBox(height: 85),
           MyTextField(
-            textEditingController: emailController,
+            textEditingController: usernameController,
             label: "Email address/Username",
             hintText: "Email address",
             prefixIcon: CupertinoIcons.person,

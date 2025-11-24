@@ -3,7 +3,8 @@ import "package:shared_preferences/shared_preferences.dart";
 
 class AuthService {
   late final Dio _dio;
-  static const String _baseUrl = "https://localhost:3000/api";
+  static const String _baseUrl =
+      "https://jackets-myth-correctly-passes.trycloudflare.com/";
   AuthService() {
     _dio = Dio(BaseOptions(
       baseUrl: _baseUrl,
@@ -26,38 +27,79 @@ class AuthService {
   }
 
   Future<Map<String, dynamic>> signIn(String username, String password) async {
-    try {
-      final response = await _dio.post("/auth/signin", data: {
-        "username": username,
-        "password": password,
-      });
-      if (response.statusCode == 200) {
+    final response = await _dio.get(
+        "$_baseUrl/api/profile/login?username=$username&password=$password");
+    switch (response.statusCode) {
+      case 200:
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString("auth_token", response.data["token"]);
         return response.data;
-      } else {
-        throw Exception("Failed to sign in: ${response.statusCode}");
-      }
-    } catch (e) {
-      rethrow;
+      case 400:
+        return {
+          'success': false,
+          'message': response.data["message"] ?? "Bad Request"
+        };
+      case 401:
+        return {
+          'success': false,
+          'message': response.data["message"] ?? "Unauthorized"
+        };
+      case 403:
+        return {
+          'success': false,
+          'message': response.data["message"] ?? "Forbidden"
+        };
+      case 500:
+        return {
+          'success': false,
+          'message': response.data["message"] ?? "Internal Server Error"
+        };
+      default:
+        return {
+          'success': false,
+          'message': 'Unexpected error: ${response.statusCode}'
+        };
     }
   }
 
-  Future<Map<String, dynamic>> signUp(String username, String password) async {
-    try {
-      final response = await _dio.post("/auth/signup", data: {
-        "username": username,
-        "password": password,
-      });
-      if (response.statusCode == 201) {
+  Future<Map<String, dynamic>> signUp(
+      String username, String password, String name, int age) async {
+    final response = await _dio.post("$_baseUrl/api/profile/register", data: {
+      "username": username,
+      "password": password,
+      "name": name,
+      "age": age,
+    });
+    switch (response.statusCode) {
+      case 201:
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString("auth_token", response.data["token"]);
         return response.data;
-      } else {
-        throw Exception("Failed to sign up: ${response.statusCode}");
-      }
-    } catch (e) {
-      rethrow;
+      case 400:
+        return {
+          'success': false,
+          'message': response.data["message"] ?? "Bad Request"
+        };
+      case 401:
+        return {
+          'success': false,
+          'message': response.data["message"] ?? "Unauthorized"
+        };
+      case 403:
+        return {
+          'success': false,
+          'message': response.data["message"] ?? "Forbidden"
+        };
+      case 500:
+        return {
+          'success': false,
+          'message': response.data["message"] ?? "Internal Server Error"
+        };
+      default:
+        return {
+          'success': false,
+          'message': 'Unexpected error: ${response.statusCode}'
+        };
     }
   }
 }
