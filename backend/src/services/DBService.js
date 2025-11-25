@@ -35,7 +35,7 @@ class DBService {
 				false,
 				400,
 				"Name is required"
-			).get());
+			));
 		}
 
 		for (const db of this.databases) {
@@ -50,7 +50,7 @@ class DBService {
 					200,
 					"Success",
 					data
-				).get());
+				));
 			}
 		}
 
@@ -63,7 +63,7 @@ class DBService {
 
 	/**
 	 * Get the Enmap exported and formatted as a readable JSON
-	 * @returns {Object} Exported database
+	 * @returns {ServiceResponse} Exported database
 	 */
 	async exportAll() {
 		const exports = {};
@@ -76,21 +76,21 @@ class DBService {
 			}
 			exports[name] = data;
 		}
-		
+
 		if (Object.keys(exports).length === 0) {
 			return (new ServiceResponse(
 				true,
 				204,
 				"Success, databases empty",
 				exports
-			).get());
+			));
 		} else {
 			return (new ServiceResponse(
 				true,
 				200,
 				"Success",
 				exports
-			).get());
+			));
 		}
 	}
 }

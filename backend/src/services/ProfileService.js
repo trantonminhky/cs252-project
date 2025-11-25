@@ -44,7 +44,7 @@ class ProfileService {
 	 * Registers a user to a new profile given username and password.
 	 * @param {String} user - Username
 	 * @param {String} pass - Password
-	 * @returns {Object} Response
+	 * @returns {ServiceResponse} Response
 	 */
 	async register(user, pass, name, age) {
 		// if username or password is not provided
@@ -53,7 +53,7 @@ class ProfileService {
 				false,
 				400,
 				"Username or password is required"
-			).get());
+			));
 		}
 
 		// if no name or age is not provided
@@ -62,7 +62,7 @@ class ProfileService {
 				false,
 				400,
 				"User info is required"
-			).get());
+			));
 		}
 
 		// if the username is already registered
@@ -71,7 +71,7 @@ class ProfileService {
 				false,
 				409,
 				"Username already taken"
-			).get());
+			));
 		}
 
 		const token = generateToken32(); // user session token
@@ -104,14 +104,14 @@ class ProfileService {
 				}
 			);
 
-			return response.get();
+			return response;
 		} catch (err) {
 			console.error(err);
 			return (new ServiceResponse(
 				false,
 				500,
 				"Something went wrong"
-			).get());
+			));
 		}
 	}
 
@@ -119,7 +119,7 @@ class ProfileService {
 	 * Logins a user.
 	 * @param {String} user - Username
 	 * @param {String} pass - Password
-	 * @returns {Object} Response
+	 * @returns {ServiceResponse} Response
 	 */
 	async login(user, pass) {
 		// if no username or password is provided
@@ -128,7 +128,7 @@ class ProfileService {
 				false,
 				400,
 				"Username or password is required"
-			).get());
+			));
 		}
 
 		const password = UserDB.get(user, 'password');
@@ -138,7 +138,7 @@ class ProfileService {
 				false,
 				401,
 				"Username does not exist"
-			).get());
+			));
 		}
 
 		// if password mismatch
@@ -147,7 +147,7 @@ class ProfileService {
 				false,
 				401,
 				"Wrong password"
-			).get());
+			));
 		}
 
 		try {
@@ -169,7 +169,7 @@ class ProfileService {
 				false,
 				500,
 				"Something went wrong"
-			).get());
+			));
 		}
 	}
 
@@ -187,7 +187,7 @@ class ProfileService {
 				false,
 				500,
 				"Something went wrong"
-			).get());
+			));
 		}
 	}
 }
