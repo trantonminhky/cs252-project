@@ -45,10 +45,20 @@ class DBService {
 				for (const entry of parse.v.keys.v) {
 					data[entry.v.key.v] = unwrapTyped(JSON.parse(entry.v.value.v));
 				}
-				return data;
+				return (new ServiceResponse(
+					true,
+					200,
+					"Success",
+					data
+				).get());
 			}
 		}
-		return {};
+		
+		return (new ServiceResponse(
+			false,
+			404,
+			"No database with such name is found"
+		).get());
 	}
 
 	/**
