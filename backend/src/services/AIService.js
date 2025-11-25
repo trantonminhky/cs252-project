@@ -1,9 +1,6 @@
 const config = require('../config/config');
 const ServiceResponse = require('../helper/ServiceResponse');
 
-// THESE SERVICES ARE SOMEWHAT OUTDATED
-// TO-DO: DEAL WITH THESE FUCKERS
-
 let gemini;
 import("gemini-ai").then(async ({ default: Gemini }) => {
 	gemini = new Gemini(config.gemini.apiKey);
@@ -15,6 +12,12 @@ class AIService {
 		this.apiKey = config.gemini.apiKey;
 	}
 
+	/**
+	 * Sends prompt to Gemini with model.
+	 * @param {String} prompt - Input prompt
+	 * @param {String} [model='gemini-flash-latest'] - Gemini model
+	 * @returns {ServiceResponse}
+	 */
 	async sendPrompt(prompt, model = 'gemini-flash-latest') {
 		if (!prompt) {
 			const response = new ServiceResponse(
