@@ -25,7 +25,7 @@ const customStream = {
 		console.log(message.trimEnd());
 		const stripAnsi = (s) => s.replace(/\x1b\[[0-9;]*m/g, '');
 		const clean = stripAnsi(message).trimEnd();
-		exec(`./sendRequest.sh "${config.discord.webhook}" "${clean}"`);
+		exec(`./sendRequest.sh "${clean}"`);
 	}
 };
 
