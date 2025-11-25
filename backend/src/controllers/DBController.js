@@ -4,6 +4,27 @@ const DBService = require('../services/DBService');
 // TO-DO: DOCUMENT CONTROLLER CLASSES
 
 class DBController {
+	async clear(req, res, next) {
+		try {
+			const { name } = req.query;
+
+			if (!name) {
+				const response = new ServiceResponse(
+					false,
+					400,
+					`Database name is required`
+				);
+
+				return res.status(response.statusCode).json(response.get());
+			}
+
+			const response = await DBService.clear(name);
+			res.status(response.statusCode).json(response.get());
+		} catch (err) {
+			next(err);
+		}
+	}
+
 	async export(req, res, next) {
 		try {
 			const { name } = req.query;
