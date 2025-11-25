@@ -44,7 +44,7 @@ class DBService {
 				db.clear();
 				return (new ServiceResponse(
 					true,
-					200,
+					204,
 					"Success"
 				));
 			}
@@ -61,7 +61,7 @@ class DBService {
 		this.databases.forEach(db => db.clear());
 		return (new ServiceResponse(
 			true,
-			200,
+			204,
 			"Success"
 		));
 	}
