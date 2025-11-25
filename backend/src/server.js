@@ -22,10 +22,10 @@ const DBRoutes = require('./routes/DBRoutes');
 const app = express();
 const customStream = {
 	write: (message) => {
+		console.log(message.trimEnd());
 		const stripAnsi = (s) => s.replace(/\x1b\[[0-9;]*m/g, '');
 		const clean = stripAnsi(message).trimEnd();
 		exec(`./sendRequest.sh "${config.discord.webhook}" "${clean}"`);
-		console.log(message.trimEnd());
 	}
 };
 
