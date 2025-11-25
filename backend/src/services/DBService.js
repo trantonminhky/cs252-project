@@ -58,6 +58,16 @@ class DBService {
 		));
 	}
 
+	async clearAll() {
+		this.databases.forEach(db => db.clear());
+		return (new ServiceResponse(
+			true,
+			200,
+			"Success",
+			exports
+		));
+	}
+
 	/**
 	 * Export Enmap database to readable JSON given database name
 	 * @param {String} name - Database name
