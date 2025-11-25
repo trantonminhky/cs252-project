@@ -1,7 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:virtour_frontend/screens/authenciation_screen/sign_up_form_1.dart';
 import 'package:virtour_frontend/screens/authenciation_screen/sign_up_form_2.dart';
 import 'package:virtour_frontend/screens/authenciation_screen/auth_service.dart';
+import 'package:virtour_frontend/screens/main_layout.dart';
 
 class SignUpContainer extends StatefulWidget {
   const SignUpContainer({super.key});
@@ -19,13 +21,10 @@ class _SignUpContainerState extends State<SignUpContainer> {
   bool _isLoading = false;
   AuthService authService = AuthService();
 
-//helper for error
+  //helper for error
   void _showSnackBar(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message),
-        duration: const Duration(seconds: 3),
-      ),
+      SnackBar(content: Text(message), duration: const Duration(seconds: 3)),
     );
   }
 
@@ -82,22 +81,30 @@ class _SignUpContainerState extends State<SignUpContainer> {
   }
 
   void navigateToHome() {
-    Navigator.pushReplacementNamed(context, '/home');
+    Navigator.of(context).pushReplacement(
+      CupertinoPageRoute(
+        builder: (context) {
+          return const MainLayout();
+        },
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: MediaQuery.of(context).size.width,
-        height: 796,
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(32),
-            topRight: Radius.circular(32),
-          ),
+      width: MediaQuery.of(context).size.width,
+      height: 796,
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(32),
+          topRight: Radius.circular(32),
         ),
-        child: Stack(alignment: Alignment.center, children: [
+      ),
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
           SingleChildScrollView(
             keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.manual,
             child: IndexedStack(
@@ -110,7 +117,7 @@ class _SignUpContainerState extends State<SignUpContainer> {
                     else if (passwordController.text.isEmpty)
                       {_showSnackBar("Password cannot be empty")}
                     else
-                      {changeIndex(1)}
+                      {changeIndex(1)},
                   },
                   usernameController: usernameController,
                   passwordController: passwordController,
@@ -122,7 +129,7 @@ class _SignUpContainerState extends State<SignUpContainer> {
                     else if (ageController.text.isEmpty)
                       {_showSnackBar("Age cannot be empty")}
                     else
-                      {_handleSignUp()}
+                      {_handleSignUp()},
                   },
                   onPrevious: () => changeIndex(0),
                   nameController: nameController,
@@ -135,11 +142,11 @@ class _SignUpContainerState extends State<SignUpContainer> {
             Container(
               color: Colors.black.withOpacity(0.5),
               child: const Center(
-                child: CircularProgressIndicator(
-                  color: Colors.white,
-                ),
+                child: CircularProgressIndicator(color: Colors.white),
               ),
             ),
-        ]));
+        ],
+      ),
+    );
   }
 }

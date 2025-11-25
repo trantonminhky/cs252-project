@@ -1,9 +1,9 @@
+import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
-import "package:virtour_frontend/components/bottom_bar.dart";
 import "package:virtour_frontend/components/briefings.dart";
 import "package:virtour_frontend/components/custom_text_field.dart";
 import "package:virtour_frontend/screens/home_screen/region_overview.dart";
-import "package:virtour_frontend/screens/data factories/filter_type.dart";
+import "package:virtour_frontend/screens/data_factories/filter_type.dart";
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -72,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             onTap: () {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(
+                                CupertinoPageRoute(
                                   //this is mock data, hooking up with db later
                                   builder: (context) => const RegionOverview(
                                     regionId: "01",
@@ -94,7 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             onTap: () {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(
+                                CupertinoPageRoute(
                                   builder: (context) => const RegionOverview(
                                     regionId: "01",
                                     regionName: "Sài Gòn",
@@ -115,7 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             onTap: () {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(
+                                CupertinoPageRoute(
                                   builder: (context) => const RegionOverview(
                                     regionId: "01",
                                     regionName: "Sài Gòn",
@@ -136,7 +136,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             onTap: () {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(
+                                CupertinoPageRoute(
                                   builder: (context) => const RegionOverview(
                                     regionId: "01",
                                     regionName: "Sài Gòn",
@@ -271,9 +271,6 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ],
         ),
-      ),
-      bottomNavigationBar: const BottomNavBar(
-        selectedIndex: 0, // Home screen
       ),
     );
   }

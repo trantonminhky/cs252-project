@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:virtour_frontend/components/custom_text_field.dart';
 import 'package:virtour_frontend/constants/colors.dart';
 import 'package:virtour_frontend/screens/authenciation_screen/auth_service.dart';
+import 'package:virtour_frontend/screens/main_layout.dart';
 
 class SignInForm extends StatefulWidget {
   const SignInForm({super.key});
@@ -49,7 +50,10 @@ class _SignInFormState extends State<SignInForm> {
     switch (result['success']) {
       case true:
         _showSnackBar("Sign in successful! Navigating to home...");
-        Navigator.pushReplacementNamed(context, '/home');
+        Navigator.of(context)
+                        .pushReplacement(CupertinoPageRoute(builder: (context) {
+                      return const MainLayout();
+                    }));
         break;
       case false:
         _showSnackBar("Sign in failed. Reason: ${result['message']}");

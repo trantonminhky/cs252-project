@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import "package:virtour_frontend/screens/data factories/place.dart";
+import "package:virtour_frontend/screens/data_factories/place.dart";
 
 /// Helper method to truncate description text
 String getTruncatedDescription(String description, {int maxLength = 200}) {
@@ -73,7 +73,7 @@ Widget buildCategoryChip(String category, {bool isSelected = false}) {
         fontWeight: FontWeight.w500,
       ),
     ),
-    backgroundColor: color.withOpacity(0.2),
+    backgroundColor: color.withValues(alpha: 0.2),
     selectedColor: color,
     side: BorderSide(
       color: isSelected ? color : Colors.grey.shade300,
