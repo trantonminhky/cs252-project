@@ -193,13 +193,40 @@ class _TripScreenContentState extends ConsumerState<TripScreenContent>
                         );
                       },
                     ),
-              // Itinerary tab
-              const Center(
-                child: Text(
-                  "Itinerary - Coming Soon",
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontFamily: "BeVietnamPro",
+              // Itinerary tab (temporary version)
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: 83,
+                  right: 83,
+                  top: 47,
+                  bottom: 520,
+                ),
+                child: TextButton(
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      side: const BorderSide(
+                        color: Colors.black,
+                        width: 2,
+                      ),
+                      borderRadius: BorderRadius.circular(13),
+                    ),
+                  ),
+                  onPressed: () {},
+                  child: const SizedBox(
+                    width: 245,
+                    height: 52,
+                    child: Center(
+                      child: Text(
+                        "Add new itinerary",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                          fontFamily: "BeVietnamPro",
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ),

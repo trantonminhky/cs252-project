@@ -18,11 +18,12 @@ class TripScreen extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              const SizedBox(height: 10),
               const Text(
                 "My trips",
                 style: TextStyle(
                   color: Colors.black,
-                  fontSize: 36,
+                  fontSize: 30,
                   fontFamily: "BeVietnamPro",
                   fontWeight: FontWeight.w700,
                   height: 1,

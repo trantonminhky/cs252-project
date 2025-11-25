@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:virtour_frontend/screens/home_screen/home_screen.dart';
+import 'package:virtour_frontend/screens/profile_screen/profile_screen.dart';
 import 'package:virtour_frontend/screens/trip_screen/trip_screen.dart';
 
 class MainLayout extends StatefulWidget {
@@ -65,7 +66,13 @@ class _MainLayoutState extends State<MainLayout> {
         // temporarily dismiss MapScreen()
         // const MapScreen(),
         const Text("MapScreen"),
-        const Text("coming soon"),
+        Navigator(
+          onGenerateRoute: (settings) {
+            return CupertinoPageRoute(builder: (context) {
+              return const ProfileScreen();
+            });
+          },
+        ),
       ]),
       bottomNavigationBar: BottomNavigationBar(
         onTap: _changeIndex,

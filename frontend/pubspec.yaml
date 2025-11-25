@@ -82,6 +82,11 @@ flutter:
   # example:
 
   fonts:
+   - family: Oswald
+     fonts: 
+      - asset: assets/fonts/Oswald-Medium.ttf
+        weight: 500
+
    - family: Bayon
      fonts:
        - asset: assets/fonts/Bayon-Regular.ttf
