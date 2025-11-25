@@ -16,7 +16,7 @@ class AIService {
 	 * Sends prompt to Gemini with model.
 	 * @param {String} prompt - Input prompt
 	 * @param {String} [model='gemini-flash-latest'] - Gemini model
-	 * @returns {ServiceResponse}
+	 * @returns {Promise<ServiceResponse>}
 	 */
 	async sendPrompt(prompt, model = 'gemini-flash-latest') {
 		if (!prompt) {
