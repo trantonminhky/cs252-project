@@ -3,7 +3,7 @@ const AIService = require('../services/AIService');
 
 // TO-DO: DOCUMENT CONTROLLER CLASSES
 class AIController {
-	async ask(req, res, next) {
+	async sendPrompt(req, res, next) {
 		try {
 			if (req.headers['content-type'] !== 'application/json') {
 				const response = new ServiceResponse(

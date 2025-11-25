@@ -3,6 +3,6 @@ const router = express.Router();
 const AIController = require('../controllers/AIController');
 
 // AI ask endpoint
-router.post('/ask', AIController.ask);
+router.post('/send-prompt', AIController.sendPrompt);
 
 module.exports = router;
