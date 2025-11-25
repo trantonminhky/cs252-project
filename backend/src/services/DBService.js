@@ -29,6 +29,35 @@ class DBService {
 		this.databases = databases;
 	}
 
+	async clear(name) {
+		if (!name) {
+			return (new ServiceResponse(
+				false,
+				400,
+				"Name is required"
+			));
+		}
+
+		for (const db of this.databases) {
+			const parse = JSON.parse(db.export());
+			if (parse.v.name.v == name) {
+				db.clear();
+				return (new ServiceResponse(
+					true,
+					200,
+					"Success",
+					data
+				));
+			}
+		}
+
+		return (new ServiceResponse(
+			false,
+			404,
+			"No database with such name is found"
+		));
+	}
+
 	/**
 	 * Export Enmap database to readable JSON given database name
 	 * @param {String} name - Database name
