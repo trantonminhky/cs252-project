@@ -17,7 +17,7 @@ class GeocodeService {
 	 * Sends query to OpenMapTiles to return geocoded address.
 	 * @param {string} query - Address to query OpenMapTiles
 	 * @param {number|undefined} limit - Maximum number of results returned. Default is 5
-	 * @returns {Object} Response 
+	 * @returns {ServiceResponse} Response 
 	 */
 	async geocode(query, limit = 5) {
 
@@ -27,7 +27,7 @@ class GeocodeService {
 				false,
 				400,
 				"Query is required"
-			).get());
+			));
 		}
 
 		try {
@@ -40,14 +40,14 @@ class GeocodeService {
 				"Success",
 				resp.data
 			);
-			return response.get();
+			return response;
 		} catch (err) {
 			console.log(err);
 			return new ServiceResponse(
 				false,
 				500,
 				"Something went wrong"
-			).get();
+			);
 		}
 	}
 
@@ -55,7 +55,7 @@ class GeocodeService {
 	 * Sends latitude and longitude to OpenMapTiles to get reverse-geocoded address.
 	 * @param {Number} lat - Latitude
 	 * @param {Number} lon - Longitude
-	 * @returns {Object} Response
+	 * @returns {ServiceResponse} Response
 	 */
 	async reverseGeocode(lat, lon) {
 		// if latitudes and longitudes are not provided
@@ -64,7 +64,7 @@ class GeocodeService {
 				false,
 				400,
 				"Latitude and longitude are required"
-			).get());
+			));
 		}
 
 		try {
@@ -77,14 +77,14 @@ class GeocodeService {
 				"Success",
 				resp.data
 			);
-			return response.get();
+			return response;
 		} catch (err) {
 			console.log(err);
 			return (new ServiceResponse(
 				false,
 				500,
 				"Something went wrong"
-			).get());
+			));
 		}
 	}
 

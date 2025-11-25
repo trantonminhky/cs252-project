@@ -9,7 +9,7 @@ class AIController {
 			if (!prompt) {
 				return res.status(400).json({
 					success: false,
-					error: { message: 'Prompt parameter is required' }
+					payload: { message: 'Prompt parameter is required' }
 				});
 			}
 

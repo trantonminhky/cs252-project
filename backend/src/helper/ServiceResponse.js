@@ -53,6 +53,7 @@ class ServiceResponse {
 	 * @param {Boolean} success - Success status. Status code of 2xx generally indicates success = true
 	 * @param {Number} statusCode - HTTP status code
 	 * @param {String} message - Readable status code message
+	 * @param {any} data - Data to be put into payload
 	 */
 	constructor(success, statusCode, message, data=null) {
 		this.success = success;
