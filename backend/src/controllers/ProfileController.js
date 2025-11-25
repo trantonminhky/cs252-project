@@ -49,7 +49,17 @@ class ProfileController {
 
 	async login(req, res, next) {
 		try {
-			const { username, password } = req.query;
+			if (req.headers['content-type'] !== 'application/json') {
+				const response = new ServiceResponse(
+					false,
+					415,
+					'Malformed Content-Type header'
+				);
+				return res.status(response.statusCode).json(response.get());
+			}
+
+			const username = req.body.username;
+			const password = req.body.password;
 
 			if (!username || !password) {
 				const response = new ServiceResponse(
