@@ -4,8 +4,8 @@ set -euo pipefail
 WEBHOOK="${1:-}"
 MESSAGE="${2:-}"
 
-if [[ -z "$LINK" || -z "$MESSAGE" ]]; then
-  echo "Usage: $0 <link> <message>"
+if [[ -z "$WEBHOOK" || -z "$MESSAGE" ]]; then
+  echo "Usage: $0 <webhook> <message>"
   exit 1
 fi
 
