@@ -57,25 +57,34 @@ class GeocodeController {
 			const { lat, lon, credentials } = req.query;
 
 			if (!credentials) {
-				return res.status(401).json({
-					success: false,
-					error: { message: 'Access denied, no credentials (UNAUTHORIZED)' }
-				})
+				const response = new ServiceResponse(
+					false,
+					401,
+					"Access denied, no credentials"
+				);
+
+				return res.status(response.statusCode).json(response.get());
 			}
 
 			let authorizationStatus = SessionTokensDB.check(credentials);
 			if (authorizationStatus !== "valid") {
-				return res.status(401).json({
-					success: false,
-					error: { message: `Access denied, ${authorizationStatus} (UNAUTHORIZED)` }
-				});
+				const response = new ServiceResponse(
+					false,
+					401,
+					`Access denied, ${authorizationStatus}`
+				);
+
+				return res.status(response.statusCode).json(response.get());
 			}
 
 			if (!lat || !lon) {
-				return res.status(400).json({
-					success: false,
-					error: { message: 'Latitude and longtitude parameters are required (BAD_REQUEST)' }
-				});
+				const response = new ServiceResponse(
+					false,
+					400,
+					`Latitude and longitude parameters are required`
+				);
+
+				return res.status(response.statusCode).json(response.get());
 			}
 
 			const response = await geocodeService.reverseGeocode(parseFloat(lat), parseFloat(lon));
