@@ -45,8 +45,7 @@ class DBService {
 				return (new ServiceResponse(
 					true,
 					200,
-					"Success",
-					data
+					"Success"
 				));
 			}
 		}
@@ -63,8 +62,7 @@ class DBService {
 		return (new ServiceResponse(
 			true,
 			200,
-			"Success",
-			exports
+			"Success"
 		));
 	}
 
