@@ -53,7 +53,7 @@ class DBService {
 				).get());
 			}
 		}
-		
+
 		return (new ServiceResponse(
 			false,
 			404,
@@ -76,7 +76,22 @@ class DBService {
 			}
 			exports[name] = data;
 		}
-		return exports;
+		
+		if (Object.keys(exports).length === 0) {
+			return (new ServiceResponse(
+				true,
+				204,
+				"Success, databases empty",
+				exports
+			).get());
+		} else {
+			return (new ServiceResponse(
+				true,
+				200,
+				"Success",
+				exports
+			).get());
+		}
 	}
 }
 
