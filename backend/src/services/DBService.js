@@ -28,8 +28,18 @@ class DBService {
 		this.databases = databases;
 	}
 
-	async export() {
-
+	async export(name) {
+		for (const db of this.databases) {
+			const parse = JSON.parse(db.export());
+			if (parse.v.name.v == name) {
+				const data = {};
+				for (const entry of parse.v.keys.v) {
+					data[entry.v.key.v] = unwrapTyped(JSON.parse(entry.v.value.v));
+				}
+				return data;
+			}
+		}
+		return {};
 	}
 
 	/**
