@@ -29,6 +29,11 @@ class DBService {
 		this.databases = databases;
 	}
 
+	/**
+	 * Export Enmap database to readable JSON given database name
+	 * @param {String} name - Database name
+	 * @return {ServiceResponse} - Response
+	 */
 	async export(name) {
 		if (!name) {
 			return (new ServiceResponse(
@@ -63,7 +68,7 @@ class DBService {
 
 	/**
 	 * Get the Enmap exported and formatted as a readable JSON
-	 * @returns {ServiceResponse} Exported database
+	 * @returns {ServiceResponse} Response
 	 */
 	async exportAll() {
 		const exports = {};
