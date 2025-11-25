@@ -1,7 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:virtour_frontend/screens/authenciation_screen/sign_up_form_1.dart';
 import 'package:virtour_frontend/screens/authenciation_screen/sign_up_form_2.dart';
 import 'package:virtour_frontend/screens/authenciation_screen/auth_service.dart';
+import 'package:virtour_frontend/screens/main_layout.dart';
 
 class SignUpContainer extends StatefulWidget {
   const SignUpContainer({super.key});
@@ -12,20 +14,26 @@ class SignUpContainer extends StatefulWidget {
 
 class _SignUpContainerState extends State<SignUpContainer> {
   int _index = 0;
-  final usernameController = TextEditingController();
-  final passwordController = TextEditingController();
-  final nameController = TextEditingController();
-  final ageController = TextEditingController();
+  late final TextEditingController usernameController;
+  late final TextEditingController passwordController;
+  late final TextEditingController nameController;
+  late final TextEditingController ageController;
   bool _isLoading = false;
-  AuthService authService = AuthService();
+  static final AuthService _authService = AuthService();
 
-//helper for error
+  @override
+  void initState() {
+    super.initState();
+    usernameController = TextEditingController();
+    passwordController = TextEditingController();
+    nameController = TextEditingController();
+    ageController = TextEditingController();
+  }
+
+  //helper for error
   void _showSnackBar(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message),
-        duration: const Duration(seconds: 3),
-      ),
+      SnackBar(content: Text(message), duration: const Duration(seconds: 3)),
     );
   }
 
@@ -45,26 +53,41 @@ class _SignUpContainerState extends State<SignUpContainer> {
     }
 
     setState(() => _isLoading = true);
-    final result = await authService.signUp(
-      usernameController.text,
-      passwordController.text,
-      nameController.text,
-      int.parse(ageController.text),
-    );
-    setState(() => _isLoading = false);
-    if (result.isEmpty) {
-      _showSnackBar("Cannot receive response.");
-    }
-    switch (result['success']) {
-      case true:
-        _showSnackBar("Sign up successful, navigating to home.");
-        navigateToHome();
-        break;
-      case false:
-        _showSnackBar("Sign up failed. Reason: ${result['message']}");
-        break;
-      default:
-        _showSnackBar("An unexpected error occurred.");
+
+    try {
+      final result = await _authService.signUp(
+        usernameController.text,
+        passwordController.text,
+        nameController.text,
+        int.parse(ageController.text),
+      );
+
+      if (!mounted) return;
+
+      setState(() => _isLoading = false);
+
+      if (result.isEmpty) {
+        _showSnackBar("Cannot receive response.");
+        return;
+      }
+
+      switch (result['success']) {
+        case true:
+          _showSnackBar("Sign up successful, navigating to home.");
+          if (mounted) {
+            navigateToHome();
+          }
+          break;
+        case false:
+          _showSnackBar("Sign up failed. Reason: ${result['message']}");
+          break;
+        default:
+          _showSnackBar("An unexpected error occurred.");
+      }
+    } catch (e) {
+      if (!mounted) return;
+      setState(() => _isLoading = false);
+      _showSnackBar("Connection error: ${e.toString()}");
     }
   }
 
@@ -82,64 +105,77 @@ class _SignUpContainerState extends State<SignUpContainer> {
   }
 
   void navigateToHome() {
-    Navigator.pushReplacementNamed(context, '/home');
+    Navigator.of(context).pushReplacement(
+      CupertinoPageRoute(
+        builder: (context) {
+          return const MainLayout();
+        },
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: MediaQuery.of(context).size.width,
-        height: 796,
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(32),
-            topRight: Radius.circular(32),
-          ),
+      width: MediaQuery.of(context).size.width,
+      height: 796,
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(32),
+          topRight: Radius.circular(32),
         ),
-        child: Stack(alignment: Alignment.center, children: [
-          SingleChildScrollView(
-            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.manual,
-            child: IndexedStack(
-              index: _index,
-              children: [
-                SignUpForm1(
+      ),
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          IndexedStack(
+            index: _index,
+            children: [
+              SingleChildScrollView(
+                keyboardDismissBehavior:
+                    ScrollViewKeyboardDismissBehavior.manual,
+                child: SignUpForm1(
                   onNext: () => {
                     if (usernameController.text.isEmpty)
                       {_showSnackBar("Username cannot be empty")}
                     else if (passwordController.text.isEmpty)
                       {_showSnackBar("Password cannot be empty")}
                     else
-                      {changeIndex(1)}
+                      {changeIndex(1)},
                   },
                   usernameController: usernameController,
                   passwordController: passwordController,
                 ),
-                SignUpForm2(
+              ),
+              SingleChildScrollView(
+                keyboardDismissBehavior:
+                    ScrollViewKeyboardDismissBehavior.manual,
+                child: SignUpForm2(
                   onNext: () => {
                     if (nameController.text.isEmpty)
                       {_showSnackBar("Name cannot be empty")}
                     else if (ageController.text.isEmpty)
                       {_showSnackBar("Age cannot be empty")}
                     else
-                      {_handleSignUp()}
+                      {_handleSignUp()},
                   },
                   onPrevious: () => changeIndex(0),
                   nameController: nameController,
                   ageController: ageController,
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
           if (_isLoading)
             Container(
               color: Colors.black.withOpacity(0.5),
               child: const Center(
-                child: CircularProgressIndicator(
-                  color: Colors.white,
-                ),
+                child: CircularProgressIndicator(color: Colors.white),
               ),
             ),
-        ]));
+        ],
+      ),
+    );
   }
 }

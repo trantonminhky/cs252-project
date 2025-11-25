@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const ServiceResponse = require('../helper/ServiceResponse');
 
 function unwrapTyped(x) {
 	if (Array.isArray(x)) return x.map(unwrapTyped);
@@ -28,21 +29,69 @@ class DBService {
 		this.databases = databases;
 	}
 
+	async export(name) {
+		if (!name) {
+			return (new ServiceResponse(
+				false,
+				400,
+				"Name is required"
+			));
+		}
+
+		for (const db of this.databases) {
+			const parse = JSON.parse(db.export());
+			if (parse.v.name.v == name) {
+				const data = {};
+				for (const entry of parse.v.keys.v) {
+					data[entry.v.key.v] = unwrapTyped(JSON.parse(entry.v.value.v));
+				}
+				return (new ServiceResponse(
+					true,
+					200,
+					"Success",
+					data
+				));
+			}
+		}
+
+		return (new ServiceResponse(
+			false,
+			404,
+			"No database with such name is found"
+		).get());
+	}
+
 	/**
 	 * Get the Enmap exported and formatted as a readable JSON
-	 * @returns {Object} Exported database
+	 * @returns {ServiceResponse} Exported database
 	 */
-	async get() {
-		const exports = this.databases.map(db => {
+	async exportAll() {
+		const exports = {};
+		for (const db of this.databases) {
 			const parse = JSON.parse(db.export());
+			const name = parse.v.name.v;
 			const data = {};
 			for (const entry of parse.v.keys.v) {
 				data[entry.v.key.v] = unwrapTyped(JSON.parse(entry.v.value.v));
-				// console.log(entry.v);
 			}
-			return data;
-		});
-		return exports;
+			exports[name] = data;
+		}
+
+		if (Object.keys(exports).length === 0) {
+			return (new ServiceResponse(
+				true,
+				204,
+				"Success, databases empty",
+				exports
+			));
+		} else {
+			return (new ServiceResponse(
+				true,
+				200,
+				"Success",
+				exports
+			));
+		}
 	}
 }
 

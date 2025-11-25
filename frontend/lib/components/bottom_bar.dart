@@ -5,9 +5,9 @@ class BottomNavBar extends StatelessWidget {
   final int selectedIndex;
 
   const BottomNavBar({
-    Key? key,
+    super.key,
     required this.selectedIndex,
-  }) : super(key: key);
+  });
 
   void _handleNavigation(BuildContext context, int index) {
     // Don't navigate if already on the selected screen

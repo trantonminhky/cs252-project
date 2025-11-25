@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:virtour_frontend/components/custom_text_field.dart';
 import 'package:virtour_frontend/constants/colors.dart';
 import 'package:virtour_frontend/screens/authenciation_screen/auth_service.dart';
+import 'package:virtour_frontend/screens/main_layout.dart';
 
 class SignInForm extends StatefulWidget {
   const SignInForm({super.key});
@@ -12,10 +13,17 @@ class SignInForm extends StatefulWidget {
 }
 
 class _SignInFormState extends State<SignInForm> {
-  final TextEditingController _usernameController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  AuthService authService = AuthService();
+  late final TextEditingController _usernameController;
+  late final TextEditingController _passwordController;
+  static final AuthService _authService = AuthService();
   bool _isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _usernameController = TextEditingController();
+    _passwordController = TextEditingController();
+  }
 
   @override
   void dispose() {
@@ -42,20 +50,36 @@ class _SignInFormState extends State<SignInForm> {
       _showSnackBar("Please enter your password.");
       return;
     }
+
     setState(() => _isLoading = true);
-    final result = await authService.signIn(
-        _usernameController.text, _passwordController.text);
-    setState(() => _isLoading = false);
-    switch (result['success']) {
-      case true:
-        _showSnackBar("Sign in successful! Navigating to home...");
-        Navigator.pushReplacementNamed(context, '/home');
-        break;
-      case false:
-        _showSnackBar("Sign in failed. Reason: ${result['message']}");
-        break;
-      default:
-        _showSnackBar("An unexpected error occurred.");
+
+    try {
+      final result = await _authService.signIn(
+          _usernameController.text, _passwordController.text);
+
+      if (!mounted) return;
+
+      setState(() => _isLoading = false);
+
+      switch (result['success']) {
+        case true:
+          _showSnackBar("Sign in successful! Navigating to home...");
+          if (mounted) {
+            await Navigator.of(context).pushReplacement(
+              CupertinoPageRoute(builder: (context) => const MainLayout()),
+            );
+          }
+          break;
+        case false:
+          _showSnackBar("Sign in failed. Reason: ${result['message']}");
+          break;
+        default:
+          _showSnackBar("An unexpected error occurred.");
+      }
+    } catch (e) {
+      if (!mounted) return;
+      setState(() => _isLoading = false);
+      _showSnackBar("Connection error: ${e.toString()}");
     }
   }
 

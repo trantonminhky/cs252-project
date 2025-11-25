@@ -1,4 +1,4 @@
-import "package:virtour_frontend/screens/data factories/filter_type.dart";
+import "package:virtour_frontend/screens/data_factories/filter_type.dart";
 
 class Place {
   final String id;

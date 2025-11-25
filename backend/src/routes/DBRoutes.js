@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const DBController = require('../controllers/DBController');
 
-router.get('/dangerous/get', DBController.get);
+router.get('/export', DBController.export);
+router.get('/exportAll', DBController.exportAll);
 
 module.exports = router;

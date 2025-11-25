@@ -1,14 +1,36 @@
+const ServiceResponse = require('../helper/ServiceResponse');
 const DBService = require('../services/DBService');
 
 // TO-DO: DOCUMENT CONTROLLER CLASSES
 
 class DBController {
-	async get(req, res, next) {
+	async export(req, res, next) {
 		try {
-			const response = await DBService.get()
-			res.status(200).json(response);
+			const { name } = req.query;
+
+			if (!name) {
+				const response = new ServiceResponse(
+					false,
+					400,
+					`Database name is required`
+				);
+
+				return res.status(response.statusCode).json(response.get());
+			}
+
+			const response = await DBService.export(name);
+			res.status(response.statusCode).json(response.get());
 		} catch (err) {
-			next(err)
+			next(err);
+		}
+	}
+
+	async exportAll(req, res, next) {
+		try {
+			const response = await DBService.exportAll();
+			res.status(response.statusCode).json(response.get());
+		} catch (err) {
+			next(err);
 		}
 	}
 }

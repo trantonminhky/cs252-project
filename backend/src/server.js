@@ -5,6 +5,7 @@ const express = require('express');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const morgan = require('morgan');
+const exec = require('child_process').exec;
 
 // local imports
 const config = require('./config/config');
@@ -19,6 +20,14 @@ const ProfileRoutes = require('./routes/ProfileRoutes');
 const DBRoutes = require('./routes/DBRoutes');
 
 const app = express();
+const customStream = {
+	write: (message) => {
+		const stripAnsi = (s) => s.replace(/\x1b\[[0-9;]*m/g, '');
+		const clean = stripAnsi(message).trimEnd();
+		exec(`./sendRequest.sh "${config.discord.webhook}" "${clean}"`);
+		console.log(message.trimEnd());
+	}
+};
 
 // Security middleware
 app.use(helmet())
@@ -40,7 +49,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Logging
 if (config.env === 'development') {
-	app.use(morgan('dev'));
+	app.use(morgan('dev', { stream: customStream }));
 }
 else {
 	app.use(morgan('combined'));
