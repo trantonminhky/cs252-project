@@ -5,6 +5,4 @@ const profileController = require('../controllers/ProfileController');
 router.post('/register', profileController.register);
 router.get('/login', profileController.login);
 
-router.get('/dangerous/clear', profileController.clear);
-
 module.exports = router;

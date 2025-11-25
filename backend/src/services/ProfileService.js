@@ -172,24 +172,6 @@ class ProfileService {
 			));
 		}
 	}
-
-	async clear() {
-		try {
-			UserDB.clear();
-			return (new ServiceResponse(
-				true,
-				200,
-				"Success"
-			));
-		} catch (err) {
-			console.error(err);
-			return (new ServiceResponse(
-				false,
-				500,
-				"Something went wrong"
-			));
-		}
-	}
 }
 
 module.exports = new ProfileService();
