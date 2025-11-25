@@ -3,8 +3,8 @@ const router = express.Router();
 const DBController = require('../controllers/DBController');
 
 router.delete('/clear', DBController.clear);
-router.delete('/clearAll', DBController.clearAll);
+router.delete('/clear-all', DBController.clearAll);
 router.get('/export', DBController.export);
-router.get('/exportAll', DBController.exportAll);
+router.get('/export-all', DBController.exportAll);
 
 module.exports = router;
