@@ -44,7 +44,7 @@ class ProfileService {
 	 * Registers a user to a new profile given username and password.
 	 * @param {String} user - Username
 	 * @param {String} pass - Password
-	 * @returns {ServiceResponse} Response
+	 * @returns {Promise<ServiceResponse>} Response
 	 */
 	async register(user, pass, name, age) {
 		// if username or password is not provided
@@ -119,7 +119,7 @@ class ProfileService {
 	 * Logins a user.
 	 * @param {String} user - Username
 	 * @param {String} pass - Password
-	 * @returns {ServiceResponse} Response
+	 * @returns {Promise<ServiceResponse>} Response
 	 */
 	async login(user, pass) {
 		// if no username or password is provided

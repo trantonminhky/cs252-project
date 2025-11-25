@@ -17,7 +17,7 @@ class GeocodeService {
 	 * Sends query to OpenMapTiles to return geocoded address.
 	 * @param {string} query - Address to query OpenMapTiles
 	 * @param {number|undefined} limit - Maximum number of results returned. Default is 5
-	 * @returns {ServiceResponse} Response 
+	 * @returns {Promise<ServiceResponse>} Response 
 	 */
 	async geocode(query, limit = 5) {
 
@@ -55,7 +55,7 @@ class GeocodeService {
 	 * Sends latitude and longitude to OpenMapTiles to get reverse-geocoded address.
 	 * @param {Number} lat - Latitude
 	 * @param {Number} lon - Longitude
-	 * @returns {ServiceResponse} Response
+	 * @returns {Promise<ServiceResponse>} Response
 	 */
 	async reverseGeocode(lat, lon) {
 		// if latitudes and longitudes are not provided

@@ -32,7 +32,7 @@ class DBService {
 	/**
 	 * Export Enmap database to readable JSON given database name
 	 * @param {String} name - Database name
-	 * @return {ServiceResponse} - Response
+	 * @returns {Promise<ServiceResponse>} - Response
 	 */
 	async export(name) {
 		if (!name) {
@@ -63,12 +63,12 @@ class DBService {
 			false,
 			404,
 			"No database with such name is found"
-		).get());
+		));
 	}
 
 	/**
 	 * Get the Enmap exported and formatted as a readable JSON
-	 * @returns {ServiceResponse} Response
+	 * @returns {Promise<ServiceResponse>} Response
 	 */
 	async exportAll() {
 		const exports = {};

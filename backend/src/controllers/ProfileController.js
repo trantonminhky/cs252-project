@@ -21,7 +21,7 @@ class ProfileController {
 			}
 
 			if (!name || !age) {
-				const reponse = new ServiceResponse(
+				const response = new ServiceResponse(
 					false,
 					400,
 					"User info is required"
