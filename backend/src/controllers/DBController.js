@@ -7,8 +7,19 @@ class DBController {
 		try {
 			const { name } = req.query.name;
 
+			if (!name) {
+				res.status(400).json({
+					success: false,
+					statusCode: 400,
+					payload: {
+						message: 'Database name is required (BAD_REQUEST)',
+						data: null
+					}
+				});
+			}
+
 			const response = await DBService.export(name);
-			res.status(200).json(response);
+			res.status(response.statusCode).json(response);
 		} catch (err) {
 			next(err);
 		}
