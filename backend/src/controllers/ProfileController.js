@@ -1,3 +1,4 @@
+const ServiceResponse = require('../helper/ServiceResponse');
 const ProfileService = require('../services/ProfileService');
 
 // TO-DO: DOCUMENT CONTROLLER CLASSES
@@ -10,17 +11,23 @@ class ProfileController {
 			const age = req.body.age;
 
 			if (!user || !pass) {
-				return res.status(400).json({
-					success: false,
-					error: { message: 'Username or password is required (BAD_REQUEST)' }
-				});
+				const response = new ServiceResponse(
+					false,
+					400,
+					`Username or password is required`
+				);
+
+				return res.status(response.statusCode).json(response.get());
 			}
 
 			if (!name || !age) {
-				return res.status(400).json({
-					success: false,
-					error: { message: 'User info is required (BAD_REQUEST)' }
-				});
+				const reponse = new ServiceResponse(
+					false,
+					400,
+					"User info is required"
+				);
+
+				return res.status(response.statusCode).json(response.get());
 			}
 
 			const response = await ProfileService.register(user, pass, name, age);
@@ -36,10 +43,13 @@ class ProfileController {
 			const { username, password } = req.query;
 
 			if (!username || !password) {
-				return res.status(400).json({
-					success: false,
-					error: { message: 'Username or password is required (BAD_REQUEST)' }
-				});
+				const response = new ServiceResponse(
+					false,
+					400,
+					"Username or password is required"
+				);
+
+				return res.status(response.statusCode).json(response.get());
 			}
 
 			const response = await ProfileService.login(username, password);
