@@ -162,7 +162,7 @@ class ProfileService {
 				}
 			)
 
-			return response.get();
+			return response;
 		} catch (err) {
 			console.error(err);
 			return (new ServiceResponse(

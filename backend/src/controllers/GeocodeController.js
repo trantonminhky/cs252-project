@@ -1,5 +1,6 @@
 const geocodeService = require('../services/GeocodeService');
 const SessionTokensDB = require('../db/SessionTokensDB');
+const ServiceResponse = require('../helper/ServiceResponse');
 
 // TO-DO: DOCUMENT CONTROLLER CLASSES
 class GeocodeController {
@@ -8,26 +9,38 @@ class GeocodeController {
 		try {
 			const { address, credentials } = req.query;
 
+			// if no credentials are specified
 			if (!credentials) {
-				return res.status(401).json({
-					success: false,
-					error: { message: 'Access denied, no credentials (UNAUTHORIZED)' }
-				})
+				const response = new ServiceResponse(
+					false,
+					401,
+					"Access denied, no credentials"
+				);
+
+				return res.status(response.statusCode).json(response.get());
 			}
 
+			// if the credentials are invalid
 			let authorizationStatus = SessionTokensDB.check(credentials);
 			if (authorizationStatus !== "valid") {
-				return res.status(401).json({
-					success: false,
-					error: { message: `Access denied, ${authorizationStatus} (UNAUTHORIZED)` }
-				});
+				const response = new ServiceResponse(
+					false,
+					401,
+					`Access denied, ${authorizationStatus}`
+				);
+
+				return res.status(response.statusCode).json(response.get());
 			}
 
+			// if no address is specified
 			if (!address) {
-				return res.status(400).json({
-					success: false,
-					error: { message: 'Address parameter is required (BAD_REQUEST)' }
-				});
+				const response = new ServiceResponse(
+					false,
+					400,
+					"Address parameter is required"
+				);
+
+				return res.status(response.statusCode).json(response.get());
 			}
 
 			const response = await geocodeService.geocode(address);
