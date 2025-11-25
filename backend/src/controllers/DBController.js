@@ -5,10 +5,10 @@ const DBService = require('../services/DBService');
 class DBController {
 	async export(req, res, next) {
 		try {
-			const { name } = req.query.name;
+			const { name } = req.query;
 
 			if (!name) {
-				res.status(400).json({
+				return res.status(400).json({
 					success: false,
 					statusCode: 400,
 					payload: {
