@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const ServiceResponse = require('../helper/ServiceResponse');
 
 function unwrapTyped(x) {
 	if (Array.isArray(x)) return x.map(unwrapTyped);
@@ -29,6 +30,14 @@ class DBService {
 	}
 
 	async export(name) {
+		if (!name) {
+			return (new ServiceResponse(
+				false,
+				400,
+				"Name is required"
+			).get());
+		}
+
 		for (const db of this.databases) {
 			const parse = JSON.parse(db.export());
 			if (parse.v.name.v == name) {
