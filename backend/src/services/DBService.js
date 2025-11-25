@@ -29,6 +29,11 @@ class DBService {
 		this.databases = databases;
 	}
 
+	/**
+	 * Clear selected database given name. This action is destructive and irreparable.
+	 * @param {name} name - Database name
+	 * @returns {Promise<ServiceResponse>}
+	 */
 	async clear(name) {
 		if (!name) {
 			return (new ServiceResponse(
@@ -57,6 +62,10 @@ class DBService {
 		));
 	}
 
+	/**
+	 * Clear all databases. This action is destructive and irreparable.
+	 * @returns {Promise<ServiceResponse>}
+	 */
 	async clearAll() {
 		this.databases.forEach(db => db.clear());
 		return (new ServiceResponse(
