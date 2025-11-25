@@ -10,24 +10,22 @@ class AIController {
 					false,
 					415,
 					'Malformed Content-Type header'
-				)
+				);
 				return res.status(response.statusCode).json(response.get());
 			}
 
 			const prompt = req.body.prompt;
 			if (!prompt) {
-				return res.status(400).json({
-					success: false,
-					payload: { message: 'Prompt parameter is required' }
-				});
+				const response = new ServiceResponse(
+					false,
+					400,
+					"Prompt parameter is required"
+				);
+				return res.status(response.statusCode).json(response.get());
 			}
 
-			const result = await AIService.sendPrompt(prompt);
-
-			res.json({
-				success: true,
-				data: result
-			});
+			const response = await AIService.sendPrompt(prompt);
+			res.status(response.statusCode).json(response.get());
 		} catch (error) {
 			next(error);
 		}
