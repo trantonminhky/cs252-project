@@ -28,20 +28,25 @@ class DBService {
 		this.databases = databases;
 	}
 
+	async export() {
+
+	}
+
 	/**
 	 * Get the Enmap exported and formatted as a readable JSON
 	 * @returns {Object} Exported database
 	 */
 	async exportAll() {
-		const exports = this.databases.map(db => {
+		const exports = {};
+		for (const db of this.databases) {
 			const parse = JSON.parse(db.export());
+			const name = parse.v.name.v;
 			const data = {};
 			for (const entry of parse.v.keys.v) {
 				data[entry.v.key.v] = unwrapTyped(JSON.parse(entry.v.value.v));
-				// console.log(entry.v);
 			}
-			return data;
-		});
+			exports[name] = data;
+		}
 		return exports;
 	}
 }
