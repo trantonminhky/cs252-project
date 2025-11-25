@@ -13,6 +13,10 @@ const config = {
 		baseUrl: 'https://nominatim.openstreetmap.org'
 	},
 
+	discord: {
+		webhook: process.env.WEBHOOK_LINK
+	},
+
 	cors: {
 		allowedOrigins: process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',') : ['http://localhost:3000']
 	},
