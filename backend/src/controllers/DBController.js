@@ -25,6 +25,15 @@ class DBController {
 		}
 	}
 
+	async clearAll(req, res, next) {
+		try {
+			const response = await DBService.clearAll();
+			res.status(response.statusCode).json(response.get());
+		} catch (err) {
+			next(err);
+		}
+	}
+
 	async export(req, res, next) {
 		try {
 			const { name } = req.query;
