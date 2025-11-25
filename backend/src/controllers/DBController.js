@@ -1,3 +1,4 @@
+const ServiceResponse = require('../helper/ServiceResponse');
 const DBService = require('../services/DBService');
 
 // TO-DO: DOCUMENT CONTROLLER CLASSES
@@ -8,14 +9,13 @@ class DBController {
 			const { name } = req.query;
 
 			if (!name) {
-				return res.status(400).json({
-					success: false,
-					statusCode: 400,
-					payload: {
-						message: 'Database name is required (BAD_REQUEST)',
-						data: null
-					}
-				});
+				const response = new ServiceResponse(
+					false,
+					400,
+					`Database name is required`
+				);
+
+				return res.status(response.statusCode).json(response.get());
 			}
 
 			const response = await DBService.export(name);
