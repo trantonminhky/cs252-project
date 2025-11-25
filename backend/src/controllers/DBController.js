@@ -3,12 +3,23 @@ const DBService = require('../services/DBService');
 // TO-DO: DOCUMENT CONTROLLER CLASSES
 
 class DBController {
-	async exportAll(req, res, next) {
+	async export(req, res, next) {
 		try {
-			const response = await DBService.exportAll()
+			const { name } = req.query.name;
+
+			const response = await DBService.export(name);
 			res.status(200).json(response);
 		} catch (err) {
-			next(err)
+			next(err);
+		}
+	}
+
+	async exportAll(req, res, next) {
+		try {
+			const response = await DBService.exportAll();
+			res.status(200).json(response);
+		} catch (err) {
+			next(err);
 		}
 	}
 }
