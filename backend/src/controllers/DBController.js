@@ -19,7 +19,7 @@ class DBController {
 			}
 
 			const response = await DBService.export(name);
-			res.status(response.statusCode).json(response);
+			res.status(response.statusCode).json(response.get());
 		} catch (err) {
 			next(err);
 		}
@@ -28,7 +28,7 @@ class DBController {
 	async exportAll(req, res, next) {
 		try {
 			const response = await DBService.exportAll();
-			res.status(200).json(response);
+			res.status(response.statusCode).json(response.get());
 		} catch (err) {
 			next(err);
 		}

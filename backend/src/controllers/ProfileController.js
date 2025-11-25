@@ -25,7 +25,7 @@ class ProfileController {
 
 			const response = await ProfileService.register(user, pass, name, age);
 
-			res.status(response.statusCode).json(response);
+			res.status(response.statusCode).json(response.get());
 		} catch (error) {
 			next(error);
 		}
@@ -43,7 +43,7 @@ class ProfileController {
 			}
 
 			const response = await ProfileService.login(username, password);
-			res.status(response.statusCode).json(response);
+			res.status(response.statusCode).json(response.get());
 		} catch (err) {
 			next(err);
 		}
@@ -69,7 +69,7 @@ class ProfileController {
 			}
 
 			const response = await ProfileService.clear();
-			res.status(response.statusCode).json(response);
+			res.status(response.statusCode).json(response.get());
 		} catch (err) {
 			next(err);
 		}

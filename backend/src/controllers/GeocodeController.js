@@ -32,7 +32,7 @@ class GeocodeController {
 
 			const response = await geocodeService.geocode(address);
 
-			res.status(response.statusCode).json(response);
+			res.status(response.statusCode).json(response.get());
 		} catch (error) {
 			next(error);
 		}
@@ -67,7 +67,7 @@ class GeocodeController {
 
 			const response = await geocodeService.reverseGeocode(parseFloat(lat), parseFloat(lon));
 
-			res.status(response.statusCode).json(response);
+			res.status(response.statusCode).json(response.get());
 		} catch (error) {
 			next(error);
 		}
