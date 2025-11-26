@@ -4,7 +4,7 @@ import "package:shared_preferences/shared_preferences.dart";
 class AuthService {
   late final Dio _dio;
   static const String _baseUrl =
-      "https://jackets-myth-correctly-passes.trycloudflare.com";
+      "http://10.0.2.2:3000";
   AuthService() {
     _dio = Dio(BaseOptions(
       baseUrl: _baseUrl,
@@ -27,8 +27,11 @@ class AuthService {
   }
 
   Future<Map<String, dynamic>> signIn(String username, String password) async {
-    final response = await _dio.get(
-        "$_baseUrl/api/profile/login?username=$username&password=$password");
+    final response = await _dio.post(
+        "$_baseUrl/api/profile/login", data: {
+          "username": username,
+          "password": password
+        });
     final body = response.data as Map<String, dynamic>;
 
     switch (response.statusCode) {
