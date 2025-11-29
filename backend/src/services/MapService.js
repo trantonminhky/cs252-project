@@ -10,18 +10,6 @@ class MapService {
 		this.baseUrl = config.maptiler.baseUrl;
 	}
 
-	// Get URL for displaying maps
-	// param - Map style (streets, outdoor, satellite,...)
-	// return - Tile URL and configuration
-	getMapTileUrl(style = 'streets') {
-		return {
-			tilesUrl: `${this.baseUrl}/maps/${style}/{z}/{x}/{y}.png?key=${this.apiKey}`,
-			attribution: 'MapTiler OpenStreetMap contributors',
-			maxZoom: 18,
-			minZoom: 0
-		};
-	}
-
 	// Get route between two points
 	// param - array of [lon,lat] pairs
 	// return - route data
