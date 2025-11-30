@@ -51,4 +51,4 @@ class LocationDB {
 	}
 }
 
-module.exports = new LocationDB();
+export default new LocationDB();
