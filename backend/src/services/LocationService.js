@@ -1,5 +1,8 @@
+const FuzzySearch = require('fuzzy-search');
+
 const LocationDB = require('../db/LocationDB');
 const architecturesData = require('../../architecture.json');
+const ServiceResponse = require('../helper/ServiceResponse');
 
 class LocationService {
 	async importToDB() {
@@ -18,6 +21,32 @@ class LocationService {
 			});
 			console.log(`set entry ${entry.ID} successfully`);
 		}
+	}
+
+	async search(query, tags) {
+		if (!query) {
+			const response = new ServiceResponse(
+				false,
+				400,
+				"Query is required"
+			);
+			return response;
+		}
+
+		const parse = JSON.parse(LocationDB.export());
+		const haystack = {};
+		for (const entry of parse.v.keys.v) {
+			haystack[entry.v.key.v] = unwrapTyped(JSON.parse(entry.v.value.v));
+		}
+		const locationSearcher = new FuzzySearch(haystack, ['lat', 'lon', 'name', 'description']);
+		const result = locationSearcher.search(query);
+		const response = new ServiceResponse(
+			true,
+			200,
+			"Success",
+			result
+		);
+		return response;
 	}
 }
 
