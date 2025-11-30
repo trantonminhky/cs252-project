@@ -1,5 +1,5 @@
-const ServiceResponse = require('../helper/ServiceResponse');
-const AIService = require('../services/AIService').default;
+import ServiceResponse from '../helper/ServiceResponse';
+import AIService from '../services/AIService';
 
 // TO-DO: DOCUMENT CONTROLLER CLASSES
 class AIController {
@@ -51,4 +51,4 @@ class AIController {
 	}
 }
 
-module.exports = new AIController();
+export default new AIController();
