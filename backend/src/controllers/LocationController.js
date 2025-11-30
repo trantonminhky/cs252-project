@@ -9,7 +9,7 @@ class LocationController {
 
 	async search(req, res, next) {
 		try {
-			const { query, exclude } = req.query;
+			const { query, include } = req.query;
 			if (!query) {
 				const response = new ServiceResponse(
 					false,
@@ -19,13 +19,13 @@ class LocationController {
 				return res.status(response.statusCode).json(response.get());
 			}
 
-			let excludeOption;
-			if (exclude) {
-				excludeOption = exclude.split(',');
+			let includeOption;
+			if (include) {
+				includeOption = include.split(',');
 			}
 
 			const response = await LocationService.search(query, {
-				exclude: excludeOption
+				include: includeOption
 			});
 			res.status(response.statusCode).json(response.get());
 		} catch (err) {

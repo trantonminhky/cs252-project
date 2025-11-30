@@ -39,7 +39,7 @@ class LocationService {
 		}
 	}
 
-	async search(query, { exclude = [] } = {}) {
+	async search(query, { include } = {}) {
 		if (!query) {
 			const response = new ServiceResponse(
 				false,
@@ -49,13 +49,13 @@ class LocationService {
 			return response;
 		}
 
-		console.log(exclude);
+		const searchAll = include == null;
 
-		if (!Array.isArray(exclude)) {
+		if (!Array.isArray(include) && !searchAll) {
 			const response = new ServiceResponse(
 				false,
 				400,
-				"Malformed exclude option"
+				"Malformed include option"
 			);
 			return response;
 		}
@@ -72,11 +72,12 @@ class LocationService {
 
 		const locationSearcher = new FuzzySearch(haystack, ['value.lat', 'value.lon', 'value.name', 'value.description']);
 		const result = locationSearcher.search(query).filter(entry => {
+			if (searchAll) return true;
 			const tagsList = entry.value.buildingType
 			.concat(entry.value.archStyle)
 			.concat(entry.value.religion);
 
-			return tagsList.every(tag => !exclude.includes(tag));
+			return tagsList.some(tag => include.includes(tag));
 		});
 		const response = new ServiceResponse(
 			true,
