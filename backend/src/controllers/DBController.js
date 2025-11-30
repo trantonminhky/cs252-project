@@ -1,5 +1,5 @@
 const ServiceResponse = require('../helper/ServiceResponse');
-const DBService = require('../services/DBService');
+const DBService = require('../services/DBService').default;
 
 // TO-DO: DOCUMENT CONTROLLER CLASSES
 

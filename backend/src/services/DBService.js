@@ -1,6 +1,6 @@
-const fs = require('fs');
-const path = require('path');
-const ServiceResponse = require('../helper/ServiceResponse');
+import { readdirSync } from 'fs';
+import path from 'path';
+import ServiceResponse from '../helper/ServiceResponse';
 
 function unwrapTyped(x) {
 	if (Array.isArray(x)) return x.map(unwrapTyped);
@@ -25,7 +25,7 @@ function unwrapTyped(x) {
 class DBService {
 	constructor() {
 		const dir = path.join(__dirname, '..', "db");
-		const databases = fs.readdirSync(dir).map(db => require(path.join(dir, db)));
+		const databases = readdirSync(dir).map(db => require(join(dir, db)));
 		this.databases = databases;
 	}
 
@@ -146,4 +146,4 @@ class DBService {
 	}
 }
 
-module.exports = new DBService();
+export default new DBService();
