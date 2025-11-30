@@ -4,6 +4,6 @@ const AIController = require('../controllers/AIController');
 
 // AI ask endpoint
 router.post('/send-prompt', AIController.sendPrompt);
-router.get('./extract-tags', AIController.extractTags);
+router.get('/extract-tags', AIController.extractTags);
 
 module.exports = router;

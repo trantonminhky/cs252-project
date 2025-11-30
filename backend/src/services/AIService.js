@@ -7,8 +7,6 @@ import("gemini-ai").then(async ({ default: Gemini }) => {
 	gemini = new Gemini(config.gemini.apiKey);
 });
 
-const client = await Client.connect("JustscrAPIng/cultour-filter-search");
-
 class AIService {
 	constructor() {
 		this.apiKey = config.gemini.apiKey;
@@ -60,6 +58,7 @@ class AIService {
 		}
 
 		try {
+			const client = await Client.connect("JustscrAPIng/cultour-filter-search");
 			const result = await client.predict("/extract_tags", {
 				user_text: text
 			});
