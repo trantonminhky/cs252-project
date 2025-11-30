@@ -1,5 +1,5 @@
-const ServiceResponse = require('../helper/ServiceResponse');
-const ProfileService = require('../services/ProfileService').default;
+import ServiceResponse from '../helper/ServiceResponse';
+import ProfileService from '../services/ProfileService';
 
 // TO-DO: DOCUMENT CONTROLLER CLASSES
 class ProfileController {
@@ -79,4 +79,4 @@ class ProfileController {
 	}
 }
 
-module.exports = new ProfileController();
+export default new ProfileController();
