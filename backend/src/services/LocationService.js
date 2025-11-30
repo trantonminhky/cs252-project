@@ -40,18 +40,10 @@ class LocationService {
 	}
 
 	async search(query, { include } = {}) {
-		if (!query) {
-			const response = new ServiceResponse(
-				false,
-				400,
-				"Query is required"
-			);
-			return response;
-		}
+		const searchAllResults = query === "" || query == null;
+		const searchAllTags = include == null;
 
-		const searchAll = include == null;
-
-		if (!Array.isArray(include) && !searchAll) {
+		if (!Array.isArray(include) && !searchAllTags) {
 			const response = new ServiceResponse(
 				false,
 				400,
@@ -65,14 +57,22 @@ class LocationService {
 		for (const entry of parse.v.keys.v) {
 			data[entry.v.key.v] = unwrapTyped(JSON.parse(entry.v.value.v));
 		}
+
 		const haystack = Object.entries(data).map(([key, value]) => ({
 			key,
 			value
 		}));
 
-		const locationSearcher = new FuzzySearch(haystack, ['value.lat', 'value.lon', 'value.name', 'value.description']);
-		const result = locationSearcher.search(query).filter(entry => {
-			if (searchAll) return true;
+		let results;
+		if (searchAllResults) {
+			results = haystack;
+		} else {
+			const locationSearcher = new FuzzySearch(haystack, ['value.lat', 'value.lon', 'value.name', 'value.description']);
+			results = locationSearcher.search(query);
+		}
+
+		results = results.filter(entry => {
+			if (searchAllTags) return true;
 			const tagsList = entry.value.buildingType
 			.concat(entry.value.archStyle)
 			.concat(entry.value.religion);
@@ -83,7 +83,7 @@ class LocationService {
 			true,
 			200,
 			"Success",
-			result
+			results
 		);
 		return response;
 	}
