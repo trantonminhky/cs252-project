@@ -1,5 +1,5 @@
 const ServiceResponse = require('../helper/ServiceResponse');
-const mapService = require('../services/MapService');
+const mapService = require('../services/MapService').default;
 
 // TO-DO: DOCUMENT CONTROLLER CLASSES
 // Sample spots (replace with database later)

@@ -1,6 +1,6 @@
-const axios = require('axios');
-const config = require('../config/config').default;
-const ServiceResponse = require('../helper/ServiceResponse');
+import axios from 'axios';
+import config from '../config/config';
+import ServiceResponse from '../helper/ServiceResponse';
 
 class MapService {
 	constructor() {
@@ -93,4 +93,4 @@ class MapService {
 	}
 }
 
-module.exports = new MapService();
+export default new MapService();
