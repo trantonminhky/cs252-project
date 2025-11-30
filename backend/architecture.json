@@ -1,0 +1,3698 @@
+{
+	"way_39514795": [
+		{
+			"ID": "('way', 39514795)",
+			"location.lat": "10.7725301",
+			"location.lon": "106.69803652841517",
+			"name": "Chợ Bến Thành",
+			"building_type": "marketplace",
+			"arch_style": "french",
+			"age": 1914,
+			"religion": "none",
+			"image link": "https://upload.wikimedia.org/wikipedia/commons/f/f5/Ben_Thanh%2C_Ciudad_Ho_Chi_Minh%2C_Vietnam%2C_2013-08-14%2C_DD_01.JPG",
+			"description": "Chợ Bến Thành tọa lạc tại trung tâm Thành phố Hồ Chí Minh, Việt Nam, thuộc Quận 1. Đây là một trong những công trình kiến ​​trúc cổ xưa nhất còn sót lại của thành phố và là biểu tượng quan trọng của thành phố. Chợ Bến Thành là điểm đến nổi tiếng của nhiều du khách trong và ngoài nước từ khắp nơi trên thế giới.\nhttps://vinpearl.com/vi/cho-ben-thanh-o-dau-kinh-nghiem-di-cho-cho-khach-du-lich",
+			"open_hours": "6:00 - 23:00",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_152990635": [
+		{
+			"ID": "('way', 152990635)",
+			"location.lat": "10.758108",
+			"location.lon": "106.67218157807716",
+			"name": "Chợ An Đông",
+			"building_type": "marketplace",
+			"arch_style": "modernism",
+			"age": 1954,
+			"religion": "none",
+			"image link": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/An_Dong_market.jpg/2560px-An_Dong_market.jpg",
+			"description": "Chợ An Đông nhộn nhịp, sôi động là điểm đến lý tưởng để du khách bốn phương ghé đến mua sắm và có cơ hội hiểu thêm về văn hóa địa phương. Nếu bạn chưa biết đến Sài Gòn đi chơi ở đâu thì hãy ghé ngay chợ An Đông để khám phá những điều thú vị.\nhttps://vinwonders.com/vi/wonderpedia/news/cho-an-dong-sai-gon/",
+			"open_hours": "6:00 - 18:00",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"relation_2552505": [
+		{
+			"ID": "('relation', 2552505)",
+			"location.lat": "10.7492965",
+			"location.lon": "106.65072796223046",
+			"name": "Chợ Bình Tây",
+			"building_type": "marketplace",
+			"arch_style": "east_asia, french",
+			"age": 1930,
+			"religion": "none",
+			"image link": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Vn-hcm-cho-binh-tay-27-07-07.JPG/330px-Vn-hcm-cho-binh-tay-27-07-07.JPG",
+			"description": "Chợ Bình Tây là khu chợ đầu mối cực kỳ nổi tiếng ở thành phố Hồ Chí Minh. Đây là nơi tham quan, mua sắm mang đậm giá trị lịch sử và văn hóa đặc trưng của người kinh doanh Sài Gòn từ bao đời nay.\nhttps://vinpearl.com/vi/luu-ngay-4-bi-kip-di-cho-binh-tay-an-uong-mua-sam-ngon-re-nhat",
+			"open_hours": "2:00 - 23:00",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_39598471": [
+		{
+			"ID": "('way', 39598471)",
+			"location.lat": "10.78989975",
+			"location.lon": "106.69005125000001",
+			"name": "Chợ Tân Định",
+			"building_type": "marketplace",
+			"arch_style": "french",
+			"age": 1927,
+			"religion": "none",
+			"image link": "https://thanhnien.mediacdn.vn/uploaded/vuphuong/2017_02_28/9_GJYA.jpg?width=500&fbclid=IwY2xjawOQAo9leHRuA2FlbQIxMABicmlkETFWSGNjeHE0QnB5R2JLTml1c3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHn_35m0K07ZpJlDhi-MDxBd4FuSyF2diMAp2pkl5lqYxr4Q-XTD0XsGpRrAt_aem_LyF9WsBsrE1nkXigRZqy_w",
+			"description": "Là một trong những khu chợ lâu đời nhất Sài Gòn - Tân Định chắc hẳn đã là địa điểm quá quen thuộc với người dân thành phố mang tên Bác. Chợ Tân Định được xây dựng vào năm 1926 và là khu chợ di tích lịch sử của TP.HCM, từ lâu đây đã là điểm ghé thăm của nhiều người dân địa phương, các bạn trẻ và cả những du khách nước ngoài mong muốn tìm hiểu về văn hóa Việt Nam.\nhttps://www.traveloka.com/vi-vn/explore/destination/du-lich-cho-tan-dinh-acc/253819",
+			"open_hours": "5:00 - 23:00",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_292075521": [
+		{
+			"ID": "('way', 292075521)",
+			"location.lat": "10.801874649999998",
+			"location.lon": "106.69876009417646",
+			"name": "Chợ Bà Chiểu",
+			"building_type": "marketplace",
+			"arch_style": "modernism",
+			"age": 1947,
+			"religion": "none",
+			"image link": "https://www.vietnamairlines.com/~/media/SEO-images/2025%20SEO/Thay%20Anh%20Traffic%20Tieng%20Viet/cho%20ba%20chieu/khung-canh-cho-ba-chieu-ban-ngay.jpeg",
+			"description": "Chợ Bà Chiểu không chỉ là một trong những khu chợ lâu đời nhất TP.HCM mà còn là điểm mua sắm sầm uất bậc nhất Quận Bình Thạnh. Không khí nhộn nhịp cùng nét văn hóa mua bán truyền thống khiến khu chợ trở thành điểm đến quen thuộc của nhiều người.\nhttps://www.xanhsm.com/news/cho-ba-chieu",
+			"open_hours": "5:00 - 23:00",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_498042948": [
+		{
+			"ID": "('way', 498042948)",
+			"location.lat": "10.9398453",
+			"location.lon": "106.7652497",
+			"name": "Chợ Tân Bình",
+			"building_type": "marketplace",
+			"arch_style": "modernism",
+			"age": 1960,
+			"religion": "none",
+			"image link": "https://mia.vn/media/uploads/blog-du-lich/kinh-nghiem-di-cho-tan-binh-04-1720881148.jpg",
+			"description": "Được hình thành từ năm 1960, chợ Tân Bình đã trở thành một trong những ngôi chợ quần áo sỉ lâu đời và lớn nhất tại Sài Gòn. Nơi đây không chỉ là điểm đến quen thuộc của các tiểu thương mà còn thu hút hàng nghìn khách tham quan, mua sắm mỗi ngày.\nhttps://www.xanhsm.com/news/cho-tan-binh",
+			"open_hours": "6:00 - 18:00",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_79345731": [
+		{
+			"ID": "('way', 79345731)",
+			"location.lat": "10.7635238",
+			"location.lon": "106.70610328026285",
+			"name": "Chợ Xóm Chiếu",
+			"building_type": "marketplace",
+			"arch_style": "modernism",
+			"age": null,
+			"religion": "none",
+			"image link": "https://mia.vn/media/uploads/blog-du-lich/cho-xom-chieu-01-1700093635.jpeg",
+			"description": "Chợ Xóm Chiếu (hay còn gọi là chợ 200) là khu chợ lâu đời với không gian ẩm thực đa dạng, từ món ngon truyền thống đến các món ăn vặt thời thượng. Nơi đây không chỉ là điểm mua sắm, ăn uống mà còn là nơi lưu giữ văn hóa, phản ánh nhịp sống sôi động đặc trưng của Sài Gòn.\nhttps://www.xanhsm.com/news/cho-xom-chieu-quan-4",
+			"open_hours": "4:00 - 11:00",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_499426667": [
+		{
+			"ID": "('way', 499426667)",
+			"location.lat": "10.8502385",
+			"location.lon": "106.75419735",
+			"name": "Chợ Thủ Đức",
+			"building_type": "marketplace",
+			"arch_style": "modernism",
+			"age": 2003,
+			"religion": "none",
+			"image link": "https://upload.wikimedia.org/wikipedia/commons/1/15/Ch%E1%BB%A3_Th%E1%BB%A7_%C4%90%E1%BB%A9c.jpg",
+			"description": "Chợ Thủ Đức hay còn được biết đến là chợ đầu mối nông sản Thủ Đức, là một trong những khu chợ lớn nhất tại TP. Hồ Chí Minh. Với không khí nhộn nhịp và hoạt động 24/24, đây là điểm đến lý tưởng cho những ai muốn mua sắm, buôn bán hoặc trải nghiệm nét đặc trưng của chợ đầu mối.\nhttps://www.xanhsm.com/news/cho-thu-duc",
+			"open_hours": "24/7",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_663397402": [
+		{
+			"ID": "('way', 663397402)",
+			"location.lat": "10.78396255",
+			"location.lon": "106.68889980443488",
+			"name": "Nhà thiếu nhi TPHCM",
+			"building_type": "community_centre",
+			"arch_style": "contemporary",
+			"age": 1975,
+			"religion": "none",
+			"image link": "https://nhathieunhitphcm.com.vn/images/ntntphcm/gioithieu/ntntp_01.jpg",
+			"description": "50 năm qua, Nhà Thiếu nhi TP Hồ Chí Minh đã trở thành địa chỉ quen thuộc, gần gũi và thân thương đối với biết bao thế hệ thiếu nhi Thành phố. Không chỉ là nơi vui chơi, học tập, rèn luyện kỹ năng, nơi đây còn là chiếc nôi nuôi dưỡng ước mơ, điểm tựa tinh thần, “ngôi nhà thứ hai” của nhiều thế hệ thiếu nhi trưởng thành và tỏa sáng.\nhttps://baotintuc.vn/van-hoa/nha-thieu-nhi-tp-ho-chi-minh-noi-chap-canh-uoc-mo-cua-bao-the-he-20250529101119676.htm",
+			"open_hours": "8:00–11:15\n14:00–17:00",
+			"day_off": "tuesday",
+			"tags": ""
+		}
+	],
+	"relation_2531662": [
+		{
+			"ID": "('relation', 2531662)",
+			"location.lat": "10.77570965",
+			"location.lon": "106.69789613549067",
+			"name": "Tòa án Nhân dân TPHCM",
+			"building_type": "courthouse",
+			"arch_style": "baroque, roccoco",
+			"age": 1885,
+			"religion": "none",
+			"image link": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhS4Lp_3nCl136J-sAnpMPD61811Z3WMPRITnNziB57yWUPwkSODuoL6yAzHzgr-HqHRnCOgcD9yyM0NhTXD-TUVMMtoyB6-me4SJFGt-3nHWNVkAGSUkii5BxCAWc4Dc2ZT2VX-Om_E1TlsteNA2sxzelRwYsL4CbHr5JgSWKFTyrq-gmdbzSL1mON/s2592/T%C3%B2a_%C3%A1n_Nh%C3%A2n_d%C3%A2n_tp_Ho_Chi_minh,_vietnam_-_panoramio.jpg",
+			"description": "Tòa án nhân dân thành phố Hồ Chí Minh (gọi tắt là: Tòa án TPHCM) được thành lập vào tháng 9 năm 1976. Tòa án ra đời sau sự kiện lịch sử 30 tháng 4 năm 1975, chính quyền miền Bắc Việt Nam đã vào tiếp quản toàn bộ hệ thống tòa án tại miền Nam Việt Nam. Sau đó, chính quyền mới đã thành lập Tòa án TPHCM.\nhttps://logiclaw.vn/gioi-thieu-ve-toa-an-nhan-dan-thanh-pho-ho-chi-minh/",
+			"open_hours": "7:30 - 17:00",
+			"day_off": "saturday;sunday",
+			"tags": ""
+		}
+	],
+	"way_193092896": [
+		{
+			"ID": "('way', 193092896)",
+			"location.lat": "10.786105899999999",
+			"location.lon": "106.68887239223955",
+			"name": "Viện Pasteur TPHCM",
+			"building_type": "hospital",
+			"arch_style": "french",
+			"age": 1891,
+			"religion": "none",
+			"image link": "https://prod-cdn.pharmacity.io/blog/vien-pasteur-tp-hcm.png?X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAUYXZVMJMURHIYJSN%2F20240424%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240424T035237Z&X-Amz-SignedHeaders=host&X-Amz-Expires=600&X-Amz-Signature=fb131269bdfb17a497669c04a5becd3f8b22ff8d06841934ca77a257b969a817",
+			"description": "Viện Pasteur TP.HCM là một tổ chức y tế hàng đầu tại Việt Nam, chuyên về nghiên cứu, chẩn đoán và phòng chống dịch bệnh. Viện được thành lập năm 1891 với tên gọi ban đầu là Viện Pasteur Sài Gòn, là viện đầu ngành về y tế dự phòng và miễn dịch cho khu vực phía Nam. Viện cung cấp các dịch vụ như tiêm ngừa, xét nghiệm và nghiên cứu khoa học, đồng thời có chức năng chỉ đạo chuyên môn cho các tỉnh phía Nam.\nhttps://vnexpress.net/kien-truc-phap-xua-va-ngoi-mo-co-o-vien-pasteur-tp-hcm-4922642.html",
+			"open_hours": "7:00 - 17:00",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_225209455": [
+		{
+			"ID": "('way', 225209455)",
+			"location.lat": "10.77866115",
+			"location.lon": "106.684936728687",
+			"name": "Bệnh viện Mắt TPHCM",
+			"building_type": "hospital",
+			"arch_style": "french",
+			"age": 1978,
+			"religion": "none",
+			"image link": "https://toplist.vn/images/800px/benh-vien-mat-tp-hcm-982746.jpg",
+			"description": "Bệnh viện Mắt Thành phố Hồ Chí Minh (còn gọi là Bệnh viện Mắt Điện Biên Phủ) là bệnh viện chuyên khoa hạng I, hoạt động từ năm 1978 và là trung tâm nhãn khoa hàng đầu khu vực phía Nam. Bệnh viện chuyên khám và điều trị các bệnh lý về mắt cho người dân, với đầy đủ các chuyên khoa sâu và đội ngũ nhân viên y tế được đào tạo chuyên môn cao.\nhttps://tuoitre.vn/toan-canh-benh-vien-mat-tp-hcm-noi-duoc-de-xuat-xep-hang-di-tich-kien-truc-nghe-thuat-20230908130325956.htm",
+			"open_hours": "7:00 - 17:00",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_375544508": [
+		{
+			"ID": "('way', 375544508)",
+			"location.lat": "10.7729754",
+			"location.lon": "106.66707394464697",
+			"name": "Viện Tim Thành phố Hồ Chí Minh",
+			"building_type": "hospital",
+			"arch_style": "modernism",
+			"age": 1991,
+			"religion": "none",
+			"image link": "https://cmi-vietnam.com/wp-content/uploads/2021/06/Entree-de-lextention-de-lInstitut-du-Coeur-Copie.jpg",
+			"description": "Viện Tim Thành phố Hồ Chí Minh là một bệnh viện chuyên khoa tim mạch hàng đầu tại Việt Nam, chuyên về phòng ngừa, chẩn đoán, điều trị và phục hồi chức năng các bệnh tim mạch. Viện được thành lập năm 1992, sở hữu đội ngũ y bác sĩ giàu kinh nghiệm, cơ sở vật chất hiện đại và là một trong hai trung tâm tim mạch lớn nhất khu vực Đông Nam Á. Viện thực hiện nhiều ca phẫu thuật tim bẩm sinh, mạch vành với tỷ lệ thành công cao, có cả trường hợp trẻ sơ sinh.\nhttps://cmi-vietnam.com/en/the-heart-institute/#:~:text=A%20symbol%20of%20a%20unique,responsible%20for%20its%20financial%20management.",
+			"open_hours": "6:00 - 18:00",
+			"day_off": "saturday;sunday",
+			"tags": ""
+		}
+	],
+	"way_189067543": [
+		{
+			"ID": "('way', 189067543)",
+			"location.lat": "10.754120799999999",
+			"location.lon": "106.67210278036669",
+			"name": "Bệnh viện An Bình",
+			"building_type": "hospital",
+			"arch_style": "modernism",
+			"age": 2001,
+			"religion": "none",
+			"image link": "https://benhvienanbinh.vn/wp-content/uploads/2024/05/BENH-VIEN-2024.jpg",
+			"description": "Bệnh viện An Bình là một bệnh viện đa khoa hạng I trực thuộc Sở Y tế TP. HCM, tọa lạc tại số 146 An Bình, Quận 5, TP. HCM. Bệnh viện có quy mô lớn với 700 giường bệnh, cung cấp đa dạng các dịch vụ từ khám chữa bệnh cơ bản đến các kỹ thuật cao như phẫu thuật nội soi, thay khớp, tán sỏi laser, và được trang bị hệ thống thiết bị y tế hiện đại.",
+			"open_hours": "7:00 - 16:00",
+			"day_off": "sunday",
+			"tags": ""
+		}
+	],
+	"way_262966609": [
+		{
+			"ID": "('way', 262966609)",
+			"location.lat": "10.781372600000001",
+			"location.lon": "106.69030196537784",
+			"name": "Nhà Tang lễ TPHCM (Lê Quý Đôn)",
+			"building_type": "mortuary",
+			"arch_style": "modernism",
+			"age": null,
+			"religion": "none",
+			"image link": "https://wikihoavien.vn/wp-content/uploads/2025/03/nha-tang-le-thanh-pho-ho-chi-minh-1.jpg",
+			"description": "Nhà tang lễ TP.HCM (Lê Quý Đôn) là một nhà tang lễ cũ nằm ở số 25, đường Lê Quý Đôn, phường 07, quận 03, TP.HCM. Đây là một cơ sở tang lễ lâu đời, nay đã được thay thế bởi một nhà hàng lẩu Đài Loan có tên Man Tang Guo Lê Quý Đôn tại số 6B Lê Quý Đôn, Phường Võ Thị Sáu, Quận 3.",
+			"open_hours": "",
+			"day_off": "out of service",
+			"tags": ""
+		}
+	],
+	"way_1309894124": [
+		{
+			"ID": "('way', 1309894124)",
+			"location.lat": "10.71877965",
+			"location.lon": "106.60270207429869",
+			"name": "Nhà Tang lễ TPHCM",
+			"building_type": "mortuary",
+			"arch_style": "vietnamese, contemporary",
+			"age": 2002,
+			"religion": "none",
+			"image link": "https://th.bing.com/th/id/R.9e48ce14b4e354e0ab7413ce55ffe91c?rik=iPYS%2b3nXpmkXQg&riu=http%3a%2f%2fnhatanglethanhpho.org.vn%2fImgPro%2fAdmin_26112023162940386.jpg&ehk=6%2bqQlMFeIPs8uYQlJPzChbTjXm7Gqw1QC5XKePFfDxI%3d&risl=&pid=ImgRaw&r=0",
+			"description": "Đây là cơ sở chính do Thành phố quản lý và có quy mô lớn.\nhttps://blackstones.vn/danh-muc-nha-tang-le/nha-tang-le-thanh-pho-moi-binh-tan-html.html?srsltid=AfmBOooRr8nWLDNfKJ4k02X_L8P--rGfxz5QdH8BzO5d5e0FjfcEKzxR",
+			"open_hours": "24/7",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"": [
+		{
+			"ID": "",
+			"location.lat": "10.754092068007300",
+			"location.lon": "10.667034779178000",
+			"name": "Nhà tang lễ Bệnh Viện Nguyễn Tri Phương",
+			"building_type": "mortuary",
+			"arch_style": "chinese, modernism",
+			"age": 1963,
+			"religion": "none",
+			"image link": "https://maitangthanhbinh.com/wp-content/uploads/2025/03/nha-tang-le-8.jpg",
+			"description": "Nhà tang lễ Bệnh viện Nguyễn Tri Phương, còn gọi là nhà tang lễ Quảng Đông, tọa lạc tại địa chỉ 336 Trần Phú, Phường 7, Quận 5, Thành phố Hồ Chí Minh, phục vụ nhu cầu tổ chức tang lễ cho cộng đồng người Việt và người Hoa. Địa điểm này hoạt động 24/24, cung cấp dịch vụ tổ chức tang lễ trọn gói, có bãi đậu xe riêng và được nhiều người đánh giá cao về sự chu đáo, giá cả hợp lý.\nhttps://phucanvienlongan.vn/blogs/tin-tuc/tim-hieu-ve-nha-tang-le-benh-vien-nguyen-tri-phuong",
+			"open_hours": "24/7",
+			"day_off": "",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.770037186423554",
+			"location.lon": "106.69881219549565",
+			"name": "Kuretakeso Vietnam",
+			"building_type": "commercial",
+			"arch_style": "french",
+			"age": null,
+			"religion": "none",
+			"image link": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwGvU2zHwIo_Sq_UMXlDuk_fvrm-bD-gVCzvdnsjkel10GijEhRPh6DLjc-aGfb-EJvV2IoSsJXCuY2d2JfVJz4WElTYKdX3Wmrt-w_w_ZlcBUgxePjcqeHKYN5gXINsLiPR3pcLg=s1360-w1360-h1020-rw",
+			"description": "Kiến trúc của Kuretakeso Hotel tại Thành phố Hồ Chí Minh là sự kết hợp tinh tế giữa phong cách Nhật Bản hiện đại và sự hòa hợp với văn hóa, khí hậu địa phương Việt Nam, tạo nên một không gian nghỉ dưỡng tiện nghi và độc đáo.",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.770176756020266",
+			"location.lon": "106.70459695552047",
+			"name": "Tòa nhà V.A.R",
+			"building_type": "residential",
+			"arch_style": "modernism",
+			"age": 1973,
+			"religion": "none",
+			"image link": "https://media.urbanistnetwork.com/urbanistvietnam/articleimages/2021/03/05/VAR/01b.jpg",
+			"description": "Tòa nhà VAR là một tòa nhà văn phòng nằm ở Quận 1, TP. Hồ Chí Minh, có kiến trúc hiện đại giữa thế kỷ 20, được hoàn thành vào năm 1973. Tòa nhà nổi bật với mặt tiền hai lớp \"linh hoạt\" do kiến trúc sư Lê Văn Lắm thiết kế, vừa giúp làm mát không gian vừa thể hiện tính sáng tạo và khả năng thích ứng với khí hậu địa phương. Ngoài ra, tòa nhà VAR hiện nay cũng có thể chỉ một tòa nhà văn phòng hiện đại khác, với 7 tầng nổi, 1 tầng hầm và các tiện ích như thang máy, hệ thống máy lạnh và phòng cháy chữa cháy. ",
+			"open_hours": "7:00 - 19:00",
+			"day_off": "sunday",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.775667980811878",
+			"location.lon": "106.68948531725087",
+			"name": "Biệt thự Phương Nam (Quận 3)",
+			"building_type": "residential",
+			"arch_style": "french",
+			"age": 1927,
+			"religion": "none",
+			"image link": "https://static.tuoitre.vn/tto/i/s626/2016/06/28/biet-thu-phuong-nam-jpg-1467098252.jpg",
+			"description": "Biệt thự Phương Nam (tọa lạc tại số 110-112 Võ Văn Tần, Phường 6, Quận 3) là một trong những biệt thự cổ lâu đời và có giá trị nhất tại TP. Hồ Chí Minh, nổi bật với phong cách kiến trúc Pháp cổ điển.\nhttps://vietnamnet.vn/dieu-it-biet-ve-can-biet-thu-100-tuoi-35-trieu-usd-o-sai-gon-268518.html#:~:text=*%20bi%E1%BB%87t%20th%E1%BB%B1%20*%20L%C3%A2u%20%C4%91%C3%A0i.%20*,USD.%20*%20Ph%C3%A1p%20c%E1%BB%95%20*%20s%C3%A0i%20gon.",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.784554827973517",
+			"location.lon": "106.64807013384946",
+			"name": "chùa Pothiwong",
+			"building_type": "place_of_worship",
+			"arch_style": "khmer",
+			"age": 1960,
+			"religion": "khmer",
+			"image link": "https://images.baodantoc.vn/uploads/2022/Th%C3%A1ng%203/Ngay_12/Ngoc/ChuaKhmer-03.jpg",
+			"description": "Chùa Pothiwong (tên chính thức là Bodhivangsa Pathi Vong Wat) nằm tại địa chỉ 21/2 Bùi Thế Mỹ, phường 10, quận Tân Bình, TP. Hồ Chí Minh. Chùa là một trong những ngôi chùa Khmer thuộc hệ phái Phật giáo Nam tông tại thành phố, nổi bật với kiến trúc Khmer truyền thống được xây dựng theo hình thức đa tầng, thích ứng với diện tích nhỏ hẹp ở đô thị. \nhttps://www.tapchinghiencuuphathoc.vn/chua-pothiwong.html",
+			"open_hours": "04:30 - 22:00",
+			"day_off": "",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.754407339789866",
+			"location.lon": "106.65991497405459",
+			"name": "Hội quán Ôn Lăng",
+			"building_type": "place_of_worship",
+			"arch_style": "chinese",
+			"age": 1787,
+			"religion": "chinese_folk",
+			"image link": "https://statics.vinpearl.com/hoi-quan-on-lang-1_1633622801.jpg",
+			"description": "Hội quán Ôn Lăng, còn gọi là Chùa Quan Âm, là một di tích kiến trúc nghệ thuật cấp Quốc gia, thể hiện sự giao thoa văn hóa độc đáo của cộng đồng người Hoa tại Chợ Lớn. \nhttps://vinpearl.com/vi/ghe-tham-hoi-quan-on-lang-kien-truc-trung-hoa-giua-long-sai-thanh",
+			"open_hours": "6:15 - 17:00",
+			"day_off": "",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.753461476958297",
+			"location.lon": "106.65280111725015",
+			"name": "Đền thờ họ Trương ",
+			"building_type": "place_of_worship",
+			"arch_style": "chinese",
+			"age": null,
+			"religion": "chinese_folk",
+			"image link": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwMkZ80hXQbqZOQQzmCO9hDJCL_EyOzGRNUmKDiank7WZ_0fb5fHIE0mtSA_6ZNZ6w-gBZAecnQg4MWJVFsyT3Z03Gs9SzSLkNkJpC9sVnsAJaibgeoRCkEHFLmTXU5eiFVY4x3UA=s1360-w1360-h1020-rw",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.799499081453934",
+			"location.lon": "106.63862468165155",
+			"name": "Miếu Tân Kỳ - Miếu Ông Bổn",
+			"building_type": "place_of_worship",
+			"arch_style": "vietnamese",
+			"age": 1815,
+			"religion": "vietnamese_folk, chinese_folk",
+			"image link": "https://vegiang.com/images/Cong-mieu-Ong-Bon.jpg",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.480479187530538",
+			"location.lon": "106.76300671903466",
+			"name": "Đình Dương Văn Hạnh",
+			"building_type": "place_of_worship",
+			"arch_style": "vietnamese",
+			"age": 1864,
+			"religion": "vietnamese_folk",
+			"image link": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSxdEd6rRswPpZ2DkaYf2lnHSCVfRVQq98AEXjeWbUWnAB66J_V29tOnIF8YC5YZeQ7tnt78s-Ummr4IYzhgbk194S6po0i-3upRXYdTzMQdYTgEIKpVrAFduAGk0BDPF9T9VkRj=s1360-w1360-h1020-rw",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.808898637875734",
+			"location.lon": "106.85321587276569",
+			"name": "Bảo Tàng Áo Dài",
+			"building_type": "museum",
+			"arch_style": "vietnamese",
+			"age": 2014,
+			"religion": "none",
+			"image link": "https://baotangaodai.com.vn/image/catalog/New%20EG/15161.jpg",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.753250751751624",
+			"location.lon": "106.66117158971338",
+			"name": "Thất Phủ Thiên Hậu Cung",
+			"building_type": "place_of_worship",
+			"arch_style": "vietnamese",
+			"age": 1760,
+			"religion": "buddhist",
+			"image link": "https://www.vietnamairlines.com/~/media/SEO-images/2025%20SEO/Thay%20Anh%20Traffic%20Tieng%20Viet/chua%20ba%20thien%20hau/chua-ba-thien-hau-xay-dung-mai-am-duong-cham-tro-cau-ky-tinh-xao",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10829761563421300",
+			"location.lon": "10669151854637500",
+			"name": " Miếu Sa Tân ",
+			"building_type": "place_of_worship",
+			"arch_style": "vietnamese",
+			"age": null,
+			"religion": "vietnamese_folk",
+			"image link": "https://images2.thanhnien.vn/528068263637045248/2025/6/7/mieu-sa-tan-17492745686022022081900.jpg",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.812594705970437",
+			"location.lon": "106.69461175226597",
+			"name": "Chùa Sắc Tứ Tập Phước",
+			"building_type": "place_of_worship",
+			"arch_style": "vietnamese",
+			"age": null,
+			"religion": "buddhist",
+			"image link": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Ch%C3%B9a_T%E1%BA%ADp_Ph%C6%B0%E1%BB%9Bc.jpg/500px-Ch%C3%B9a_T%E1%BA%ADp_Ph%C6%B0%E1%BB%9Bc.jpg",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.760320962521504",
+			"location.lon": "106.57502271481474",
+			"name": "Chùa Long Thạnh",
+			"building_type": "place_of_worship",
+			"arch_style": "vietnamese",
+			"age": 1740,
+			"religion": "buddhist",
+			"image link": "https://chonthieng.com/data/uploads/2022/10/CHUA-LONG-THANH-BINH-TAN-TPHCM-6-640x426.jpg",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.791357125416127",
+			"location.lon": "106.60419155730276",
+			"name": "Giáo xứ Bình Thuận (Bình Tân)",
+			"building_type": "place_of_worship",
+			"arch_style": "modernism",
+			"age": 1966,
+			"religion": "christian",
+			"image link": "https://tgpsaigon.net/Images/Parish/giao-xu-binh-thuan-15052020_092831.JPG",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.752436274988844",
+			"location.lon": "106.67617626597202",
+			"name": "Giáo xứ Thánh Phaolô (Bình Tân)",
+			"building_type": "place_of_worship",
+			"arch_style": "contemporary",
+			"age": 1961,
+			"religion": "christian",
+			"image link": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSx60Pic-opKfKAOo8fQEv7-GNV2WEpa7q3ucSL4uqQb-frui76BBylptNEKHm1VPkBQ0WRwzlcl5qN7sYSYCpsxJnn3Qk29pPICb3R4f44mkzJidUv1w0y65ZJS3sH3Iw1cIlKlO8hIxEI=s1024-v1",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.780793700158094",
+			"location.lon": "106.61590496107476",
+			"name": "Giáo xứ Thiên Ân",
+			"building_type": "place_of_worship",
+			"arch_style": "french, modernism, east_asia",
+			"age": 2001,
+			"religion": "christian",
+			"image link": "https://tgpsaigon.net/Images/Parish/giao-xu-thien-an-15052020_101445.JPG",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.793497434123566",
+			"location.lon": "106.61964171074689",
+			"name": "Giáo xứ Tân Thái Sơn",
+			"building_type": "place_of_worship",
+			"arch_style": "east_asia, contemporary",
+			"age": 1956,
+			"religion": "christian",
+			"image link": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSyibZn-1GcXl2vl-Mu1DBqk5u-jYb538zWfYYETfUwt6xI94eyjKwbP0IbZuQS56HfrbVC49xUWZudEMwfxuYM-QdOz6pC_sODtbxSQSLLY1jKc8FzMH0DWbqOTh087YX2Cp1Gjew=s1024-v1",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.791340528928261",
+			"location.lon": "106.63513978179796",
+			"name": "Giáo xứ Tân Phú",
+			"building_type": "place_of_worship",
+			"arch_style": "modernism, brutalism",
+			"age": 1963,
+			"religion": "christian",
+			"image link": "https://tgpsaigon.net/Images/Parish/giao-xu-tan-phu-15052020_093540.JPG",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.788095229546396",
+			"location.lon": "106.65053369729922",
+			"name": "Giáo xứ Phú Trung",
+			"building_type": "place_of_worship",
+			"arch_style": "contemporary, french",
+			"age": 1974,
+			"religion": "christian",
+			"image link": "https://tgpsaigon.net/Images/Parish/giao-xu-phu-trung-21052020_125019.JPG",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.7742438",
+			"location.lon": "106.63047834927225",
+			"name": "Giáo xứ Phú Thọ Hòa",
+			"building_type": "place_of_worship",
+			"arch_style": "modernism",
+			"age": 1965,
+			"religion": "christian",
+			"image link": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwKxWnU5Ly7svimy8TRv0J3uSMf5f-fH2rhsCiauiR5tl33jDVct6x1E3vKvX5HRAu-2EMl11gGM5145dLuSBJNARo0eppPt6Cts6FMy1H52VuDhAMPuoobwtNR4CnAVb3fbE7RrO3LxBve=s1354-k-no",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.84255475",
+			"location.lon": "106.69678917444853",
+			"name": "Đình Hanh Phú",
+			"building_type": "place_of_worship",
+			"arch_style": "vietnamese",
+			"age": null,
+			"religion": "vietnamese_folk",
+			"image link": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSzkx6dt2AzCae_XvX43e8swn2WtrOdTOMFyYkY77eYQIBENsUUiweWuJLL55f7-DuP4Uch-GcbcZbRwu7cjuVQRKTEAw-Sm-HB5V7p6L1Kr_wLkXOoj_Y0GBSZ0EiAQ4sIXCU74=s3072-v1",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.747586324596828",
+			"location.lon": "106.66892778142673",
+			"name": "Chùa An Phú (Chùa Miểng Sành)",
+			"building_type": "place_of_worship",
+			"arch_style": "vietnamese",
+			"age": 1960,
+			"religion": "buddhist",
+			"image link": "https://lh3.googleusercontent.com/geougc-cs/AMBA38uhwDAHPzqhb9p5oUSBUq7IiAo2XYKQBN8wijjMNKTgYblU_ohtjdBThmeZX-JyBusfCfdtVDbO42GGGNufzuDZBxhe0jM_cETdXDrW8_gxbj4FG3Rpj1lpoOIJA5-X8QvP8uWlA0z4a57_=s1024-v1",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.752959944924465",
+			"location.lon": "106.63631189300163",
+			"name": "Chùa Giác Hải (Quận 6)",
+			"building_type": "place_of_worship",
+			"arch_style": "vietnamese",
+			"age": 1887,
+			"religion": "buddhist",
+			"image link": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSxgRBFe62xUyBuMo9dx9hwjLdSzWzQAy1pvIHyWsPOdhSWZr2Y5vv1TD2EdqvVBvDYg2X8S9hGXxqlNdg9qjcDKgn3JNfkf5Hgy0BzszkOyg1wn-sNUDG5RElgHwdXq1lPzI6UL=s3072-v1",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.760739650435303",
+			"location.lon": "106.67356938844085",
+			"name": "Đình Hòa Bình, Công viên Hòa Bình",
+			"building_type": "place_of_worship",
+			"arch_style": "korean",
+			"age": 1972,
+			"religion": "vietnamese_folk",
+			"image link": "https://media.urbanistnetwork.com/urbanistvietnam/articleimages/2022/03/13/dinhhanquoc/dinhhanquoc1h.webp",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.7428703",
+			"location.lon": "106.61607778214355",
+			"name": "Chùa Huệ Nghiêm",
+			"building_type": "place_of_worship",
+			"arch_style": "vietnamese",
+			"age": 1962,
+			"religion": "buddhist",
+			"image link": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSxZNzF8Ha8mrrdWAvbgq5Q4fggP6KTaah0QP-k-PehJXGRy4xNlR9j486wtKt5lbbsDh1xOdou6UVOBgzx9iYq-zZ7yOmjZyBbINkPKy4yiQR75nENlB3LJNudrcrf-fnjzNSi2=s1024-v1",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.7595579",
+			"location.lon": "106.6960010152788",
+			"name": "Đình Vĩnh Hội",
+			"building_type": "place_of_worship",
+			"arch_style": "vietnamese",
+			"age": 1820,
+			"religion": "vietnamese_folk",
+			"image link": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSxOEkFhwRJvKUIVHRzmxNX8gOo6wfmvHxARcAP8dZ9llH9MccLsmWWqETt5oKqHCa9ScrdSHeDIyFjt9Eugd4I7ieEX7do206VSPEEJO8c7L8VJz7kuosV4q0Wb24cJ__3ny87Z=s901-k-no",
+			"description": "Đình Vĩnh Hội là một di tích kiến trúc nghệ thuật cấp Thành phố, được xây dựng từ năm 1820.",
+			"open_hours": "24/7",
+			"day_off": "",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.779723530231266",
+			"location.lon": "106.69213905859283",
+			"name": "Bảo tàng Chứng tích Chiến tranh",
+			"building_type": "museum",
+			"arch_style": "contemporary",
+			"age": 1975,
+			"religion": "none",
+			"image link": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSzAYH00V0jht2ZkUmZ-BB7IDP1vZ4KhSqjRw4U0CLEtd1sJunQ8sPsjEOa0OFUlQSRBcWH6t3jW5FdEadxLE4I25vhK2KP2d8LW3I_jkrT0xp9YUk4E2Y1-3OJFJnl4uKXK04Z-=s1024-v1",
+			"description": "ảo tàng Chứng tích Chiến tranh là một bảo tàng lịch sử nổi tiếng tại Thành phố Hồ Chí Minh, chuyên nghiên cứu, sưu tầm, lưu trữ và trưng bày các tài liệu, hình ảnh, hiện vật về những chứng tích, tội ác và hậu quả của các cuộc chiến tranh gây ra đối với Việt Nam. Bảo tàng lưu giữ hơn 20.000 tài liệu, hiện vật quý giá do các cựu chiến binh, nhà báo và bạn bè quốc tế trao tặng, là một không gian đối thoại và hòa giải, nhắc nhở về giá trị của hòa bình.",
+			"open_hours": "7:30 - 17:30",
+			"day_off": "",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.78651705",
+			"location.lon": "106.68485975",
+			"name": "Đình Xuân Hòa",
+			"building_type": "place_of_worship",
+			"arch_style": "vietnamese",
+			"age": 1880,
+			"religion": "vietnamese_folk",
+			"image link": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwLtqvFO60ZAzW1m4RBdFLBRY3qfgk_Kj1np7LojDMgImm_QdE6mLWMpM6hu1ktPWeuQi1lbuGKFOLHdYA8MfJiwXx_pN1iEx6HuNxXmTIuDv27jtjYxxxpiU9zyQwd2FJopVsr=s901-k-no",
+			"description": "Đình Xuân Hòa là một di tích lịch sử - văn hóa cổ kính, mang đậm dấu ấn văn hóa làng xã xưa giữa lòng Thành phố Hồ Chí Minh. Đình được xây dựng vào thế kỷ 19, là nơi thờ Thành Hoàng và các vị tiền hiền, hậu hiền, thể hiện phong tục, tín ngưỡng và sự đoàn kết của người dân địa phương.",
+			"open_hours": "7:30 - 17:00",
+			"day_off": "saturday, sunday",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.775212998341653",
+			"location.lon": "106.6852851760254",
+			"name": "Đình Phú Thạnh (Quận 3)",
+			"building_type": "place_of_worship",
+			"arch_style": "vietnamese",
+			"age": null,
+			"religion": "vietnamese_folk",
+			"image link": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSzradc5IUTMLabZgvrA6CDXDag-Ej1G8YbP86MbRyRROXWeMeaZHFCMJofRDCWMHqx-eXxGPtWskOs78CL0oXHSnM9Jmrqh5EcMScrpcW4A6_oEU-r3Nn6ZQ9PJZpyFFpN_a3l0=s1024-v1",
+			"description": "Đình Phú Thạnh là một di tích kiến trúc cấp thành phố tại Quận 3. Đình được xây dựng vào đầu thế kỷ 19, vẫn còn lưu giữ sắc phong từ triều Nguyễn ban vào năm 1853. Đây là một trong những ngôi đình cổ nhất của khu vực, thờ Thành Hoàng Bổn Cảnh và các vị Tiền hiền, Hậu hiền.",
+			"open_hours": "7:30 - 17:00",
+			"day_off": "",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.781371037231107",
+			"location.lon": "106.69576868976725",
+			"name": "Thủy đài (Quận 3)",
+			"building_type": "reservoir",
+			"arch_style": "french",
+			"age": 1886,
+			"religion": "none",
+			"image link": "https://www.traveleverywhere.vn/store/100/image/1713955794.jpg",
+			"description": "Thủy đài này được người Pháp xây dựng vào năm 1886, là thủy đài cổ nhất còn tồn tại ở Sài Gòn. Nó nằm trong khuôn viên của Tổng Công ty Cấp nước Sài Gòn (SAWACO) ngay tại Công trường Quốc tế (khu vực Hồ Con Rùa). Công trình có kiến trúc độc đáo, từng được cân nhắc bảo tồn như một bảo tàng ngành nước. Tuy nhiên, để đảm bảo an toàn, nơi này hiện không mở cửa cho công chúng tham quan bên trong.",
+			"open_hours": "7:30 - 17:00",
+			"day_off": "",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.777868",
+			"location.lon": "106.6863391",
+			"name": "Chùa Xá Lợi",
+			"building_type": "place_of_worship",
+			"arch_style": "vietnamese",
+			"age": 1958,
+			"religion": "buddhist",
+			"image link": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSxdrKSUvPTsuxf6bxTYemngkjryEpA9fYpeGFV0MyK8DH8mcYU8nIjHFW-MqZLX3om4Y8am9djhuDJRHBEYLK1a8IR6lXkuw26ViPIgQgKYdN6SXWCGoTOeyCbPKuz9WzUfRP0i=s1024-v1",
+			"description": "Chùa Xá Lợi là ngôi chùa đầu tiên tại Thành phố Hồ Chí Minh được xây dựng với kiến trúc hiện đại, khởi công vào năm 1956. Chùa tọa lạc trên một khuôn viên rộng và nổi bật với tháp chuông cao bảy tầng, được xây dựng vào năm 1960.",
+			"open_hours": "6:00 - 11:30 \n14:00 - 21:00",
+			"day_off": "",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.7805644",
+			"location.lon": "106.6998246",
+			"name": "Đường sách Nguyễn Văn Bình",
+			"building_type": "institution",
+			"arch_style": "contemporary",
+			"age": 2016,
+			"religion": "none",
+			"image link": "https://encrypted-tbn0.gstatic.com/licensed-image?q=tbn:ANd9GcQQaQEWuV6qmCs6z5g8orNW3OXPXPEzmPkHcRMiyN1gp7rYeb8P6TXCexVy0mPr4osa8mYPaDo7cj8kKRxM43cQL_OT1qCz_jSGCs2najM1D0Ec1k4",
+			"description": "Đường sách Nguyễn Văn Bình là một con đường đi bộ rợp bóng cây xanh, nằm ngay tại trung tâm Quận 1. Đây là một không gian văn hóa đặc trưng, nơi tập trung nhiều gian hàng của các nhà xuất bản lớn, bán nhiều thể loại sách khác nhau.",
+			"open_hours": "8:00 - 21:00",
+			"day_off": "",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.7768949",
+			"location.lon": "106.7025025",
+			"name": "Khách sạn Continental Saigon",
+			"building_type": "residential",
+			"arch_style": "french",
+			"age": 1880,
+			"religion": "none",
+			"image link": "https://pix8.agoda.net/hotelImages/109/10972/10972_14012411520018144641.jpg?ca=2&ce=1&s=1024x",
+			"description": "Khách sạn Continental Saigon là một trong những khách sạn lâu đời và nổi tiếng nhất tại trung tâm Quận 1, Thành phố Hồ Chí Minh. Được xây dựng từ năm 1880 với kiến trúc Pháp cổ kính, khách sạn mang đậm dấu ấn lịch sử, nằm ngay đối diện Nhà hát Thành phố.",
+			"open_hours": "24/7",
+			"day_off": "",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.7698554",
+			"location.lon": "106.7063881",
+			"name": "Cột cờ Thủ Ngữ",
+			"building_type": "landmark",
+			"arch_style": "french",
+			"age": 1865,
+			"religion": "none",
+			"image link": "https://soxaydung.hochiminhcity.gov.vn/documents/20142/22190712/cotcokhanhthanh-1609728147141856641072.jpg/bd28ad88-9795-9c6a-0667-17c6de0e2ffc?t=1609753747900",
+			"description": " Cột cờ Thủ Ngữ là một di tích lịch sử và là biểu tượng văn hóa nổi tiếng của Thành phố Hồ Chí Minh, tọa lạc ngay bên bờ sông Sài Gòn, tại ngã ba sông. Cột cờ được người Pháp xây dựng vào năm 1865 với mục đích ban đầu là trạm thông tin cho tàu bè ra vào cảng Sài Gòn. Ngày nay, Cột cờ Thủ Ngữ đã được trùng tu, trở thành điểm tham quan lịch sử và là một biểu tượng nổi bật trên bến Bạch Đằng.",
+			"open_hours": "24/7",
+			"day_off": "",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.7747441",
+			"location.lon": "106.7010053",
+			"name": "Chung cư 130 Pasteur, Bến Nghé, Quận 1",
+			"building_type": "residential",
+			"arch_style": "modernism",
+			"age": null,
+			"religion": "none",
+			"image link": "",
+			"description": "Chung cư 130 Pasteur, phường Bến Nghé, Quận 1 là một khu chung cư cũ nằm ở vị trí đắc địa tại trung tâm thành phố. Tại đây tập trung nhiều căn hộ dịch vụ và homestay cho thuê.",
+			"open_hours": "24/7",
+			"day_off": "",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.7701603",
+			"location.lon": "106.7039075",
+			"name": "Đại học Ngân hàng (Cơ sở chính)",
+			"building_type": "institution",
+			"arch_style": "modernism",
+			"age": 1976,
+			"religion": "none",
+			"image link": "https://tuyensinh.hub.edu.vn/hinh_buh/UploadFile//images/20220310230316-10102.jpg",
+			"description": "rường Đại học Ngân hàng Thành phố Hồ Chí Minh (BUH) là một trường đại học công lập, đa ngành trực thuộc Ngân hàng Nhà nước Việt Nam. Trường đào tạo các chuyên ngành về kinh tế, tài chính, ngân hàng, kế toán, và quản trị kinh doanh. Cơ sở chính tọa lạc tại Quận 1, chuyên phục vụ cho công tác hành chính và một số hoạt động giảng dạy.",
+			"open_hours": "7:30 - 17:00",
+			"day_off": "saturday, sunday",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.777592",
+			"location.lon": "106.686572",
+			"name": "Cư xá 30 (Quận 3)",
+			"building_type": "residential",
+			"arch_style": "modernism",
+			"age": null,
+			"religion": "none",
+			"image link": "",
+			"description": " Cư xá 30 tháng 4 là một khu dân cư và văn phòng có vị trí đắc địa tại Quận 3",
+			"open_hours": "24/7",
+			"day_off": "",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.7786963",
+			"location.lon": "106.6992181",
+			"name": "Nhà sách Đức Bà Hoà Bình",
+			"building_type": "institution",
+			"arch_style": "modernism",
+			"age": 1995,
+			"religion": "christian",
+			"image link": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwIzgquxyQ_cMnua_yjIi7qAnbFymeFz0YpJ3EnUqiQEQffIL9PDRJyd5TuN62CuiNeQ_YrKoHEheCyNuGP7epUPG3U2JFFkQSLOJkNHexP0avoMt946eMN6X0mO4i0IUgZYRCcsg=s901-k-no",
+			"description": "Nhà sách Đức Bà Hòa Bình là một nhà sách Công giáo, chuyên cung cấp các loại sách, băng đĩa, thánh tượng và vật phẩm Công giáo khác. ",
+			"open_hours": "8:00 - 11:30\n14:00 - 17:30",
+			"day_off": "",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.8810041",
+			"location.lon": "106.7660661",
+			"name": "Don Bosco Xuân Hiệp",
+			"building_type": "place_of_worship",
+			"arch_style": "modernism",
+			"age": null,
+			"religion": "christian",
+			"image link": "https://tgpsaigon.net/Images/Parish/P_Xuanhiep_TD.jpg",
+			"description": "Cộng thể Don Bosco Xuân Hiệp là một cơ sở của dòng Salêdiêng Don Bosco, gồm nhà thờ (Giáo xứ Xuân Hiệp), tu viện, và các cơ sở giáo dục, đào tạo nghề.",
+			"open_hours": "5:00 - 18:00",
+			"day_off": "",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.772075",
+			"location.lon": "106.6579018",
+			"name": "Trường ĐH Bách Khoa (Cơ sở 1)",
+			"building_type": "institution",
+			"arch_style": "modernism",
+			"age": 1957,
+			"religion": "none",
+			"image link": "https://global-uploads.webflow.com/60af8c708c6f35480d067652/6299c649e615d1a3c8b61093_screenshot_1654244905.png",
+			"description": "Trường Đại học Bách khoa (ĐHQG TPHCM) là trường đại học hàng đầu về kỹ thuật và công nghệ tại Việt Nam. Cơ sở 1 tọa lạc tại Quận 10, là nơi học tập của nhiều khoa, phòng ban và các khu chức năng quan trọng của trường. ",
+			"open_hours": "7:30 - 11:30\n13:00 - 17:00",
+			"day_off": "sunday",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.8473597",
+			"location.lon": "106.7639803",
+			"name": "Giáo xứ Từ Đức",
+			"building_type": "place_of_worship",
+			"arch_style": "modernism",
+			"age": 1955,
+			"religion": "christian",
+			"image link": "https://encrypted-tbn3.gstatic.com/licensed-image?q=tbn:ANd9GcRPlMffeHMt2bCKkkyS70l2yoprM57P8J2OURsberjQfzh4iJis1CgH635V3Lt6wn8ZOkePR33SAfsaf1x4vDqkswsTaHIHyfBOceW6ifo-5MFmXdI",
+			"description": "Giáo xứ Từ Đức là một cộng đoàn Công giáo thuộc Giáo hạt Phú Nhuận, Tổng Giáo phận Thành phố Hồ Chí Minh.",
+			"open_hours": "5:00 - 17:30",
+			"day_off": "",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.7521132",
+			"location.lon": "106.6653415",
+			"name": "Rạp Lệ Thanh B",
+			"building_type": "theatre",
+			"arch_style": "modernism",
+			"age": null,
+			"religion": "none",
+			"image link": "https://tse2.mm.bing.net/th/id/OIP.Z3yf-8mHYyCFsTRsEz2VcAHaLH?rs=1&pid=ImgDetMain&o=7&rm=3",
+			"description": " Rạp Lệ Thanh B là một rạp chiếu phim nổi tiếng một thời ở khu vực Chợ Lớn, quận 5, nằm tại góc đường Phan Phú Tiên và Trần Hưng Đạo B. Cùng với rạp Lệ Thanh A, đây là một trong những địa điểm giải trí văn hóa sôi động của Sài Gòn xưa. Tuy nhiên, rạp đã ngừng hoạt động từ lâu và hiện nay đã xuống cấp, chỉ còn là một di tích văn hóa mang nhiều ký ức.",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.7673179",
+			"location.lon": "106.6944188",
+			"name": "Rạp Công Nhân",
+			"building_type": "theatre",
+			"arch_style": "modernism",
+			"age": null,
+			"religion": "none",
+			"image link": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/R%E1%BA%A1p_C%C3%B4ng_Nh%C3%A2n.JPG/960px-R%E1%BA%A1p_C%C3%B4ng_Nh%C3%A2n.JPG",
+			"description": "Rạp Công Nhân là một trong những rạp hát lâu đời tại Thành phố Hồ Chí Minh, có lịch sử từ thời Pháp thuộc. Ban đầu, rạp có tên là rạp Nguyễn Văn Hảo, sau đổi tên thành Rạp Công Nhân, và hiện nay là Nhà hát Kịch Thành phố Hồ Chí Minh.",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.7993915",
+			"location.lon": "106.7099648",
+			"name": "Giáo Xứ Thánh Nguyễn Duy Khang (Bình Thạnh)",
+			"building_type": "place_of_worship",
+			"arch_style": "modernism",
+			"age": 1955,
+			"religion": "christian",
+			"image link": "https://giothanhle.net/wp-content/uploads/2016/10/Nha-tho-thanh-nguyen-duy-khang-binh-thanh.jpg",
+			"description": "Giáo xứ Thánh Nguyễn Duy Khang được thành lập năm 1968, thuộc Giáo hạt Gia Định, Tổng Giáo phận Thành phố Hồ Chí Minh.",
+			"open_hours": "5:00 - 17:45",
+			"day_off": "",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.7816458",
+			"location.lon": "106.6815551",
+			"name": "Nhà thờ Kỳ Đồng",
+			"building_type": "place_of_worship",
+			"arch_style": "modernism",
+			"age": 1949,
+			"religion": "christian",
+			"image link": "https://cdn.xanhsm.com/2024/11/2245a3c1-nha-tho-ky-dong-01.jpg",
+			"description": "Nhà thờ Kỳ Đồng, tên chính thức là Nhà thờ Đức Mẹ Hằng Cứu Giúp, là một công trình kiến trúc tôn giáo ấn tượng tại Quận 3. Khánh thành năm 1952, nhà thờ có thiết kế mang phong cách cách tân, không cầu kỳ nhưng vẫn toát lên vẻ trang nghiêm với các mảng khối hình học hài hòa.",
+			"open_hours": "5:00 - 20:00",
+			"day_off": "",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.7835135",
+			"location.lon": "106.7052214",
+			"name": "Tu viện dòng Thánh Phaolô",
+			"building_type": "place_of_worship",
+			"arch_style": "french",
+			"age": 1864,
+			"religion": "christian",
+			"image link": "https://nhathoconggiaovietnam.com/storage/photos/1/D%C3%B2ng-Saint-Paul-v%C3%A0-d%E1%BA%A5u-%E1%BA%A5n-ki%E1%BA%BFn-tr%C3%BAc-Nguy%E1%BB%85n-Tr%C6%B0%E1%BB%9Dng-T%E1%BB%99-0-2048x1384.jpg",
+			"description": "Tu viện dòng Thánh Phaolô thành Chartres tại Sài Gòn là tu viện nữ tu đầu tiên ở Việt Nam, được xây dựng từ năm 1862. Công trình này do kiến trúc sư Nguyễn Trường Tộ thiết kế, mang phong cách kiến trúc Pháp kết hợp nét văn hóa Việt. ",
+			"open_hours": "6:00 - 12:00\n13:00 - 16:45",
+			"day_off": "",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.8712764",
+			"location.lon": "106.7917617",
+			"name": "Trường Đại học Nông Lâm TP.HCM",
+			"building_type": "institution",
+			"arch_style": "modernism",
+			"age": 1955,
+			"religion": "none",
+			"image link": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSxCclFlsd1G0jBa19WHii6KId89amdPen94DEboe2Hba9ERsGdSiCurH0kkz90IuoizVQx-Zw3H1BvbZCB6VPiOlYpJHnZvg9tUzF3pqqw6CfJMNU_QpoUesXxr2Nc_wXUk_VE=s1024-v1",
+			"description": " Trường Đại học Nông Lâm TPHCM (NLU) là một trường đại học đa ngành, đa lĩnh vực, chuyên đào tạo về các ngành nông nghiệp, lâm nghiệp, thủy sản, kinh tế, công nghệ và môi trường. ",
+			"open_hours": "7:00 - 17:30",
+			"day_off": "",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.7931999",
+			"location.lon": "106.7084353",
+			"name": "Giáo xứ Thị Nghè",
+			"building_type": "place_of_worship",
+			"arch_style": "modernism, french",
+			"age": 1790,
+			"religion": "christian",
+			"image link": "https://tgpsaigon.net/Images/Parish/P_Thinghe_GD.jpg",
+			"description": "Giáo xứ Thị Nghè, còn có tên gọi chính thức là Giáo xứ Đa Minh - Bà Chiểu, là một giáo xứ Công giáo thuộc Tổng Giáo phận Thành phố Hồ Chí Minh.",
+			"open_hours": "5:00 - 17:30\n5:00 - 17:00",
+			"day_off": "",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.7799935",
+			"location.lon": "106.7034805",
+			"name": "Idecaf - Viện trao đổi Văn hóa với Pháp",
+			"building_type": "institution",
+			"arch_style": "modernism",
+			"age": 1982,
+			"religion": "none",
+			"image link": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSyS-gj1vxH4Sgu1xtlqVmBGncw2S9wYYfMB4FYBSyGA89yHzQvc0Z-p_9r2tdVi84wP5pQlJMCs6buigO3PEtc5dyInNfKii4EgPY9H6f1kBju7Y1BcIfPJnRMfFj2eH-paQ85P=s1224-k-no",
+			"description": "Được thành lập năm 1982, Viện Trao đổi Văn hóa với Pháp (IDECAF) là một tổ chức có chức năng giảng dạy tiếng Pháp, tổ chức các hoạt động văn hóa và thúc đẩy mối quan hệ hợp tác văn hóa, giáo dục giữa Việt Nam và Pháp.",
+			"open_hours": "7:30 - 17:00",
+			"day_off": "saturday, sunday",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.7667302",
+			"location.lon": "106.6886914",
+			"name": "Chợ Thái Bình",
+			"building_type": "institution",
+			"arch_style": "modernism",
+			"age": null,
+			"religion": "none",
+			"image link": "https://upload.wikimedia.org/wikipedia/commons/7/7b/Ch%E1%BB%A3_Th%C3%A1i_B%C3%ACnh_%2C_qu%E1%BA%ADn_1%2C_HCM_-_panoramio.jpg?20161126013436",
+			"description": "Chợ Thái Bình là một khu chợ truyền thống lâu đời, nằm ngay trung tâm Quận 1. Chợ nổi tiếng với các quầy hàng thực phẩm tươi sống, đặc sản địa phương",
+			"open_hours": "5:00 - 18:00",
+			"day_off": "",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.7524216",
+			"location.lon": "106.6685424",
+			"name": "Trung Tâm Văn Hóa Quận 5",
+			"building_type": "institution",
+			"arch_style": "modernism",
+			"age": 1937,
+			"religion": "none",
+			"image link": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSyfjU979xPkz7syNc7FIuneLZmleOFSZD65lpbtgBeLhS3naucNjANcuf-FtGDop35atABXNYU7LVncp58Mo1S_lTlM4Wd2c0QIMn1hyYRuwQs6H9wsUnLu9sz8X6otD7Hen-b0=s1024-v1",
+			"description": "Trung tâm Văn hóa Quận 5 là nơi tổ chức các hoạt động văn hóa, nghệ thuật, giáo dục cộng đồng và các lớp học năng khiếu dành cho người dân địa phương.",
+			"open_hours": "7:30 - 11:30\n13:30 - 17:00",
+			"day_off": "saturday, sunday",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.7526606",
+			"location.lon": "106.6789164",
+			"name": "Bệnh viện Bệnh Nhiệt đới TPHCM",
+			"building_type": "hospital",
+			"arch_style": "modernism",
+			"age": 1861,
+			"religion": "none",
+			"image link": "https://lh3.googleusercontent.com/p/AF1QipO93qtYx3dcyhD8Op3zqt6VQTAkB66pMk728vvR=s3072-v1",
+			"description": "Bệnh viện Bệnh Nhiệt đới TPHCM là một bệnh viện chuyên khoa hạng I, chuyên sâu trong lĩnh vực khám và điều trị các bệnh truyền nhiễm, nhiệt đới và phòng chống dịch bệnh.",
+			"open_hours": "7:00 - 16:00",
+			"day_off": "saturday, sunday",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.7758454",
+			"location.lon": "106.7012646",
+			"name": "Khách sạn Rex",
+			"building_type": "institution",
+			"arch_style": "modernism",
+			"age": 1927,
+			"religion": "none",
+			"image link": "https://www.rexhotelsaigon.com/wp-content/uploads/sites/174/2017/08/DSC01288-1-FINISH.jpg",
+			"description": "Khách sạn Rex là một khách sạn 5 sao có lịch sử lâu đời, tọa lạc tại vị trí đắc địa ngay trung tâm Quận 1, đối diện Phố đi bộ Nguyễn Huệ. Được xây dựng từ năm 1927, khách sạn nổi bật với kiến trúc mang đậm nét văn hóa Việt Nam kết hợp với tiện nghi hiện đại.",
+			"open_hours": "24/7",
+			"day_off": "",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.7530967",
+			"location.lon": "106.6717936",
+			"name": "Khách sạn Đồng Khánh",
+			"building_type": "institution",
+			"arch_style": "modernism",
+			"age": 1962,
+			"religion": "none",
+			"image link": "https://q-xx.bstatic.com/xdata/images/hotel/max1024x768/41180992.jpg?k=57792ff98bb76eace0a9a46e26221479be83f333cc9ae8f03a572d851717e7ac&o=&s=1024x",
+			"description": "Khách sạn Đồng Khánh là một khách sạn lâu đời nằm tại khu vực Chợ Lớn (Quận 5), Thành phố Hồ Chí Minh. Khách sạn có kiến trúc mang đậm nét văn hóa Việt-Hoa.",
+			"open_hours": "24/7",
+			"day_off": "",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.7578646",
+			"location.lon": "106.6595131",
+			"name": "Bệnh viện Chợ Rẫy",
+			"building_type": "hospital",
+			"arch_style": "modernism",
+			"age": 1900,
+			"religion": "none",
+			"image link": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/C%E1%BB%95ng_b%E1%BB%87nh_vi%E1%BB%87n_Ch%E1%BB%A3_R%E1%BA%ABy_2016.jpg/1600px-C%E1%BB%95ng_b%E1%BB%87nh_vi%E1%BB%87n_Ch%E1%BB%A3_R%E1%BA%ABy_2016.jpg",
+			"description": "Bệnh viện Chợ Rẫy là một trong những bệnh viện tuyến cuối lớn và lâu đời nhất tại Thành phố Hồ Chí Minh, được thành lập từ năm 1900. ",
+			"open_hours": "7:00 - 16:00\n7:00 - 11:00",
+			"day_off": "sunday",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.7744445",
+			"location.lon": "106.7036769",
+			"name": "Khách sạn Palace Sài Gòn",
+			"building_type": "commercial",
+			"arch_style": "modernism",
+			"age": 1968,
+			"religion": "none",
+			"image link": "https://encrypted-tbn1.gstatic.com/licensed-image?q=tbn:ANd9GcSh8gigBElS9VLcKyZSKi6Ozpb86jO3TMpBj__PQrbWuNlthg1lDto9FmRJTGYPUvZDCXzmP9PbeHHPeDUbOXSM1eVnbaiyFk9V-Kr-imQ-2CRgugU",
+			"description": "Khách sạn Palace Sài Gòn là một khách sạn 4 sao tọa lạc tại một vị trí đắc địa ngay trên phố đi bộ Nguyễn Huệ, trung tâm Quận 1.",
+			"open_hours": "24/7",
+			"day_off": "",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.7762617",
+			"location.lon": "106.7036128",
+			"name": "Khách sạn Caravelle Sài Gòn",
+			"building_type": "commercial",
+			"arch_style": "modernism",
+			"age": 1959,
+			"religion": "none",
+			"image link": "https://encrypted-tbn1.gstatic.com/licensed-image?q=tbn:ANd9GcQYbGB_Uml6Ohz5vO9tUIPeNg-Er4opWnMrA6ki_HxKkDLj_QKVk7iFmezNf2ODru-tf3pV-FVqd7SsLa51UCvgBH3yU_lxbrctJuoGpUu_Zsq2_Nw",
+			"description": "Khách sạn Caravelle là một khách sạn 5 sao mang tính biểu tượng tại trung tâm Quận 1. Khách sạn nổi tiếng với kiến trúc Pháp cổ kính xây dựng từ năm 1959.",
+			"open_hours": "24/7",
+			"day_off": "",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.8550016",
+			"location.lon": "106.7772819",
+			"name": "Nhà Máy Nước Thủ Đức",
+			"building_type": "commercial",
+			"arch_style": "modernism",
+			"age": 1966,
+			"religion": "none",
+			"image link": "https://encrypted-tbn1.gstatic.com/licensed-image?q=tbn:ANd9GcTqKb9fMh6dONdVd5bPYEDR90sHlY2kcI4oMc8_PzoCPK1Bibun0mc4uVBGIEg3OCZZNztca0cNmRLitBspC4H6BuyFg4n1cP5CWdUPTkxuLuyMk4c",
+			"description": "Nhà máy nước Thủ Đức là một đơn vị sản xuất trực thuộc Tổng Công ty Cấp nước Sài Gòn (SAWACO), có vai trò quan trọng trong việc cung cấp nước sạch cho Thành phố Hồ Chí Minh. Nhà máy không mở cửa cho khách tham quan đại trà mà chỉ mở cửa cho các đoàn khách có đăng ký trước.",
+			"open_hours": "24/7",
+			"day_off": "",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.8028511",
+			"location.lon": "106.6789518",
+			"name": "Giáo xứ Phát Diệm",
+			"building_type": "place_of_worship",
+			"arch_style": "modernism",
+			"age": 1955,
+			"religion": "christian",
+			"image link": "https://tgpsaigon.net/Images/Parish/P_Phatdiem_PN.jpg",
+			"description": "Giáo xứ Phát Diệm thuộc Tổng Giáo phận Thành phố Hồ Chí Minh, tọa lạc tại quận Phú Nhuận. ",
+			"open_hours": "5:00 - 17:30\n5:00 - 17:00",
+			"day_off": "",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.7750092",
+			"location.lon": "106.6865141",
+			"name": "Nhà thiếu nhi Quận 3",
+			"building_type": "institution",
+			"arch_style": "modernism",
+			"age": 1975,
+			"religion": "none",
+			"image link": "https://nhathieunhitphcm.com.vn/images/ntntphcm/gioithieu/ntntp_01.jpg",
+			"description": " Nhà thiếu nhi Quận 3 là một trung tâm hoạt động dành cho trẻ em và thanh thiếu niên trên địa bàn Quận 3, Thành phố Hồ Chí Minh. Nơi đây tổ chức nhiều lớp học năng khiếu (võ thuật, âm nhạc, mỹ thuật, ngoại ngữ...), các hoạt động vui chơi giải trí, và các sự kiện đoàn thể nhằm phát triển toàn diện cho trẻ em.",
+			"open_hours": "7:30 - 11:30\n13:30 - 17:00",
+			"day_off": "",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.750223",
+			"location.lon": "106.659248",
+			"name": "Bưu điện Quận 5",
+			"building_type": "commercial",
+			"arch_style": "french",
+			"age": null,
+			"religion": "none",
+			"image link": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSxKHPN2n2mNoOieG9kGgO2rBM4VtTJVjACTbCQxsGlnTRGYcCG6fVKJHWD5158kq7G8EiXKP67GP3z1_fXhvbEsLpAQNC4AQj3a50CLMbbPkRelo4mdyrduPYIJoEYxxB1pbvCR1ot7cU5H=s1024-v1",
+			"description": "Bưu điện Trung tâm Quận 5, còn được biết đến là Bưu điện Chợ Lớn, là một trong những bưu cục lớn của Vietnam Post tại Thành phố Hồ Chí Minh.",
+			"open_hours": "7:00 - 19:00\n7:00 - 17:00",
+			"day_off": "",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.7819872",
+			"location.lon": "106.6944895",
+			"name": "Trường Đại học Kiến trúc TPHCM",
+			"building_type": "institution",
+			"arch_style": "modernism",
+			"age": 1976,
+			"religion": "none",
+			"image link": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSyaL8ulynMYK2yyIrTlgRsuQlDABCQwsEDODfjZ1hSV_mgeiAUTfZcQgXMmb6K0wx-g2gClP-ALOceYnE6eirlyi2I4EnBzKR6aS2noJWhbaRvtuOO_ghIQQ1lWSX_n4JxqdukuVr2sLnE=s1354-k-no",
+			"description": "Trường Đại học Kiến trúc TPHCM (UAH) là một trong những cơ sở đào tạo hàng đầu Việt Nam về các lĩnh vực kiến trúc, xây dựng, thiết kế và quy hoạch. Trường có lịch sử lâu đời, được thành lập từ năm 1926 và trực thuộc Bộ Xây dựng.",
+			"open_hours": "7:00 - 11:30\n13:00 - 17:00",
+			"day_off": "sunday",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.7773572",
+			"location.lon": "106.6693896",
+			"name": "Khám Chí Hòa",
+			"building_type": "prison",
+			"arch_style": "french",
+			"age": 1943,
+			"religion": "none",
+			"image link": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Nh%C3%A0_T%C3%B9_Ch%C3%AD_H%C3%B2a%2C_%C4%91%E1%BA%A7u_n%C4%83m_2016.jpg/2560px-Nh%C3%A0_T%C3%B9_Ch%C3%AD_H%C3%B2a%2C_%C4%91%E1%BA%A7u_n%C4%83m_2016.jpg",
+			"description": "Khám Chí Hòa (hay Trại tạm giam Chí Hòa) là một nhà tù nổi tiếng tại Thành phố Hồ Chí Minh, do người Pháp xây dựng từ năm 1943. Nơi này được biết đến với kiến trúc độc đáo hình bát giác vuông (bát quái phong thủy) và từng được mệnh danh là \"không có lối thoát\".",
+			"open_hours": "24/7",
+			"day_off": "",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.7753398",
+			"location.lon": "106.6576633",
+			"name": "Bưu điện Trung tâm Phú Thọ",
+			"building_type": "commercial",
+			"arch_style": "modernism",
+			"age": null,
+			"religion": "none",
+			"image link": "https://zador.vn/wp-content/uploads/2022/11/buu-dien-phu-tho-quan-10-1.jpg",
+			"description": "Bưu điện Trung tâm Phú Thọ là một chi nhánh của Tổng công ty Bưu điện Việt Nam, chuyên cung cấp các dịch vụ bưu chính, chuyển phát, và các dịch vụ khác.",
+			"open_hours": "7:30 - 18:00\n8:00 - 12:00\n12:05 - 16:00",
+			"day_off": "",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.7727782",
+			"location.lon": "106.7061879",
+			"name": "Khách sạn Majestic Saigon",
+			"building_type": "commercial",
+			"arch_style": "french",
+			"age": 1925,
+			"religion": "none",
+			"image link": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSxWWbNuuCLLh6-CY_Y6vhH5Mwl_QNMiuaW8CZq6d1LDpyDctp2PVaPAnclHIDlJRQaJ3bBtnXpzCC9EmtGEMzx4VbiGNh9_IvMK0GxDGe3YrNEBFtbiQdBrTGhb1BPbeqsLYBNt=s1354-k-no",
+			"description": "Đây là khách sạn 5 sao mang tính biểu tượng tại trung tâm Quận 1, TPHCM. Khách sạn nổi tiếng với kiến trúc Pháp cổ kính xây dựng từ năm 1925, tọa lạc ở vị trí đắc địa ngay góc đường Đồng Khởi và Tôn Đức Thắng, nhìn ra sông Sài Gòn.",
+			"open_hours": "24/7",
+			"day_off": "",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.7684837",
+			"location.lon": "106.6853651",
+			"name": "Bệnh viện Từ Dũ",
+			"building_type": "hospital",
+			"arch_style": "modernism",
+			"age": 1937,
+			"religion": "none",
+			"image link": "https://www.tudu.com.vn/data/image/227.jpg",
+			"description": "Bệnh viện Từ Dũ là một bệnh viện chuyên khoa sản phụ khoa hàng đầu tại Việt Nam. Bệnh viện cung cấp các dịch vụ khám chữa bệnh, chăm sóc sức khỏe sinh sản, thai sản, và hỗ trợ sinh sản cho phụ nữ.",
+			"open_hours": "6:00 - 18:00\n6:00 - 16:00\n6:00 - 13:00",
+			"day_off": "",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.7721693",
+			"location.lon": "106.6993921",
+			"name": "Bệnh viện Đa khoa Sài Gòn",
+			"building_type": "hospital",
+			"arch_style": "french",
+			"age": 1914,
+			"religion": "none",
+			"image link": "https://lh3.googleusercontent.com/p/AF1QipNa_ZL7n8ey9AG8vgjXgbjK_8vI_gTghW12s-TN=s3072-v1",
+			"description": "Bệnh viện Đa khoa Sài Gòn là một cơ sở y tế lâu đời tại Thành phố Hồ Chí Minh, có lịch sử hình thành và phát triển hơn 100 năm. Vào tháng 10 năm 2025, Ủy ban nhân dân Thành phố Hồ Chí Minh đã ban hành quyết định sáp nhập bệnh viện này vào Bệnh viện Nhân dân Gia Định, và bệnh viện sẽ chính thức chấm dứt hoạt động dưới tên gọi hiện tại kể từ ngày 1/1/2026.",
+			"open_hours": "7:00 – 16:00",
+			"day_off": "saturday, sunday",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.7559576",
+			"location.lon": "106.6450799",
+			"name": "Chùa Phụng Sơn",
+			"building_type": "pagoda",
+			"arch_style": "vietnamese",
+			"age": 1802,
+			"religion": "buddhist",
+			"image link": "https://lh3.googleusercontent.com/pw/ACtC-3cqZQysi7wzNhF18KaRL76FrTpFkNwULnCoErtBQIyXb7qzIto0YSeHlWC4PxgClscfVzpxJJAKjPCNkrUa0Xn4u5pzCPLdt-rseHTxaATMH9KyX-ymEh86bOrnoDy2oRiTMVSirruOzA4m1yQV4Y6H=w868-h652-no",
+			"description": "Tổ Đình Phụng Sơn, hay còn gọi là Chùa Gò, là một ngôi cổ tự có lịch sử hơn 200 năm tuổi. Chùa được xây dựng trên một gò đất cao tại khu vực Gia Định xưa. Ngôi chùa mang nét kiến trúc Phật giáo truyền thống của Nam Bộ.",
+			"open_hours": " 5:30 - 19:00",
+			"day_off": "",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.776539",
+			"location.lon": "106.7009132",
+			"name": "Ủy ban nhân dân TPHCM",
+			"building_type": "institution",
+			"arch_style": "baroque, roccoco, art_nouveau",
+			"age": 1909,
+			"religion": "none",
+			"image link": "https://encrypted-tbn2.gstatic.com/licensed-image?q=tbn:ANd9GcQckjcx9dN7GU8qzmQkBzMYmYVVOv8fxhTZFD5pTj73XGErGSGEgZTpCsHHAL8q5W4ER564UnF0LSC3SEqInJi35UWTkpQSaX53FMbOhtLLKTNxDI8",
+			"description": "Trụ sở Ủy ban nhân dân Thành phố Hồ Chí Minh là một trong những công trình kiến trúc nổi bật và lâu đời tại thành phố, được xây dựng từ năm 1908 và còn có tên gọi cũ là Tòa Đô Chánh Sài Gòn.",
+			"open_hours": "7:30 - 11:30\n13:00 - 17:00",
+			"day_off": "saturday, sunday",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.7570129",
+			"location.lon": "106.6659704",
+			"name": "Bệnh viện Phạm Ngọc Thạch",
+			"building_type": "hospital",
+			"arch_style": "french",
+			"age": 1906,
+			"religion": "none",
+			"image link": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSzfggcOC11LN6gyXvcyMCDETJmm5IqscoRIZVIognQ6goeAMx6XRr_h-xzT8UzBb1Ll5_RRMN3_O_92EeKCRkiU4D1WgmZhWs41uuJjKamSmV9aS4nKdW-BD3iPSx5CeQOjS3A=s1024-v1",
+			"description": "Bệnh viện Phạm Ngọc Thạch là bệnh viện chuyên khoa đầu ngành về Lao và Bệnh Phổi, nằm tại Quận 5, Thành phố Hồ Chí Minh. ",
+			"open_hours": "7:30 - 11:30\n13:00 - 16:00\n7:00 - 11:00",
+			"day_off": "",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.7777163",
+			"location.lon": "106.7009774",
+			"name": "Sở Công thương, Sở Thông tin – Truyền thông TPHCM",
+			"building_type": "institution",
+			"arch_style": "french",
+			"age": 1860,
+			"religion": "none",
+			"image link": "https://nvcs.vn/upload/files/so-cong-thuong-tphcm.png",
+			"description": "Sở Công thương Thành phố Hồ Chí Minh là cơ quan chuyên môn thuộc UBND TPHCM, có chức năng quản lý nhà nước về các lĩnh vực công nghiệp và thương mại trên địa bàn thành phố.\nSở Thông tin – Truyền thông Thành phố Hồ Chí Minh là cơ quan chuyên môn thuộc UBND TPHCM, có chức năng quản lý nhà nước về thông tin, truyền thông, công nghệ thông tin, bưu chính, viễn thông, và an toàn thông tin mạng trên địa bàn.",
+			"open_hours": "7:30 - 17:00",
+			"day_off": "saturday, sunday",
+			"tags": ""
+		},
+		{
+			"ID": "",
+			"location.lat": "10.768402664568208",
+			"location.lon": "106.70182299541979",
+			"name": "Sở Giao dịch Chứng khoán TPHCM",
+			"building_type": "institution",
+			"arch_style": "french",
+			"age": 1928,
+			"religion": "none",
+			"image link": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwal2dDBKfjUpGMjrId2nqrkMLcR7kozYLqlGZN3cEfsQ_w0QX-FVEKK-aRit9m3cLCRJXGNlQalJhqTERUZIXEZ3oGeHK86X6pV0RuUw7kQs_MplqcKKr0X_gQ4Fflv6knmKYCAg=s901-k-no",
+			"description": "Sở Giao dịch Chứng khoán Thành phố Hồ Chí Minh (HOSE) có trụ sở tại số 16 đường Võ Văn Kiệt, Phường Nguyễn Thái Bình, Quận 1.\nhttps://vi.wikipedia.org/wiki/S%E1%BB%9F_Giao_d%E1%BB%8Bch_Ch%E1%BB%A9ng_kho%C3%A1n_Th%C3%A0nh_ph%E1%BB%91_H%E1%BB%93_Ch%C3%AD_Minh",
+			"open_hours": "8:00 - 11:30\n13:00 - 17:00",
+			"day_off": "saturday, sunday",
+			"tags": ""
+		}
+	],
+	"way_1086980078": [
+		{
+			"ID": "('way', 1086980078)",
+			"location.lat": "10.756952649999999",
+			"location.lon": "106.67488070241279",
+			"name": "Từ đường Phúc Kiến",
+			"building_type": "place_of_worship",
+			"arch_style": "chinese",
+			"age": 1887,
+			"religion": "taoist",
+			"image link": "https://quan5xinchao.vn/wp-content/uploads/2024/09/Tu-duong-Phuoc-Kien.jpg",
+			"description": "\"Từ đường Phúc Kiến\" là tên gọi chung của các công trình kiến trúc, đặc biệt là các hội quán, chùa, miếu do cộng đồng người Phúc Kiến thành lập, thường mang ý nghĩa là nơi thờ cúng, sinh hoạt cộng đồng. Một trong những ví dụ nổi bật nhất là Bệnh viện Nguyễn Trãi (Thành phố Hồ Chí Minh), trước đây có tên là Y Viện Phước Kiến, do cộng đồng người Hoa thành lập năm 1909.\nhttps://tienphong.vn/can-canh-tu-duong-phuc-kien-lau-doi-trong-benh-vien-tai-tphcm-post1512201.tpo",
+			"open_hours": "8:00 - 16:00",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"node_2068659849": [
+		{
+			"ID": "('node', 2068659849)",
+			"location.lat": "10.7525739",
+			"location.lon": "106.6617227",
+			"name": "Hội quán Tam Sơn",
+			"building_type": "place_of_worship",
+			"arch_style": "chinese",
+			"age": 1796,
+			"religion": "chinese_folk",
+			"image link": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSxPre8Ijml2-AIJzp-C9jO6OotRGwO4PEGrNifIVtzZRW3kK3kfDkno-7bOOsJ6wo8pMjWipe-YEO2Td24tCHmtyvc-R3P9vX86tDgb_wtIA4u9kvJHPfLAzXQBIVfw9EdKrzHx=s1360-w1360-h1020-rw",
+			"description": "Hội quán Tam Sơn là một di tích lịch sử và kiến trúc nghệ thuật quan trọng ở Quận 5, Thành phố Hồ Chí Minh, do cộng đồng người Hoa gốc Phúc Kiến xây dựng vào năm 1839. Ban đầu là nơi thờ Kim Huê Thánh mẫu (nữ thần sinh sản), sau này Thiên Hậu Thánh Mẫu trở thành vị thần chính được thờ phụng. Hội quán là một trung tâm tín ngưỡng và văn hóa, thu hút nhiều du khách đến chiêm bái và cầu nguyện, đặc biệt là cầu tự. \nhttps://vietnamdiscovery.com/ho-chi-minh-city/attractions/tam-son-hoi-quan-pagoda/",
+			"open_hours": "6:00 - 22:00",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"node_6315672802": [
+		{
+			"ID": "('node', 6315672802)",
+			"location.lat": "10.7523593",
+			"location.lon": "106.6633235",
+			"name": "Hội quán Quỳnh Phủ",
+			"building_type": "place_of_worship",
+			"arch_style": "chinese",
+			"age": 1824,
+			"religion": "chinese_folk",
+			"image link": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSzWtWbSMAetA7kF5OlJCmljn1vIbE_70RunGZDwSRAsn86m8ftxT5uAJWUNMwq24Lntk_Zbja-jYgauMB2MCKE79ge5dahFmy2IXRsbiydWz2PNywWnSqbwv-RbaCre7ak1OnnTVabHE8DS=s1360-w1360-h1020-rw",
+			"description": "Hội quán Quỳnh Phủ (còn gọi là Chùa Bà Hải Nam) là một di tích kiến trúc nghệ thuật cấp quốc gia tại TP.HCM, là nơi thờ tự và sinh hoạt văn hóa của cộng đồng người Hoa gốc Hải Nam. Được xây dựng vào năm 1824 và đã trải qua nhiều lần trùng tu, hội quán là một quần thể kiến trúc theo kiểu \"tứ hợp diện\" với các chi tiết trang trí độc đáo, nổi bật là nghệ thuật đúc đồng và chạm khắc gỗ. Hội quán này còn là một điểm du lịch văn hóa hấp dẫn tại khu vực Chợ Lớn.\nhttps://vinpearl.com/vi/quynh-phu-hoi-quan-ninh-hoa-kham-pha-kien-truc-trung-hoa-doc-dao",
+			"open_hours": "8:00 - 16:00",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_420287578": [
+		{
+			"ID": "('way', 420287578)",
+			"location.lat": "10.749372300000001",
+			"location.lon": "106.65438745",
+			"name": "Hội quán Nghĩa Nhuận",
+			"building_type": "place_of_worship",
+			"arch_style": "chinese",
+			"age": 1872,
+			"religion": "taoist",
+			"image link": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/H%E1%BB%99i_qu%C3%A1n_Ngh%C4%A9a_Nhu%E1%BA%ADn.jpg/1280px-H%E1%BB%99i_qu%C3%A1n_Ngh%C4%A9a_Nhu%E1%BA%ADn.jpg",
+			"description": "Hội quán Nghĩa Nhuận (còn gọi là Đình Nghĩa Nhuận hay Miếu Ông Quan Đế) là một di tích lịch sử kiến trúc nghệ thuật cấp quốc gia có ý nghĩa văn hóa và tinh thần quan trọng đối với cộng đồng người Hoa gốc Triều Châu tại Thành phố Hồ Chí Minh.\nhttps://quan5xinchao.vn/hoi-quan-nghia-nhuan/",
+			"open_hours": "9:00 - 17:00",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_669863010": [
+		{
+			"ID": "('way', 669863010)",
+			"location.lat": "10.754999",
+			"location.lon": "106.65886616964661",
+			"name": "Hội quán Phước An",
+			"building_type": "place_of_worship",
+			"arch_style": "chinese",
+			"age": 1865,
+			"religion": "buddhist",
+			"image link": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Phuoc_An_Hoi_Quan_Pagoda_%2810018160114%29.jpg/2560px-Phuoc_An_Hoi_Quan_Pagoda_%2810018160114%29.jpg",
+			"description": "Hội quán Phước An (còn gọi là Chùa Minh Hương) là một cơ sở tín ngưỡng lâu đời của cộng đồng người Hoa tại Thành phố Hồ Chí Minh, tọa lạc tại số 184 đường Hồng Bàng, Phường 12, Quận 5. Hội quán này đã được công nhận là Di tích Kiến trúc Nghệ thuật cấp Thành phố vào năm 2009 và lưu giữ nhiều hiện vật cổ giá trị, đặc trưng của văn hóa và tín ngưỡng người Hoa.\nhttps://quan5xinchao.vn/hoi-quan-phuoc-an/",
+			"open_hours": "8:00 - 16:00",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_807297567": [
+		{
+			"ID": "('way', 807297567)",
+			"location.lat": "10.7652591",
+			"location.lon": "106.69893957443439",
+			"name": "Hội quán Quảng Triệu",
+			"building_type": "place_of_worship",
+			"arch_style": "chinese",
+			"age": 1887,
+			"religion": "taoist",
+			"image link": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSxo7whLAf2iTO0dCBw1nMeFzE5iCAOAnS6OzOWTlpkbyx2dhzDO-Pyb6gz9v8QRMEiZDbi51C4ZJn9ogGXxxDsHzs3L2qptFMbhpUDkOp-dKSfXRd8z36M-mM24KY40Drk4RCaDpg=s1360-w1360-h1020-rw",
+			"description": "Hội quán Quảng Triệu (hay còn gọi là Miếu Thiên Hậu hoặc Chùa Bà Cầu Ông Lãnh) là một di tích kiến trúc nghệ thuật cấp quốc gia ở Thành phố Hồ Chí Minh, ban đầu là nơi sinh hoạt cộng đồng của người Hoa gốc Quảng Châu và Triệu Khánh.\nhttps://wowweekend.vn/ghe-tham-hoi-quan-quang-trieu-noi-chon-binh-yen-giua-sai-thanh-tap-nap.html",
+			"open_hours": "7:00 - 16:30",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_1313432468": [
+		{
+			"ID": "('way', 1313432468)",
+			"location.lat": "10.88861925",
+			"location.lon": "106.59542215355",
+			"name": "Long Thái Hội Quán - Quan Đế Miếu",
+			"building_type": "place_of_worship",
+			"arch_style": "chinese",
+			"age": null,
+			"religion": "chinese_folk",
+			"image link": "https://www.google.com/maps/place/%E9%9A%86%E6%B3%B0%E6%9C%83%E9%A4%A8-+%E9%97%9C%E5%B8%9D%E5%BB%9F-+Long+Th%C3%A1i+H%E1%BB%99i+Qu%C3%A1n-+Quan+%C4%90%E1%BA%BF+Mi%E1%BA%BFu/@10.888622,106.5954738,3a,75y,90t/data=!3m8!1e2!3m6!1sCIHM0ogKEICAgICKmLXxJg!2e10!3e12!6shttps:%2F%2Flh3.googleusercontent.com%2Fgps-cs-s%2FAG0ilSw8yu9X3sfsZzEPgVxWl_JYUcAAP5fHsPDLVmjTKU3RnmvQa8rXxJuh5RrYk4sab40loY8WLC3svwOsQeI_eTYpEkJ4fYvWqZfXCz3tQkp4FX5Yd5iQ4HQnvwe9TEC0kWaXCT1r%3Dw114-h86-k-no!7i4000!8i3000!4m7!3m6!1s0x3174d58f3ecfd455:0xdcf6a3580ab57065!8m2!3d10.888622!4d106.5954738!10e5!16s%2Fg%2F1tftz0yz?entry=ttu&g_ep=EgoyMDI1MTExNy4wIKXMDSoASAFQAw%3D%3D#",
+			"description": "Long Thái Hội Quán, thường được biết đến với tên gọi Chùa Ông hoặc Miếu Quan Đế, là một cơ sở tín ngưỡng và di tích kiến trúc nghệ thuật quan trọng của cộng đồng người Hoa (gốc Triều Châu) ở Thành phố Hồ Chí Minh.\nhttps://www.trungtambaotonditichtphcm.com/Hoat-dong-trung-tam/10030/HOI-QU%C3%81N-NGHIA-AN-(MIEU-QUAN-DE).aspx",
+			"open_hours": "24/7",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_366664391": [
+		{
+			"ID": "('way', 366664391)",
+			"location.lat": "10.75359045",
+			"location.lon": "106.66118329809879",
+			"name": "Hội quán Tuệ Thành",
+			"building_type": "place_of_worship",
+			"arch_style": "chinese",
+			"age": 1760,
+			"religion": "chinese_folk",
+			"image link": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Nghia_An_Hoi_Quan_Pagoda_%2810018256906%29.jpg/2560px-Nghia_An_Hoi_Quan_Pagoda_%2810018256906%29.jpg",
+			"description": "Hội quán Tuệ Thành (còn gọi là Miếu Thiên Hậu hoặc Chùa Bà Chợ Lớn) là một công trình kiến trúc tín ngưỡng dân gian lâu đời của người Hoa tại Chợ Lớn, TP. Hồ Chí Minh. Hội quán được xây dựng vào khoảng cuối thế kỷ 17, dùng làm nơi hội họp, quản lý di dân, và đặc biệt là thờ cúng Thiên Hậu Thánh Mẫu. Công trình này có giá trị văn hóa, lịch sử sâu sắc với kiến trúc đặc trưng, nhiều cổ vật quý báu và là một điểm đến tâm linh quan trọng.\nhttps://ttvhq5.com.vn/chua-ba-tue-thanh-hoi-quan/",
+			"open_hours": "8:00 - 16:00",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_419478162": [
+		{
+			"ID": "('way', 419478162)",
+			"location.lat": "10.753189800000001",
+			"location.lon": "106.65795205",
+			"name": "Hội quán Hà Chương",
+			"building_type": "place_of_worship",
+			"arch_style": "chinese",
+			"age": 1809,
+			"religion": "chinese_folk",
+			"image link": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/H%E1%BB%99i_qu%C3%A1n_H%C3%A0_Ch%C6%B0%C6%A1ng.jpg/1280px-H%E1%BB%99i_qu%C3%A1n_H%C3%A0_Ch%C6%B0%C6%A1ng.jpg",
+			"description": "Hội quán Hà Chương là một di tích kiến trúc nghệ thuật cấp Quốc gia tọa lạc tại Quận 5, TP. Hồ Chí Minh, được xây dựng vào khoảng đầu thế kỷ 19 bởi những người Hoa gốc Phúc Kiến. Đây là một công trình quan trọng, nổi bật với kiến trúc \"tứ hợp diện\" đặc trưng của Trung Hoa, đồng thời là trung tâm sinh hoạt tôn giáo và cộng đồng của người Hoa.\nhttps://ttvhq5.com.vn/hoi-quan-ha-chuong/",
+			"open_hours": "8:00 - 16:00",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_419478163": [
+		{
+			"ID": "('way', 419478163)",
+			"location.lat": "10.75354585",
+			"location.lon": "106.66213327953938",
+			"name": "Hội quán Nghĩa An",
+			"building_type": "place_of_worship",
+			"arch_style": "chinese",
+			"age": 1820,
+			"religion": "chinese_folk",
+			"image link": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSx5x7LgIsPe4f02UFBJwxLtnV3D0cWVPgdNz1gDt8KtaWhzA1rCyACC-Fialsn43spFC_OwXTNl3vD84Hugw19lEDDcOgpamxD3jkAnrJ1xK2rBk07f7w_YEoM_JjWiCr1igvELaQ=w408-h306-k-no",
+			"description": "Hội quán Nghĩa An, còn gọi là Chùa Ông, là một di tích kiến trúc nghệ thuật cấp quốc gia tại TP. Hồ Chí Minh, là nơi thờ phụng thần Quan Công của cộng đồng người Hoa gốc Triều Châu. Công trình này được xây dựng vào nửa cuối thế kỷ 19, nổi bật với kiến trúc chữ \"khẩu\" độc đáo, tinh xảo và mang đậm nét văn hóa Trung Hoa. Ngày nay, Hội quán không chỉ là trung tâm văn hóa tâm linh mà còn là điểm du lịch hấp dẫn du khách.\nhttps://quan5xinchao.vn/hoi-quan-nghia-an/",
+			"open_hours": "6:00 - 17:00",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_666569008": [
+		{
+			"ID": "('way', 666569008)",
+			"location.lat": "10.751558450000001",
+			"location.lon": "106.65727598821749",
+			"name": "Hội quán Nhị Phủ",
+			"building_type": "place_of_worship",
+			"arch_style": "chinese",
+			"age": 1730,
+			"religion": "chinese_folk",
+			"image link": "https://quan5xinchao.vn/wp-content/uploads/2024/09/anh-nhi-phu-1536x1024.jpg",
+			"description": "Hội quán Nhị Phủ là một di tích kiến trúc nghệ thuật lịch sử cấp quốc gia tọa lạc tại số 264 đường Hải Thượng Lãn Ông, Quận 5, TP. Hồ Chí Minh. Đây là một hội quán cổ xưa của người Hoa gốc Phúc Kiến, được xây dựng vào khoảng thế kỷ 17-18, ban đầu là nơi thờ phụng và giao lưu cho cộng đồng đồng hương, nay là một địa điểm du lịch, tín ngưỡng nổi tiếng và là di tích được công nhận.\nhttps://quan5xinchao.vn/hoi-quan-nhi-phu/",
+			"open_hours": "6:00 -17:00",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_1041069083": [
+		{
+			"ID": "('way', 1041069083)",
+			"location.lat": "10.824834150000001",
+			"location.lon": "106.68543745280135",
+			"name": "Hội quán Quần Tân",
+			"building_type": "place_of_worship",
+			"arch_style": "chinese",
+			"age": 1870,
+			"religion": "chinese_folk",
+			"image link": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgdfjBjrVhVdRgw6u1nCcKDCpI-3OSHr4LsMJoj7oOTABtqgtn5ulug-N-ZBReU_o4DoD6FkHs6Z6XvYjG9af8nNO8Fdf4Z09pQGqWFN6szHTqFnLm_i2NotYX40BT7t0h_5xyiE_fjzfiT/s1600/IMG_5591.jpg",
+			"description": "Hội quán Quần Tân là một hội quán nhỏ, có kiến trúc tương đối đơn giản, khác biệt với các hội quán khác trong khu vực Sài Gòn – Chợ Lớn. Điểm đặc biệt là các cột gỗ và hoành phi không được chạm trổ cầu kỳ, trừ phần trang thờ và bao lam.\nhttps://www.xanhsm.com/news/chua-ba-thien-hau",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"node_4813074210": [
+		{
+			"ID": "('node', 4813074210)",
+			"location.lat": "10.7183837",
+			"location.lon": "106.6236992",
+			"name": "Hội quán Sùng Chính",
+			"building_type": "place_of_worship",
+			"arch_style": "chinese",
+			"age": null,
+			"religion": "chinese_folk",
+			"image link": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSze75M4R1tSyc6rfyv1HZnTn07671_KT_IJyzCB_e-wf9BvSFYysoF8XPdlCmd51sfWrDWo9u6tKqjXGyIzwHj4J5_L5S5wEbIujbW0xRQ26J9Mb2x5sXXAw8Ksbawkjg61hr-jGw=s1360-w1360-h1020-rw",
+			"description": "Hội quán Sùng Chính, còn gọi là Chùa Bốn Mặt, là một hội quán từ thiện lớn của cộng đồng người Hoa Khách Gia (người Hẹ) tại Quận 8, TP.HCM, nổi bật với kiến trúc đậm nét Trung Hoa và đặc biệt là ngôi chùa thờ Phật Tứ Diện. Đây là nơi kết hợp tín ngưỡng, sinh hoạt cộng đồng, gìn giữ văn hóa và còn là điểm thu hút du lịch tâm linh.\nhttps://vietnamnet.vn/tuong-phat-bon-mat-o-tp-hcm-hut-ngan-nguoi-toi-chiem-bai-dang-nuoc-do-cau-may-2219977.html",
+			"open_hours": "7:00 - 19:00",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_1353063048": [
+		{
+			"ID": "('way', 1353063048)",
+			"location.lat": "10.75217375",
+			"location.lon": "106.65517539196857",
+			"name": "Lệ Châu Hội Quán",
+			"building_type": "place_of_worship",
+			"arch_style": "chinese",
+			"age": 1892,
+			"religion": "chinese_folk",
+			"image link": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/L%E1%BB%87_Ch%C3%A2u_h%E1%BB%99i_qu%C3%A1n.jpg/1280px-L%E1%BB%87_Ch%C3%A2u_h%E1%BB%99i_qu%C3%A1n.jpg",
+			"description": "Lệ Châu Hội Quán là một nhà thờ tổ nghề kim hoàn cổ kính tại Thành phố Hồ Chí Minh, tọa lạc ở số 586 Trần Hưng Đạo, Quận 5, đã được công nhận là Di tích Kiến trúc Nghệ thuật cấp Quốc gia vào năm 1998. Nơi đây là trung tâm tín ngưỡng và là nơi hội họp của những người thợ bạc, thể hiện lòng tôn kính đối với tổ nghề và lưu giữ các cổ vật quý giá. \nhttps://mttqquan5.vn/hoi-quan-le-chau-nha-tho-to-tho-bac.html",
+			"open_hours": "8:00 - 16:00",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"node_2676925717": [
+		{
+			"ID": "('node', 2676925717)",
+			"location.lat": "10.7736968",
+			"location.lon": "106.6941856",
+			"name": "Miếu Năm Bà Ngũ Hành Tao Đàn",
+			"building_type": "place_of_worship",
+			"arch_style": "chinese",
+			"age": null,
+			"religion": "chinese_folk",
+			"image link": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSzOqwPqiCmtR7FJEK2w3wsUe8egNF_IicSb2vr8hAiAQGXd3Ozs-hN96MvJGmkcJcXYd-_D5508OIcmJ5H93yrVabTFlA33dXJAmIHhh6ruEqRh5VrSeXa5IP3ivapgum_gXVgh=s1360-w1360-h1020-rw",
+			"description": "Miếu Năm Bà Ngũ Hành Tao Đàn là một ngôi miếu cổ ở TP.HCM, nổi tiếng linh thiêng và được xây dựng để thờ cúng năm vị nữ thần Ngũ Hành. Ngôi miếu này có kiến trúc truyền thống, nổi bật với điện thờ có 12 bức tượng, bao gồm tượng của 5 mẹ Ngũ Hành cùng các vị thần khác. Ngoài ra, miếu còn lưu giữ tro cốt của những người quá cố và được người dân địa phương rất coi trọng, tổ chức cúng tế định kỳ vào ngày 16/2 âm lịch. \nhttps://nhadatlongan.net.vn/mieu-ba-ngu-hanh/",
+			"open_hours": "7:00 -17:00",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_198123915": [
+		{
+			"ID": "('way', 198123915)",
+			"location.lat": "10.784415899999999",
+			"location.lon": "106.70504214208285",
+			"name": "Đại chủng viện thánh Giuse",
+			"building_type": "institution",
+			"arch_style": "french",
+			"age": 1866,
+			"religion": "christian",
+			"image link": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Nh%C3%A0_nguy%E1%BB%87n_trong_%C4%90%E1%BA%A1i_ch%E1%BB%A7ng_vi%E1%BB%87n.JPG/1280px-Nh%C3%A0_nguy%E1%BB%87n_trong_%C4%90%E1%BA%A1i_ch%E1%BB%A7ng_vi%E1%BB%87n.JPG",
+			"description": "\"Đại chủng viện Thánh Giuse\" có thể đề cập đến hai tổ chức chính là Đại chủng viện Thánh Giuse Sài Gòn (đào tạo linh mục cho Tổng giáo phận TP.HCM và các giáo phận lân cận) và Đại chủng viện Thánh Giuse Xuân Lộc (đào tạo linh mục cho các giáo phận Bà Rịa, Đà Lạt, Phan Thiết và Xuân Lộc). Cả hai đều là nơi đào tạo linh mục của Giáo hội Công giáo tại Việt Nam. ",
+			"open_hours": "24/7",
+			"day_off": "",
+			"tags": ""
+		},
+		{
+			"ID": "('way', 198123915)",
+			"location.lat": "10.784415899999999",
+			"location.lon": "106.70504214208285",
+			"name": "Trung tâm Mục vụ Tổng giáo phận Sài Gòn",
+			"building_type": "place_of_worship",
+			"arch_style": "french",
+			"age": null,
+			"religion": "christian",
+			"image link": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSy4G2FNNpdClewG9Yw0QsbkVtu2h5IEsQP2yRdxADT3OClWTMfBiiI71Qolm05xx9hUSeiQ0BgCpva_7UDFN6jsiVYkkObpCrRQkFq3k10y01MsL-K1gs_Pu1YFjFsNftKpoA4=w408-h306-k-no",
+			"description": "Trung tâm Mục vụ Tổng giáo phận Sài Gòn là một trung tâm đa năng tọa lạc tại quận 1, Thành phố Hồ Chí Minh, có vai trò tổ chức các hoạt động mục vụ, đào tạo và là nơi gặp gỡ của cộng đồng Công giáo.\nhttps://tgpsaigon.net/gioi-thieu-giao-xu/giao-xu-trung-tam-muc-vu-971",
+			"open_hours": "8:00 - 20:30",
+			"day_off": "sunday",
+			"tags": ""
+		}
+	],
+	"node_4187322590": [
+		{
+			"ID": "('node', 4187322590)",
+			"location.lat": "10.7556868",
+			"location.lon": "106.6815644",
+			"name": "Lăng Trương Vĩnh Ký",
+			"building_type": "tomb",
+			"arch_style": "french, east_asia",
+			"age": 1886,
+			"religion": "christian",
+			"image link": "https://i1-vnexpress.vnecdn.net/2020/06/23/mo-truong-vinh-ky-7-1592921317.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=4Rta_Jwa3ljwyvHk8P2mEA",
+			"description": "Lăng Trương Vĩnh Ký là khu lăng mộ độc đáo của nhà bác học Trương Vĩnh Ký tại số 520 Trần Hưng Đạo, Quận 5, TP.HCM, một công trình kiến trúc kết hợp Đông-Tây do chính ông thiết kế. Công trình này tọa lạc trong khuôn viên mộ dòng họ, là nơi an nghỉ của ông, vợ và con trai cả. Lăng mộ nổi bật với kiến trúc đặc trưng, hai dòng chữ Latin trên cửa ra vào và các chi tiết trang trí tinh xảo. \nhttps://www.historicvietnam.com/petrus-ky-mausoleum/",
+			"open_hours": "6:00 - 18:00",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_39619627": [
+		{
+			"ID": "('way', 39619627)",
+			"location.lat": "10.7570069",
+			"location.lon": "106.66739232264311",
+			"name": "Nhà thờ Thánh Jeanne d'Arc",
+			"building_type": "place_of_worship",
+			"arch_style": "romanesque",
+			"age": 1928,
+			"religion": "christian",
+			"image link": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwAwdlhKz_kAdZAKvhyCsqMcQiR-m1MourRFvXX3IrZEYoR2jZC4afDN7N0yZyToQLeyratPApRIODDPdMRAzlbbp980MxcauY4j0jKjG3N_wzrTOIe8tZwE_EljmIXrxfX2Nan=s1360-w1360-h1020-rw",
+			"description": "Nhà thờ Thánh Jeanne d'Arc, hay còn gọi là Nhà thờ Ngã Sáu, là một công trình tôn giáo nổi bật tại Quận 5, Thành phố Hồ Chí Minh, nổi tiếng với kiến trúc độc đáo và vị trí lịch sử.\nhttps://www.xanhsm.com/news/nha-tho-thanh-jeanne-darc-quan-5",
+			"open_hours": "5:00 - 19:00",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_39619657": [
+		{
+			"ID": "('way', 39619657)",
+			"location.lat": "10.757335000000001",
+			"location.lon": "106.6817269105739",
+			"name": "Nhà thờ Chợ Quán",
+			"building_type": "place_of_worship",
+			"arch_style": "french",
+			"age": 1896,
+			"religion": "christian",
+			"image link": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Nh%C3%A0_th%E1%BB%9D_Th%C3%A1nh_T%C3%A2m_Ch%C3%BAa_Gi%C3%AAsu%2C_Th%C3%A0nh_ph%E1%BB%91_H%E1%BB%93_Ch%C3%AD_Minh.jpg/500px-Nh%C3%A0_th%E1%BB%9D_Th%C3%A1nh_T%C3%A2m_Ch%C3%BAa_Gi%C3%AAsu%2C_Th%C3%A0nh_ph%E1%BB%91_H%E1%BB%93_Ch%C3%AD_Minh.jpg",
+			"description": "Nhà thờ Chợ Quán (tên chính thức là Nhà thờ Thánh Antôn Pađôva) là một trong những nhà thờ Công giáo lâu đời nhất và mang tính biểu tượng nhất tại Thành phố Hồ Chí Minh, nổi bật với kiến trúc Gothic cổ kính và lịch sử phong phú. \nhttps://thanhnien.vn/nha-tho-cho-quan-hon-300-nam-co-nhat-tphcm-duoc-xay-dung-8-lan-185250726124122702.htm",
+			"open_hours": "5:00 - 19:00",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_60118189": [
+		{
+			"ID": "('way', 60118189)",
+			"location.lat": "10.78835975",
+			"location.lon": "106.69064176486911",
+			"name": "Nhà thờ Tân Định",
+			"building_type": "place_of_worship",
+			"arch_style": "romanesque, gothic, renaissance",
+			"age": 1876,
+			"religion": "christian",
+			"image link": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/T%C3%A2n_%C4%90%E1%BB%8Bnh_Church_20190922.jpg/960px-T%C3%A2n_%C4%90%E1%BB%8Bnh_Church_20190922.jpg",
+			"description": "Nhà thờ Tân Định là một công trình kiến trúc Công giáo nổi tiếng ở Quận 3, TP. Hồ Chí Minh, được xây dựng từ năm 1870-1876. Nhà thờ nổi bật với sắc hồng đặc trưng và sự kết hợp giữa kiến trúc Gothic, Baroque và Roman, thu hút nhiều du khách tham quan. Tên chính thức của nhà thờ là Nhà thờ Thánh Tâm Chúa Giêsu, tọa lạc tại 289 Hai Bà Trưng.\nhttps://vinpearl.com/vi/nha-tho-tan-dinh-sai-gon-diem-san-hinh-cuc-chat-cho-tin-do-yeu-mau-hong",
+			"open_hours": "8:00 - 11:00\n14:00 - 17:00",
+			"day_off": "saturday;sunday",
+			"tags": ""
+		}
+	],
+	"way_60118190": [
+		{
+			"ID": "('way', 60118190)",
+			"location.lat": "10.80315705",
+			"location.lon": "106.68494786130157",
+			"name": "Nhà thờ Phú Hạnh",
+			"building_type": "place_of_worship",
+			"arch_style": "modernism",
+			"age": 1975,
+			"religion": "christian",
+			"image link": "https://giothanhle.net/wp-content/uploads/2016/10/nha-tho-phu-hanh-2.jpg",
+			"description": "Nhà thờ Phú Hạnh là một giáo xứ Công giáo tại số 121 Phan Đăng Lưu, P.7, Q.Phú Nhuận, TP.HCM, được thành lập năm 1975. Nhà thờ đã trải qua nhiều lần trùng tu, sửa đổi và được xây dựng lại kiên cố vào năm 1989. Hiện nay, nhà thờ có một cộng đoàn giáo dân gắn bó, được chia thành 5 khu xóm, với các hoạt động tôn giáo và mục vụ đa dạng. ",
+			"open_hours": "5:00 - 20:00",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_166344439": [
+		{
+			"ID": "('way', 166344439)",
+			"location.lat": "10.7622813",
+			"location.lon": "106.69839646791394",
+			"name": "Nhà thờ Vĩnh Hội",
+			"building_type": "place_of_worship",
+			"arch_style": "east_asia, french",
+			"age": 1875,
+			"religion": "christian",
+			"image link": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSx9ExMzUbtsOPmFJBRGUiGf3pKpVBXzjQw9CVQ_Gw3ph01UP0zPpOMqa88rSYoeBY2aK32r1jX9aokjYtOMzvvrBEhtuQdrrimpyYlguYuOZ3ySyRtzgwqgmObfrqWyjbyGkLs=s1360-w1360-h1020-rw",
+			"description": "Nhà thờ Vĩnh Hội là một nhà thờ Công giáo lâu đời và nổi bật ở Quận 4, Thành phố Hồ Chí Minh, được biết đến với kiến trúc độc đáo kết hợp giữa nét Á Đông và Tây phương. Nhà thờ nằm ở vị trí thuận lợi bên bờ kênh Bến Nghé, dễ dàng được nhìn thấy từ phía Quận 1. ",
+			"open_hours": "5:00 - 21:00",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_801950766": [
+		{
+			"ID": "('way', 801950766)",
+			"location.lat": "10.779768650000001",
+			"location.lon": "106.69904266265823",
+			"name": "Nhà thờ Đức Bà Sài Gòn",
+			"building_type": "place_of_worship, heritage",
+			"arch_style": "neo-romanesque",
+			"age": 1880,
+			"religion": "christian",
+			"image link": "https://upload.wikimedia.org/wikipedia/commons/d/d7/Bas%C3%ADlica_de_Nuestra_Se%C3%B1ora%2C_Ciudad_Ho_Chi_Minh%2C_Vietnam%2C_2013-08-14%2C_DD_03.JPG",
+			"description": "Nhà thờ Đức Bà Sài Gòn là một biểu tượng kiến trúc lịch sử nổi bật của Thành phố Hồ Chí Minh, nằm ở trung tâm Quận 1 tại số 01 Công xã Paris. Công trình này được xây dựng từ năm 1877 và hoàn thành vào năm 1880 với kiến trúc Pháp cổ điển và vật liệu nhập khẩu hoàn toàn từ Pháp.\nhttps://www.xanhsm.com/news/nha-tho-duc-ba",
+			"open_hours": "5:30 - 17:30",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"node_9584599327": [
+		{
+			"ID": "('node', 9584599327)",
+			"location.lat": "10.7498056",
+			"location.lon": "106.6737054",
+			"name": "Giáo xứ An Bình",
+			"building_type": "place_of_worship",
+			"arch_style": "chinese, modernism",
+			"age": 1969,
+			"religion": "christian",
+			"image link": "https://giothanhle.net/wp-content/uploads/2023/07/anbinh_1.jpg",
+			"description": "Giáo xứ An Bình, thuộc Tổng Giáo phận Sài Gòn, có địa chỉ tại số 4 An Bình, Phường 5, Quận 5, được thành lập năm 1969 và lấy Thánh Giuse Thợ làm Bổn mạng. Giáo xứ có các giờ lễ khác nhau vào các ngày trong tuần, và hiện do Linh mục Đaminh Lưu Nhuận Hiển làm Quản nhiệm, Linh mục Giuse Trần Đăng Quang là Phó xứ. \nhttps://tgpsaigon.net/gioi-thieu-giao-xu/an-binh-699",
+			"open_hours": "5:30 - 18:00",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_907280822": [
+		{
+			"ID": "('way', 907280822)",
+			"location.lat": "10.768614",
+			"location.lon": "106.688957",
+			"name": "Giáo xứ Chợ Đũi - Nhà thờ Huyện Sĩ",
+			"building_type": "place_of_worship",
+			"arch_style": "gothic",
+			"age": 1859,
+			"religion": "christian",
+			"image link": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Nh%C3%A0_th%E1%BB%9D_huy%E1%BB%87n_S%E1%BB%B9_%E1%BB%9F_HCM.jpg/250px-Nh%C3%A0_th%E1%BB%9D_huy%E1%BB%87n_S%E1%BB%B9_%E1%BB%9F_HCM.jpg",
+			"description": "Giáo xứ Chợ Đũi - Nhà thờ Huyện Sỹ là một nhà thờ Công giáo cổ, có tên chính thức là Nhà thờ Thánh Philipphê Tông đồ, tọa lạc tại 1 Tôn Thất Tùng, Quận 1, Thành phố Hồ Chí Minh. Đây là một trong sáu nhà thờ cổ nhất Sài Gòn, được xây dựng theo phong cách kiến trúc Gothic và khánh thành vào năm 1910. Tên gọi \"Huyện Sỹ\" là do người dân địa phương gọi quen thuộc để tôn vinh ông Lê Phát Đạt, người đã đóng góp xây dựng nhà thờ. \nhttps://mia.vn/cam-nang-du-lich/nha-tho-huyen-sy-19180",
+			"open_hours": "9:00 - 21:00",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_327969756": [
+		{
+			"ID": "('way', 327969756)",
+			"location.lat": "10.78623145",
+			"location.lon": "106.7010351206109",
+			"name": "Nhà thờ Mạc Ty Nho",
+			"building_type": "place_of_worship",
+			"arch_style": "modernism, french",
+			"age": 1961,
+			"religion": "christian",
+			"image link": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPEM9LdigtOt3IycJDqhz3SVA-BSxFDLwl9A&s",
+			"description": "Nhà thờ Mạc Ty Nho (còn gọi là Giáo xứ Mạc Ty Nho) là một nhà thờ Công giáo nổi bật tọa lạc tại trung tâm Thành phố Hồ Chí Minh, nổi tiếng với các hoạt động cộng đồng và trang trí lễ hội độc đáo. \nhttps://muctim.tuoitre.vn/den-nha-tho-mac-ty-nho-check-in-giang-sinh-voi-cay-thong-xoay-360-do-101241213182102305.htm",
+			"open_hours": "5:30 - 18:30",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_366664392": [
+		{
+			"ID": "('way', 366664392)",
+			"location.lat": "10.7519741",
+			"location.lon": "106.6536926941934",
+			"name": "Nhà thờ Cha Tam",
+			"building_type": "place_of_worship",
+			"arch_style": "gothic, east_asia",
+			"age": 1900,
+			"religion": "christian",
+			"image link": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Ph%C6%B0%E1%BB%9Dng_14%2C_Qu%E1%BA%ADn_5%2C_TPHCM%2C_Vietnam_-_panoramio_%287%29.jpg/250px-Ph%C6%B0%E1%BB%9Dng_14%2C_Qu%E1%BA%ADn_5%2C_TPHCM%2C_Vietnam_-_panoramio_%287%29.jpg",
+			"description": "Nhà thờ Cha Tam, tên chính thức là Nhà thờ Thánh Phanxicô Xaviê, là một nhà thờ cổ ở TP. Hồ Chí Minh, nổi tiếng với kiến trúc độc đáo pha trộn phong cách châu Âu và nét văn hóa Á Đông. Được xây dựng vào năm 1902, công trình này ban đầu phục vụ cộng đồng giáo dân người Hoa ở Chợ Lớn và do linh mục Pierre d'Assou (tên Việt là Cha Tam) khởi xướng. Nhà thờ không chỉ là địa điểm tôn giáo mà còn là di tích lịch sử quan trọng, đặc biệt liên quan đến sự kiện chính trị năm 1963.\nhttps://mia.vn/cam-nang-du-lich/nha-tho-cha-tam-sai-gon-17689",
+			"open_hours": "7:00 - 12:00\n14:00 - 18:00\n19:00 - 21:00",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_330305509": [
+		{
+			"ID": "('way', 330305509)",
+			"location.lat": "10.77123845",
+			"location.lon": "106.66620458529727",
+			"name": "Nhà thờ Đồng Tiến",
+			"building_type": "place_of_worship",
+			"arch_style": "modernism, french",
+			"age": 1965,
+			"religion": "christian",
+			"image link": "https://giothanhle.net/wp-content/uploads/2016/10/nha-tho-dong-tien-15.jpg",
+			"description": "Nhà thờ Đồng Tiến là một nhà thờ Công giáo nổi bật tọa lạc tại Quận 10, Thành phố Hồ Chí Minh, được biết đến với kiến trúc độc đáo và là trung tâm sinh hoạt tôn giáo quan trọng của giáo xứ. \nhttps://tgpsaigon.net/gioi-thieu-giao-xu/dong-tien-851",
+			"open_hours": "6:00 - 17:30",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_371278740": [
+		{
+			"ID": "('way', 371278740)",
+			"location.lat": "10.7938295",
+			"location.lon": "106.6694208945269",
+			"name": "Nhà thờ Đa Minh - Ba Chuông",
+			"building_type": "place_of_worship",
+			"arch_style": "east_asia, french",
+			"age": 1962,
+			"religion": "christian",
+			"image link": "https://cdn.xanhsm.com/2024/11/5fa5d827-nha-tho-da-minh-ba-chuong-2.jpg",
+			"description": "Nhà thờ Đa Minh - Ba Chuông là một giáo xứ Công giáo nổi tiếng tại Thành phố Hồ Chí Minh, được biết đến với kiến trúc Á Đông độc đáo và lịch sử lâu đời. Tên gọi \"Ba Chuông\" xuất phát từ ba quả chuông được gắn trên đỉnh nhà thờ.\nhttps://www.xanhsm.com/news/nha-tho-da-minh-ba-chuong",
+			"open_hours": "5:00 - 21:30",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_1042849147": [
+		{
+			"ID": "('way', 1042849147)",
+			"location.lat": "10.789571299999999",
+			"location.lon": "106.70030639146191",
+			"name": "Nhà Thờ Phanxicô Đa Kao",
+			"building_type": "place_of_worship",
+			"arch_style": "modernism, french",
+			"age": 1973,
+			"religion": "christian",
+			"image link": "https://lh3.googleusercontent.com/p/AF1QipMlc6qk3O-rdPEkEH7VmjsmTtgpSfWwn3lvOamV=s1360-w1360-h1020-rw",
+			"description": "Nhà thờ Phanxicô Đa Kao, tọa lạc tại trung tâm Quận 1, Thành phố Hồ Chí Minh, là một giáo xứ Công giáo năng động và có lịch sử lâu đời, đóng vai trò vừa là nơi thờ phượng của giáo dân địa phương vừa là trung tâm hoạt động của tu viện Dòng Phan Sinh. \nhttps://tgpsaigon.net/gioi-thieu-giao-xu/phanxico-dakao-713",
+			"open_hours": "5:00 - 21:00",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_1156119270": [
+		{
+			"ID": "('way', 1156119270)",
+			"location.lat": "10.779788499999999",
+			"location.lon": "106.69071494386465",
+			"name": "Tòa Tổng Giám mục Sài Gòn",
+			"building_type": "place_of_worship",
+			"arch_style": "french",
+			"age": 1960,
+			"religion": "christian",
+			"image link": "https://upload.wikimedia.org/wikipedia/vi/thumb/3/31/T%C3%B2a_T%E1%BB%95ng_gi%C3%A1m_m%E1%BB%A5c_Th%C3%A0nh_ph%E1%BB%91_H%E1%BB%93_Ch%C3%AD_Minh.jpg/2560px-T%C3%B2a_T%E1%BB%95ng_gi%C3%A1m_m%E1%BB%A5c_Th%C3%A0nh_ph%E1%BB%91_H%E1%BB%93_Ch%C3%AD_Minh.jpg",
+			"description": "Tòa Tổng Giám mục Sài Gòn là trụ sở hành chính của Tổng Giáo phận Thành phố Hồ Chí Minh, một trong những giáo phận Công giáo lâu đời nhất và quan trọng nhất tại Việt Nam. Tọa lạc tại trung tâm Thành phố Hồ Chí Minh, khuôn viên này nổi tiếng vì có một trong những ngôi nhà cổ nhất Sài Gòn với lịch sử hơn hai thế kỷ. \nhttps://tgpsaigon.net/bai-viet/toa-tong-giam-muc-sai-gon-166",
+			"open_hours": "7:30 - 16:30",
+			"day_off": "sunday",
+			"tags": ""
+		}
+	],
+	"way_1059566394": [
+		{
+			"ID": "('way', 1059566394)",
+			"location.lat": "10.7790693",
+			"location.lon": "106.68363629592108",
+			"name": "Đại học Sài Gòn cơ sở 1",
+			"building_type": "institution",
+			"arch_style": "french",
+			"age": null,
+			"religion": "none",
+			"image link": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSyQmnXuGVdwDFO7ByCWVsNS_9iJ0IKgR5k0I2dIrwgzz_6nCBV1RQEFOj-ZLsucxefhesj_GMwgik00S2aZG2mXqVCiiZWTExJ1JnQmwxZlHgoawKlo0oS2jVtriIyFgSOXiLvK=s1360-w1360-h1020-rw",
+			"description": "Đại học Sài Gòn cơ sở 1 là một trường đại học công lập có lịch sử lâu đời, tọa lạc tại số 273 An Dương Vương, Quận 5, TP.HCM, được biết đến với kiến trúc cổ kính pha trộn phong cách Pháp và Trung Hoa. Trường có chất lượng đào tạo cao, đào tạo đa ngành nghề ở cả bậc đại học và sau đại học, và nằm trong nhóm các trường đại học hàng đầu Việt Nam.\nhttps://cellphones.com.vn/sforum/truong-dai-hoc-sai-gon",
+			"open_hours": "6:30 - 20:00",
+			"day_off": "sunday",
+			"tags": ""
+		}
+	],
+	"way_193085693": [
+		{
+			"ID": "('way', 193085693)",
+			"location.lat": "10.783285150000001",
+			"location.lon": "106.70639157867404",
+			"name": "Đại học Sài Gòn cơ sở 2",
+			"building_type": "institution",
+			"arch_style": "french",
+			"age": null,
+			"religion": "none",
+			"image link": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSx5tVVzHxjva_K2InkZaKuK8blvH-3yK8JEzIQOEFCtWk5vV_Gm0rfu86EILxj-JYUpjQ-lKdsmNoR1rOUIAfVIj_QVhWEcDN1m-AcZ62JEw3DrBFm43ZzNKdJoy8zvpaQ6GLPshw=s1360-w1360-h1020-rw",
+			"description": "Đại học Sài Gòn (SGU) Cơ sở 2 tọa lạc tại địa chỉ 04 Tôn Đức Thắng, Phường Bến Nghé, Quận 1, là một phần quan trọng của hệ thống đào tạo của trường, nổi bật với vị trí đắc địa ngay trung tâm kinh tế và du lịch của Thành phố Hồ Chí Minh, gần sông Sài Gòn. Đây là nơi đặt văn phòng Khoa Giáo dục Mầm non và tổ chức các lớp học cho ngành này cùng một số chuyên ngành khác, được đầu tư cơ sở vật chất đầy đủ tiện nghi, cung cấp môi trường học tập năng động và thuận lợi cho sinh viên di chuyển, tiếp cận các tiện ích của trung tâm thành phố.\nhttps://cellphones.com.vn/sforum/truong-dai-hoc-sai-gon",
+			"open_hours": "6:30 - 20:00",
+			"day_off": "sunday",
+			"tags": ""
+		}
+	],
+	"node_5416327328": [
+		{
+			"ID": "('node', 5416327328)",
+			"location.lat": "10.7877437",
+			"location.lon": "106.7054618",
+			"name": "Thảo Cầm Viên",
+			"building_type": "zoo",
+			"arch_style": "french",
+			"age": 1869,
+			"religion": "none",
+			"image link": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSxItAo0gmkyb2KD6AE62Z2vLba3KNKBVjIDXGp5IGRwF6OCPZ-2xXhR0S5_CGsJ-jGkDvh9dJALQq4Gystqit_6Qsyyu34JAG_pjj7Le8uZzAnndNKDqv09Dih1ut4EPEsuoHU=s1360-w1360-h1020-rw",
+			"description": "Thảo Cầm Viên Sài Gòn (Saigon Zoo and Botanical Gardens) là một công viên bảo tồn động vật và thực vật rộng hơn 20 ha, tọa lạc ngay trung tâm Quận 1, Thành phố Hồ Chí Minh. Đây là một trong những vườn thú lâu đời nhất trên thế giới, với lịch sử hình thành và phát triển từ năm 1864.\nhttps://www.vietnamairlines.com/la/vi/useful-information/travel-guide/zoo-and-botnical-gardens-hcm",
+			"open_hours": "7:00 - 17:30",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"relation_17758150": [
+		{
+			"ID": "('relation', 17758150)",
+			"location.lat": "10.78797185",
+			"location.lon": "106.7049562864172",
+			"name": "Bảo tàng Lịch sử TPHCM",
+			"building_type": "museum",
+			"arch_style": "indochine",
+			"age": 1929,
+			"religion": "none",
+			"image link": "https://upload.wikimedia.org/wikipedia/commons/5/57/Vietnam_History_Museum_HCMC.JPG",
+			"description": "Bảo tàng Lịch sử TPHCM là một bảo tàng lớn và lâu đời, tọa lạc tại số 2 đường Nguyễn Bỉnh Khiêm, Quận 1, bên trong khuôn viên Thảo Cầm Viên. Nơi đây sở hữu hơn 40.000 hiện vật, bao gồm 12 bảo vật quốc gia, và trưng bày lịch sử, văn hóa Việt Nam từ thời tiền sử đến năm 1945, cũng như các nền văn hóa Châu Á. Tòa nhà được công nhận là Di tích kiến trúc nghệ thuật cấp Quốc gia với kiến trúc Đông-Tây độc đáo.\nhttps://mia.vn/cam-nang-du-lich/bao-tang-lich-su-thanh-pho-ho-chi-minh-12480",
+			"open_hours": "8:00 - 11:30\n13:00 - 17:00",
+			"day_off": "monday",
+			"tags": ""
+		}
+	],
+	"way_804926030": [
+		{
+			"ID": "('way', 804926030)",
+			"location.lat": "10.783164750000001",
+			"location.lon": "106.7043358398439",
+			"name": "Đan viện Cát Minh",
+			"building_type": "place_of_worship",
+			"arch_style": "french",
+			"age": 1876,
+			"religion": "christian",
+			"image link": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwojzbN8FKGl4m80osAzQKwJ8claWzzjnRtiXao1zwsXucrteNF4PXV3V6Q2rXVHiVhVPPSnT8j3z3LXq8Uu7vWxFMbQwoZLsjlN-zDBOey4ZxkKx8UK750n9E3hqhoAH4FwIY=s1360-w1360-h1020-rw",
+			"description": "Đan viện Cát Minh (Carmelite Monastery) là một dòng tu Công giáo chuyên về đời sống chiêm niệm, cầu nguyện thầm lặng và hy sinh, với nhiều cơ sở tại Việt Nam, đặc biệt là Đan viện Cát Minh Sài Gòn mang tính lịch sử.\nhttps://meetup.vn/dia-diem/dan-vien-cat-minh-33-ton-duc-thang-quan-1/",
+			"open_hours": "9:00 - 17:00",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_39514793": [
+		{
+			"ID": "('way', 39514793)",
+			"location.lat": "10.77995565",
+			"location.lon": "106.6999920762309",
+			"name": "Bưu điện trung tâm Sài Gòn",
+			"building_type": "commercial",
+			"arch_style": "gothic, renaissance, neo-baroque",
+			"age": 1891,
+			"religion": "none",
+			"image link": "\nhttps://upload.wikimedia.org/wikipedia/commons/7/78/Ho_Chi_Minh_City%2C_Central_Post_Office%2C_2020-01_CN-01.jpg",
+			"description": "Bưu điện Trung tâm Sài Gòn là một công trình kiến trúc độc đáo, kết hợp phong cách châu Âu cổ điển với kiến trúc Pháp và một chút ảnh hưởng Gothic, được xây dựng từ năm 1886-1891. Tòa nhà này có địa chỉ tại số 2, Công xã Paris, Quận 1, đối diện Nhà thờ Đức Bà. Ngoài chức năng bưu chính, nơi đây còn là địa điểm du lịch nổi tiếng, thu hút du khách bởi vẻ đẹp lịch sử và kiến trúc.\nhttps://vinpearl.com/vi/kham-pha-kien-truc-doc-dao-va-check-in-tai-buu-dien-trung-tam-sai-gon",
+			"open_hours": "8:00 - 17:00",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way,186275012": [
+		{
+			"ID": "('way',186275012)",
+			"location.lat": "10.783413961954844",
+			"location.lon": "106.69893807405496",
+			"name": "Tổng Lãnh sự quán Pháp",
+			"building_type": "government",
+			"arch_style": "french",
+			"age": 2003,
+			"religion": "none",
+			"image link": "https://visana.vn/wp-content/uploads/2019/01/T%E1%BB%95ng-L%C3%A3nh-S%E1%BB%B1-Qu%C3%A1n-Ph%C3%A1p-t%E1%BA%A1i-H%E1%BB%93-Ch%C3%AD-Minh.png",
+			"description": "Tổng Lãnh sự quán Pháp tại Thành phố Hồ Chí Minh (Consulat Général de France à Hô Chi Minh Ville) là cơ quan đại diện ngoại giao của Pháp, có chức năng bảo vệ quyền lợi của công dân Pháp và thúc đẩy mối quan hệ song phương trong khu vực phía Nam Việt Nam.\nhttps://vi.wikipedia.org/wiki/T%E1%BB%95ng_L%C3%A3nh_s%E1%BB%B1_qu%C3%A1n_Ph%C3%A1p_t%E1%BA%A1i_Th%C3%A0nh_ph%E1%BB%91_H%E1%BB%93_Ch%C3%AD_Minh",
+			"open_hours": "9:00 - 24:00",
+			"day_off": "saturday;sunday",
+			"tags": ""
+		}
+	],
+	"way_140703186": [
+		{
+			"ID": "('way', 140703186)",
+			"location.lat": "10.7625844",
+			"location.lon": "106.68169483128824",
+			"name": "Đại học khoa học tự nhiên cơ sở 1",
+			"building_type": "institution",
+			"arch_style": "french, modernism, contemporary",
+			"age": null,
+			"religion": "none",
+			"image link": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Tr%C6%B0%E1%BB%9Dng_%C4%90%E1%BA%A1i_h%E1%BB%8Dc_Khoa_h%E1%BB%8Dc_T%E1%BB%B1_nhi%C3%AAn_-_%C4%90%E1%BA%A1i_h%E1%BB%8Dc_Qu%E1%BB%91c_gia_Th%C3%A0nh_ph%E1%BB%91_H%E1%BB%93_Ch%C3%AD_Minh.jpg/330px-Tr%C6%B0%E1%BB%9Dng_%C4%90%E1%BA%A1i_h%E1%BB%8Dc_Khoa_h%E1%BB%8Dc_T%E1%BB%B1_nhi%C3%AAn_-_%C4%90%E1%BA%A1i_h%E1%BB%8Dc_Qu%E1%BB%91c_gia_Th%C3%A0nh_ph%E1%BB%91_H%E1%BB%93_Ch%C3%AD_Minh.jpgg",
+			"description": "Khuôn viên cơ sở 1 Trường Đại học Khoa học Tự nhiên, tọa lạc tại số 227 Nguyễn Văn Cừ, Quận 5, TP.HCM, nổi bật với sự kết hợp giữa kiến trúc cổ điển phương Tây và phương Đông, đặc biệt ở các khối nhà lâu đời, và các công trình hiện đại được bổ sung sau này.",
+			"open_hours": "24/7",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_1419105579": [
+		{
+			"ID": "('way', 1419105579)",
+			"location.lat": "10.87622755",
+			"location.lon": "106.79685246369581",
+			"name": "Đại học khoa học tự nhiên cơ sở 2",
+			"building_type": "institution",
+			"arch_style": "modernism, contemporary",
+			"age": null,
+			"religion": "none",
+			"image link": "https://xdcs.cdnchinhphu.vn/446259493575335936/2025/7/17/khtn-17527408705801486184749.jpg",
+			"description": "Khuôn viên cơ sở 2 của Trường Đại học Khoa học Tự nhiên (ĐHQG-HCM) nổi tiếng với không gian rộng rãi, thoáng mát và nhiều cây xanh, tạo nên một môi trường học tập và nghiên cứu trong lành, khác biệt so với cơ sở nội thành. ",
+			"open_hours": "24/7",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_802157430": [
+		{
+			"ID": "('way', 802157430)",
+			"location.lat": "10.771652903698225",
+			"location.lon": "106.6993514856996",
+			"name": "Công ty Cổ phần Vận tải Đường sắt Sài Gòn",
+			"building_type": "commercial",
+			"arch_style": "french",
+			"age": 1914,
+			"religion": "none",
+			"image link": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSybmHQRZEGpy0FTS_5qLu_sqfjv3fRWPWGS9GDErfQSqDJ7S96ZRbnznYUCajybvzj2dFr-1GNJY5niWo4ndmPyDKE1wIm8G1tQZqAxTudsXf0aE-IlRqSmsZx-67fb3-EN64g=w408-h306-k-no",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_39598469": [
+		{
+			"ID": "('way', 39598469)",
+			"location.lat": "10.7693312",
+			"location.lon": "106.70362685389938",
+			"name": "Ngân hàng Nhà nước Việt Nam - HCM",
+			"building_type": "government",
+			"arch_style": "modernism",
+			"age": 1929,
+			"religion": "none",
+			"image link": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSxNCoUtO6w6KH17gqtxXzCGVe58WWEGpXnjOcJ1J2slmG_dcB88TqFjKgPUEmjI5Kt6RQ0OPdgLfBAGMKNNkQxIZcyIel82hpEeU7tP9pwKJNjkPN-qcKpjVk1j8RpGeiwki-MroA=s1360-w1360-h1020-rw",
+			"description": "Tòa nhà Ngân hàng Nhà nước Việt Nam (NHNN) chi nhánh TPHCM là một công trình kiến trúc lịch sử nổi bật, thể hiện sự pha trộn độc đáo giữa phong cách kiến trúc Pháp (đặc biệt là Art Deco và Tân cổ điển) và các mô-típ trang trí nghệ thuật truyền thống Chăm Pa và Khmer.\nhttps://tuoitre.vn/tru-so-ngan-hang-nha-nuoc-o-tphcm-xung-tam-di-tich-quoc-gia-1114075.htm",
+			"open_hours": "7:00 - 17:30",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way,1162012869": [
+		{
+			"ID": "('way',1162012869)",
+			"location.lat": "10.771208112264201",
+			"location.lon": "106.70587328948123",
+			"name": "Cục hải quan TPHCM",
+			"building_type": "government",
+			"arch_style": "french",
+			"age": null,
+			"religion": "none",
+			"image link": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSzOa1xO4vdFRFp-exa8SX1len9YNTdh-4pFcqvoxa3ln7TcEQEFI5a2Swji2Qw1uBqVvDnhKB1hmviA_3xR6gTA9OfREJ2pzOKlbe1OUzWF2pxVcwLRRGOyb6VfBL7_nGyJrt8=w408-h544-k-no",
+			"description": "Kiến trúc Cục Hải quan TPHCM có thể đề cập đến hai tòa nhà chính: trụ sở cổ và một dự án mới (tòa tháp). Trụ sở cổ ban đầu là Maison Wang-Tai, sau đó trở thành Nha quan thuế của Pháp và là di tích lịch sử. Dự án mới là tòa tháp 21 tầng, được thiết kế vào năm 2021 bởi team kiến trúc sư Nguyễn Văn Tuấn, Phạm Thế Minh, Nguyễn Danh Trường. \nhttps://plo.vn/di-san-vat-the-sai-gon-300-nam-dau-an-toa-nha-hai-quan-post358541.html",
+			"open_hours": "8:30 - 17:00",
+			"day_off": "saturday;sunday",
+			"tags": ""
+		}
+	],
+	"way_165518958": [
+		{
+			"ID": "('way', 165518958)",
+			"location.lat": "10.7735865",
+			"location.lon": "106.7016144764372",
+			"name": "Đền Sri Thendayuthapani",
+			"building_type": "place_of_worship",
+			"arch_style": "hindu",
+			"age": 1936,
+			"religion": "hinduism",
+			"image link": "https://redsvn.net/wp-content/uploads/2022/06/Den-Sri-Thenday-Yutthapani-01.jpg",
+			"description": "Đền Sri Thendayuthapani, hay còn gọi là \"chùa Ông\" hoặc Chùa Ấn Giáo, là một công trình kiến trúc Hindu giáo tiêu biểu mang đậm phong cách Dravidian (Nam Ấn Độ), tọa lạc tại số 66 đường Tôn Thất Thiệp, Quận 1, Thành phố Hồ Chí Minh. Ngôi đền là trung tâm tâm linh quan trọng của cộng đồng người Tamil nhập cư từ hơn một thế kỷ trước.\nhttps://thanhnien.vn/den-co-145-nam-o-phuong-sai-gon-dau-an-thuong-nhan-an-cho-vay-tien-185250819121353883.htm",
+			"open_hours": "6:00 - 19:00",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_187949849": [
+		{
+			"ID": "('way', 187949849)",
+			"location.lat": "10.77228505",
+			"location.lon": "106.69555763933496",
+			"name": "Đền Bà Mariamman",
+			"building_type": "place_of_worship",
+			"arch_style": "hindu",
+			"age": 1900,
+			"religion": "hinduism",
+			"image link": "https://tiimtravel.vn/uploads/files/2023/05/21/den-Mariamman.jpg",
+			"description": "Kiến trúc đền Mariamman đặc trưng bởi phong cách Ấn Độ Dravidian, nổi bật với các họa tiết trang trí sặc sỡ và tinh xảo. Ngôi đền có một tháp lối vào cao tầng gọi là gopuram, cao khoảng 12 mét và được trang trí bằng những bức chạm khắc tỉ mỉ, tạo nên vẻ ngoài đầy ấn tượng. \nhttps://vinpearl.com/vi/mariamman-ngoi-chua-an-do-linh-thieng-giua-long-sai-gon",
+			"open_hours": "7:00 - 19:00",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_187949838": [
+		{
+			"ID": "('way', 187949838)",
+			"location.lat": "10.77426565",
+			"location.lon": "106.69994960303441",
+			"name": "Chùa Ông Subramaniam Swany",
+			"building_type": "place_of_worship",
+			"arch_style": "hindu",
+			"age": 1850,
+			"religion": "hinduism",
+			"image link": "https://image.plo.vn/w1000/Uploaded/2025/vocgmvbg/2015_07_11/nhatho14_DYDG.jpg.webp",
+			"description": "Chùa Ông Subramaniam Swamy tại Thành phố Hồ Chí Minh là một ví dụ điển hình của kiến trúc đền thờ Nam Ấn Độ (Tamil). Ngôi đền nổi bật với các đặc điểm truyền thống Hindu giáo, được trang trí công phu bằng các tác phẩm điêu khắc và tượng thần đầy màu sắc.\nhttps://vinwonders.com/vi/wonderpedia/news/chua-an-do-sai-gon/",
+			"open_hours": "24/7",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_802105071": [
+		{
+			"ID": "('way', 802105071)",
+			"location.lat": "10.7759106",
+			"location.lon": "106.69962141634929",
+			"name": "Bảo tàng Thành phố Hồ Chí Minh",
+			"building_type": "museum",
+			"arch_style": "gothic, east_asia",
+			"age": null,
+			"religion": "none",
+			"image link": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSz7YsuXApLVKmtH2gTWbnqmpJoucU776sj9r8tT5DoTcD2XhHMKK_b_A_-AyxR-P0K2eAagkhmx3kbowR63XUlpXZQNc0W2sEbAHxSvkbu4LPCvWM49hb7gzHRQbig0tmIly5Lu=w408-h544-k-no",
+			"description": "Bảo tàng Thành phố Hồ Chí Minh (trước đây gọi là Dinh Gia Long) nổi bật với kiến trúc Phục hưng cổ điển kết hợp hài hòa giữa ảnh hưởng phương Tây và phương Đông, do kiến trúc sư người Pháp Alfred Foulhoux thiết kế và hoàn thành vào năm 1885. \nhttps://www.baotanglichsutphcm.com.vn/gioi-thieu",
+			"open_hours": "8:00 - 17:00",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_802105041": [
+		{
+			"ID": "('way', 802105041)",
+			"location.lat": "10.77513495",
+			"location.lon": "106.6989279073037",
+			"name": "Thư viện Khoa học Tổng hợp TPHCM",
+			"building_type": "library",
+			"arch_style": "modernism",
+			"age": 1968,
+			"religion": "none",
+			"image link": "https://lh3.googleusercontent.com/p/AF1QipOdxlzSdHTYopFpCfMESMp9ES6fB11VRRbAtnTp=w408-h306-k-no",
+			"description": "Thư viện Khoa học Tổng hợp TP.HCM là một ví dụ điển hình của kiến trúc Hiện đại miền Nam Việt Nam, nổi bật với sự kết hợp hài hòa giữa chủ nghĩa hiện đại và các yếu tố kiến trúc dân tộc bản địa. Công trình do các kiến trúc sư Nguyễn Hữu Thiện và Bùi Quang Hanh thiết kế, hoàn thành vào năm 1971.\nhttps://mia.vn/cam-nang-du-lich/thu-vien-khoa-hoc-tong-hop-tphcm-19284",
+			"open_hours": "7:30 - 19:00",
+			"day_off": "friday",
+			"tags": ""
+		}
+	],
+	"way_313404496": [
+		{
+			"ID": "('way', 313404496)",
+			"location.lat": "10.79004245",
+			"location.lon": "106.70141784863081",
+			"name": "Trung tâm Phát thanh VOH",
+			"building_type": "commercial",
+			"arch_style": "modernism",
+			"age": 1969,
+			"religion": "none",
+			"image link": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRynYzad7BgoIvcHWf_4AwCTmB_qj3CccHJWg&s",
+			"description": "Tòa nhà Trung tâm Phát thanh VOH (Đài Tiếng nói Nhân dân Thành phố Hồ Chí Minh) là một ví dụ nổi bật của kiến trúc hiện đại Việt Nam, được thiết kế bởi kiến trúc sư Lê Văn Lắm vào năm 1969. Công trình này được đánh giá cao vì sự cân bằng giữa hình thức và công năng, đặc biệt là khả năng thích ứng với khí hậu nhiệt đới Sài Gòn.\nhttps://saigoneer.com/vn/vietnam-architecture/16609-%C4%91%C3%A0i-ph%C3%A1t-thanh-v-o-h,-c%C3%B4ng-tr%C3%ACnh-ki%E1%BA%BFn-tr%C3%BAc-g%E1%BA%A1ch-n%E1%BB%91i-l%E1%BB%8Bch-s%E1%BB%AD",
+			"open_hours": "7:30 - 17:00",
+			"day_off": "saturday;sunday",
+			"tags": ""
+		}
+	],
+	"way_39598493": [
+		{
+			"ID": "('way', 39598493)",
+			"location.lat": "10.7770348",
+			"location.lon": "106.69548803180103",
+			"name": "Dinh Thống nhất",
+			"building_type": "government",
+			"arch_style": "modernism",
+			"age": 1966,
+			"religion": "none",
+			"image link": "https://upload.wikimedia.org/wikipedia/commons/7/7d/20190923_Independence_Palace-10.jpg",
+			"description": "Dinh Thống Nhất (hay Dinh Độc Lập) là một kiệt tác kiến trúc của Kiến trúc sư Ngô Viết Thụ, nổi bật với sự kết hợp hài hòa giữa kiến trúc hiện đại và các yếu tố triết lý truyền thống phương Đông. Công trình được xây dựng trên khuôn viên rộng 12 hecta, hoàn thành vào năm 1967 và trở thành một biểu tượng lịch sử quan trọng của Việt Nam.\nhttps://dinhdoclap.gov.vn/di-tich/kien-truc-dinh/",
+			"open_hours": "7:00 - 18:00",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_198047671": [
+		{
+			"ID": "('way', 198047671)",
+			"location.lat": "10.7911024",
+			"location.lon": "106.65333688126003",
+			"name": "Bệnh viện Thống Nhất",
+			"building_type": "hospital",
+			"arch_style": "modernism",
+			"age": 1972,
+			"religion": "none",
+			"image link": "https://upload.wikimedia.org/wikipedia/commons/e/e0/B%E1%BB%87nh_vi%E1%BB%87n_Th%E1%BB%91ng_Nh%E1%BA%A5t.jpg",
+			"description": "Bệnh viện Thống Nhất, ban đầu là Bệnh viện Vì Dân, được thiết kế bởi Kiến trúc sư (KTS) Trần Đình Quyền và nổi bật với triết lý kiến trúc nhấn mạnh vào sự thông thoáng và công năng sử dụng hiệu quả cho môi trường y tế.",
+			"open_hours": "7:00 - 11:30\n13:00 - 16:30",
+			"day_off": "sunday",
+			"tags": ""
+		}
+	],
+	"way_127299413": [
+		{
+			"ID": "('way', 127299413)",
+			"location.lat": "10.80416395",
+			"location.lon": "106.6941426784243",
+			"name": "Bệnh viện Nhân dân Gia Định",
+			"building_type": "hospital",
+			"arch_style": "modernism",
+			"age": null,
+			"religion": "none",
+			"image link": "https://lh3.googleusercontent.com/p/AF1QipOtZhHK4PKv3qy5FX5Q4N5GkeeZu1IZGzjBgRuN=s1360-w1360-h1020-rw",
+			"description": "Bệnh viện Nhân dân Gia Định là một công trình kiến trúc lịch sử với dấu ấn từ thời Pháp thuộc, đã được xây dựng và mở rộng qua nhiều giai đoạn để trở thành một bệnh viện đa khoa hiện đại, tuyến cuối của Thành phố Hồ Chí Minh.\nhttps://bvndgiadinh.org.vn/?page_id=2710#:~:text=L%E1%BB%8Bch%20s%E1%BB%AD%20h%C3%ACnh%20th%C3%A0nh,HCM.",
+			"open_hours": "7:00 - 12:00\n13:00 - 16:00",
+			"day_off": "saturday;sunday",
+			"tags": ""
+		}
+	],
+	"way_455098939": [
+		{
+			"ID": "('way', 455098939)",
+			"location.lat": "10.754179749999999",
+			"location.lon": "106.6782670253124",
+			"name": "Bệnh viện Chấn thương Chỉnh hình",
+			"building_type": "hospital",
+			"arch_style": "modernism",
+			"age": null,
+			"religion": "none",
+			"image link": "https://upload.wikimedia.org/wikipedia/commons/f/f4/Benh_vien_chan_thuong_Chinh_Hinh-ph%C6%B0%E1%BB%9Dng_1%2C_Qu%E1%BA%ADn_5%2C_TPHCM%2C_Vi%E1%BB%87t_Nam_-_panoramio.jpg",
+			"description": "Bệnh viện Chấn thương Chỉnh hình (BV CTCH) có kiến trúc đặc trưng của một cơ sở y tế đã tồn tại lâu đời và trải qua nhiều giai đoạn phát triển, với cơ sở vật chất hiện hữu đang xuống cấp và quá tải, dẫn đến nhu cầu cấp thiết xây mới và mở rộng cơ sở. ",
+			"open_hours": "6:00 - 15:45",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_1223405327": [
+		{
+			"ID": "('way', 1223405327)",
+			"location.lat": "10.8329481",
+			"location.lon": "106.691232",
+			"name": "Phù Châu miếu",
+			"building_type": "place_of_worship",
+			"arch_style": "vietnamese",
+			"age": 1800,
+			"religion": "vietnamese_folk",
+			"image link": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/M%E1%BA%B7t_ti%E1%BB%81n_Mi%E1%BA%BFu_N%E1%BB%95i.JPG/2560px-M%E1%BA%B7t_ti%E1%BB%81n_Mi%E1%BA%BFu_N%E1%BB%95i.JPG",
+			"description": "Phù Châu miếu, thường được gọi là Miếu Nổi, là một công trình kiến trúc tâm linh độc đáo nằm giữa sông Vàm Thuật, nổi bật với sự kết hợp hài hòa giữa phong cách kiến trúc Việt Nam và Trung Hoa. Điểm nhấn kiến trúc lớn nhất của miếu là số lượng rồng trang trí khổng lồ, ước tính lên đến gần 100 con rồng được chạm khắc tinh xảo.\nhttps://www.xanhsm.com/news/phu-chau-mieu",
+			"open_hours": "8:00 - 18:00",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_366105826": [
+		{
+			"ID": "('way', 366105826)",
+			"location.lat": "10.77298155",
+			"location.lon": "106.71044255601993",
+			"name": "Giáo xứ Thủ Thiêm",
+			"building_type": "place_of_worship",
+			"arch_style": "modernism, french",
+			"age": null,
+			"religion": "christian",
+			"image link": "https://iwater.vn/Image/Picture/Church/giao-xu-thu-thiem.jpg",
+			"description": "Giáo xứ Thủ Thiêm nổi bật với quần thể kiến trúc tôn giáo có tuổi đời gần hai thế kỷ, mang đậm phong cách kiến trúc Pháp kết hợp hài hòa với văn hóa Á Đông. Công trình này, cùng với Tu viện Hội Dòng Mến Thánh Giá Thủ Thiêm, đã được xếp hạng Di tích Kiến trúc Nghệ thuật cấp Thành phố.\nhttps://mia.vn/cam-nang-du-lich/nha-tho-thu-thiem-sai-gon-19174",
+			"open_hours": "8:00 - 11:00\n14:00 - 16:00",
+			"day_off": "sunday",
+			"tags": ""
+		}
+	],
+	"way_140703181": [
+		{
+			"ID": "('way', 140703181)",
+			"location.lat": "10.7637813",
+			"location.lon": "106.6814719336958",
+			"name": "THPT Chuyên Lê Hồng Phong",
+			"building_type": "institution",
+			"arch_style": "indochine, romanesque, art_deco, east_asia",
+			"age": 1925,
+			"religion": "none",
+			"image link": "https://cdn2.tuoitre.vn/471584752817336320/2023/6/20/truong-thpt-chuyen-le-hong-phong-1687254446423844517805.jpg?fbclid=IwY2xjawOQAHRleHRuA2FlbQIxMABicmlkETFWSGNjeHE0QnB5R2JLTml1c3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHsaoVZu5LVj6l54W7ZrnZR-sGqTwVwiXMIWypBqvAVSbXqiahIhTANXEt7gy_aem_Sas4PmRZsDH-HfMoyuT34w",
+			"description": "Trường THPT Chuyên Lê Hồng Phong (tiền thân là Collège Pétrus Trương Vĩnh Ký, thành lập năm 1927) nổi bật với quần thể kiến trúc cổ kính, là sự kết hợp hài hòa giữa phong cách kiến trúc cổ điển Pháp và kiến trúc Đông Dương. Công trình đã được công nhận là Di tích Kiến trúc Nghệ thuật cấp Thành phố.\nhttps://plo.vn/truong-le-hong-phong-duoc-cong-nhan-di-tich-kien-truc-nghe-thuat-post364096.html",
+			"open_hours": "7:00 - 17:00",
+			"day_off": "sunday",
+			"tags": ""
+		}
+	],
+	"way_469843391": [
+		{
+			"ID": "('way', 469843391)",
+			"location.lat": "10.77967575",
+			"location.lon": "106.69408257887494",
+			"name": "THPT Lê Quý Đôn",
+			"building_type": "institution",
+			"arch_style": "french, east_asia",
+			"age": 1874,
+			"religion": "none",
+			"image link": "https://upload.wikimedia.org/wikipedia/commons/8/80/Instituto_Le_Quy_Don%2C_Ciudad_Ho_Chi_Minh%2C_Vietnam%2C_2013-08-14%2C_DD_01.JPG",
+			"description": "Trường THPT Lê Quý Đôn (tiền thân là Collège Chasseloup-Laubat, thành lập năm 1874) là ngôi trường trung học đầu tiên và lâu đời nhất tại Sài Gòn, nổi bật với kiến trúc Pháp cổ điển, được xây dựng theo hình chữ \"khẩu\" (口) đặc trưng. Công trình này đã được công nhận là Di tích Kiến trúc Nghệ thuật cấp Thành phố.\nhttps://thpt-lequydon-hcm.edu.vn/info/SP1775/Truong-Trung-Hoc-Dau-Tien-O-Tphcm-Duoc-Xep-Hang-Di-Tich-Tp.html#:~:text=Ng%C3%B4i%20tr%C6%B0%E1%BB%9Dng%20c%C3%B3%20tu%E1%BB%95i%20%C4%91%E1%BB%9Di,Minh%20Khai%20sau%20146%20n%C4%83m.",
+			"open_hours": "7:00 - 17:00",
+			"day_off": "sunday",
+			"tags": ""
+		}
+	],
+	"way_189165793": [
+		{
+			"ID": "('way', 189165793)",
+			"location.lat": "10.7789672",
+			"location.lon": "106.68724075670961",
+			"name": "THPT Nguyễn Thị Minh Khai",
+			"building_type": "institution",
+			"arch_style": "french",
+			"age": 1915,
+			"religion": "none",
+			"image link": "https://upload.wikimedia.org/wikipedia/commons/f/f5/Truong_Nguyen_thi_minh_khai_q3._hcm_-_panoramio.jpg",
+			"description": "Trường THPT Nguyễn Thị Minh Khai (thành lập năm 1913 với tên gọi đầu tiên là Collège des Jeunes Filles, sau này là trường Nữ trung học Gia Long) nổi bật với kiến trúc Gothic đầu thế kỷ XX. Đây là một trong những ngôi trường lâu đời nhất tại TP. Hồ Chí Minh và đã được công nhận là Di tích Kiến trúc Nghệ thuật cấp Thành phố.\nhttps://jvs.vn/truong-thpt-nguyen-thi-minh-khai-di-tich-kien-truc-nghe-thuat-cap-tp-hcm/#:~:text=Tr%C6%B0%E1%BB%9Dng%20THPT%20Nguy%E1%BB%85n%20Th%E1%BB%8B%20Minh,B%E1%BB%8A%20GI%C3%81O%20D%E1%BB%A4C%2C%20V%C4%82N%20PH%C3%92NG",
+			"open_hours": "7:00 - 17:00",
+			"day_off": "sunday",
+			"tags": ""
+		}
+	],
+	"way_505295904": [
+		{
+			"ID": "('way', 505295904)",
+			"location.lat": "10.7836076",
+			"location.lon": "106.73773554953907",
+			"name": "THPT Chuyên Trần Đại Nghĩa",
+			"building_type": "institution",
+			"arch_style": "french",
+			"age": 1960,
+			"religion": "none",
+			"image link": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgI-Tpsl7clagUgpEUZtTvxy6ealillxyzqQ&s",
+			"description": "Trường THPT Chuyên Trần Đại Nghĩa (tiền thân là Collège La San Taberd, thành lập năm 1874) nổi bật với kiến trúc Đông Dương giao hòa, kết hợp phong cách Pháp cổ điển và đặc trưng khí hậu địa phương. Đây là một trong những ngôi trường lâu đời và có kiến trúc đẹp nhất tại TP. Hồ Chí Minh, đã được công nhận là Di tích Kiến trúc Nghệ thuật cấp Thành phố. \nhttps://cafef.vn/co-mot-ngoi-truong-chuyen-gan-150-nam-tuoi-doi-kien-truc-co-kinh-day-lang-man-muon-vao-day-phai-hoc-cuc-gioi-20221102091939937.chn#:~:text=C%C3%B3%20m%E1%BB%99t%20ng%C3%B4i%20tr%C6%B0%E1%BB%9Dng%20chuy%C3%AAn,%C4%91%C3%A2y%20ph%E1%BA%A3i%20h%E1%BB%8Dc%20c%E1%BB%B1c%20gi%E1%BB%8Fi!",
+			"open_hours": "7:00 - 17:00",
+			"day_off": "sunday",
+			"tags": ""
+		}
+	],
+	"way_186545015": [
+		{
+			"ID": "('way', 186545015)",
+			"location.lat": "10.78242595",
+			"location.lon": "106.69078227096341",
+			"name": "THPT Marie Curie",
+			"building_type": "institution",
+			"arch_style": "french",
+			"age": 1918,
+			"religion": "none",
+			"image link": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSww0LvziMwBGzU3Ru1ZqCJRmqorYpAxf0hhVrZaEyJ5AikHm-iMajna8b69FfR0Lt9ZkSHgaYd6j9X-PWm5qyoMcw-bABMTaKwgWVylAVMbaQLl9MJKXNXLboANoqLIjFo9XGqXcw=s1360-w1360-h1020-rw",
+			"description": "Trường THPT Marie Curie (thành lập năm 1918 với tên gọi ban đầu là Lycée Marie Curie) nổi bật với kiến trúc Đông Dương giao hòa, kết hợp phong cách Pháp cổ điển và đặc trưng khí hậu bản địa. Công trình đã được công nhận là Di tích Lịch sử - Văn hóa và Danh lam thắng cảnh cấp Thành phố vào năm 2015.\nhttps://vietnam.vnanet.vn/vietnamese/tin-tuc/co-kinh-truong-marie-curie-tp-ho-chi-minh-71278.html#:~:text=N%C3%A9t%20th%C6%B0%E1%BB%9Bt%20tha%20trong%20t%C3%A0,lu%C3%B4n%20cao%20h%C6%A1n%20n%C4%83m%20tr%C6%B0%E1%BB%9Bc.",
+			"open_hours": "7:00 - 17:00",
+			"day_off": "sunday",
+			"tags": ""
+		}
+	],
+	"way_469844102": [
+		{
+			"ID": "('way', 469844102)",
+			"location.lat": "10.7763399",
+			"location.lon": "106.69295488134875",
+			"name": "Cung Văn hóa Lao động TPHCM",
+			"building_type": "community_centre",
+			"arch_style": "french",
+			"age": 1925,
+			"religion": "none",
+			"image link": "https://vienkyluc.vn/Userfiles/Upload/images/cung-van-hoa.jpg",
+			"description": "Cung Văn hóa Lao động TPHCM, tọa lạc tại 55B Nguyễn Thị Minh Khai, Quận 1, là một quần thể kiến trúc và không gian sinh hoạt văn hóa, thể dục thể thao dành cho người lao động.",
+			"open_hours": "06:00 - 21:30",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"node_4110081290": [
+		{
+			"ID": "('node', 4110081290)",
+			"location.lat": "10.7854641",
+			"location.lon": "106.6819971",
+			"name": "Chùa Chantarangsay",
+			"building_type": "place_of_worship",
+			"arch_style": "khmer",
+			"age": 1953,
+			"religion": "khmer",
+			"image link": "https://cms.btgcp.gov.vn/upload-img/userfiles/images/image-20231031143320-3.jpeg",
+			"description": "Chùa Chantarangsay (còn gọi là chùa Candaransi hoặc chùa Khmer Quận 3) là một ngôi chùa Phật giáo Nam tông Khmer tại TP. Hồ Chí Minh. Chùa nổi bật với kiến trúc Khmer độc đáo, giàu màu sắc và các chi tiết chạm khắc tinh xảo, là trung tâm sinh hoạt tín ngưỡng và văn hóa của cộng đồng người Khmer tại thành phố.\nhttps://www.xanhsm.com/news/chua-chantarangsay",
+			"open_hours": "7:00 - 21:00 ",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_465070593": [
+		{
+			"ID": "('way', 465070593)",
+			"location.lat": "10.7826372",
+			"location.lon": "106.69594642740458",
+			"name": "Hồ Con Rùa",
+			"building_type": "fountain",
+			"arch_style": "modernism",
+			"age": 1969,
+			"religion": "none",
+			"image link": "https://cdn3.ivivu.com/2022/10/h%E1%BB%93-con-r%C3%B9a-ivivu-12.jpg",
+			"description": "Hồ Con Rùa, tên chính thức là Công trường Quốc tế, là một công trình kiến trúc hiện đại, được thiết kế bởi kiến trúc sư Nguyễn Kỳ vào giai đoạn 1965–1967. Công trình này nổi bật với thiết kế mang ý nghĩa phong thủy và hình ảnh cách điệu, từng là một biểu tượng quan trọng của Sài Gòn xưa.\nhttps://greenfuture.tech/tin-tuc/ho-con-rua",
+			"open_hours": "24/7",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_189008790": [
+		{
+			"ID": "('way', 189008790)",
+			"location.lat": "10.757992699999999",
+			"location.lon": "106.68697389683783",
+			"name": "Thánh đường Jamiul Islamiyah",
+			"building_type": "place_of_worship",
+			"arch_style": "islam",
+			"age": null,
+			"religion": "muslim",
+			"image link": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwSYn7T5WbW6JgQ2T7ixyz56KhQTD0ddWEvEYqxKQyNFv1ERGgfnNCLu-syy0PvpDfmwVKbpJkYbj6Hd6nBt4lcmGLt03AfmA3MDiLyirZWnCuUub-hakqlL5cg2BiE7jZi4MLpwQ=w408-h272-k-no",
+			"description": "Thánh đường Jamiul Islamiyah, tọa lạc tại 459 Trần Hưng Đạo, Quận 1, TP. Hồ Chí Minh, được xây dựng vào năm 1950. Đây là nơi thờ phụng của cộng đồng Hồi giáo, đặc biệt là những người Chăm Islam đến từ miền Nam Ấn Độ trong quá khứ.",
+			"open_hours": "4:15 - 19:45",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"node_11281119470": [
+		{
+			"ID": "('node', 11281119470)",
+			"location.lat": "10.7532405",
+			"location.lon": "106.6632902",
+			"name": "Thánh đường Hồi giáo Chợ Lớn",
+			"building_type": "place_of_worship",
+			"arch_style": "islam",
+			"age": 1932,
+			"religion": "muslim",
+			"image link": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSyCZtqL9QGI5Lr7GnynoNqUC0Mjg1uWdMcJGzyQBmombDRTNSr1l7-WvbLBTYIi_8DqxlfUfWB7WePi1vPeWlDsKlBDnz-PXG8yNfnKUR9g2vLOu5Vu0nZOKVEAOjXZTS6qrnfIk7kXEYQ=w408-h544-k-no",
+			"description": "Thánh đường Hồi giáo Chợ Lớn (Cholon Jamial Mosque), tọa lạc tại 639 Nguyễn Trãi, Phường 11, Quận 5, TP. Hồ Chí Minh, là một trong những thánh đường lâu đời trong khu vực Chợ Lớn. Công trình này nổi bật với kiến trúc mang dấu ấn đặc trưng của Ấn Độ, tạo nên một điểm nhấn văn hóa độc đáo giữa khu phố người Hoa.",
+			"open_hours": "4:15 - 19:45",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_802157397": [
+		{
+			"ID": "('way', 802157397)",
+			"location.lat": "10.769991350000002",
+			"location.lon": "106.70129494999999",
+			"name": "Thánh đường Al Rahim",
+			"building_type": "place_of_worship",
+			"arch_style": "islam",
+			"age": 1885,
+			"religion": "muslim",
+			"image link": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj181vLI5FGpc4aCpeWLLAlCDoNo-15SfQNDYIPo9_TCplIVh_VFwUzN8Mj8u3vAA_DcDD55yAMbGULDPf6BiBAV0Ct9JwivbtSB-DXGukodvnq1khzzNcnUP9WysWFyyMtjMOES7KkEQGw/s1600/Thanh+duong+Hoi+giao+NKKN+13.jpg",
+			"description": "Thánh đường Al Rahim, tọa lạc tại số 45 Nam Kỳ Khởi Nghĩa, Phường Nguyễn Thái Bình, Quận 1, TP. Hồ Chí Minh, là một trong những nơi thờ phụng Hồi giáo lâu đời nhất tại Việt Nam. Thánh đường này phục vụ chủ yếu cho cộng đồng người Hồi giáo gốc Malaysia và Indonesia. ",
+			"open_hours": "4:15 - 19:45",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_165491089": [
+		{
+			"ID": "('way', 165491089)",
+			"location.lat": "10.7762601",
+			"location.lon": "106.70427117619047",
+			"name": "Thánh đường Al Musulman",
+			"building_type": "place_of_worship",
+			"arch_style": "islam",
+			"age": 1935,
+			"religion": "muslim",
+			"image link": "https://ik.imagekit.io/tvlk/blog/2023/05/go-and-share-thanh-duong-jamia-Al-musulman-1.jpg?tr=q-70,c-at_max,w-1000,h-600",
+			"description": "Thánh đường Hồi giáo Jamia Al-Musulman (còn gọi là Saigon Central Mosque hoặc Đại Thánh đường Musulman), tọa lạc tại số 66 Đông Du, Phường Bến Nghé, Quận 1, TP. Hồ Chí Minh, là thánh đường Hồi giáo lớn nhất và là nơi hành lễ chính của cộng đồng Hồi giáo tại trung tâm thành phố.",
+			"open_hours": "4:15 - 19:45",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"node_1001114513": [
+		{
+			"ID": "('node', 1001114513)",
+			"location.lat": "10.7849957",
+			"location.lon": "106.7076753",
+			"name": "Bảo tàng Địa chất TPHCM",
+			"building_type": "museum",
+			"arch_style": "modernism",
+			"age": null,
+			"religion": "none",
+			"image link": "https://redsvn.net/wp-content/uploads/2020/11/Bao-tang-Dia-chat-TPHCM-01.jpg",
+			"description": "Bảo tàng Địa chất TPHCM, tọa lạc tại số 2 Nguyễn Bỉnh Khiêm, Quận 1 (chung khuôn viên với Bảo tàng Lịch sử), nổi bật với kiến trúc Đông Dương, kết hợp phong cách Pháp cổ điển và các đặc điểm bản địa, tạo nên một không gian cổ kính, hài hòa và thoáng đãng. Tòa nhà ban đầu được xây dựng để phục vụ cho các nghiên cứu địa chất và khoáng sản.",
+			"open_hours": "8:00 - 12:00\n13:00 - 16:30",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"node,5311759821": [
+		{
+			"ID": "('node',5311759821)",
+			"location.lat": "10.7765973",
+			"location.lon": " 106.6836767",
+			"name": "Trụ sở Thorako",
+			"building_type": "residential",
+			"arch_style": "modernism",
+			"age": null,
+			"religion": "none",
+			"image link": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwRGiKe4nQJx9VLREzZUcGOhSOyYB2FMpxw4VLCYef8WkyhicAQu3QQYNJcmFWb-Ai2MMwODGZrFH6O3C0ZEr579JeExDiMBCydZrD6nBbeUYT-g5m6kkfmLcA6UXdMq9G6RqVH=w408-h510-k-no",
+			"description": "Trụ sở chính của mỹ phẩm Thorakao nằm tại địa chỉ 241 Bis Cách Mạng Tháng Tám, Phường 4, Quận 3, Thành phố Hồ Chí Minh. Tòa nhà này nổi bật với kiến trúc hiện đại mang phong cách của Sài Gòn thế kỷ 20.",
+			"open_hours": "8:00 - 17:00",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way,421970951": [
+		{
+			"ID": "('way',421970951)",
+			"location.lat": "10.772730032561206",
+			"location.lon": "106.64585394578886",
+			"name": "Làng nghề lồng đèn Phú Bình",
+			"building_type": "marketplace",
+			"arch_style": "modernism",
+			"age": null,
+			"religion": "vietnamese_folk",
+			"image link": "https://media.urbanistnetwork.com/urbanistvietnam/articleimages/2024/09/16/trungthu1h.webp",
+			"description": "Làng nghề lồng đèn Phú Bình tại Quận 11, TP.HCM, không có kiến trúc đặc trưng của một làng nghề truyền thống mà chủ yếu là các hộ gia đình tự sản xuất và trưng bày lồng đèn ngay tại nhà riêng trong một con hẻm nhỏ. Do đó, làng nghề này không có giờ mở cửa cố định mà tùy thuộc vào từng nhà dân. Thời điểm lý tưởng nhất để tham quan là vào dịp Trung thu, khi các ngôi nhà ngập tràn lồng đèn rực rỡ sắc màu.\nhttps://en.nhandan.vn/phu-binh-villagers-strive-to-preserve-the-craft-of-lantern-making-post90118.html#:~:text=Despite%20facing%20challenges%20from%20COVID,frames%20after%20his%20working%20time.",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_1233983136": [
+		{
+			"ID": "('way', 1233983136)",
+			"location.lat": "10.795437249999999",
+			"location.lon": "106.6737057",
+			"name": "Đình Phú Nhuận",
+			"building_type": "place_of_worship",
+			"arch_style": "vietnamese",
+			"age": 1818,
+			"religion": "vietnamese_folk",
+			"image link": "https://media.urbanistnetwork.com/saigoneer/article-images/2023/04/12/Ky_Yen_Fesitval/k1b.jpg",
+			"description": "Đình Phú Nhuận, một Di tích Kiến trúc Nghệ thuật cấp Quốc gia, nổi tiếng với kiến trúc đình làng truyền thống Nam Bộ được bảo tồn qua nhiều lần trùng tu.",
+			"open_hours": "7:00 - 17:00",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_289041924": [
+		{
+			"ID": "('way', 289041924)",
+			"location.lat": "10.8020535",
+			"location.lon": "106.69695898327026",
+			"name": "Lăng Tả Quân Lê Văn Duyệt",
+			"building_type": "place_of_worship",
+			"arch_style": "vietnamese",
+			"age": 1848,
+			"religion": "vietnamese_folk",
+			"image link": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSx3IqZYE2CnkJ0c-alBxfQe_NwIXlpuBlZZq1SqtubgFQRlW7hpUbtUUKc_S3N3uHfKcRR59qxawMVHYktQlG0tILkC683k0H49dBwuLxQx5tJ_hRZsRWhxgDDHNkOD4cneKnvt=w408-h544-k-no",
+			"description": "Lăng Tả Quân Lê Văn Duyệt (còn gọi là Lăng Ông Bà Chiểu). Khu lăng mộ nổi bật với kiến trúc truyền thống cung đình triều Nguyễn, rộng lớn và trang trọng, là một trong những công trình kiến trúc cổ nhất và linh thiêng nhất tại Thành phố Hồ Chí Minh. ",
+			"open_hours": "7:00 - 17:00",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_802157427": [
+		{
+			"ID": "('way', 802157427)",
+			"location.lat": "10.7698707",
+			"location.lon": "106.69922421706391",
+			"name": "Bảo tàng Mỹ thuật TPHCM",
+			"building_type": "museum",
+			"arch_style": "baroque",
+			"age": 1934,
+			"religion": "none",
+			"image link": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwUS3j02YJfOcptuxtU-QGGb8LM_4nMy3OdnMfrbpwPCqYn7UfQbjFP9uTzJTkLuLbdAQ93P2O8i3qZLyJNFeYGnffhO7iglLGF3zUIrWL4lnB0rcpepugy8nd9Cr30AfqVEZ5icki1Pgcc=w421-h240-k-no",
+			"description": "Được xây dựng từ năm 1929 đến 1934, Bảo tàng Mỹ thuật Thành phố Hồ Chí Minh là một kiệt tác kiến trúc kết hợp hài hòa giữa phong cách Pháp thuộc địa, kiến trúc Á Đông và phong cách Art Deco phổ biến thời bấy giờ.\nhttps://mia.vn/cam-nang-du-lich/bao-tang-my-thuat-thanh-pho-ho-chi-minh-12419",
+			"open_hours": "8:00 - 17:00",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_187895176": [
+		{
+			"ID": "('way', 187895176)",
+			"location.lat": "10.78149175",
+			"location.lon": "106.70283245524486",
+			"name": "Bệnh viện Nhi Đồng 2",
+			"building_type": "hospital",
+			"arch_style": "french",
+			"age": null,
+			"religion": "none",
+			"image link": "https://prod-cdn.pharmacity.io/blog/XoebDlA2-benh-vien-nhi-dong-2-nhan-duoc-su-tin-tuong-cua-nguoi-dan-tinh-thanh-phia-nam.jpeg?X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAUYXZVMJMURHIYJSN%2F20240516%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20240516T072907Z&X-Amz-SignedHeaders=host&X-Amz-Expires=600&X-Amz-Signature=659195c4cb452a49d933c270ba219141f9d962562b45de9b2c787019c7bbfe0a",
+			"description": "Bệnh viện Nhi Đồng 2 là một công trình kiến trúc Pháp cổ điển có lịch sử hơn 150 năm và đã được công nhận là di tích kiến trúc nghệ thuật. \nhttps://baolamdong.vn/di-tich-kien-truc-nghe-thuat-benh-vien-nhi-dong-2-100349.html#:~:text=B%E1%BB%87nh%20vi%E1%BB%87n%20(BV)%20Nhi%20%C4%91%E1%BB%93ng%202%20%C4%91%C6%B0%E1%BB%A3c,ti%E1%BB%81n%20%C4%91%C6%B0%E1%BB%9Dng:%20L%C3%BD%20T%E1%BB%B1%20Tr%E1%BB%8Dng%2C%20Chu%20M%E1%BA%A1nh",
+			"open_hours": "24/7",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_508747836": [
+		{
+			"ID": "('way', 508747836)",
+			"location.lat": "10.753006055647186",
+			"location.lon": "106.66624938385061",
+			"name": "Hào Sỹ Phường",
+			"building_type": "residential",
+			"arch_style": "chinese",
+			"age": 1910,
+			"religion": "none",
+			"image link": "https://cdnphoto.dantri.com.vn/M1M-KyMcXHrYJxCQf6zeSXD9Vfk=/thumb_w/1920/2024/11/03/1-1730596785095.jpg?watermark=v1",
+			"description": "Hào Sỹ Phường là một con hẻm chung cư đã tồn tại hơn 100 năm, nổi tiếng với kiến trúc độc đáo pha trộn văn hóa Việt, Pháp và Hoa. Đây là khu dân cư có người dân sinh sống thực sự, không phải điểm du lịch chính thức có giờ mở cửa cố định.\nhttps://wanderlog.com/place/details/853948/hao-sy-phuong",
+			"open_hours": "24/7",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"node,3339195238": [
+		{
+			"ID": "('node',3339195238)",
+			"location.lat": "10.771745847388413",
+			"location.lon": "106.68007989498318",
+			"name": "Chung cư Cao Thắng ",
+			"building_type": "residential",
+			"arch_style": "modernism",
+			"age": 1948,
+			"religion": "none",
+			"image link": "https://thanhnien.mediacdn.vn/Uploaded/2014/Pictures20123/HuynhThang/chungcu.jpg",
+			"description": "Đường Cao Thắng ở Thành phố Hồ Chí Minh có một số khu chung cư, từ các tòa nhà cũ có giá trị lịch sử đến các khu phức hợp hiện đại. Chung cư nổi bật nhất về kiến trúc thường được nhắc đến là khu chung cư cổ được Kiến trúc sư Paul Veysseyre thiết kế vào những năm 1920-1930, mang phong cách kiến trúc hiện đại (Modernist) đầu tiên tại Sài Gòn. \nhttps://www.tanmankientruc.org/kien-truc/modernist-series/chung-cu-cao-thang",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"node,4989536221": [
+		{
+			"ID": "('node',4989536221)",
+			"location.lat": "10.7775635",
+			"location.lon": "106.6878171",
+			"name": "Tổng lãnh sự quán Nga tại TPHCM",
+			"building_type": "government",
+			"arch_style": "modernism",
+			"age": 1948,
+			"religion": "none",
+			"image link": "https://thoidai.com.vn/stores/news_dataimages/thuy.dangtt/112019/04/12/5832_nga.jpg",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_469354901": [
+		{
+			"ID": "('way', 469354901)",
+			"location.lat": "10.7736693",
+			"location.lon": "106.69228079922482",
+			"name": "Đền tưởng niệm các vua Hùng",
+			"building_type": "place_of_worship",
+			"arch_style": "modernism, contemporary",
+			"age": 2009,
+			"religion": "vietnamese_folk",
+			"image link": "https://vcdn1-vnexpress.vnecdn.net/2019/04/08/denhung-17-1554729993.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=BRVQyOj-l4kpvDg2b_ZMwQ",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_263505858": [
+		{
+			"ID": "('way', 263505858)",
+			"location.lat": "10.78724235",
+			"location.lon": "106.70570875",
+			"name": "Đền thờ Vua Hùng (Thảo Cầm Viên)",
+			"building_type": "place_of_worship",
+			"arch_style": "east_asia, french",
+			"age": 1926,
+			"religion": "vietnamese_folk",
+			"image link": "http://commons.wikimedia.org/wiki/Special:FilePath/H%C3%B9ng%20Kings%20Temple%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam%20-%20DSC06242.JPG",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"node_5001046522": [
+		{
+			"ID": "('node', 5001046522)",
+			"location.lat": "10.8000745",
+			"location.lon": "106.670766",
+			"name": "Đại học Y dược TPHCM",
+			"building_type": "institution",
+			"arch_style": "modernism",
+			"age": 1976,
+			"religion": "none",
+			"image link": "https://i2-vnexpress.vnecdn.net/2025/06/11/f588092fb1dd02835bcc-174961416-4576-6514-1749614362.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=XFPdXM2z1kK1eoT29SZYbg",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_152994269": [
+		{
+			"ID": "('way', 152994269)",
+			"location.lat": "10.77232415",
+			"location.lon": "106.673828226329",
+			"name": "Nhà hát Hòa Bình",
+			"building_type": "theatre",
+			"arch_style": "modernism",
+			"age": 1985,
+			"religion": "none",
+			"image link": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Nh%C3%A0_h%C3%A1t_H%C3%B2a_B%C3%ACnh.JPG/1280px-Nh%C3%A0_h%C3%A1t_H%C3%B2a_B%C3%ACnh.JPG",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_230796620": [
+		{
+			"ID": "('way', 230796620)",
+			"location.lat": "10.771864149999999",
+			"location.lon": "106.673213372784",
+			"name": "Việt Nam Quốc Tự",
+			"building_type": "pagoda",
+			"arch_style": "vietnamese",
+			"age": 1964,
+			"religion": "buddhist",
+			"image link": "https://upload.wikimedia.org/wikipedia/commons/9/9a/Vi%E1%BB%87t_Nam_Qu%E1%BB%91c_T%E1%BB%B1.JPG",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_494789249": [
+		{
+			"ID": "('way', 494789249)",
+			"location.lat": "10.790396600000001",
+			"location.lon": "106.6823772255014",
+			"name": "Chùa Vĩnh Nghiêm",
+			"building_type": "pagoda",
+			"arch_style": "vietnamese, modernism",
+			"age": 1964,
+			"religion": "buddhist",
+			"image link": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/C%E1%BB%95ng_ch%C3%B9a_V%C4%A9nh_Nghi%C3%AAm.jpg/1280px-C%E1%BB%95ng_ch%C3%B9a_V%C4%A9nh_Nghi%C3%AAm.jpg",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_1221686026": [
+		{
+			"ID": "('way', 1221686026)",
+			"location.lat": "10.778262000000002",
+			"location.lon": "106.64921274725317",
+			"name": "Chùa Giác Lâm",
+			"building_type": "pagoda",
+			"arch_style": "vietnamese",
+			"age": 1774,
+			"religion": "buddhist",
+			"image link": "https://owa.bestprice.vn/images/destinations/uploads/chua-giac-lam-60a232136c860.jpg",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_369668989": [
+		{
+			"ID": "('way', 369668989)",
+			"location.lat": "10.7863781",
+			"location.lon": "106.68143079760961",
+			"name": "Chùa Pháp Hoa",
+			"building_type": "pagoda",
+			"arch_style": "vietnamese",
+			"age": 1967,
+			"religion": "buddhist",
+			"image link": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Ch%C3%B9a_Ph%C3%A1p_Hoa%2C_k%C3%AAnh_Nhi%C3%AAu_L%E1%BB%99c.JPG/960px-Ch%C3%B9a_Ph%C3%A1p_Hoa%2C_k%C3%AAnh_Nhi%C3%AAu_L%E1%BB%99c.JPG",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_808022726": [
+		{
+			"ID": "('way', 808022726)",
+			"location.lat": "10.7682684",
+			"location.lon": "106.7068035387357",
+			"name": "Bảo tàng Hồ Chí Minh - Chi nhánh TPHCM",
+			"building_type": "museum",
+			"arch_style": "french",
+			"age": 1863,
+			"religion": "none",
+			"image link": "https://upload.wikimedia.org/wikipedia/commons/c/c0/Ho_Chi_Minh_Museum%2C_Saigon.jpg",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"node_9584833480": [
+		{
+			"ID": "('node', 9584833480)",
+			"location.lat": "10.7920155",
+			"location.lon": "106.6981151",
+			"name": "Điện Ngọc Hoàng",
+			"building_type": "place_of_worship",
+			"arch_style": "chinese",
+			"age": 1900,
+			"religion": "buddhist",
+			"image link": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Ph%C6%B0%E1%BB%9Bc_H%E1%BA%A3i_T%E1%BB%B1.jpg/1280px-Ph%C6%B0%E1%BB%9Bc_H%E1%BA%A3i_T%E1%BB%B1.jpg",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_801710792": [
+		{
+			"ID": "('way', 801710792)",
+			"location.lat": "10.77674365",
+			"location.lon": "106.70324880088602",
+			"name": "Nhà hát TPHCM",
+			"building_type": "theatre",
+			"arch_style": "flamboyant, gothic, beaux_arts, art_deco",
+			"age": 1900,
+			"religion": "none",
+			"image link": "https://upload.wikimedia.org/wikipedia/commons/9/98/Municipal_Theatre_of_Ho_Chi_Minh_City%2C_2023_%2801%29.jpg",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"node_4131688091": [
+		{
+			"ID": "('node', 4131688091)",
+			"location.lat": "10.7522126",
+			"location.lon": "106.6612821",
+			"name": "Minh Hương Gia Thạnh Hội Quán",
+			"building_type": "place_of_worship",
+			"arch_style": "chinese",
+			"age": 1789,
+			"religion": "chinese_folk",
+			"image link": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/%C4%90%C3%ACnh_Minh_H%C6%B0%C6%A1ng_Gia_Th%E1%BA%A1nh.jpg/1280px-%C4%90%C3%ACnh_Minh_H%C6%B0%C6%A1ng_Gia_Th%E1%BA%A1nh.jpg",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_33103437": [
+		{
+			"ID": "('way', 33103437)",
+			"location.lat": "10.72792725",
+			"location.lon": "106.64147178553553",
+			"name": "Đình Bình Đông",
+			"building_type": "place_of_worship",
+			"arch_style": "vietnamese",
+			"age": 1853,
+			"religion": "vietnamese_folk",
+			"image link": "https://vcdn1-vnexpress.vnecdn.net/2019/05/07/dinhbinhdong-13-1557214495.jpg?w=460&h=0&q=100&dpr=2&fit=crop&s=rsED4lBYe4v_-xLRG6DxGg",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_604897393": [
+		{
+			"ID": "('way', 604897393)",
+			"location.lat": "10.74532455",
+			"location.lon": "106.66024250025396",
+			"name": "Đình Phong Phú",
+			"building_type": "place_of_worship",
+			"arch_style": "vietnamese",
+			"age": 1880,
+			"religion": "vietnamese_folk",
+			"image link": "https://i0.wp.com/ttvhtpthuduc.vn/wp-content/uploads/2021/10/%C4%91%C3%ACnh-pp-3.jpg?w=640&ssl=1",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_1043365165": [
+		{
+			"ID": "('way', 1043365165)",
+			"location.lat": "10.78138535",
+			"location.lon": "106.67306815948407",
+			"name": "Đình Chí Hoà",
+			"building_type": "place_of_worship",
+			"arch_style": "vietnamese",
+			"age": 1698,
+			"religion": "vietnamese_folk",
+			"image link": "https://kyucsaigon.vn/wp-content/uploads/2023/04/4_DSC_9035_2-1600x1200-copy.jpg",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"node_9593946654": [
+		{
+			"ID": "('node', 9593946654)",
+			"location.lat": "10.87092",
+			"location.lon": "106.8398758",
+			"name": "Chùa Hội Sơn",
+			"building_type": "pagoda",
+			"arch_style": "vietnamese",
+			"age": 1600,
+			"religion": "buddhist",
+			"image link": "https://cdn.xanhsm.com/2024/11/16373662-chua-hoi-son-2.jpg",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_499420815": [
+		{
+			"ID": "('way', 499420815)",
+			"location.lat": "10.949511399999999",
+			"location.lon": "106.69344411010947",
+			"name": "Chùa Phước Tường",
+			"building_type": "pagoda",
+			"arch_style": "vietnamese",
+			"age": 1741,
+			"religion": "buddhist",
+			"image link": "https://images2.thanhnien.vn/528068263637045248/2025/5/17/anh-1-cong-vao-chua-phuoc-tuong-anh-lan-chi-1747475846546139426700.jpg",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_460757143": [
+		{
+			"ID": "('way', 460757143)",
+			"location.lat": "10.76298405",
+			"location.lon": "106.63920142815277",
+			"name": "Chùa Giác Viên",
+			"building_type": "pagoda",
+			"arch_style": "vietnamese",
+			"age": 1850,
+			"religion": "buddhist",
+			"image link": "https://lh7-rt.googleusercontent.com/docsz/AD_4nXfYyrCqGjiRM-XoYCyfTe4S7SqrvoedYEcO1M87EZ4Pf4ZTKvaD7RIb2vHQ-OpDBiVEomtHKC2BG6v2sCoizZfpySUQBUmox2iSggVmHzzHSu2hPAmwDc2bT6SPCzIWrmSt06kH?key=pC5OSisM5YlrAwgeALQOqsSD",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_604803367": [
+		{
+			"ID": "('way', 604803367)",
+			"location.lat": "10.8117038",
+			"location.lon": "106.69643920071482",
+			"name": "Đình Bình Hòa",
+			"building_type": "place_of_worship",
+			"arch_style": "vietnamese",
+			"age": 1800,
+			"religion": "vietnamese_folk",
+			"image link": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/%C4%90%C3%ACnh_B%C3%ACnh_H%C3%B2a.jpg/1280px-%C4%90%C3%ACnh_B%C3%ACnh_H%C3%B2a.jpg",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_1185443921": [
+		{
+			"ID": "('way', 1185443921)",
+			"location.lat": "10.839984600000001",
+			"location.lon": "106.66478939999999",
+			"name": "Đình Thông Tây Hội",
+			"building_type": "place_of_worship",
+			"arch_style": "vietnamese",
+			"age": 1679,
+			"religion": "vietnamese_folk",
+			"image link": "https://image.plo.vn/w1000/Uploaded/2025/ofhtamzstuqg/2024_04_15/dinh-thong-tay-hoi-3-1293.jpg.webp",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"node_4131719809": [
+		{
+			"ID": "('node', 4131719809)",
+			"location.lat": "10.8264549",
+			"location.lon": "106.6802373",
+			"name": "Chùa sắc tứ Trường Thọ",
+			"building_type": "place_of_worship",
+			"arch_style": "vietnamese",
+			"age": 1700,
+			"religion": "buddhist",
+			"image link": "https://storage-phatsuonline.sgp1.digitaloceanspaces.com/files/2020/03/New-shortcut.lnk_.jpg",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_1216969607": [
+		{
+			"ID": "('way', 1216969607)",
+			"location.lat": "10.7958162",
+			"location.lon": "106.6828762477918",
+			"name": "Lăng Võ Di Nguy",
+			"building_type": "place_of_worship",
+			"arch_style": "vietnamese",
+			"age": null,
+			"religion": "vietnamese_folk",
+			"image link": "https://i1-vnexpress.vnecdn.net/2021/03/18/4edd66e9b25c4102184d-1616033208.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=9CgqEYbv0WJ2vwl_Q1jnHg",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"node_4131745689": [
+		{
+			"ID": "('node', 4131745689)",
+			"location.lat": "10.7964412",
+			"location.lon": "106.6757181",
+			"name": "Lăng Trương Tấn Bửu",
+			"building_type": "place_of_worship",
+			"arch_style": "vietnamese",
+			"age": 1827,
+			"religion": "vietnamese_folk",
+			"image link": "https://i1-vnexpress.vnecdn.net/2025/09/03/fb7e68715a06d1588817-175654052-7454-9304-1756915988.jpg?w=1020&h=0&q=100&dpr=1&fit=crop&s=MeB-7C-sv0OJvnfwo6_Vsg",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_604440778": [
+		{
+			"ID": "('way', 604440778)",
+			"location.lat": "10.8336745\n",
+			"location.lon": "106.75674424624174",
+			"name": "Đình Trường Thọ",
+			"building_type": "place_of_worship",
+			"arch_style": "vietnamese",
+			"age": 1800,
+			"religion": "vietnamese_folk",
+			"image link": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4IJowGfwjcqmutKnxFa34ZWc6mwbxt32L4g&s",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_1359554201": [
+		{
+			"ID": "('way', 1359554201)",
+			"location.lat": "10.877851",
+			"location.lon": "106.76536922271973",
+			"name": "Đình Xuân Hiệp",
+			"building_type": "place_of_worship",
+			"arch_style": "vietnamese",
+			"age": 1934,
+			"religion": "vietnamese_folk",
+			"image link": "https://i0.wp.com/ttvhtpthuduc.vn/wp-content/uploads/2022/02/%C4%90%C3%ACnh-Th%E1%BA%A7n-Xu%C3%A2n-Hi%C3%AAp.jpg?resize=1024%2C761&ssl=1",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_421970999": [
+		{
+			"ID": "('way', 421970999)",
+			"location.lat": "10.773305650000001",
+			"location.lon": "106.6493865",
+			"name": "Đình Tân Phước",
+			"building_type": "place_of_worship",
+			"arch_style": "vietnamese",
+			"age": null,
+			"religion": "vietnamese_folk",
+			"image link": "https://i0.wp.com/ttvhtpthuduc.vn/wp-content/uploads/2022/02/%C4%90%C3%ACnh-Th%E1%BA%A7n-Xu%C3%A2n-Hi%C3%AAp.jpg?resize=1024%2C761&ssl=1",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_805287595": [
+		{
+			"ID": "('way', 805287595)",
+			"location.lat": "10.768916749999999",
+			"location.lon": "106.69560556449031",
+			"name": "Trường THPT Ernst Thälmann",
+			"building_type": "institution",
+			"arch_style": "modernism",
+			"age": 1950,
+			"religion": "none",
+			"image link": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSylVpk9ap60sCLKuoOl6-Sk_fhR7T-a6kWOn_zE3as2ophWFLZea2zKfqWgdotxGN39ZtLluhk8M39P09myKEqzzLQqpHtwe1Tr5LEhuVszAzqe0FNan3nyp9LnScumQ0B82Q4=s1360-w1360-h1020-rw",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_604791534": [
+		{
+			"ID": "('way', 604791534)",
+			"location.lat": "10.77636545",
+			"location.lon": "106.77986972615025 ",
+			"name": "Công viên khu mộ cổ Gò Quéo",
+			"building_type": "park",
+			"arch_style": "vietnamese",
+			"age": 1819,
+			"religion": "none",
+			"image link": "https://cdn2.tuoitre.vn/thumb_w/730/471584752817336320/2025/9/12/20250912155729-17576813762981601233631.jpg",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_730144831": [
+		{
+			"ID": "('way', 730144831)",
+			"location.lat": "10.86473235",
+			"location.lon": "106.8373555",
+			"name": "Đình Thần Long Bình",
+			"building_type": "place_of_worship",
+			"arch_style": "vietnamese",
+			"age": null,
+			"religion": "vietnamese_folk",
+			"image link": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAD2NYJAhQtt20GTYdjskRyEjlR8BRS8d-pA&s",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_832342508": [
+		{
+			"ID": "('way', 832342508)",
+			"location.lat": "10.8448285",
+			"location.lon": "106.83064925183814",
+			"name": "Đình Thần Long Hòa",
+			"building_type": "place_of_worship",
+			"arch_style": "vietnamese",
+			"age": null,
+			"religion": "vietnamese_folk",
+			"image link": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSx7f3MQtxP51sUzlAaTfpzrcDC-KdKVYjSsl-7_VCZS7Jod3oqptyJ6y_JBxFDv0DJPe3X6-K6oHVaC1itGN-F_LqbJMbEjaHH5-OUS35nwIax33OCuPO83Y4XwCGHs4EPefPqL=s1360-w1360-h1020-rw",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_1154556140": [
+		{
+			"ID": "('way', 1154556140)",
+			"location.lat": "10.7756529",
+			"location.lon": "106.71070751659494",
+			"name": "Đình Thần An Khánh",
+			"building_type": "place_of_worship",
+			"arch_style": "vietnamese",
+			"age": 1650,
+			"religion": "vietnamese_folk",
+			"image link": "https://cdn2.tuoitre.vn/thumb_w/1100/471584752817336320/2023/5/4/base64-16831973908311976930857.png",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"node_4110078089": [
+		{
+			"ID": "('node', 4110078089)",
+			"location.lat": "10.7762825",
+			"location.lon": "106.6719677",
+			"name": "Bảo tàng Y học cổ truyền Việt Nam",
+			"building_type": "museum",
+			"arch_style": "vietnamese",
+			"age": 2003,
+			"religion": "none",
+			"image link": "https://images2.thanhnien.vn/528068263637045248/2025/4/2/17905657-17435696078291749247869.jpeg",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_198123907": [
+		{
+			"ID": "('way', 198123907)",
+			"location.lat": "10.7853513",
+			"location.lon": "106.70645932105377",
+			"name": "Trường THPT Trưng Vương",
+			"building_type": "institution",
+			"arch_style": "french",
+			"age": 1957,
+			"religion": "none",
+			"image link": "https://cdn2.tuoitre.vn/thumb_w/640/471584752817336320/2023/8/26/img3121-16929856947721495532974.jpeg",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_692383431": [
+		{
+			"ID": "('way', 692383431)",
+			"location.lat": "10.33162115",
+			"location.lon": "107.07503879482532",
+			"name": "Đền thờ Đức Thánh Trần Hưng Đạo",
+			"building_type": "place_of_worship",
+			"arch_style": "vietnamese",
+			"age": 1932,
+			"religion": "vietnamese_folk",
+			"image link": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Tran_Hung_Dao_Temple_%289981911814%29.jpg/1280px-Tran_Hung_Dao_Temple_%289981911814%29.jpg",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_35115148": [
+		{
+			"ID": "('way', 35115148)",
+			"location.lat": "10.78363467396026",
+			"location.lon": "106.67485356183425",
+			"name": "Mộ ông Binh Bộ Kiểm duyệt Ty, Thừa vụ lang họ Trần",
+			"building_type": "place_of_worship",
+			"arch_style": "vietnamese",
+			"age": 1857,
+			"religion": "vietnamese_folk",
+			"image link": "https://i1-vnexpress.vnecdn.net/2024/12/11/z6119795296017-e04710e37208864-6105-7125-1733907740.jpg?w=1020&h=0&q=100&dpr=1&fit=crop&s=GHEAvyAD8h2oB8MRsIvNvg",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"node_11412869313": [
+		{
+			"ID": "('node', 11412869313)",
+			"location.lat": "10.8042742",
+			"location.lon": "106.6619504",
+			"name": "Khu lưu niệm mộ cụ Phan Châu Trinh",
+			"building_type": "place_of_worship",
+			"arch_style": "french, east_asia",
+			"age": 1930,
+			"religion": "vietnamese_folk",
+			"image link": "https://i1-vnexpress.vnecdn.net/2020/07/15/CG2A8343-2-1594814710.jpg?w=1200&h=0&q=100&dpr=2&fit=crop&s=RCuSH2oK4Zhn65vH1cvOKA",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_197995330": [
+		{
+			"ID": "('way', 197995330)",
+			"location.lat": "10.8052466",
+			"location.lon": "106.66058518111429",
+			"name": "Bảo tàng Không quân phía Nam",
+			"building_type": "museum",
+			"arch_style": "contemporary",
+			"age": 1995,
+			"religion": "none",
+			"image link": "https://images2.thanhnien.vn/528068263637045248/2025/4/2/img7579-17435963847351400842864.jpeg",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"relation,17583697": [
+		{
+			"ID": "('relation',17583697)",
+			"location.lat": "10.801106821914843",
+			"location.lon": "106.66523318280645\n",
+			"name": "Công viên Hoàng Văn Thụ",
+			"building_type": "park",
+			"arch_style": "contemporary",
+			"age": 1989,
+			"religion": "none",
+			"image link": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Hoang_Van_Thu_Park.jpg/1280px-Hoang_Van_Thu_Park.jpg",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_614636407": [
+		{
+			"ID": "('way', 614636407)",
+			"location.lat": "10.69837465",
+			"location.lon": "106.73501148017641",
+			"name": "Đình Phú Xuân Nhà Bè",
+			"building_type": "place_of_worship",
+			"arch_style": "vietnamese",
+			"age": 1800,
+			"religion": "vietnamese_folk",
+			"image link": "https://iwater.vn/Image/Picture/New/333/dinh_phu_xuan.jpg",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_754264564": [
+		{
+			"ID": "('way', 754264564)",
+			"location.lat": "10.417262749999999",
+			"location.lon": "106.97136363054858",
+			"name": "Lăng Ông Thủy Tướng",
+			"building_type": "place_of_worship",
+			"arch_style": "vietnamese",
+			"age": 1911,
+			"religion": "vietnamese_folk",
+			"image link": "https://cdn3.ivivu.com/2022/11/Anh-1-1618721507.jpg",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_1389035107": [
+		{
+			"ID": "('way', 1389035107)",
+			"location.lat": "10.64766615",
+			"location.lon": "106.78680995288772",
+			"name": "Đình Bình Khánh - Mộ Tiền hiền Trần Quang Đạo",
+			"building_type": "place_of_worship",
+			"arch_style": "vietnamese",
+			"age": null,
+			"religion": "vietnamese_folk",
+			"image link": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwl5-qRUBWR_jXqx94cC3Y7-YeEiNN47qmOkKuN7ywpOO3Pq1_M_FxL9W6TS7Dpw9odG2BrOLahS_RNHuGkKdpnT14crbKJq6t7m0sG3YVGU98zzuitXx2RTEvFlAKjikdRIh8tOQ=w408-h306-k-no",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_1064336014": [
+		{
+			"ID": "('way', 1064336014)",
+			"location.lat": "10.710742450000001",
+			"location.lon": "106.65362730000001",
+			"name": "Đình Phú Lạc",
+			"building_type": "place_of_worship",
+			"arch_style": "vietnamese",
+			"age": 1852,
+			"religion": "vietnamese_folk",
+			"image link": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSyUXPxS6wXZQAgn2beyN4zxHc7eutSBtho6mYOsxXv-JC9d73j-HZya8BVFR0odt81y1SmrnDexfs5K92oXFlGAwosZPwShujHE6Md2byXa1CNabi6BBgf1xou0S37LgIZirtyFbYqtU_NI=s1360-w1360-h1020-rw",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_407413903": [
+		{
+			"ID": "('way', 407413903)",
+			"location.lat": "10.66879535",
+			"location.lon": "106.56807776241035",
+			"name": "Đình Bình Trường",
+			"building_type": "place_of_worship",
+			"arch_style": "vietnamese",
+			"age": 1818,
+			"religion": "vietnamese_folk",
+			"image link": "https://upload.wikimedia.org/wikipedia/vi/4/49/Congdinh.jpg",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_604845950": [
+		{
+			"ID": "('way', 604845950)",
+			"location.lat": "10.7994694",
+			"location.lon": "106.74176159999999",
+			"name": "Đình An Phú",
+			"building_type": "place_of_worship",
+			"arch_style": "vietnamese",
+			"age": 1900,
+			"religion": "vietnamese_folk",
+			"image link": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSzSsms4C9cVP8X7VyuW3ydaKZf0m-PYaXIaTKhg9-WdqWnRkiEHOOLPaXXkw_IcYZFOgKd-Tt2bKHFWrRMLOyl-n4Rmzf5s4nI0O5Qtaaer8CbJvRu7AoigollCKl-ehLU0PA62=s1360-w1360-h1020-rw",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"node_4603007782": [
+		{
+			"ID": "('node', 4603007782)",
+			"location.lat": "10.8026983",
+			"location.lon": "106.7512806",
+			"name": "Pháp viện Minh Đăng Quang",
+			"building_type": "place_of_worship",
+			"arch_style": "vietnamese",
+			"age": 1968,
+			"religion": "buddhist",
+			"image link": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSxf5phy6GvBEQP5Z4GCEB6VNatgS1W31g3Rw1PzhlQz3Yit3enjE9xj-qbZ0tTNqZpm6-p9XLbaS6agDWf7AF1JmP2UrknZuC0WfK9bx4gjTWxSzAAkDcgJSO1Zz3w9vFdbtTEF=s1360-w1360-h1020-rw",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_691227614": [
+		{
+			"ID": "('way', 691227614)",
+			"location.lat": "10.72343835",
+			"location.lon": "107.22279702984092",
+			"name": "Chùa Phước Long",
+			"building_type": "place_of_worship",
+			"arch_style": "vietnamese",
+			"age": 1965,
+			"religion": "buddhist",
+			"image link": "https://i1-vnexpress.vnecdn.net/2018/07/17/chuaphuoclong-2-1531825515.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=Y1tTQoe9INrWc3YD85y-Rw",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_589315586": [
+		{
+			"ID": "('way', 589315586)",
+			"location.lat": "10.84359165",
+			"location.lon": "106.76316395",
+			"name": "Chùa Nam Thiên Nhất Trụ",
+			"building_type": "place_of_worship",
+			"arch_style": "vietnamese",
+			"age": 1977,
+			"religion": "buddhist",
+			"image link": "https://ik.imagekit.io/tvlk/blog/2023/09/go-and-share-chua-nam-thien-nhat-tru-2.webp?tr=q-70,c-at_max,w-1000,h-600",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_321938412": [
+		{
+			"ID": "('way', 321938412)",
+			"location.lat": "10.851830799999998",
+			"location.lon": "106.75705167754069",
+			"name": "Giáo xứ Thủ Đức",
+			"building_type": "place_of_worship",
+			"arch_style": "vietnamese",
+			"age": 1879,
+			"religion": "christian",
+			"image link": "https://giothanhle.net/wp-content/uploads/2016/10/nha-tho-thu-duc.jpg",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_1336757608": [
+		{
+			"ID": "('way', 1336757608)",
+			"location.lat": "10.84206775",
+			"location.lon": "106.64961915",
+			"name": "Đình An Hội",
+			"building_type": "place_of_worship",
+			"arch_style": "vietnamese",
+			"age": 1900,
+			"religion": "vietnamese_folk",
+			"image link": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj0zKB3L3BX_-lRcYDnGt8ILDFl48yCVqRtbgJ0Crt5fj9u3VjhLzz_Pl4inSIPTGe-WBmtXtRg6_qXa2OgkG3OfqNNOW089pWyOCpyQZp3jiQQjwmgGK-vBYrrIMZoO2oTkio15OBw2eyZ6jqAM8UIlbjqEbh8riGifN3gfQb1Dm27ZwMx3hdkX69MJJA/w480-h640/1714661226285anhoi.png",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_717669406": [
+		{
+			"ID": "('way', 717669406)",
+			"location.lat": "10.75838525",
+			"location.lon": "106.60635905000001",
+			"name": "Đình Bình Trị Đông",
+			"building_type": "place_of_worship",
+			"arch_style": "vietnamese",
+			"age": 1853,
+			"religion": "vietnamese_folk",
+			"image link": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSyNwsI-FCymUGvV4CEGQFhh-Oat1l3VcWPfuYfoU-TSZ0D4v5nIe-MGus_oEV8vhkYuhQRnx5DrVfC6EZ2e0-9Mv3cH_gVCYeW8iiMU_DHFXsW3Ef7OSo0FL5uCDmn51QmtKh0hvw=s901-k-no",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_1309226747": [
+		{
+			"ID": "('way', 1309226747)",
+			"location.lat": "10.79506170385674",
+			"location.lon": "106.64908119451388",
+			"name": "Giáo xứ Đắc Lộ",
+			"building_type": "place_of_worship",
+			"arch_style": "contemporary",
+			"age": 1958,
+			"religion": "christian",
+			"image link": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSxPO-gt4GWowe87KWE6ZfPn8dq_S6W6ICXHlMZDBWef02TjkQaU12Xx2orcKTef-WsC7H_5x9o7KRamggKJLSDhyrPfX0eAWW_XN5c7QobI8jCVMWBDzGLoNCL3v4QFEQxi9UMs=s1024-v1",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_496910212": [
+		{
+			"ID": "('way', 496910212)",
+			"location.lat": "10.82687565",
+			"location.lon": "106.61297740212134",
+			"name": "Đền thờ Nguyễn Ảnh Thủ",
+			"building_type": "place_of_worship",
+			"arch_style": "vietnamese",
+			"age": 1890,
+			"religion": "vietnamese_folk",
+			"image link": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSz0YD9erqRI2cplQoKdeLiCHfhmu4mGDl2VT-8MDpZ-svAbnJ4tmV2lnTkT8tTes-yAInclui8hqmW85KORQ2Uvi9WdCasPivh5jh95X799XtV24H0_kSP7LReg67ZzZiVyKZaH=s901-k-no",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_1447167711": [
+		{
+			"ID": "('way', 1447167711)",
+			"location.lat": "10.76583375",
+			"location.lon": "106.67167786888949",
+			"name": "Chùa Ấn Quang",
+			"building_type": "place_of_worship",
+			"arch_style": "vietnamese",
+			"age": 1948,
+			"religion": "buddhist",
+			"image link": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwnaICsKBtD-HCPZjll5omUsL7dPJWH6RfkZO8FFps9SPZpBSx7XT6L7AzNniD0fCGYblaGjT-Fy73fqRJWnBDRStTywz2UYdLAT8-UgEN3RxI6f940yDbWzlnbFN_p2KPNCct34Q=s901-k-no",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_585932824": [
+		{
+			"ID": "('way', 585932824)",
+			"location.lat": "10.602495",
+			"location.lon": "107.0626609",
+			"name": "Chùa Từ Nghiêm",
+			"building_type": "place_of_worship",
+			"arch_style": "vietnamese",
+			"age": 1955,
+			"religion": "buddhist",
+			"image link": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwEzsF4QftT5TFde49kqzG2OO6XLwCOeDioMoCbSOMAmo_UR6VWiHC_Jpae3hgsj1H5eTGZkL88zWJFoXhHEMruJGQX8oH0LRpQ7BkJrzz2zDlE8cF5BgvOhbaZTjG5Fsgc6ZQX=s1354-k-no",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"node_5770166509": [
+		{
+			"ID": "('node', 5770166509)",
+			"location.lat": "10.735216341148988",
+			"location.lon": "106.63781577993818",
+			"name": "Chùa Long Hoa (Quận 8)",
+			"building_type": "place_of_worship",
+			"arch_style": "vietnamese",
+			"age": 1958,
+			"religion": "buddhist",
+			"image link": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwqDJZ9lCKAqcg5DUxmXiVRb6MQTx1B7XEZ9Xw_OBx5H3zfBygK7e3ZplFD-_TUFGiJmYTek3c6LjgjatX7Nr-EnxuFJXe5Az4b2QDM1tkN8quoYymB02cNtaUPsVwk3AJTsIoy=s1031-k-no",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_493155224": [
+		{
+			"ID": "('way', 493155224)",
+			"location.lat": "10.75074148820402",
+			"location.lon": "106.65842756330763",
+			"name": "Khu nhà cổ Hải Thượng Lãn Ông",
+			"building_type": "place_of_worship",
+			"arch_style": "french",
+			"age": null,
+			"religion": "none",
+			"image link": "https://nld.mediacdn.vn/QDgVqccccccccccccp8ccccccccccc/Image/2013/05/NewFolder-1/bontontphcm2_4a197.jpg",
+			"description": "",
+			"open_hours": "",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_187949842": [
+		{
+			"ID": "('way', 187949842)",
+			"location.lat": "10.7642378",
+			"location.lon": "106.70818691487378",
+			"name": "Đình Khánh Hội",
+			"building_type": "place_of_worship",
+			"arch_style": "vietnamese",
+			"age": 1852,
+			"religion": "vietnamese_folk",
+			"image link": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSxxxrwCURxGBhBV3gNA8BiUQrhoZJ1ij0DWi1egF9ZeiA4erKs7xCi3j0VTYhudBWzpJ00IaUaETHTzG75bWo1w78yxpc9NOULGyEJKVpQiHbaUxZmeDNNgfTGQ8VHg0MunpY4=s1024-v1",
+			"description": "Đình Khánh Hội là một di tích kiến trúc nghệ thuật cấp thành phố. Đình được thành lập từ năm 1852 và tái lập vào năm 1937. Tọa lạc trên đường Nguyễn Tất Thành, đình là một không gian linh thiêng, giữ được nét cổ kính, là điểm đến văn hóa nổi bật ở Quận 4.",
+			"open_hours": "7:00 - 19:00",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_683697157": [
+		{
+			"ID": "('way', 683697157)",
+			"location.lat": "10.783693179566141",
+			"location.lon": "106.68763205922905",
+			"name": "Bảo tàng Phụ nữ Nam bộ",
+			"building_type": "museum",
+			"arch_style": "modernism",
+			"age": 1985,
+			"religion": "none",
+			"image link": "https://top9.com.vn/wp-content/uploads/2020/10/30BTphunu01JPG.jpg",
+			"description": "Bảo tàng Phụ nữ Nam bộ được thành lập vào năm 1985. Đây là nơi lưu giữ và trưng bày các hiện vật, hình ảnh, tài liệu về lịch sử đấu tranh, truyền thống văn hóa và những đóng góp to lớn của phụ nữ miền Nam trong các cuộc kháng chiến và xây dựng đất nước. Bảo tàng có nhiều bộ sưu tập quý giá về trang phục, trang sức và phong tục của phụ nữ Nam Bộ qua các thời kỳ.",
+			"open_hours": "7:30 - 17:00",
+			"day_off": "",
+			"tags": ""
+		}
+	],
+	"way_1381826602": [
+		{
+			"ID": "('way', 1381826602)",
+			"location.lat": "10.7555057021611",
+			"location.lon": "106.66186283784519",
+			"name": "Miếu Bà Thiên Hậu Thánh Mẫu",
+			"building_type": "place_of_worship",
+			"arch_style": "chinese",
+			"age": 1760,
+			"religion": "chinese_folk",
+			"image link": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSxHkquJcZvX7JxXF6ZKkZ-ubkPwic97cMtpEb9aik9UVPHcznePU5CKneDsiurM7GP0aB5HSn-IcBuH8_9vj0fGVJMrhhcl2w5vUoCsPJPJPej9wv1TVTSw8rRUjh5K4tW5pMdv=s901-k-no",
+			"description": "Đây là một trong những cơ sở tín ngưỡng cổ nhất và linh thiêng nhất của cộng đồng người Hoa tại Sài Gòn, được xây dựng vào khoảng năm 1760. Chùa thờ Thiên Hậu Thánh Mẫu (Mazu), vị nữ thần bảo trợ cho người đi biển. Công trình nổi bật với kiến trúc truyền thống Trung Hoa tinh xảo, với nhiều đồ thờ tự, hương vòng lớn và các cặp liễn đối, hoành phi cổ kính, thu hút đông đảo du khách và người dân địa phương đến cầu bình an.",
+			"open_hours": "6:00 - 17:30",
+			"day_off": "",
+			"tags": ""
+		}
+	]
+}
