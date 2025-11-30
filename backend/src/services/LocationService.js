@@ -71,7 +71,13 @@ class LocationService {
 		}));
 
 		const locationSearcher = new FuzzySearch(haystack, ['value.lat', 'value.lon', 'value.name', 'value.description']);
-		const result = locationSearcher.search(query);
+		const result = locationSearcher.search(query).filter(entry => {
+			const tagsList = entry.value.buildingType
+			.concat(entry.value.archStyle)
+			.concat(entry.value.religion);
+
+			return tagsList.every(tag => !options.exclude.includes(tag));
+		});
 		const response = new ServiceResponse(
 			true,
 			200,
