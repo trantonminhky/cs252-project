@@ -1,8 +1,8 @@
 // src/services/geocode/geocode.js
 import axios from 'axios';
 
-import ServiceResponse from '../helper/ServiceResponse';
-import config from '../config/config';
+import ServiceResponse from '../helper/ServiceResponse.js';
+import config from '../config/config.js';
 
 /**
  * Geocode service provider class.

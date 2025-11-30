@@ -1,8 +1,8 @@
 import FuzzySearch from 'fuzzy-search';
 
-import LocationDB from '../db/LocationDB';
-import architecturesData from '../../architecture.json';
-import ServiceResponse from '../helper/ServiceResponse';
+import LocationDB from '../db/LocationDB.js';
+import architecturesData from '../../architecture.json' with { type: "json" };
+import ServiceResponse from '../helper/ServiceResponse.js';
 
 function unwrapTyped(x) {
 	if (Array.isArray(x)) return x.map(unwrapTyped);

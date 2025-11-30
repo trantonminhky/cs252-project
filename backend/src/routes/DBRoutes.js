@@ -1,6 +1,6 @@
 import { Router } from 'express';
 const router = Router();
-import DBController from '../controllers/DBController';
+import DBController from '../controllers/DBController.js';
 
 router.delete('/clear', DBController.clear);
 router.delete('/clear-all', DBController.clearAll);

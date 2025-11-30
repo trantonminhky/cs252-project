@@ -1,6 +1,10 @@
 import { readdirSync } from 'fs';
 import path from 'path';
-import ServiceResponse from '../helper/ServiceResponse';
+import { fileURLToPath } from 'url';
+import ServiceResponse from '../helper/ServiceResponse.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 function unwrapTyped(x) {
 	if (Array.isArray(x)) return x.map(unwrapTyped);
@@ -25,8 +29,12 @@ function unwrapTyped(x) {
 class DBService {
 	constructor() {
 		const dir = path.join(__dirname, '..', "db");
-		const databases = readdirSync(dir).map(db => require(join(dir, db)));
-		this.databases = databases;
+		this.databases = Promise.all(
+			readdirSync(dir).map(async file => {
+				const mod = await import(path.join(dir, file));
+				return mod.default ?? mod;
+			})
+		);
 	}
 
 	/**
@@ -43,7 +51,9 @@ class DBService {
 			));
 		}
 
-		for (const db of this.databases) {
+		const databases = await this.databases;
+
+		for (const db of databases) {
 			const parse = JSON.parse(db.export());
 			if (parse.v.name.v == name) {
 				db.clear();
@@ -67,7 +77,8 @@ class DBService {
 	 * @returns {Promise<ServiceResponse>}
 	 */
 	async clearAll() {
-		this.databases.forEach(db => db.clear());
+		const databases = await this.databases;
+		databases.forEach(db => db.clear());
 		return (new ServiceResponse(
 			true,
 			204,
@@ -89,7 +100,9 @@ class DBService {
 			));
 		}
 
-		for (const db of this.databases) {
+		const databases = await this.databases;
+
+		for (const db of databases) {
 			const parse = JSON.parse(db.export());
 			if (parse.v.name.v == name) {
 				const data = {};
@@ -117,8 +130,9 @@ class DBService {
 	 * @returns {Promise<ServiceResponse>} Response
 	 */
 	async exportAll() {
+		const databases = await this.databases;
 		const exports = {};
-		for (const db of this.databases) {
+		for (const db of databases) {
 			const parse = JSON.parse(db.export());
 			const name = parse.v.name.v;
 			const data = {};

@@ -1,6 +1,6 @@
 import { Router } from 'express';
 const router = Router();
-import mapController from '../controllers/MapController';
+import mapController from '../controllers/MapController.js';
 
 // Rouitng
 router.post('/route', mapController.getRoute);

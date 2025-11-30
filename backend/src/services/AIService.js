@@ -1,5 +1,5 @@
-import config from '../config/config';
-import ServiceResponse from '../helper/ServiceResponse';
+import config from '../config/config.js';
+import ServiceResponse from '../helper/ServiceResponse.js';
 import { Client } from '@gradio/client';
 import Gemini from 'gemini-ai';
 const gemini = new Gemini(config.gemini.apiKey);

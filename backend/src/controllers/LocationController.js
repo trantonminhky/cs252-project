@@ -1,5 +1,5 @@
-import ServiceResponse from '../helper/ServiceResponse';
-import LocationService from '../services/LocationService';
+import ServiceResponse from '../helper/ServiceResponse.js';
+import LocationService from '../services/LocationService.js';
 
 class LocationController {
 	async importToDB(req, res, next) {

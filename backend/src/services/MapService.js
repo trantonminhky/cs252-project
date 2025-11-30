@@ -1,6 +1,6 @@
 import axios from 'axios';
-import config from '../config/config';
-import ServiceResponse from '../helper/ServiceResponse';
+import config from '../config/config.js';
+import ServiceResponse from '../helper/ServiceResponse.js';
 
 class MapService {
 	constructor() {

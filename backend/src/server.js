@@ -8,17 +8,17 @@ import morgan from 'morgan';
 import { exec } from 'child_process';
 
 // local imports
-import config from './config/config';
-import corsMiddleware from './middleware/cors';
-import errorHandler from './middleware/errorHandler';
+import config from './config/config.js';
+import corsMiddleware from './middleware/cors.js';
+import errorHandler from './middleware/errorHandler.js';
 
 // route imports
-import MapRoutes from './routes/MapRoutes';
-import AIRoutes from './routes/AIRoutes';
-import GeocodeRoutes from './routes/GeocodeRoutes';
-import ProfileRoutes from './routes/ProfileRoutes';
-import DBRoutes from './routes/DBRoutes';
-import LocationRoutes from './routes/LocationRoutes';
+import MapRoutes from './routes/MapRoutes.js';
+import AIRoutes from './routes/AIRoutes.js';
+import GeocodeRoutes from './routes/GeocodeRoutes.js';
+import ProfileRoutes from './routes/ProfileRoutes.js';
+import DBRoutes from './routes/DBRoutes.js';
+import LocationRoutes from './routes/LocationRoutes.js';
 
 const app = express();
 const customStream = {
@@ -49,7 +49,7 @@ app.use(json());
 app.use(urlencoded({ extended: true }));
 
 // Logging
-if (env === 'development') {
+if (config.env === 'development') {
 	app.use(morgan('dev', { stream: customStream }));
 }
 else {

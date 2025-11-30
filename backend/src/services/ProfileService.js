@@ -1,9 +1,9 @@
 import { randomBytes } from 'crypto';
 
-import ServiceResponse from '../helper/ServiceResponse';
+import ServiceResponse from '../helper/ServiceResponse.js';
 
-import UserDB from '../db/UserDB';
-import SessionTokensDB from '../db/SessionTokensDB';
+import UserDB from '../db/UserDB.js';
+import SessionTokensDB from '../db/SessionTokensDB.js';
 
 function generateToken32() {
 	return randomBytes(24).toString('base64url').slice(0, 32);

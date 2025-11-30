@@ -1,5 +1,5 @@
-import ServiceResponse from '../helper/ServiceResponse';
-import ProfileService from '../services/ProfileService';
+import ServiceResponse from '../helper/ServiceResponse.js';
+import ProfileService from '../services/ProfileService.js';
 
 // TO-DO: DOCUMENT CONTROLLER CLASSES
 class ProfileController {

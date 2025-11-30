@@ -1,6 +1,6 @@
-import geocodeService from '../services/GeocodeService';
-import SessionTokensDB from '../db/SessionTokensDB';
-import ServiceResponse from '../helper/ServiceResponse';
+import geocodeService from '../services/GeocodeService.js';
+import SessionTokensDB from '../db/SessionTokensDB.js';
+import ServiceResponse from '../helper/ServiceResponse.js';
 
 // TO-DO: DOCUMENT CONTROLLER CLASSES
 class GeocodeController {

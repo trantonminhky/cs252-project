@@ -1,5 +1,5 @@
-import ServiceResponse from '../helper/ServiceResponse';
-import AIService from '../services/AIService';
+import ServiceResponse from '../helper/ServiceResponse.js';
+import AIService from '../services/AIService.js';
 
 // TO-DO: DOCUMENT CONTROLLER CLASSES
 class AIController {

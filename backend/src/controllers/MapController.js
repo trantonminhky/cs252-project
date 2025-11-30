@@ -1,5 +1,5 @@
-import ServiceResponse from '../helper/ServiceResponse';
-import mapService from '../services/MapService';
+import ServiceResponse from '../helper/ServiceResponse.js';
+import mapService from '../services/MapService.js';
 
 // TO-DO: DOCUMENT CONTROLLER CLASSES
 // Sample spots (replace with database later)
