@@ -85,6 +85,7 @@ class ProfileService {
 				age: age,
 				preferences: [],
 				preferences_vec: [],
+				rec_profile: null,
 				type: user_type,
 				sessionToken: {
 					data: token,
