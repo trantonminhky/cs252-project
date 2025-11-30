@@ -1,5 +1,5 @@
 const axios = require('axios');
-const config = require('../config/config');
+const config = require('../config/config').default;
 const ServiceResponse = require('../helper/ServiceResponse');
 
 class MapService {

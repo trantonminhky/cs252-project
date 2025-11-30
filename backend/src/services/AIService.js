@@ -1,4 +1,4 @@
-const config = require('../config/config');
+const config = require('../config/config').default;
 const ServiceResponse = require('../helper/ServiceResponse');
 const { Client } = require('@gradio/client')
 

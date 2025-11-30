@@ -2,7 +2,7 @@
 const axios = require('axios');
 
 const ServiceResponse = require('../helper/ServiceResponse');
-const config = require('../config/config');
+const config = require('../config/config').default;
 
 /**
  * Geocode service provider class.
