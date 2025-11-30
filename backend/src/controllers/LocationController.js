@@ -1,5 +1,5 @@
-const ServiceResponse = require('../helper/ServiceResponse');
-const LocationService = require('../services/LocationService').default;
+import ServiceResponse from '../helper/ServiceResponse';
+import LocationService from '../services/LocationService';
 
 class LocationController {
 	async importToDB(req, res, next) {
@@ -34,4 +34,4 @@ class LocationController {
 	}
 }
 
-module.exports = new LocationController();
+export default new LocationController();
