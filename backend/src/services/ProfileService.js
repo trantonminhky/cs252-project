@@ -1,12 +1,12 @@
-const crypto = require('crypto');
+import { randomBytes } from 'crypto';
 
-const ServiceResponse = require('../helper/ServiceResponse');
+import ServiceResponse from '../helper/ServiceResponse';
 
-const UserDB = require('../db/UserDB');
-const SessionTokensDB = require('../db/SessionTokensDB');
+import UserDB from '../db/UserDB';
+import SessionTokensDB from '../db/SessionTokensDB';
 
 function generateToken32() {
-	return crypto.randomBytes(24).toString('base64url').slice(0, 32);
+	return randomBytes(24).toString('base64url').slice(0, 32);
 }
 
 function renewToken(user) {
@@ -15,7 +15,7 @@ function renewToken(user) {
 	let newToken = generateToken32();
 	let newCreatedAt = Date.now();
 
-	if (SessionTokensDB.check(oldToken) !== "valid") { // if token expires
+	if (check(oldToken) !== "valid") { // if token expires
 		UserDB.set(user, newToken, "sessionToken.data");
 		UserDB.set(user, newCreatedAt, "sessionToken.createdAt");
 
@@ -100,7 +100,7 @@ class ProfileService {
 				"Success",
 				{
 					token: UserDB.get(user, 'sessionToken.data'),
-					createdAt: (new Date(UserDB.get(user, 'sessionToken.createdAt'))).toString()
+					createdAt: (new Date(get(user, 'sessionToken.createdAt'))).toString()
 				}
 			);
 
@@ -174,4 +174,4 @@ class ProfileService {
 	}
 }
 
-module.exports = new ProfileService();
+export default new ProfileService();

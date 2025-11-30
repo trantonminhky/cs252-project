@@ -1,5 +1,5 @@
 const ServiceResponse = require('../helper/ServiceResponse');
-const ProfileService = require('../services/ProfileService');
+const ProfileService = require('../services/ProfileService').default;
 
 // TO-DO: DOCUMENT CONTROLLER CLASSES
 class ProfileController {
