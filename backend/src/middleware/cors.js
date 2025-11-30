@@ -1,5 +1,5 @@
-const cors = require('cors');
-const config = require('../config/config').default;
+import cors from 'cors';
+import config from '../config/config';
 
 const corsOptions = {
 	origin: function (origin, callback) {
@@ -25,4 +25,4 @@ const corsOptions = {
 	credentials: true
 };
 
-module.exports = cors(corsOptions);
+export default cors(corsOptions);
