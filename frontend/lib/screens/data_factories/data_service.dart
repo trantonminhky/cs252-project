@@ -118,6 +118,7 @@ need functions to:
     }
   }
 
+//legacy function; kept in case we need to use it
   Future<List<Place>> getAllPlaces(List<String> placesId) async {
     List<Place> places = [];
     for (String placeId in placesId) {
@@ -129,6 +130,29 @@ need functions to:
       }
     }
     return places;
+  }
+
+  Future<List<Place>> getFilteredPlaces(
+      String query, List<String> includeFilter) async {
+    try {
+      final response = await dio.get('$_baseUrl/location/search', data: {
+        'query': query,
+        'include': includeFilter.join(','),
+      });
+      final body = response.data as Map<String, dynamic>;
+      switch (response.statusCode) {
+        case 200:
+          final placesData = body["payload"]["data"] as List<dynamic>;
+          return placesData.map<Place>((json) => Place.fromJson(json)).toList();
+        default:
+          final message = body["payload"]["message"] as String;
+          throw Exception('Failed to load filtered places: $message');
+      }
+    } on DioException catch (e) {
+      throw _handleDioError(e);
+    } catch (e) {
+      throw Exception('Failed to load filtered places: $e');
+    }
   }
 
   Future<List<Review>> getReviewsForPlace(String placeId) async {
@@ -164,14 +188,6 @@ need functions to:
     } catch (e) {
       throw Exception('Failed to load reviews: $e');
     }
-  }
-
-  Future<List<Place>> getFilteredPlaces(
-      List<Place> places, FilterType filter) async {
-    List<Place> filteredPlaces = places.where((place) {
-      return place.categories.contains(filter.name);
-    }).toList();
-    return filteredPlaces;
   }
 
   Exception _handleDioError(DioException e) {

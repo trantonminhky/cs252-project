@@ -4,9 +4,10 @@ import "package:virtour_frontend/components/briefings.dart";
 import "package:virtour_frontend/components/custom_text_field.dart";
 import "package:virtour_frontend/components/briefing_carousel.dart";
 import "package:virtour_frontend/screens/home_screen/region_overview.dart";
+import "package:virtour_frontend/screens/home_screen/search_screen.dart";
 import "package:virtour_frontend/screens/data_factories/filter_type.dart";
 import "package:virtour_frontend/screens/data_factories/region.dart";
-import "package:virtour_frontend/screens/data_factories/region_service.dart";
+import "package:virtour_frontend/screens/data_factories/data_service.dart";
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -42,14 +43,10 @@ class _HomeScreenState extends State<HomeScreen> {
     });
 
     try {
-      // Fetch first 4 regions for top destinations
       final regions = <Region>[];
       final regionIds = [
         'sg',
-        'hn',
-        'dn',
-        'hue'
-      ]; // Mock IDs, adjust based on your backend
+      ];
 
       for (final id in regionIds) {
         try {
@@ -148,11 +145,23 @@ class _HomeScreenState extends State<HomeScreen> {
             // Search field at the top
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-              child: MyTextField(
-                textEditingController: _searchController,
-                label: "",
-                hintText: "Search for places...",
-                isSearchField: true,
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    CupertinoPageRoute(
+                      builder: (context) => const SearchScreen(),
+                    ),
+                  );
+                },
+                child: AbsorbPointer(
+                  child: MyTextField(
+                    textEditingController: _searchController,
+                    label: "",
+                    hintText: "Search for places...",
+                    isSearchField: true,
+                  ),
+                ),
               ),
             ),
 
