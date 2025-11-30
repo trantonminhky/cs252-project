@@ -4,6 +4,8 @@ import "package:virtour_frontend/components/briefings.dart";
 import "package:virtour_frontend/components/custom_text_field.dart";
 import "package:virtour_frontend/screens/home_screen/region_overview.dart";
 import "package:virtour_frontend/screens/data_factories/filter_type.dart";
+import "package:virtour_frontend/screens/data_factories/region.dart";
+import "package:virtour_frontend/screens/data_factories/region_service.dart";
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -14,11 +16,133 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final TextEditingController _searchController = TextEditingController();
+  final RegionService _regionService = RegionService();
+
+  List<Region> _topRegions = [];
+  bool _isLoadingRegions = false;
+  String? _errorMessage;
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchTopRegions();
+  }
 
   @override
   void dispose() {
     _searchController.dispose();
     super.dispose();
+  }
+
+  Future<void> _fetchTopRegions() async {
+    setState(() {
+      _isLoadingRegions = true;
+      _errorMessage = null;
+    });
+
+    try {
+      // Fetch first 4 regions for top destinations
+      final regions = <Region>[];
+      final regionIds = [
+        'sg',
+        'hn',
+        'dn',
+        'hue'
+      ]; // Mock IDs, adjust based on your backend
+
+      for (final id in regionIds) {
+        try {
+          final region = await _regionService.getRegionbyId(id);
+          regions.add(region);
+        } catch (e) {
+          print('Error fetching region $id: $e');
+        }
+      }
+
+      setState(() {
+        _topRegions = regions;
+        _isLoadingRegions = false;
+      });
+    } catch (e) {
+      setState(() {
+        _errorMessage = 'Failed to load regions: $e';
+        _isLoadingRegions = false;
+      });
+
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Failed to load regions: $e')),
+        );
+      }
+    }
+  }
+
+  Widget _buildTopDestinations() {
+    if (_isLoadingRegions) {
+      return Container(
+        height: 320,
+        alignment: Alignment.center,
+        child: const CircularProgressIndicator(),
+      );
+    }
+
+    if (_errorMessage != null || _topRegions.isEmpty) {
+      return Container(
+        height: 320,
+        alignment: Alignment.center,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(Icons.error_outline, size: 48, color: Colors.grey),
+            const SizedBox(height: 8),
+            Text(
+              _errorMessage ?? 'No regions available',
+              style: const TextStyle(color: Colors.grey),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 8),
+            TextButton(
+              onPressed: _fetchTopRegions,
+              child: const Text('Retry'),
+            ),
+          ],
+        ),
+      );
+    }
+
+    return Container(
+      color: Colors.transparent,
+      height: 320,
+      child: ListView.separated(
+        physics: const BouncingScrollPhysics(),
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        itemCount: _topRegions.length,
+        separatorBuilder: (context, index) => const SizedBox(width: 16),
+        itemBuilder: (context, index) {
+          final region = _topRegions[index];
+          return GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                CupertinoPageRoute(
+                  builder: (context) => RegionOverview(
+                    region: region,
+                    currentFilter: FilterType.regionOverview,
+                  ),
+                ),
+              );
+            },
+            child: Briefing(
+              size: BriefingSize.vert,
+              title: region.name,
+              category: "Văn hóa",
+              imageUrl: region.imageUrl,
+            ),
+          );
+        },
+      ),
+    );
   }
 
   @override
@@ -60,101 +184,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     const SizedBox(height: 16),
-                    Container(
-                      color: Colors.transparent,
-                      height: 320,
-                      child: ListView(
-                        physics: const BouncingScrollPhysics(),
-                        scrollDirection: Axis.horizontal,
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                CupertinoPageRoute(
-                                  //this is mock data, hooking up with db later
-                                  builder: (context) => const RegionOverview(
-                                    regionId: "01",
-                                    regionName: "Sài Gòn",
-                                    currentFilter: FilterType.regionOverview,
-                                  ),
-                                ),
-                              );
-                            },
-                            child: const Briefing(
-                              size: BriefingSize.vert,
-                              title: "Sài Gòn",
-                              category: "Văn hóa",
-                              imageUrl: "../assets/images/places/Saigon.png",
-                            ),
-                          ),
-                          const SizedBox(width: 16),
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                CupertinoPageRoute(
-                                  builder: (context) => const RegionOverview(
-                                    regionId: "01",
-                                    regionName: "Sài Gòn",
-                                    currentFilter: FilterType.regionOverview,
-                                  ),
-                                ),
-                              );
-                            },
-                            child: const Briefing(
-                              size: BriefingSize.vert,
-                              title: "Hà Nội",
-                              category: "Lịch sử",
-                              imageUrl: "../assets/images/places/Ha_Noi.jpg",
-                            ),
-                          ),
-                          const SizedBox(width: 16),
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                CupertinoPageRoute(
-                                  builder: (context) => const RegionOverview(
-                                    regionId: "01",
-                                    regionName: "Sài Gòn",
-                                    currentFilter: FilterType.regionOverview,
-                                  ),
-                                ),
-                              );
-                            },
-                            child: const Briefing(
-                              size: BriefingSize.vert,
-                              title: "Đà Nẵng",
-                              category: "Du lịch",
-                              imageUrl: "../assets/images/places/Da_Nang.jpg",
-                            ),
-                          ),
-                          const SizedBox(width: 16),
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                CupertinoPageRoute(
-                                  builder: (context) => const RegionOverview(
-                                    regionId: "01",
-                                    regionName: "Sài Gòn",
-                                    currentFilter: FilterType.regionOverview,
-                                  ),
-                                ),
-                              );
-                            },
-                            child: const Briefing(
-                              size: BriefingSize.vert,
-                              title: "Huế",
-                              category: "Di sản",
-                              imageUrl: "../assets/images/places/Hue.jpg",
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                    _buildTopDestinations(),
 
                     const SizedBox(height: 32),
 

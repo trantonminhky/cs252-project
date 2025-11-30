@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:virtour_frontend/screens/authenciation_screen/sign_up_form_1.dart';
 import 'package:virtour_frontend/screens/authenciation_screen/sign_up_form_2.dart';
+import 'package:virtour_frontend/screens/authenciation_screen/sign_up_form_3.dart';
 import 'package:virtour_frontend/screens/authenciation_screen/auth_service.dart';
 import 'package:virtour_frontend/screens/main_layout.dart';
 
@@ -18,6 +19,8 @@ class _SignUpContainerState extends State<SignUpContainer> {
   late final TextEditingController passwordController;
   late final TextEditingController nameController;
   late final TextEditingController ageController;
+  late final TextEditingController interestsController;
+  late final TextEditingController locationController;
   bool _isLoading = false;
   static final AuthService _authService = AuthService();
 
@@ -28,6 +31,8 @@ class _SignUpContainerState extends State<SignUpContainer> {
     passwordController = TextEditingController();
     nameController = TextEditingController();
     ageController = TextEditingController();
+    interestsController = TextEditingController();
+    locationController = TextEditingController();
   }
 
   //helper for error
@@ -97,6 +102,8 @@ class _SignUpContainerState extends State<SignUpContainer> {
     passwordController.dispose();
     nameController.dispose();
     ageController.dispose();
+    interestsController.dispose();
+    locationController.dispose();
     super.dispose();
   }
 
@@ -158,11 +165,21 @@ class _SignUpContainerState extends State<SignUpContainer> {
                     else if (ageController.text.isEmpty)
                       {_showSnackBar("Age cannot be empty")}
                     else
-                      {_handleSignUp()},
+                      {changeIndex(2)},
                   },
                   onPrevious: () => changeIndex(0),
                   nameController: nameController,
                   ageController: ageController,
+                ),
+              ),
+              SingleChildScrollView(
+                keyboardDismissBehavior:
+                    ScrollViewKeyboardDismissBehavior.manual,
+                child: SignUpForm3(
+                  onNext: () => _handleSignUp(),
+                  onPrevious: () => changeIndex(1),
+                  interestsController: interestsController,
+                  locationController: locationController,
                 ),
               ),
             ],

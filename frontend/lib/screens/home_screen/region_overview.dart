@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:flutter/cupertino.dart";
+import "package:virtour_frontend/components/bottom_bar.dart";
 import "package:virtour_frontend/components/briefings.dart";
 import "package:virtour_frontend/components/cards.dart";
 import "package:virtour_frontend/screens/home_screen/place_overview.dart";
@@ -10,14 +11,15 @@ import "package:virtour_frontend/screens/data_factories/place.dart";
 import "package:virtour_frontend/screens/data_factories/region_service.dart";
 
 class RegionOverview extends StatefulWidget {
-  final String regionId;
-  final String regionName;
+  final Region region;
+  late final List<Place> places;
   final FilterType currentFilter;
-  const RegionOverview(
-      {super.key,
-      required this.regionId,
-      required this.regionName,
-      required this.currentFilter});
+  RegionOverview({
+    super.key,
+    required this.region,
+    required this.currentFilter,
+    places = const [],
+  });
 
   @override
   State<RegionOverview> createState() => _RegionOverviewState();
@@ -28,18 +30,15 @@ class _RegionOverviewState extends State<RegionOverview> {
 
   // Data state
   Region? _region;
-  List<Place>? _allPlaces; // Store all places
   List<Place>? _filteredPlaces;
   bool _isLoading = true;
   String? _errorMessage;
-  FilterType _currentFilter = FilterType.regionOverview;
 
   final RegionService _regionService = RegionService();
 
   @override
   void initState() {
     super.initState();
-    _currentFilter = widget.currentFilter;
     _loadRegionData();
   }
 
@@ -51,19 +50,17 @@ class _RegionOverviewState extends State<RegionOverview> {
 
     try {
       // Fetch region data
-      final region = await _regionService.getRegionbyId(widget.regionId);
+      final region = await _regionService.getRegionbyId(widget.region.id);
 
-      // Fetch all places for this region (service uses regionId, not placeIds list)
-      final places = await _regionService.fetchPlaceById(widget.regionId);
+      final places = await _regionService.getAllPlaces(widget.region.placesId);
 
       // Filter places based on current filter
       final filteredPlaces =
-          _regionService.filterPlaces(places, _currentFilter);
+          _regionService.getFilteredPlaces(widget.places, widget.currentFilter);
 
-      setState(() {
+      setState(() async {
         _region = region;
-        _allPlaces = places; // Store all places
-        _filteredPlaces = filteredPlaces;
+        _filteredPlaces = await filteredPlaces;
         _isLoading = false;
       });
     } catch (e) {
@@ -72,15 +69,6 @@ class _RegionOverviewState extends State<RegionOverview> {
         _isLoading = false;
       });
     }
-  }
-
-  void _updateFilter(FilterType newFilter) {
-    if (_allPlaces == null) return;
-
-    setState(() {
-      _currentFilter = newFilter;
-      _filteredPlaces = _regionService.filterPlaces(_allPlaces!, newFilter);
-    });
   }
 
   @override
@@ -281,7 +269,7 @@ class _RegionOverviewState extends State<RegionOverview> {
                                       onTap: () {
                                         Navigator.push(
                                           context,
-                                          CupertinoPageRoute(
+                                          MaterialPageRoute(
                                             builder: (context) =>
                                                 PlaceOverview(place: place),
                                           ),
@@ -318,12 +306,15 @@ class _RegionOverviewState extends State<RegionOverview> {
                     ),
                   ),
       ),
+      bottomNavigationBar: const BottomNavBar(
+        selectedIndex: 0, // Home screen (region overview is part of home flow)
+      ),
     );
   }
 
   // Helper method to build filter chips
   Widget _buildFilterChip(FilterType filterType, String label, IconData icon) {
-    final bool isSelected = _currentFilter == filterType;
+    final bool isSelected = widget.currentFilter == filterType;
     return FilterChip(
       avatar: CircleAvatar(
         foregroundColor: isSelected ? Colors.white : Colors.grey,
@@ -340,7 +331,16 @@ class _RegionOverviewState extends State<RegionOverview> {
       selected: isSelected,
       onSelected: (selected) {
         if (selected && !isSelected) {
-          _updateFilter(filterType);
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => RegionOverview(
+                region: widget.region,
+                places: widget.places,
+                currentFilter: filterType,
+              ),
+            ),
+          );
         }
       },
     );

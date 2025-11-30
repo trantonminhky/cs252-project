@@ -1,10 +1,11 @@
 import "package:dio/dio.dart";
 import "package:shared_preferences/shared_preferences.dart";
+import "package:virtour_frontend/constants/userinfo.dart";
 
 class AuthService {
   late final Dio _dio;
-  static const String _baseUrl =
-      "http://10.0.2.2:3000";
+  static const String _baseUrl = "http://localhost:3000";
+  UserInfo userInfo = UserInfo();
   AuthService() {
     _dio = Dio(BaseOptions(
       baseUrl: _baseUrl,
@@ -27,11 +28,8 @@ class AuthService {
   }
 
   Future<Map<String, dynamic>> signIn(String username, String password) async {
-    final response = await _dio.post(
-        "$_baseUrl/api/profile/login", data: {
-          "username": username,
-          "password": password
-        });
+    final response = await _dio.post("$_baseUrl/api/profile/login",
+        data: {"username": username, "password": password});
     final body = response.data as Map<String, dynamic>;
 
     switch (response.statusCode) {
@@ -41,6 +39,7 @@ class AuthService {
         final data = payload["data"] as Map<String, dynamic>;
         final token = data["token"] as String;
         await prefs.setString("auth_token", token);
+        UserInfo().userSessionToken = token;
         return response.data;
       default:
         final success = body["success"] as bool;
