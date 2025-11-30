@@ -30,6 +30,25 @@ class AIController {
 			next(error);
 		}
 	}
+
+	async extractTags(req, res, next) {
+		try {
+			const text = req.query.text;
+			if (!text) {
+				const response = new ServiceResponse(
+					false,
+					400,
+					"Text is required"
+				);
+				return res.status(response.statusCode).json(response.get());
+			}
+
+			const response = await AIService.extractTags(text);
+			res.status(response.statusCode).json(response.get());
+		} catch (err) {
+			next(err);
+		}
+	}
 }
 
 module.exports = new AIController();
