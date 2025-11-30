@@ -1,9 +1,10 @@
-const LocationDB = require('./db/LocationDB');
-const architecturesData = require('../architecture.json');
+const LocationDB = require('../db/LocationDB');
+const architecturesData = require('../../architecture.json');
 
 class LocationService {
 	async importToDB() {
 		for (const entry of architecturesData) {
+			if (!entry.Key) continue;
 			LocationDB.set(entry.Key, {
 				id: entry.ID,
 				lat: entry["location.lat"],
