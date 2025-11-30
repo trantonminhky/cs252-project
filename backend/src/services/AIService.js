@@ -1,11 +1,8 @@
-const config = require('../config/config').default;
-const ServiceResponse = require('../helper/ServiceResponse');
-const { Client } = require('@gradio/client')
-
-let gemini;
-import("gemini-ai").then(async ({ default: Gemini }) => {
-	gemini = new Gemini(config.gemini.apiKey);
-});
+import config from '../config/config';
+import ServiceResponse from '../helper/ServiceResponse';
+import { Client } from '@gradio/client';
+import Gemini from 'gemini-ai';
+const gemini = new Gemini(config.gemini.apiKey);
 
 class AIService {
 	constructor() {
@@ -81,4 +78,4 @@ class AIService {
 	}
 }
 
-module.exports = new AIService();
+export default new AIService();

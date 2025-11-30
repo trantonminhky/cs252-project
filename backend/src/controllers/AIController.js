@@ -1,5 +1,5 @@
 const ServiceResponse = require('../helper/ServiceResponse');
-const AIService = require('../services/AIService');
+const AIService = require('../services/AIService').default;
 
 // TO-DO: DOCUMENT CONTROLLER CLASSES
 class AIController {
