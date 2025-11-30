@@ -13,6 +13,11 @@ const config = {
 		baseUrl: 'https://nominatim.openstreetmap.org'
 	},
 
+	openRouteService: {
+		baseUrl: 'https://api.openrouteservice.org/v2',
+		apiKey: process.env.OPEN_ROUTE_SERVICE
+	},
+
 	discord: {
 		webhook: process.env.WEBHOOK_LINK
 	},
