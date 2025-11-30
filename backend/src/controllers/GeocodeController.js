@@ -1,4 +1,4 @@
-const geocodeService = require('../services/GeocodeService');
+const geocodeService = require('../services/GeocodeService').default;
 const SessionTokensDB = require('../db/SessionTokensDB');
 const ServiceResponse = require('../helper/ServiceResponse');
 
