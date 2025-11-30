@@ -185,9 +185,8 @@ class ProfileService {
             if (!username) {
                 return new ServiceResponse(false, 400, "Username is required");
             }
-            if(UserDB.has(username)) return new ServiceResponse(false, 404, "Username not found");
+            if(!UserDB.has(username)) return new ServiceResponse(false, 404, "Username not found");
             UserDB.db.ensure(username,[],preferences);
-
     		if (!preferences) {
     			return new ServiceResponse(false, 400, "Preferences data is required");
     		}
