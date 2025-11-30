@@ -1,31 +1,60 @@
 const axios = require('axios');
 const config = require('../config/config');
-
-// THESE SERVICES ARE SOMEWHAT OUTDATED
-// TO-DO: DEAL WITH THESE FUCKERS
+const ServiceResponse = require('../helper/ServiceResponse');
 
 class MapService {
 	constructor() {
-		this.apiKey = config.maptiler.apiKey;
-		this.baseUrl = config.maptiler.baseUrl;
+		this.apiKey = config.openRouteService.apiKey;
+		this.baseUrl = config.openRouteService.baseUrl;
 	}
 
 	// Get route between two points
 	// param - array of [lon,lat] pairs
 	// return - route data
-	async getRoute(coordinates, profile = 'driving') {
+	async getRoute(coordinates, profile = 'driving-car') {
+		if (coordinates.length !== 2) {
+			const response = new ServiceResponse(
+				false,
+				400,
+				"Only two pairs of coordinates must be specified"
+			);
+			return response;
+		}
+
+		if (Number.isNaN(parseFloat(coordinates[0][0])) || Number.isNaN(parseFloat(coordinates[0][1])) || Number.isNaN(parseFloat(coordinates[1][0])) || Number.isNaN(parseFloat(coordinates[1][1]))) {
+			const response = new ServiceResponse(
+				false,
+				400,
+				"Bad coordinates"
+			);
+			return response;
+		}
+
+		const fromCoordinates = coordinates[0].map(coor => coor.toString()).join(',');
+		const toCoordinates = coordinates[1].map(coor => coor.toString()).join(',');
+
 		try {
-			const coords = coordinates.map(c => `${c[0]},$c{[1]}`).json(';');
-			const response = await axios.get(`${this.baseUrl}/routing/${profile}/${coords}.json`, {
-				params: {
-					key: this.apiKey,
-					overview: 'full',
-					steps: true
-				}
-			});
-			return response.data;
-		} catch (error) {
-			throw new Error(`Routing failed: ${error.message}`);
+			const url = `${this.baseUrl}/directions/${profile}`;
+			const axiosResponse = await axios.get(url, { params: {
+				api_key: this.apiKey,
+				start: fromCoordinates,
+				end: toCoordinates
+			}});
+
+			const response = new ServiceResponse(
+				true,
+				200,
+				"Success",
+				axiosResponse.data
+			);
+			return response;
+		} catch (err) {
+			const response = new ServiceResponse(
+				false,
+				500,
+				"Something went wrong"
+			);
+			return response;
 		}
 	}
 
