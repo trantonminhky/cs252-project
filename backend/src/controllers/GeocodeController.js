@@ -21,7 +21,7 @@ class GeocodeController {
 			}
 
 			// if the credentials are invalid
-			let authorizationStatus = check(credentials);
+			let authorizationStatus = SessionTokensDB.check(credentials);
 			if (authorizationStatus !== "valid") {
 				const response = new ServiceResponse(
 					false,
@@ -66,7 +66,7 @@ class GeocodeController {
 				return res.status(response.statusCode).json(response.get());
 			}
 
-			let authorizationStatus = check(credentials);
+			let authorizationStatus = SessionTokensDB.check(credentials);
 			if (authorizationStatus !== "valid") {
 				const response = new ServiceResponse(
 					false,
