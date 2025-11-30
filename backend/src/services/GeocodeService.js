@@ -31,8 +31,11 @@ class GeocodeService {
 		}
 
 		try {
-			const url = `${this.baseUrl}/search?format=jsonv2&q=${encodeURIComponent(query)}`;
-			const resp = await axios.get(url);
+			const url = `${this.baseUrl}/search`;
+			const resp = await axios.get(url, { params: {
+				format: 'jsonv2',
+				q: query
+			}});
 			
 			const response = new ServiceResponse(
 				true,
