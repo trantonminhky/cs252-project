@@ -16,8 +16,10 @@ class SignUpForm1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 16, left: 32, right: 32),
+      padding: const EdgeInsets.only(top: 70, left: 32, right: 32),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
             "Sign up to save all your progress!",
@@ -44,22 +46,24 @@ class SignUpForm1 extends StatelessWidget {
             obscureText: true,
           ),
           const SizedBox(height: 96),
-          TextButton(
-            onPressed: () => onNext(),
-            style: TextButton.styleFrom(
-              backgroundColor: const Color(0xffd72323),
-              fixedSize: const Size(109, 52),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(13),
+          Center(
+            child: TextButton(
+              onPressed: () => onNext(),
+              style: TextButton.styleFrom(
+                backgroundColor: const Color(0xffd72323),
+                fixedSize: const Size(109, 52),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(13),
+                ),
               ),
-            ),
-            child: const Text(
-              "Next",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-                fontFamily: "BeVietnamPro",
-                fontWeight: FontWeight.w600,
+              child: const Text(
+                "Next",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontFamily: "BeVietnamPro",
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             ),
           ),

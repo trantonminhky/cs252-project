@@ -40,6 +40,9 @@ class AuthService {
         final token = data["token"] as String;
         await prefs.setString("auth_token", token);
         UserInfo().userSessionToken = token;
+        UserInfo().userType =
+            data["isTourist"] ? UserType.tourist : UserType.business;
+        UserInfo().preferences = List<String>.from(data["preferences"] ?? []);
         return response.data;
       default:
         final success = body["success"] as bool;
@@ -49,13 +52,15 @@ class AuthService {
     }
   }
 
-  Future<Map<String, dynamic>> signUp(
-      String username, String password, String name, int age) async {
+  Future<Map<String, dynamic>> signUp(String username, String password,
+      String name, int age, bool isTourist, List<String> preferences) async {
     final response = await _dio.post("$_baseUrl/api/profile/register", data: {
       "username": username,
       "password": password,
       "name": name,
       "age": age,
+      "isTourist": isTourist,
+      "preferences": preferences,
     });
     final prefs = await SharedPreferences.getInstance();
     final body = response.data as Map<String, dynamic>;

@@ -21,12 +21,14 @@ class SignUpForm2 extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 16, left: 32, right: 32),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
             "We would like to know more about you...",
             style: TextStyle(
               color: Colors.black,
-              fontSize: 23,
+              fontSize: 24,
               fontFamily: "BeVietnamPro",
               fontWeight: FontWeight.w700,
               letterSpacing: -1,
@@ -93,7 +95,7 @@ class SignUpForm2 extends StatelessWidget {
                       ),
                       child: const Center(
                         child: Text(
-                          'Done',
+                          'Next',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: Colors.white,

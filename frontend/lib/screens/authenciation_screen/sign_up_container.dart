@@ -20,7 +20,8 @@ class _SignUpContainerState extends State<SignUpContainer> {
   late final TextEditingController nameController;
   late final TextEditingController ageController;
   late final TextEditingController interestsController;
-  late final TextEditingController locationController;
+  late final TextEditingController userTypeController;
+  List<String> _selectedPreferences = [];
   bool _isLoading = false;
   static final AuthService _authService = AuthService();
 
@@ -32,7 +33,7 @@ class _SignUpContainerState extends State<SignUpContainer> {
     nameController = TextEditingController();
     ageController = TextEditingController();
     interestsController = TextEditingController();
-    locationController = TextEditingController();
+    userTypeController = TextEditingController();
   }
 
   //helper for error
@@ -65,6 +66,8 @@ class _SignUpContainerState extends State<SignUpContainer> {
         passwordController.text,
         nameController.text,
         int.parse(ageController.text),
+        userTypeController.text.toLowerCase() == 'tourist',
+        _selectedPreferences,
       );
 
       if (!mounted) return;
@@ -103,7 +106,7 @@ class _SignUpContainerState extends State<SignUpContainer> {
     nameController.dispose();
     ageController.dispose();
     interestsController.dispose();
-    locationController.dispose();
+    userTypeController.dispose();
     super.dispose();
   }
 
@@ -179,7 +182,12 @@ class _SignUpContainerState extends State<SignUpContainer> {
                   onNext: () => _handleSignUp(),
                   onPrevious: () => changeIndex(1),
                   interestsController: interestsController,
-                  locationController: locationController,
+                  userTypeController: userTypeController,
+                  onPreferencesSelected: (preferences) {
+                    setState(() {
+                      _selectedPreferences = preferences;
+                    });
+                  },
                 ),
               ),
             ],
