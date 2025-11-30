@@ -36,20 +36,6 @@ const tourismSpots = [
 ];
 
 class MapController {
-    // Get map tile config
-    async getMapConfig(req, res, next) {
-        try {
-            const {style = 'streets'} = req.query;
-            const config = mapService.getMapTileUrl(style);
-
-            res.json({
-                success: true,
-                data: config
-            });
-        } catch (error) {
-            next(error);
-        }
-    }
 
     // Get route between points
     async getRoute(req, res, next) {
