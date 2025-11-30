@@ -1,6 +1,6 @@
-const geocodeService = require('../services/GeocodeService').default;
-const SessionTokensDB = require('../db/SessionTokensDB');
-const ServiceResponse = require('../helper/ServiceResponse');
+import geocodeService from '../services/GeocodeService';
+import SessionTokensDB from '../db/SessionTokensDB';
+import ServiceResponse from '../helper/ServiceResponse';
 
 // TO-DO: DOCUMENT CONTROLLER CLASSES
 class GeocodeController {
@@ -21,7 +21,7 @@ class GeocodeController {
 			}
 
 			// if the credentials are invalid
-			let authorizationStatus = SessionTokensDB.check(credentials);
+			let authorizationStatus = check(credentials);
 			if (authorizationStatus !== "valid") {
 				const response = new ServiceResponse(
 					false,
@@ -66,7 +66,7 @@ class GeocodeController {
 				return res.status(response.statusCode).json(response.get());
 			}
 
-			let authorizationStatus = SessionTokensDB.check(credentials);
+			let authorizationStatus = check(credentials);
 			if (authorizationStatus !== "valid") {
 				const response = new ServiceResponse(
 					false,
@@ -96,4 +96,4 @@ class GeocodeController {
 	}
 }
 
-module.exports = new GeocodeController();
+export default new GeocodeController();
