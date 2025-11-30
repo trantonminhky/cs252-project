@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const mapController = require('../controllers/MapController');
+const mapController = require('../controllers/MapController').default;
 
 // Rouitng
 router.post('/route', mapController.getRoute);

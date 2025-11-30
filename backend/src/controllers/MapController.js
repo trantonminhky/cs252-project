@@ -1,5 +1,5 @@
-const ServiceResponse = require('../helper/ServiceResponse');
-const mapService = require('../services/MapService').default;
+import ServiceResponse from '../helper/ServiceResponse';
+import mapService from '../services/MapService';
 
 // TO-DO: DOCUMENT CONTROLLER CLASSES
 // Sample spots (replace with database later)
@@ -228,4 +228,4 @@ class MapController {
     }
 };
 
-module.exports = new MapController();
+export default new MapController();
