@@ -1,5 +1,5 @@
 const ServiceResponse = require('../helper/ServiceResponse');
-const LocationService = require('../services/LocationService');
+const LocationService = require('../services/LocationService').default;
 
 class LocationController {
 	async importToDB(req, res, next) {

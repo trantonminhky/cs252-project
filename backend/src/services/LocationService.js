@@ -1,8 +1,8 @@
-const FuzzySearch = require('fuzzy-search');
+import FuzzySearch from 'fuzzy-search';
 
-const LocationDB = require('../db/LocationDB');
-const architecturesData = require('../../architecture.json');
-const ServiceResponse = require('../helper/ServiceResponse');
+import LocationDB from '../db/LocationDB';
+import architecturesData from '../../architecture.json';
+import ServiceResponse from '../helper/ServiceResponse';
 
 function unwrapTyped(x) {
 	if (Array.isArray(x)) return x.map(unwrapTyped);
@@ -88,4 +88,4 @@ class LocationService {
 	}
 }
 
-module.exports = new LocationService();
+export default new LocationService();
