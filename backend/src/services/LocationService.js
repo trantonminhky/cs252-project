@@ -31,7 +31,7 @@ class LocationService {
 				name: entry.name,
 				buildingType: entry.building_type.split(', '),
 				archStyle: entry.arch_style.split(', '),
-				religion: 'none' ? entry.religion.split(', ') : [],
+				religion: entry.religion != 'none' ? entry.religion.split(', ') : [],
 				imageLink: entry['image link'],
 				description: entry.description,
 			});
@@ -39,12 +39,23 @@ class LocationService {
 		}
 	}
 
-	async search(query, tags) {
+	async search(query, options = { 
+		exclude: []
+	 }) {
 		if (!query) {
 			const response = new ServiceResponse(
 				false,
 				400,
 				"Query is required"
+			);
+			return response;
+		}
+
+		if (!Array.isArray(options.exclude)) {
+			const response = new ServiceResponse(
+				false,
+				400,
+				"Malformed exclude option"
 			);
 			return response;
 		}
