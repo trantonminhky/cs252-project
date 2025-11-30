@@ -4,6 +4,22 @@ const LocationDB = require('../db/LocationDB');
 const architecturesData = require('../../architecture.json');
 const ServiceResponse = require('../helper/ServiceResponse');
 
+function unwrapTyped(x) {
+	if (Array.isArray(x)) return x.map(unwrapTyped);
+
+	if (x && typeof x === "object") {
+		const keys = Object.keys(x);
+		if (keys.length === 2 && keys.includes("t") && keys.includes("v")) {
+			return unwrapTyped(x.v);
+		}
+		const out = {};
+		for (const k of keys) out[k] = unwrapTyped(x[k]);
+		return out;
+	}
+
+	return x;
+}
+
 class LocationService {
 	async importToDB() {
 		for (const entry of architecturesData) {
@@ -34,11 +50,16 @@ class LocationService {
 		}
 
 		const parse = JSON.parse(LocationDB.export());
-		const haystack = {};
+		const data = {};
 		for (const entry of parse.v.keys.v) {
-			haystack[entry.v.key.v] = unwrapTyped(JSON.parse(entry.v.value.v));
+			data[entry.v.key.v] = unwrapTyped(JSON.parse(entry.v.value.v));
 		}
-		const locationSearcher = new FuzzySearch(haystack, ['lat', 'lon', 'name', 'description']);
+		const haystack = Object.entries(data).map(([key, value]) => ({
+			key,
+			value
+		}));
+
+		const locationSearcher = new FuzzySearch(haystack, ['value.lat', 'value.lon', 'value.name', 'value.description']);
 		const result = locationSearcher.search(query);
 		const response = new ServiceResponse(
 			true,
