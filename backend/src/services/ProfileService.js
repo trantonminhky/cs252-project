@@ -46,7 +46,7 @@ class ProfileService {
 	 * @param {String} pass - Password
 	 * @returns {Promise<ServiceResponse>} Response
 	 */
-	async register(user, pass, name, age) {
+	async register(user, pass, name, age, user_type) {
 		// if username or password is not provided
 		if (!user || !pass) {
 			return (new ServiceResponse(
@@ -83,6 +83,9 @@ class ProfileService {
 				password: pass,
 				name: name,
 				age: age,
+				preferences: [],
+				preferences_vec: [],
+				type: user_type,
 				sessionToken: {
 					data: token,
 					createdAt: tokenCreatedAt
@@ -172,6 +175,36 @@ class ProfileService {
 			));
 		}
 	}
+	/**
+    	 * Updates user preferences.
+    	 * @param {String} token - Session token
+    	 * @param {Array|Object} preferences - The preferences data to save
+    	 * @returns {Promise<ServiceResponse>} Response
+    	 */
+    async setPreferences(username, preferences) {
+            if (!username) {
+                return new ServiceResponse(false, 400, "Username is required");
+            }
+            if(UserDB.has(username)) return new ServiceResponse(false, 404, "Username not found");
+            UserDB.db.ensure(username,[],preferences);
+
+    		if (!preferences) {
+    			return new ServiceResponse(false, 400, "Preferences data is required");
+    		}
+
+    		try {
+    			UserDB.set(username, preferences, "preferences");
+    			return new ServiceResponse(
+    				true,
+    				201,
+    				"Success"
+    			);
+    		} catch (err) {
+    			console.error(err);
+    			return new ServiceResponse(false, 500, "Something went wrong");
+    		}
+    }
+
 }
 
 module.exports = new ProfileService();
