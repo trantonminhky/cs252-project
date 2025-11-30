@@ -39,9 +39,7 @@ class LocationService {
 		}
 	}
 
-	async search(query, options = { 
-		exclude: []
-	 }) {
+	async search(query, { exclude = [] } = {}) {
 		if (!query) {
 			const response = new ServiceResponse(
 				false,
@@ -51,7 +49,9 @@ class LocationService {
 			return response;
 		}
 
-		if (!Array.isArray(options.exclude)) {
+		console.log(exclude);
+
+		if (!Array.isArray(exclude)) {
 			const response = new ServiceResponse(
 				false,
 				400,
@@ -76,7 +76,7 @@ class LocationService {
 			.concat(entry.value.archStyle)
 			.concat(entry.value.religion);
 
-			return tagsList.every(tag => !options.exclude.includes(tag));
+			return tagsList.every(tag => !exclude.includes(tag));
 		});
 		const response = new ServiceResponse(
 			true,
