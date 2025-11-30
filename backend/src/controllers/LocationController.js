@@ -10,15 +10,6 @@ class LocationController {
 	async search(req, res, next) {
 		try {
 			const { query, include } = req.query;
-			if (!query) {
-				const response = new ServiceResponse(
-					false,
-					200,
-					"Query is required"
-				);
-				return res.status(response.statusCode).json(response.get());
-			}
-
 			let includeOption;
 			if (include) {
 				includeOption = include.split(',');
