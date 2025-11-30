@@ -1,3 +1,4 @@
+const ServiceResponse = require('../helper/ServiceResponse');
 const mapService = require('../services/MapService');
 
 // TO-DO: DOCUMENT CONTROLLER CLASSES
@@ -36,25 +37,40 @@ const tourismSpots = [
 ];
 
 class MapController {
-
     // Get route between points
     async getRoute(req, res, next) {
         try {
-            const {coordinates, profile = 'driving'} = req.body;
+            const { coordinates, profile } = req.body;
 
-            if (!coordinates || !Array.isArray(coordinates) || coordinates.length < 2) {
-                return res.status(400).json({
-                    success: false,
-                    error: {message: 'At least 2 coordinate pairs are required'}
-                });
+			if (!coordinates) {
+				const response = new ServiceResponse(
+					false,
+					400,
+					"Coordinates are required"
+				);
+				return res.status(response.statusCode).json(response.get());
+			}
+
+			if (!Array.isArray(coordinates)) {
+				const response = new ServiceResponse(
+					false,
+					400,
+					"Coordinates must be expressed as an array of 2 coordinate pairs"
+				);
+				return res.status(response.statusCode).json(response.get());
+			}
+
+            if (coordinates.length != 2) {
+				const response = new ServiceResponse(
+					false,
+					400,
+					"Only two pairs of coordinates must be specified"
+				);
+				return res.status(response.statusCode).json(response.get());
             }
 
-            const result = await mapService.getRoute(coordinates, profile);
-
-            res.json({
-                success: true,
-                data: result
-            });
+            const response = await mapService.getRoute(coordinates, profile);
+            res.status(response.statusCode).json(response.get());
         } catch (error) {
             next(error);
         }
