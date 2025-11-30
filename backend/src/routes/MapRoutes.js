@@ -1,6 +1,6 @@
-const express = require('express');
-const router = express.Router();
-const mapController = require('../controllers/MapController').default;
+import { Router } from 'express';
+const router = Router();
+import mapController from '../controllers/MapController';
 
 // Rouitng
 router.post('/route', mapController.getRoute);
@@ -16,4 +16,4 @@ router.get('/tourism-spots/:id', mapController.getTourismSpotById);
 // Static map
 router.get('/static-map', mapController.getStaticMap);
 
-module.exports = router;
+export default router;

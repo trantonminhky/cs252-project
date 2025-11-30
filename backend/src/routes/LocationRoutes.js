@@ -1,8 +1,8 @@
-const express = require('express');
-const router = express.Router();
-const LocationController = require('../controllers/LocationController').default;
+import { Router } from 'express';
+const router = Router();
+import LocationController from '../controllers/LocationController';
 
 router.get('/import', LocationController.importToDB);
 router.get('/search', LocationController.search);
 
-module.exports = router;
+export default router;

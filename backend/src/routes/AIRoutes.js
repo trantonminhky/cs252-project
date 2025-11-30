@@ -1,9 +1,9 @@
-const express = require('express');
-const router = express.Router();
-const AIController = require('../controllers/AIController').default;
+import { Router } from 'express';
+const router = Router();
+import AIController from '../controllers/AIController';
 
 // AI ask endpoint
 router.post('/send-prompt', AIController.sendPrompt);
 router.get('/extract-tags', AIController.extractTags);
 
-module.exports = router;
+export default router;

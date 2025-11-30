@@ -1,8 +1,8 @@
-const express = require('express');
-const router = express.Router();
-const geocodeController = require('../controllers/GeocodeController').default;
+import { Router } from 'express';
+const router = Router();
+import geocodeController from '../controllers/GeocodeController';
 
 router.get('/geocode', geocodeController.geocode);
 router.get('/reverse-geocode', geocodeController.reverseGeocode);
 
-module.exports = router;
+export default router;
