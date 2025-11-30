@@ -112,9 +112,6 @@ app.use((req, res) => {
 // Error handling middleware
 app.use(errorHandler);
 
-const architecturesData = require('../architecture.json');
-
-
 // Start server
 const PORT = config.port;
 app.listen(PORT, () => {
