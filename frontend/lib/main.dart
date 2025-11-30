@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:virtour_frontend/screens/introduction_screen/introduction_screen.dart';
+import 'package:virtour_frontend/screens/main_layout.dart';
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Cultour',
-      home: IntroductionScreen(),
+      home: MainLayout(),
       // routes: {
       //   '/home': (context) => const HomeScreen(),
       //   '/trips': (context) => const Scaffold(

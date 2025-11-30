@@ -4,7 +4,7 @@ import "package:shared_preferences/shared_preferences.dart";
 class AuthService {
   late final Dio _dio;
   static const String _baseUrl =
-      "http://10.0.2.2:3000";
+      "https://discussing-mining-classroom-highs.trycloudflare.com";
   AuthService() {
     _dio = Dio(BaseOptions(
       baseUrl: _baseUrl,

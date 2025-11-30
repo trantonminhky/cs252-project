@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:virtour_frontend/components/custom_text_field.dart';
 
@@ -86,7 +85,7 @@ class SignUpForm2 extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 32, vertical: 16),
                       decoration: ShapeDecoration(
-                        color: Color(0xffd72323),
+                        color: const Color(0xffd72323),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(16),
                         ),
