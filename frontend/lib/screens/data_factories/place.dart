@@ -1,4 +1,5 @@
 import "package:virtour_frontend/screens/data_factories/filter_type.dart";
+import "package:virtour_frontend/screens/data_factories/review.dart";
 
 class Place {
   final String id;
@@ -10,6 +11,7 @@ class Place {
   final double latitude;
   final double longitude;
   final String address;
+  final List<Review> reviews;
 
   Place({
     required this.id,
@@ -21,6 +23,7 @@ class Place {
     required this.latitude,
     required this.longitude,
     required this.address,
+    required this.reviews,
   });
 
   factory Place.fromJson(Map<String, dynamic> json) {
@@ -34,6 +37,7 @@ class Place {
       latitude: json['latitude'],
       longitude: json['longitude'],
       address: json['address'],
+      reviews: (json['review'] as List).map((e) => Review.fromJson(e)).toList(),
     );
   }
 
@@ -48,6 +52,7 @@ class Place {
       'latitude': latitude,
       'longitude': longitude,
       'address': address,
+      'review': reviews.map((e) => e.toJson()).toList(),
     };
   }
 }
