@@ -1,6 +1,7 @@
 import "package:virtour_frontend/screens/data_factories/filter_type.dart";
 import "package:virtour_frontend/screens/data_factories/place.dart";
 import "package:virtour_frontend/screens/data_factories/region.dart";
+import "package:virtour_frontend/screens/data_factories/review.dart";
 import "package:dio/dio.dart";
 import "package:shared_preferences/shared_preferences.dart";
 import "package:virtour_frontend/constants/userinfo.dart";
@@ -128,6 +129,41 @@ need functions to:
       }
     }
     return places;
+  }
+
+  Future<List<Review>> getReviewsForPlace(String placeId) async {
+    try {
+      final response = await dio.get('/places/reviews/$placeId');
+
+      switch (response.statusCode) {
+        case 200:
+          final data = response.data;
+          if (data['success']) {
+            final reviewsData = data['reviews'] ?? [];
+
+            // Update token if provided
+            if (data['token'] != null) {
+              final prefs = await SharedPreferences.getInstance();
+              await prefs.setString("auth_token", data['token']);
+              userInfo.userSessionToken = data['token'];
+            }
+
+            return reviewsData
+                .map<Review>((json) => Review.fromJson(json))
+                .toList();
+          } else {
+            throw Exception(data['message'] ?? 'Failed to load reviews');
+          }
+        case 404:
+          throw Exception('Reviews not found');
+        default:
+          throw Exception('Unexpected response: ${response.statusCode}');
+      }
+    } on DioException catch (e) {
+      throw _handleDioError(e);
+    } catch (e) {
+      throw Exception('Failed to load reviews: $e');
+    }
   }
 
   Future<List<Place>> getFilteredPlaces(

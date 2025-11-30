@@ -5,11 +5,17 @@ import "package:virtour_frontend/components/briefings.dart";
 import "package:virtour_frontend/screens/data_factories/place.dart";
 import "package:virtour_frontend/screens/home_screen/helpers.dart";
 import "package:virtour_frontend/providers/trip_provider.dart";
+import "package:virtour_frontend/screens/data_factories/review.dart";
+import "package:virtour_frontend/screens/data_factories/data_service.dart";
 
 class PlaceOverview extends ConsumerWidget {
   final Place place;
+  final RegionService _regionService = RegionService();
 
-  const PlaceOverview({super.key, required this.place});
+  PlaceOverview({
+    super.key,
+    required this.place,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -145,7 +151,110 @@ class PlaceOverview extends ConsumerWidget {
                     ),
                   ),
                 ),
-              ])
+              ]),
+              const SizedBox(height: 96),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: Text(
+                  "Reviews",
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontFamily: "BeVietnamPro",
+                    fontWeight: FontWeight.w700,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
+              FutureBuilder<List<Review>>(
+                future: RegionService().getReviewsForPlace(place.id),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                      child: Padding(
+                        padding: EdgeInsets.all(20),
+                        child: CircularProgressIndicator(),
+                      ),
+                    );
+                  }
+
+                  if (snapshot.hasError) {
+                    return Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: Text(
+                        'Error loading reviews: ${snapshot.error}',
+                        style: const TextStyle(color: Colors.red),
+                      ),
+                    );
+                  }
+
+                  final reviews = snapshot.data ?? [];
+
+                  if (reviews.isEmpty) {
+                    return const Padding(
+                      padding: EdgeInsets.all(20),
+                      child: Text(
+                        'No reviews yet',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontFamily: "BeVietnamPro",
+                          color: Colors.grey,
+                        ),
+                      ),
+                    );
+                  }
+
+                  return ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: reviews.length,
+                    itemBuilder: (context, index) {
+                      final review = reviews[index];
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                const CircleAvatar(
+                                  radius: 20,
+                                  backgroundColor: Colors.grey,
+                                  child: Icon(
+                                    Icons.person,
+                                    size: 24,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                const SizedBox(width: 12),
+                                Text(
+                                  review.username,
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontFamily: "BeVietnamPro",
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              review.content,
+                              style: const TextStyle(
+                                fontSize: 14,
+                                fontFamily: "BeVietnamPro",
+                                color: Colors.black87,
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  );
+                },
+              ),
             ],
           ),
         ),
