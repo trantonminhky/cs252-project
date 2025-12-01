@@ -3,27 +3,12 @@ import FuzzySearch from 'fuzzy-search';
 import LocationDB from '../db/LocationDB.js';
 import architecturesData from '../../architecture.json' with { type: "json" };
 import ServiceResponse from '../helper/ServiceResponse.js';
-
-function unwrapTyped(x) {
-	if (Array.isArray(x)) return x.map(unwrapTyped);
-
-	if (x && typeof x === "object") {
-		const keys = Object.keys(x);
-		if (keys.length === 2 && keys.includes("t") && keys.includes("v")) {
-			return unwrapTyped(x.v);
-		}
-		const out = {};
-		for (const k of keys) out[k] = unwrapTyped(x[k]);
-		return out;
-	}
-
-	return x;
-}
+import unwrapTyped from '../helper/unwrapTyped.js';
 
 class LocationService {
 	async importToDB() {
 		for (const entry of architecturesData) {
-			if (!entry.id) continue;
+			if (entry.id == null) continue;
 			LocationDB.set(entry.id.toString(), {
 				id: entry.id,
 				lat: entry.lat,
@@ -33,10 +18,10 @@ class LocationService {
 				tags: entry.tags,
 				imageLink: entry.image_link,
 				description: entry.description,
-				openHours: entry.open_hours_,
+				openHours: entry.open_hours,
 				dayOff: entry.day_off
 			});
-			console.log(`set entry ${entry.id} successfully`);
+			console.log(entry.open_hours);
 		}
 	}
 
@@ -74,9 +59,9 @@ class LocationService {
 
 		results = results.filter(entry => {
 			if (searchAllTags) return true;
-			const tagsList = entry.value.buildingType
-			.concat(entry.value.archStyle)
-			.concat(entry.value.religion);
+			const tagsList = entry.value.tags.buildingType
+			.concat(entry.value.tags.archStyle)
+			.concat(entry.value.tags.religion);
 
 			return tagsList.some(tag => include.includes(tag));
 		});
