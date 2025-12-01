@@ -73,15 +73,6 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   Future<void> _performSearch() async {
-    // Only search if there's text entered
-    if (_searchController.text.trim().isEmpty) {
-      setState(() {
-        _searchResults = [];
-        _errorMessage = null;
-      });
-      return;
-    }
-
     setState(() {
       _isLoading = true;
       _errorMessage = null;
@@ -92,8 +83,12 @@ class _SearchScreenState extends State<SearchScreen> {
       final filtersToUse = _selectedCategories.isEmpty
           ? <String>[]
           : List<String>.from(_selectedCategories);
+
+      // Query is now optional - use text if available, otherwise empty string
+      final query = _searchController.text.trim();
+
       final results = await _regionService.getFilteredPlaces(
-        _searchController.text,
+        query,
         filtersToUse,
       );
       setState(() {
@@ -116,10 +111,24 @@ class _SearchScreenState extends State<SearchScreen> {
         _selectedCategories.add(category);
       }
     });
-    // Re-trigger search if there's already text entered
-    if (_searchController.text.trim().isNotEmpty) {
-      _performSearch();
-    }
+    // Always trigger search when categories change
+    _performSearch();
+  }
+
+  Color _getCategoryColor(String category, int index) {
+    final colors = [
+      const Color(0xFFE91E63), // Pink
+      const Color(0xFF9C27B0), // Purple
+      const Color(0xFF3F51B5), // Indigo
+      const Color(0xFF2196F3), // Blue
+      const Color(0xFF00BCD4), // Cyan
+      const Color(0xFF009688), // Teal
+      const Color(0xFF4CAF50), // Green
+      const Color(0xFFFF9800), // Orange
+      const Color(0xFFFF5722), // Deep Orange
+      const Color(0xFF795548), // Brown
+    ];
+    return colors[index % colors.length];
   }
 
   @override
@@ -194,54 +203,120 @@ class _SearchScreenState extends State<SearchScreen> {
             // SizedBox with height 48
             const SizedBox(height: 48),
 
-            // Carousel of category chips
-            SizedBox(
-              height: 50,
-              child: CarouselSlider(
-                options: CarouselOptions(
+            // Two rows of category chips
+            Column(
+              children: [
+                // First row
+                SizedBox(
                   height: 50,
-                  viewportFraction: 0.25,
-                  enlargeCenterPage: false,
-                  enableInfiniteScroll: false,
-                  padEnds: false,
-                ),
-                items: _selectedCategories.map((category) {
-                  final isSelected = _selectedCategories.contains(category);
-                  return GestureDetector(
-                    onTap: () => _toggleCategory(category),
-                    child: Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 4),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 12,
-                      ),
-                      decoration: BoxDecoration(
-                        color: isSelected
-                            ? const Color(0xFFD72323)
-                            : Colors.transparent,
-                        borderRadius: BorderRadius.circular(24),
-                        border: Border.all(
-                          color: isSelected
-                              ? const Color(0xFFD72323)
-                              : Colors.grey,
-                          width: 1.5,
-                        ),
-                      ),
-                      child: Center(
-                        child: Text(
-                          category,
-                          style: TextStyle(
-                            color: isSelected ? Colors.white : Colors.black87,
-                            fontSize: 14,
-                            fontFamily: "BeVietnamPro",
-                            fontWeight: FontWeight.w600,
+                  child: CarouselSlider(
+                    options: CarouselOptions(
+                      height: 50,
+                      viewportFraction: 0.3,
+                      enlargeCenterPage: false,
+                      enableInfiniteScroll: false,
+                      padEnds: false,
+                    ),
+                    items: _selectedCategories
+                        .take((_selectedCategories.length / 2).ceil())
+                        .toList()
+                        .asMap()
+                        .entries
+                        .map((entry) {
+                      final index = entry.key;
+                      final category = entry.value;
+                      final isSelected = _selectedCategories.contains(category);
+                      final chipColor = _getCategoryColor(category, index);
+
+                      return GestureDetector(
+                        onTap: () => _toggleCategory(category),
+                        child: Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 4),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 10,
+                          ),
+                          decoration: BoxDecoration(
+                            color: isSelected ? chipColor : Colors.transparent,
+                            borderRadius: BorderRadius.circular(24),
+                            border: Border.all(
+                              color: chipColor,
+                              width: 1.5,
+                            ),
+                          ),
+                          child: Center(
+                            child: Text(
+                              category,
+                              style: TextStyle(
+                                color: isSelected ? Colors.white : chipColor,
+                                fontSize: 14,
+                                fontFamily: "BeVietnamPro",
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
                           ),
                         ),
-                      ),
+                      );
+                    }).toList(),
+                  ),
+                ),
+                const SizedBox(height: 12),
+                // Second row
+                SizedBox(
+                  height: 50,
+                  child: CarouselSlider(
+                    options: CarouselOptions(
+                      height: 50,
+                      viewportFraction: 0.3,
+                      enlargeCenterPage: false,
+                      enableInfiniteScroll: false,
+                      padEnds: false,
                     ),
-                  );
-                }).toList(),
-              ),
+                    items: _selectedCategories
+                        .skip((_selectedCategories.length / 2).ceil())
+                        .toList()
+                        .asMap()
+                        .entries
+                        .map((entry) {
+                      final index =
+                          entry.key + (_selectedCategories.length / 2).ceil();
+                      final category = entry.value;
+                      final isSelected = _selectedCategories.contains(category);
+                      final chipColor = _getCategoryColor(category, index);
+
+                      return GestureDetector(
+                        onTap: () => _toggleCategory(category),
+                        child: Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 4),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 10,
+                          ),
+                          decoration: BoxDecoration(
+                            color: isSelected ? chipColor : Colors.transparent,
+                            borderRadius: BorderRadius.circular(24),
+                            border: Border.all(
+                              color: chipColor,
+                              width: 1.5,
+                            ),
+                          ),
+                          child: Center(
+                            child: Text(
+                              category,
+                              style: TextStyle(
+                                color: isSelected ? Colors.white : chipColor,
+                                fontSize: 14,
+                                fontFamily: "BeVietnamPro",
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                ),
+              ],
             ),
 
             // SizedBox with height 48

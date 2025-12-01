@@ -4,6 +4,7 @@ import 'package:virtour_frontend/screens/authenciation_screen/sign_up_form_1.dar
 import 'package:virtour_frontend/screens/authenciation_screen/sign_up_form_2.dart';
 import 'package:virtour_frontend/screens/authenciation_screen/sign_up_form_3.dart';
 import 'package:virtour_frontend/screens/authenciation_screen/auth_service.dart';
+import 'package:virtour_frontend/constants/userinfo.dart';
 import 'package:virtour_frontend/screens/main_layout.dart';
 
 class SignUpContainer extends StatefulWidget {
@@ -24,6 +25,7 @@ class _SignUpContainerState extends State<SignUpContainer> {
   List<String> _selectedPreferences = [];
   bool _isLoading = false;
   static final AuthService _authService = AuthService();
+  final UserInfo _userInfo = UserInfo();
 
   @override
   void initState() {
@@ -173,6 +175,7 @@ class _SignUpContainerState extends State<SignUpContainer> {
                   onPrevious: () => changeIndex(0),
                   nameController: nameController,
                   ageController: ageController,
+                  userInfo: _userInfo,
                 ),
               ),
               SingleChildScrollView(

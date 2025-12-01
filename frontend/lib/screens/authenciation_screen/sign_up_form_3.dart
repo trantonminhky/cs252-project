@@ -241,7 +241,7 @@ class _SignUpForm3State extends State<SignUpForm3> {
             child: Text(
               '${_selectedMainCategories.length + _selectedSubCategories.length} interests selected',
               style: const TextStyle(
-                fontSize: 14,
+                fontSize: 16,
                 fontFamily: 'BeVietnamPro',
                 fontWeight: FontWeight.w600,
               ),

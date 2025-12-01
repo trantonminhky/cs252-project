@@ -8,7 +8,7 @@ import "package:virtour_frontend/screens/home_screen/helpers.dart";
 import "package:virtour_frontend/screens/data_factories/filter_type.dart";
 import "package:virtour_frontend/screens/data_factories/region.dart";
 import "package:virtour_frontend/screens/data_factories/place.dart";
-import "package:virtour_frontend/screens/data_factories/region_service.dart";
+import "package:virtour_frontend/screens/data_factories/data_service.dart";
 
 class RegionOverview extends StatefulWidget {
   final Region region;
@@ -52,15 +52,8 @@ class _RegionOverviewState extends State<RegionOverview> {
       // Fetch region data
       final region = await _regionService.getRegionbyId(widget.region.id);
 
-      final places = await _regionService.getAllPlaces(widget.region.placesId);
-
-      // Filter places based on current filter
-      final filteredPlaces =
-          _regionService.getFilteredPlaces(widget.places, widget.currentFilter);
-
       setState(() async {
         _region = region;
-        _filteredPlaces = await filteredPlaces;
         _isLoading = false;
       });
     } catch (e) {

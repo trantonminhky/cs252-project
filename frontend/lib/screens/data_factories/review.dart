@@ -23,6 +23,7 @@ class Review {
       date: DateTime.parse(json['date']),
     );
   }
+
   Map<String, dynamic> toJson() {
     return {
       '_id': id,
