@@ -2,6 +2,10 @@ import axios from 'axios';
 import config from '../config/config.js';
 import ServiceResponse from '../helper/ServiceResponse.js';
 
+/**
+ * Map service provider class.
+ * @class
+ */
 class MapService {
 	constructor() {
 		this.apiKey = config.openRouteService.apiKey;

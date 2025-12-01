@@ -5,6 +5,10 @@ import architecturesData from '../../architecture.json' with { type: "json" };
 import ServiceResponse from '../helper/ServiceResponse.js';
 import unwrapTyped from '../helper/unwrapTyped.js';
 
+/**
+ * Location service provider class.
+ * @class
+ */
 class LocationService {
 	/**
 	 * Developer's function import to DB. No endpoint of this will be made.
