@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import List, Optional
+from typing import List, Optional, Dict, Any
 
 class Location(BaseModel):
     lat: float
@@ -23,7 +23,9 @@ class RecommendationRequest(BaseModel):
     user_id: str
     current_lat: float
     current_lon: float
-    context: Optional[str] = "general" # e.g., "morning", "exploration"
+    context: Optional[str] = "general"
+    # Add this field to fix the AttributeError:
+    profile_state: Optional[Dict[str, Any]] = None
 
 # Input for updating the RL agent
 class UserFeedback(BaseModel):

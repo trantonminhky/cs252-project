@@ -81,10 +81,8 @@ async def record_feedback(feedback: UserFeedback):
         tags.append(item_data['arch_style'])
     if item_data.get('religion') and item_data['religion'] != 'none':
         tags.append(item_data['religion'])
-
     # 5. Evolve the profile
     profile.update(item_tags=tags, item_vector=item_vector, feedback_score=score)
-
     # 6. RETURN THE UPDATED STATE
     # This JSON object must be saved into UserDB by the Node.js backend
     return {
