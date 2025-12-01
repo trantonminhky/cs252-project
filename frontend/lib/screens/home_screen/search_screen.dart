@@ -25,6 +25,7 @@ class _SearchScreenState extends State<SearchScreen> {
   final RegionService _regionService = RegionService();
   final UserInfo _userInfo = UserInfo();
 
+  List<String> _availableCategories = [];
   List<String> _selectedCategories = [];
   List<Place> _searchResults = [];
   bool _isLoading = false;
@@ -35,16 +36,19 @@ class _SearchScreenState extends State<SearchScreen> {
     super.initState();
     _initializeCategories();
 
-    // If an initial category is provided, ensure it's in the selected list
+    // If an initial category is provided, make sure it's selected
     if (widget.initialSelectedCategory != null) {
-      if (!_selectedCategories.contains(widget.initialSelectedCategory)) {
-        // Add the initial category if not already present
-        if (_selectedCategories.length >= 5) {
-          // Replace the last one
-          _selectedCategories[4] = widget.initialSelectedCategory!;
+      if (!_availableCategories.contains(widget.initialSelectedCategory)) {
+        // Add to available categories if not present
+        if (_availableCategories.length >= 5) {
+          _availableCategories[4] = widget.initialSelectedCategory!;
         } else {
-          _selectedCategories.add(widget.initialSelectedCategory!);
+          _availableCategories.add(widget.initialSelectedCategory!);
         }
+      }
+      // Ensure it's in the selected list
+      if (!_selectedCategories.contains(widget.initialSelectedCategory)) {
+        _selectedCategories.add(widget.initialSelectedCategory!);
       }
     }
   }
@@ -57,19 +61,32 @@ class _SearchScreenState extends State<SearchScreen> {
     List<String> allCategories =
         CategoryType.values.map((e) => e.name).toList();
 
-    // Ensure we have exactly 5 categories
-    if (userPreferences.length >= 5) {
-      _selectedCategories = userPreferences.take(5).toList();
+    // Set available categories (5 categories to display)
+    if (allCategories.length >= 5) {
+      _availableCategories = allCategories.take(5).toList();
     } else {
-      _selectedCategories = List.from(userPreferences);
-      // Add more categories from all categories if needed
-      for (var category in allCategories) {
-        if (_selectedCategories.length >= 5) break;
-        if (!_selectedCategories.contains(category)) {
-          _selectedCategories.add(category);
-        }
-      }
+      _availableCategories = List.from(allCategories);
     }
+
+    // Initialize selected categories from user preferences
+    _selectedCategories = userPreferences
+        .where((pref) => _availableCategories.contains(pref))
+        .toList();
+  }
+
+  String _normalizeCategoryName(String camelCaseCategory) {
+    if (camelCaseCategory.isEmpty) return camelCaseCategory;
+
+    // Add space before uppercase letters (except the first one)
+    String normalized = camelCaseCategory
+        .replaceAllMapped(
+          RegExp(r'([A-Z])'),
+          (match) => ' ${match.group(0)}',
+        )
+        .trim();
+
+    // Capitalize only the first letter, lowercase the rest
+    return normalized[0].toUpperCase() + normalized.substring(1).toLowerCase();
   }
 
   Future<void> _performSearch() async {
@@ -201,7 +218,7 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
 
             // SizedBox with height 48
-            const SizedBox(height: 48),
+            const SizedBox(height: 16),
 
             // Two rows of category chips
             Column(
@@ -212,13 +229,13 @@ class _SearchScreenState extends State<SearchScreen> {
                   child: CarouselSlider(
                     options: CarouselOptions(
                       height: 50,
-                      viewportFraction: 0.3,
+                      viewportFraction: 0.32,
                       enlargeCenterPage: false,
                       enableInfiniteScroll: false,
                       padEnds: false,
                     ),
-                    items: _selectedCategories
-                        .take((_selectedCategories.length / 2).ceil())
+                    items: _availableCategories
+                        .take(6)
                         .toList()
                         .asMap()
                         .entries
@@ -228,31 +245,32 @@ class _SearchScreenState extends State<SearchScreen> {
                       final isSelected = _selectedCategories.contains(category);
                       final chipColor = _getCategoryColor(category, index);
 
-                      return GestureDetector(
-                        onTap: () => _toggleCategory(category),
-                        child: Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 4),
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 16,
-                            vertical: 10,
-                          ),
-                          decoration: BoxDecoration(
-                            color: isSelected ? chipColor : Colors.transparent,
-                            borderRadius: BorderRadius.circular(24),
-                            border: Border.all(
-                              color: chipColor,
-                              width: 1.5,
+                      return Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 4),
+                        child: TextButton(
+                          onPressed: () => _toggleCategory(category),
+                          style: TextButton.styleFrom(
+                            backgroundColor:
+                                isSelected ? chipColor : Colors.transparent,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 8,
+                              vertical: 5,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(24),
+                              side: BorderSide(
+                                color: chipColor,
+                                width: 1.5,
+                              ),
                             ),
                           ),
-                          child: Center(
-                            child: Text(
-                              category,
-                              style: TextStyle(
-                                color: isSelected ? Colors.white : chipColor,
-                                fontSize: 14,
-                                fontFamily: "BeVietnamPro",
-                                fontWeight: FontWeight.w600,
-                              ),
+                          child: Text(
+                            _normalizeCategoryName(category),
+                            style: TextStyle(
+                              color: isSelected ? Colors.white : chipColor,
+                              fontSize: 14,
+                              fontFamily: "BeVietnamPro",
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
                         ),
@@ -267,48 +285,48 @@ class _SearchScreenState extends State<SearchScreen> {
                   child: CarouselSlider(
                     options: CarouselOptions(
                       height: 50,
-                      viewportFraction: 0.3,
+                      viewportFraction: 0.32,
                       enlargeCenterPage: false,
                       enableInfiniteScroll: false,
                       padEnds: false,
                     ),
-                    items: _selectedCategories
-                        .skip((_selectedCategories.length / 2).ceil())
+                    items: _availableCategories
+                        .skip(6)
                         .toList()
                         .asMap()
                         .entries
                         .map((entry) {
-                      final index =
-                          entry.key + (_selectedCategories.length / 2).ceil();
+                      final index = entry.key + 6;
                       final category = entry.value;
                       final isSelected = _selectedCategories.contains(category);
                       final chipColor = _getCategoryColor(category, index);
 
-                      return GestureDetector(
-                        onTap: () => _toggleCategory(category),
-                        child: Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 4),
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 16,
-                            vertical: 10,
-                          ),
-                          decoration: BoxDecoration(
-                            color: isSelected ? chipColor : Colors.transparent,
-                            borderRadius: BorderRadius.circular(24),
-                            border: Border.all(
-                              color: chipColor,
-                              width: 1.5,
+                      return Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 4),
+                        child: TextButton(
+                          onPressed: () => _toggleCategory(category),
+                          style: TextButton.styleFrom(
+                            backgroundColor:
+                                isSelected ? chipColor : Colors.transparent,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 8,
+                              vertical: 5,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(24),
+                              side: BorderSide(
+                                color: chipColor,
+                                width: 1.5,
+                              ),
                             ),
                           ),
-                          child: Center(
-                            child: Text(
-                              category,
-                              style: TextStyle(
-                                color: isSelected ? Colors.white : chipColor,
-                                fontSize: 14,
-                                fontFamily: "BeVietnamPro",
-                                fontWeight: FontWeight.w600,
-                              ),
+                          child: Text(
+                            _normalizeCategoryName(category),
+                            style: TextStyle(
+                              color: isSelected ? Colors.white : chipColor,
+                              fontSize: 14,
+                              fontFamily: "BeVietnamPro",
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
                         ),
