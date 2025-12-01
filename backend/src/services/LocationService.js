@@ -28,11 +28,11 @@ class LocationService {
 		}
 	}
 
-	async search(query, { include } = {}) {
+	async search(query, options = {include: []}) {
 		const searchAllResults = query === "" || query == null;
-		const searchAllTags = include == null;
+		const searchAllTags = options.include == null;
 
-		if (!Array.isArray(include) && !searchAllTags) {
+		if (!Array.isArray(options.include) && !searchAllTags) {
 			const response = new ServiceResponse(
 				false,
 				400,
@@ -66,7 +66,7 @@ class LocationService {
 			.concat(entry.value.tags.archStyle)
 			.concat(entry.value.tags.religion);
 
-			return tagsList.some(tag => include.includes(tag));
+			return tagsList.some(tag => options.include.includes(tag));
 		});
 		const response = new ServiceResponse(
 			true,
