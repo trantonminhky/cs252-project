@@ -47,6 +47,14 @@ class Briefing extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
         ),
+        shadows: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.1),
+            spreadRadius: 0,
+            blurRadius: 8,
+            offset: const Offset(0, 4),
+          ),
+        ],
       ),
       child: Stack(
         children: [
@@ -159,6 +167,14 @@ class Briefing extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
         ),
+        shadows: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.15),
+            spreadRadius: 0,
+            blurRadius: 12,
+            offset: const Offset(0, 6),
+          ),
+        ],
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -193,14 +209,6 @@ class Briefing extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(24),
                     ),
-                    shadows: const [
-                      BoxShadow(
-                        color: Color(0x30000000),
-                        blurRadius: 5,
-                        offset: Offset(0, 1),
-                        spreadRadius: -363,
-                      )
-                    ],
                   ),
                   child: Text(
                     category,
@@ -233,10 +241,18 @@ class Briefing extends StatelessWidget {
       width: 372,
       height: 300,
       decoration: ShapeDecoration(
-        color: Colors.white,
+        //color: Colors.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
         ),
+        shadows: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.25),
+            spreadRadius: 0,
+            blurRadius: 16,
+            offset: const Offset(0, 8),
+          ),
+        ],
       ),
       child: Container(
         width: 372,

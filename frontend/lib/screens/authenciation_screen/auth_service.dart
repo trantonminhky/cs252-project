@@ -1,10 +1,11 @@
 import "package:dio/dio.dart";
 import "package:shared_preferences/shared_preferences.dart";
+import "package:virtour_frontend/constants/userinfo.dart";
 
 class AuthService {
   late final Dio _dio;
-  static const String _baseUrl =
-      "http://10.0.2.2:3000";
+  static const String _baseUrl = "http://localhost:3000";
+  UserInfo userInfo = UserInfo();
   AuthService() {
     _dio = Dio(BaseOptions(
       baseUrl: _baseUrl,
@@ -27,11 +28,8 @@ class AuthService {
   }
 
   Future<Map<String, dynamic>> signIn(String username, String password) async {
-    final response = await _dio.post(
-        "$_baseUrl/api/profile/login", data: {
-          "username": username,
-          "password": password
-        });
+    final response = await _dio.post("$_baseUrl/api/profile/login",
+        data: {"username": username, "password": password});
     final body = response.data as Map<String, dynamic>;
 
     switch (response.statusCode) {
@@ -41,6 +39,10 @@ class AuthService {
         final data = payload["data"] as Map<String, dynamic>;
         final token = data["token"] as String;
         await prefs.setString("auth_token", token);
+        UserInfo().userSessionToken = token;
+        UserInfo().userType =
+            data["isTourist"] ? UserType.tourist : UserType.business;
+        UserInfo().preferences = List<String>.from(data["preferences"] ?? []);
         return response.data;
       default:
         final success = body["success"] as bool;
@@ -50,13 +52,15 @@ class AuthService {
     }
   }
 
-  Future<Map<String, dynamic>> signUp(
-      String username, String password, String name, int age) async {
+  Future<Map<String, dynamic>> signUp(String username, String password,
+      String name, int age, bool isTourist, List<String> preferences) async {
     final response = await _dio.post("$_baseUrl/api/profile/register", data: {
       "username": username,
       "password": password,
       "name": name,
       "age": age,
+      "isTourist": isTourist,
+      "preferences": preferences,
     });
     final prefs = await SharedPreferences.getInstance();
     final body = response.data as Map<String, dynamic>;
