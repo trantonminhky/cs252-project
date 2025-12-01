@@ -61,7 +61,7 @@ class MapService {
 	// Search for places near a location
 	// params - lat, lon, rad, category
 	// return - places data
-	async nearby(lat, lon, radius = 1000, category_id = []) {
+	async nearby(lat, lon, radius = 1000, category_ids = []) {
 		if (lat == null || lon == null) {
 			const response = new ServiceResponse(
 				false,
@@ -80,7 +80,7 @@ class MapService {
 			return response;
 		}
 
-		if (!Array.isArray(category_id)) {
+		if (!Array.isArray(category_ids)) {
 			const response = new ServiceResponse(
 				flse,
 				400,
@@ -101,7 +101,7 @@ class MapService {
 					buffer: radius
 				},
 				filters: {
-					category_ids: category_id
+					category_ids: category_ids
 				}
 			});
 	

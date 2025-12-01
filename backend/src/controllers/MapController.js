@@ -77,28 +77,25 @@ class MapController {
     }
 
     // Search nearby place
-    async searchNearby(req, res, next) {
+    async nearby(req, res, next) {
         try {
-            const {lat, lon,  radius = 5000, category} = req.query;
+            const lat = req.body.lat;
+			const lon = req.body.lon;
+			const radius = req.body.radius;
+			const category_ids = req.body.category_ids;
 
-            if (!lat || !lon) {
-                return res.status(400).json({
-                    success: false,
-                    error: {message: 'Latuitude and longtitude parameters are required'}
-                });
-            }
+            if (lat == null || lon == null) {
+				const response = new ServiceResponse(
+					false,
+					400,
+					"Latitude and longitude are required"
+				);
+				return res.status(response.statusCode).json(response.get());
+			}
+			
+			const response = await mapService.nearby(lat, lon, radius, category_ids);
+			res.status(response.statusCode).json(response.get());
 
-            const result = await mapService.searchNearBy(
-                parseFloat(lat),
-                parseFloat(lon),
-                parseInt(radius),
-                category
-            );
-
-            res.json({
-                success: true,
-                data: result
-            });
         } catch (error) {
             next(error);
         }
