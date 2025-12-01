@@ -23,19 +23,20 @@ function unwrapTyped(x) {
 class LocationService {
 	async importToDB() {
 		for (const entry of architecturesData) {
-			if (!entry.Key) continue;
-			LocationDB.set(entry.Key, {
-				id: entry.ID,
-				lat: entry["location.lat"],
-				lon: entry["location.lon"],
+			if (!entry.id) continue;
+			LocationDB.set(entry.id.toString(), {
+				id: entry.id,
+				lat: entry.lat,
+				lon: entry.lon,
 				name: entry.name,
-				buildingType: entry.building_type.split(', '),
-				archStyle: entry.arch_style.split(', '),
-				religion: entry.religion != 'none' ? entry.religion.split(', ') : [],
-				imageLink: entry['image link'],
+				age: entry.age,
+				tags: entry.tags,
+				imageLink: entry.image_link,
 				description: entry.description,
+				openHours: entry.open_hours_,
+				dayOff: entry.day_off
 			});
-			console.log(`set entry ${entry.ID} successfully`);
+			console.log(`set entry ${entry.id} successfully`);
 		}
 	}
 
