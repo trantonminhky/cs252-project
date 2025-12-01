@@ -126,13 +126,6 @@ class MapService {
 			return response;
 		}
 	}
-
-	// Get static map image
-	// params - lat, lon, zoom, width, height
-	// return - image url
-	getStaticMapUrl(lat, lon, zoom = 14, width = 600, height = 400) {
-		return `${this.baseUrl}/maps/streets/static/${lon},${lat},${zoom},${width}x${height}.png?key=${this.apiKey}`;
-	}
 }
 
 export default new MapService();
