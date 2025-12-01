@@ -61,27 +61,65 @@ class MapService {
 	// Search for places near a location
 	// params - lat, lon, rad, category
 	// return - places data
-	async searchNearBy(lat, lon, radius = 5000, category = null) {
+	async nearby(lat, lon, radius = 1000, category_id = []) {
+		if (lat == null || lon == null) {
+			const response = new ServiceResponse(
+				false,
+				400,
+				"Latitude and longitude are required"
+			);
+			return response;
+		}
+
+		if (radius <= 0 || radius > 2000) {
+			const response = new ServiceResponse(
+				false,
+				400,
+				"Radius must be over 0 and no more than 2000"
+			);
+			return response;
+		}
+
+		if (!Array.isArray(category_id)) {
+			const response = new ServiceResponse(
+				flse,
+				400,
+				"Malformed category id list"
+			);
+			return response;
+		}
+
 		try {
-			const params = {
-				key: this.apiKey,
-				lat,
-				lon,
-				radius,
-				limit: 20
-			};
-
-			if (category) {
-				params.types = category;
-			}
-
-			const response = await axios.get(`${this.baseUrl}/geocoding/nearby.json`, {
-				params
+			const url = `${this.baseUrl}/pois`;
+			const axiosResponse = await axios.post(url, {
+				request: "pois",
+				geometry: {
+					geojson: {
+						type: "Point",
+						coordinates: [lat, lon]
+					},
+					buffer: radius
+				},
+				filters: {
+					category_ids: category_id
+				}
 			});
-
-			return response.data;
-		} catch (error) {
-			throw new Error(`Nearby search failed: ${error.message}`);
+	
+			const response = new ServiceResponse(
+				true,
+				200,
+				"Success",
+				axiosResponse.data
+			);
+			return response;
+		} catch (err) {
+			console.error(err);
+			const response = new ServiceResponse(
+				false,
+				500,
+				"Something went wrong"
+			);
+			return response;
 		}
 	}
 
