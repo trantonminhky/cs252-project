@@ -6,6 +6,9 @@ import ServiceResponse from '../helper/ServiceResponse.js';
 import unwrapTyped from '../helper/unwrapTyped.js';
 
 class LocationService {
+	/**
+	 * Developer's function import to DB. No endpoint of this will be made.
+	 */
 	async importToDB() {
 		for (const entry of architecturesData) {
 			if (entry.id == null) continue;
