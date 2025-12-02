@@ -1,6 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:virtour_frontend/screens/data_factories/event.dart';
-import 'package:virtour_frontend/screens/data_factories/data_service.dart';
+import 'package:virtour_frontend/frontend_service_layer/place_service.dart';
 import 'package:virtour_frontend/constants/userinfo.dart';
 
 part 'participated_events_provider.g.dart';
@@ -57,10 +57,9 @@ class ParticipatedEvents extends _$ParticipatedEvents {
     state = AsyncValue.data({...currentState, event});
   }
 
-  Future<void> removeEvent(Event event) async {
+  Future<void> removeEvent(String eventId) async {
     final currentState = await future;
-    state =
-        AsyncValue.data(currentState.where((e) => e.id != event.id).toSet());
+    state = AsyncValue.data(currentState.where((e) => e.id != eventId).toSet());
   }
 
   bool isParticipating(String eventId) {

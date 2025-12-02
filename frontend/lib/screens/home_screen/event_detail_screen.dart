@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:virtour_frontend/screens/data_factories/event.dart';
 import 'package:virtour_frontend/providers/participated_events_provider.dart';
-import 'package:virtour_frontend/screens/data_factories/data_service.dart';
+import 'package:virtour_frontend/frontend_service_layer/place_service.dart';
 import 'package:virtour_frontend/constants/userinfo.dart';
 
 class EventDetailScreen extends ConsumerWidget {
@@ -166,23 +166,26 @@ class EventDetailScreen extends ConsumerWidget {
             width: double.infinity,
             child: TextButton(
               style: TextButton.styleFrom(
-                backgroundColor: const Color(0xFFD72323),
+                backgroundColor:
+                    isParticipating ? Colors.grey : const Color(0xFFD72323),
                 shape: RoundedRectangleBorder(
                   side: const BorderSide(color: Colors.black, width: 2),
                   borderRadius: BorderRadius.circular(13),
                 ),
               ),
-              onPressed: isParticipating
-                  ? null
-                  : () {
-                      _showParticipateConfirmation(context, ref);
-                    },
+              onPressed: () {
+                if (isParticipating) {
+                  _showUnsubscribeConfirmation(context, ref);
+                } else {
+                  _showParticipateConfirmation(context, ref);
+                }
+              },
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 12),
                 child: Text(
-                  isParticipating ? "Already Participating" : "Participate",
-                  style: TextStyle(
-                    color: isParticipating ? Colors.grey : Colors.white,
+                  isParticipating ? "Unsubscribe" : "Participate",
+                  style: const TextStyle(
+                    color: Colors.white,
                     fontSize: 18,
                     fontFamily: "BeVietnamPro",
                     fontWeight: FontWeight.w600,
@@ -323,6 +326,109 @@ class EventDetailScreen extends ConsumerWidget {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text('Successfully registered for ${event.name}!'),
+                  backgroundColor: const Color(0xFF4CAF50),
+                  duration: const Duration(seconds: 2),
+                ),
+              );
+            },
+            child: const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 12),
+              child: Text(
+                "Confirm",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: "BeVietnamPro",
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showUnsubscribeConfirmation(BuildContext context, WidgetRef ref) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
+        title: const Text(
+          "Confirm Unsubscribe",
+          style: TextStyle(
+            fontFamily: "BeVietnamPro",
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+        content: Text(
+          "Do you want to unsubscribe from ${event.name}?",
+          style: const TextStyle(
+            fontFamily: "BeVietnamPro",
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text(
+              "Cancel",
+              style: TextStyle(
+                color: Colors.black,
+                fontFamily: "BeVietnamPro",
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+          TextButton(
+            style: TextButton.styleFrom(
+              backgroundColor: Colors.grey,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
+            onPressed: () async {
+              final username = UserInfo().username;
+
+              if (username.isEmpty) {
+                Navigator.of(context).pop();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Please log in'),
+                    backgroundColor: Color(0xFFD72323),
+                    duration: Duration(seconds: 2),
+                  ),
+                );
+                return;
+              }
+
+              // Call backend to unsubscribe from event
+              final success = await RegionService().unsubscribeFromEvent(
+                username,
+                event.id.toString(),
+              );
+
+              if (!success) {
+                Navigator.of(context).pop();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Failed to unsubscribe. Please try again.'),
+                    backgroundColor: Color(0xFFD72323),
+                    duration: Duration(seconds: 2),
+                  ),
+                );
+                return;
+              }
+
+              // Remove event from local state for immediate UI update
+              ref
+                  .read(participatedEventsProvider.notifier)
+                  .removeEvent(event.id);
+
+              Navigator.of(context).pop();
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('Successfully unsubscribed from ${event.name}'),
                   backgroundColor: const Color(0xFF4CAF50),
                   duration: const Duration(seconds: 2),
                 ),

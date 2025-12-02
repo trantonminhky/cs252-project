@@ -1,6 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:virtour_frontend/screens/data_factories/place.dart';
-import 'package:virtour_frontend/screens/data_factories/data_service.dart';
+import 'package:virtour_frontend/frontend_service_layer/place_service.dart';
 import 'package:virtour_frontend/constants/userinfo.dart';
 
 part 'trip_provider.g.dart';

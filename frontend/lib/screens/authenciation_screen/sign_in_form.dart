@@ -224,7 +224,7 @@ class _SignInFormState extends State<SignInForm> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(16),
                     ),
-                    fixedSize: const Size(135, 52),
+                    fixedSize: const Size(135, 62),
                   ),
                   onPressed: _isLoading ? null : _handleSignIn,
                   child: _isLoading

@@ -19,7 +19,7 @@ class RegionService {
   RegionService._internal() {
     dio = Dio(
       BaseOptions(
-        baseUrl: _baseUrl,
+        baseUrl: '$_baseUrl/api',
         connectTimeout: const Duration(seconds: 10),
         receiveTimeout: const Duration(seconds: 10),
         headers: {
@@ -38,7 +38,7 @@ class RegionService {
   */
   Future<Region> getRegionbyId(String regionId) async {
     try {
-      final response = await dio.get('/api/regions/$regionId');
+      final response = await dio.get('/regions/$regionId');
 
       switch (response.statusCode) {
         case 200:
@@ -71,8 +71,7 @@ class RegionService {
 
   Future<Place> fetchPlacebyId(String placeId) async {
     try {
-      final response =
-          await dio.get('/api/location/find-by-id', queryParameters: {
+      final response = await dio.get('/location/find-by-id', queryParameters: {
         'id': placeId,
       });
 
@@ -126,7 +125,7 @@ class RegionService {
         'include': includeFilter.join(','),
       };
       final response = await dio.get(
-        '$_baseUrl/api/location/search',
+        '/location/search',
         queryParameters: queryParams,
         options: Options(
           headers: {
@@ -159,7 +158,7 @@ class RegionService {
 
   Future<List<Review>> getReviewsForPlace(String placeId) async {
     try {
-      final response = await dio.get('/api/places/reviews/$placeId');
+      final response = await dio.get('/places/reviews/$placeId');
 
       switch (response.statusCode) {
         case 200:
@@ -195,8 +194,7 @@ class RegionService {
   // Saved Places Methods
   Future<List<String>> getSavedPlaces(String username) async {
     try {
-      final response =
-          await dio.get('/api/profile/saved-places', queryParameters: {
+      final response = await dio.get('/profile/saved-places', queryParameters: {
         'username': username,
       });
 
@@ -216,7 +214,7 @@ class RegionService {
 
   Future<bool> addSavedPlace(String username, String placeId) async {
     try {
-      final response = await dio.post('/api/profile/saved-places', data: {
+      final response = await dio.post('/profile/saved-places', data: {
         'username': username,
         'placeId': placeId,
       });
@@ -238,7 +236,7 @@ class RegionService {
 
   Future<bool> removeSavedPlace(String username, String placeId) async {
     try {
-      final response = await dio.delete('/api/profile/saved-places', data: {
+      final response = await dio.delete('/profile/saved-places', data: {
         'username': username,
         'placeId': placeId,
       });
@@ -257,7 +255,7 @@ class RegionService {
   // Event subscription
   Future<bool> subscribeToEvent(String username, String eventId) async {
     try {
-      final response = await dio.post('/api/event/subscribe', data: {
+      final response = await dio.post('/event/subscribe', data: {
         'username': username,
         'eventID': eventId,
       });
@@ -273,10 +271,28 @@ class RegionService {
     }
   }
 
+  Future<bool> unsubscribeFromEvent(String username, String eventId) async {
+    try {
+      final response = await dio.post('/event/unsubscribe', data: {
+        'username': username,
+        'eventID': eventId,
+      });
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final data = response.data;
+        return data['success'] ?? false;
+      }
+      return false;
+    } on DioException catch (e) {
+      print('Error unsubscribing from event: ${e.message}');
+      return false;
+    }
+  }
+
   // Fetch events from database
   Future<Map<String, dynamic>> fetchEvents() async {
     try {
-      final response = await dio.get('/api/db/export', queryParameters: {
+      final response = await dio.get('/db/export', queryParameters: {
         'name': 'EventDB',
       });
 
@@ -298,7 +314,7 @@ class RegionService {
       String username) async {
     try {
       final response =
-          await dio.get('/api/event/get-by-username', queryParameters: {
+          await dio.get('/event/get-by-username', queryParameters: {
         'username': username,
       });
 
@@ -319,7 +335,7 @@ class RegionService {
   Future<List<String>> fetchRecommendations(
       String username, double lat, double lon) async {
     try {
-      final response = await dio.get('/api/recommendation', queryParameters: {
+      final response = await dio.get('/recommendation', queryParameters: {
         'username': username,
         'lat': lat,
         'lon': lon,
@@ -352,7 +368,7 @@ class RegionService {
     int? endTime,
   }) async {
     try {
-      final response = await dio.post('/api/event/create', data: {
+      final response = await dio.post('/event/create', data: {
         'name': name,
         'description': description,
         'imageLink': imageLink,
