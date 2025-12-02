@@ -1,4 +1,5 @@
 import EventDB from '../db/EventDB.js';
+import UserDB from '../db/UserDB.js';
 import ServiceResponse from '../helper/ServiceResponse.js';
 
 class EventService {

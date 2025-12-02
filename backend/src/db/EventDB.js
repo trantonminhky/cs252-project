@@ -58,6 +58,14 @@ class EventDB {
 		}
 	}
 
+	has(key) {
+		try {
+			return this.db.has(key);
+		} catch (err) {
+			console.error(err);
+		}
+	}
+
 	export() {
 		try {
 			const exp = this.db.export();
