@@ -13,12 +13,14 @@ import corsMiddleware from './middleware/cors.js';
 import errorHandler from './middleware/errorHandler.js';
 
 // route imports
+
 import MapRoutes from './routes/MapRoutes.js';
 import AIRoutes from './routes/AIRoutes.js';
 import GeocodeRoutes from './routes/GeocodeRoutes.js';
 import ProfileRoutes from './routes/ProfileRoutes.js';
 import DBRoutes from './routes/DBRoutes.js';
 import LocationRoutes from './routes/LocationRoutes.js';
+import RecommendationRoutes from './routes/RecommendationRoutes.js
 
 const app = express();
 const customStream = {
@@ -72,6 +74,7 @@ app.use('/api/geocode', GeocodeRoutes);
 app.use('/api/ai', AIRoutes);
 app.use('/api/profile', ProfileRoutes);
 app.use('/api/db', DBRoutes);
+app.use('/api/recommendation', RecommendationRoutes);
 app.use('/api/location', LocationRoutes);
 
 // Root endpoint

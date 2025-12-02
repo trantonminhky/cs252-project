@@ -46,7 +46,7 @@ class ProfileService {
 	 * @param {String} pass - Password
 	 * @returns {Promise<ServiceResponse>} Response
 	 */
-	async register(user, pass, name, age) {
+	async register(user, pass, name, age, isTourist) {
 		// if username or password is not provided
 		if (!user || !pass) {
 			return (new ServiceResponse(
@@ -73,7 +73,10 @@ class ProfileService {
 				"Username already taken"
 			));
 		}
-
+		if(typeof isTourist === "boolean") 
+		{
+			return new ServiceResponse(false,400,"Malformed usertype parameter");
+		}
 		const token = generateToken32(); // user session token
 		const tokenCreatedAt = Date.now(); // session token created timestamp in ms
 
@@ -83,6 +86,9 @@ class ProfileService {
 				password: pass,
 				name: name,
 				age: age,
+				preferences: [],
+				rec_profile: null,
+				isTourist: isTourist,
 				sessionToken: {
 					data: token,
 					createdAt: tokenCreatedAt
@@ -172,6 +178,39 @@ class ProfileService {
 			));
 		}
 	}
+	/**
+    	 * Updates user preferences.
+    	 * @param {String} token - Session token
+    	 * @param {Array|Object} preferences - The preferences data to save
+    	 * @returns {Promise<ServiceResponse>} Response
+    	 */
+    async setPreferences(username, preferences) {
+            if (!username) {
+                return new ServiceResponse(false, 400, "Username is required");
+            }
+			if(!Array.isArray(preferences))
+			{
+				return new ServiceResponse(false,400,"Malformed preferences");
+			}
+            if(!UserDB.has(username)) return new ServiceResponse(false, 404, "Username not found");
+            UserDB.db.ensure(username,[],"preferences");
+    		if (!preferences) {
+    			return new ServiceResponse(false, 400, "Preferences data is required");
+    		}
+
+    		try {
+    			UserDB.set(username, preferences, "preferences");
+    			return new ServiceResponse(
+    				true,
+    				201,
+    				"Success"
+    			);
+    		} catch (err) {
+    			console.error(err);
+    			return new ServiceResponse(false, 500, "Something went wrong");
+    		}
+    }
+
 }
 
 export default new ProfileService();
