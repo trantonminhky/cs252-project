@@ -50,6 +50,14 @@ class EventDB {
 		}
 	}
 
+	remove(key, value, path) {
+		try {
+			this.db.remove(key, value, path);
+		} catch (err) {
+			console.error(err);
+		}
+	}
+
 	clear() {
 		try {
 			this.db.clear();

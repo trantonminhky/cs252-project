@@ -5,15 +5,13 @@ import "package:virtour_frontend/components/briefings.dart";
 import "package:virtour_frontend/components/custom_text_field.dart";
 import "package:virtour_frontend/components/events_banner.dart";
 import "package:virtour_frontend/components/briefing_carousel.dart";
-import "package:virtour_frontend/screens/home_screen/region_overview.dart";
 import "package:virtour_frontend/screens/home_screen/place_overview.dart";
 import "package:virtour_frontend/screens/home_screen/search_screen.dart";
-import "package:virtour_frontend/screens/data_factories/filter_type.dart";
+import "package:virtour_frontend/screens/data_factories/place.dart";
+import "package:virtour_frontend/frontend_service_layer/place_service.dart";
+import "package:virtour_frontend/constants/userinfo.dart";
 import "package:virtour_frontend/providers/event_provider.dart";
 import "package:virtour_frontend/screens/data_factories/region.dart";
-import "package:virtour_frontend/screens/data_factories/place.dart";
-import "package:virtour_frontend/screens/data_factories/data_service.dart";
-import "package:virtour_frontend/constants/userinfo.dart";
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -125,6 +123,15 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       height: 320,
       autoPlay: true,
       items: _topDestinations.map((place) {
+        // Extract first available category from tags
+        String category = 'Destination';
+        if (place.tags.isNotEmpty) {
+          final firstTagList = place.tags.values.first;
+          if (firstTagList.isNotEmpty) {
+            category = firstTagList.first;
+          }
+        }
+
         return GestureDetector(
           onTap: () {
             Navigator.push(
@@ -137,9 +144,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           child: Briefing(
             size: BriefingSize.vert,
             title: place.name,
-            category:
-                place.categories.isNotEmpty ? place.categories.first : "Place",
-            imageUrl: place.imageUrl,
+            category: category,
+            imageUrl: place.imageLink,
           ),
         );
       }).toList(),

@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:virtour_frontend/providers/trip_provider.dart';
 import 'package:virtour_frontend/providers/participated_events_provider.dart';
 import 'package:virtour_frontend/screens/data_factories/event.dart';
-import 'package:virtour_frontend/screens/data_factories/data_service.dart';
+import 'package:virtour_frontend/frontend_service_layer/place_service.dart';
 import 'package:virtour_frontend/screens/trip_screen/create_event_form.dart';
 import 'package:virtour_frontend/constants/userinfo.dart';
 
@@ -185,7 +185,7 @@ class _TripScreenContentState extends ConsumerState<TripScreenContent>
                       itemBuilder: (context, index) {
                         final place = placesList[index];
                         return Dismissible(
-                          key: Key(place.name + place.address),
+                          key: Key('${place.id}_${place.name}'),
                           direction: DismissDirection.endToStart,
                           onDismissed: (direction) {
                             ref.read(tripProvider.notifier).removePlace(place);
@@ -219,9 +219,9 @@ class _TripScreenContentState extends ConsumerState<TripScreenContent>
                                   child: SizedBox(
                                     width: double.infinity,
                                     height: 100,
-                                    child: place.imageUrl.startsWith('http')
+                                    child: place.imageLink.startsWith('http')
                                         ? Image.network(
-                                            place.imageUrl,
+                                            place.imageLink,
                                             fit: BoxFit.cover,
                                             errorBuilder:
                                                 (context, error, stackTrace) {
@@ -235,7 +235,7 @@ class _TripScreenContentState extends ConsumerState<TripScreenContent>
                                             },
                                           )
                                         : Image.asset(
-                                            place.imageUrl,
+                                            place.imageLink,
                                             fit: BoxFit.cover,
                                             errorBuilder:
                                                 (context, error, stackTrace) {
@@ -262,7 +262,7 @@ class _TripScreenContentState extends ConsumerState<TripScreenContent>
                                 ),
                                 const SizedBox(height: 7),
                                 Text(
-                                  place.address,
+                                  place.address ?? '${place.lat}, ${place.lon}',
                                   style: const TextStyle(
                                     color: Colors.black,
                                     fontSize: 12,

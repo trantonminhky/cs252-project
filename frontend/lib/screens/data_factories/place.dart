@@ -1,102 +1,74 @@
-import "package:virtour_frontend/screens/data_factories/filter_type.dart";
-
 class Place {
   final String id;
   final String name;
-  final List<String> categories;
-  final String imageUrl;
+  final Map<String, List<String>> tags;
+  final String imageLink;
+  final double lat;
+  final double lon;
   final String description;
-  final FilterType type;
-  final double latitude;
-  final double longitude;
-  final String address;
+  final int age;
+  final List<String>? openHours;
+  final String? dayOff;
+  String? address;
 
   Place({
     required this.id,
     required this.name,
-    required this.categories,
-    required this.imageUrl,
+    required this.tags,
+    required this.imageLink,
     required this.description,
-    required this.type,
-    required this.latitude,
-    required this.longitude,
-    required this.address,
+    required this.lat,
+    required this.lon,
+    required this.age,
+    this.openHours,
+    this.dayOff,
+    this.address,
   });
 
   factory Place.fromJson(Map<String, dynamic> json) {
-    // Handle location data structure from LocationService
-    if (json.containsKey('lat') && json.containsKey('lon')) {
-      // Convert tags to categories list
-      List<String> categories = [];
-      if (json['tags'] != null && json['tags'] is Map) {
-        final tags = json['tags'] as Map<String, dynamic>;
+    return Place(
+      id: json['id']?.toString() ?? '',
+      name: json['name'] ?? '',
+      tags: _parseTags(json['tags']),
+      imageLink: json['imageLink'] ?? json['imageUrl'] ?? '',
+      description: json['description'] ?? '',
+      lat: (json['lat'] ?? json['latitude'] ?? 0).toDouble(),
+      lon: (json['lon'] ?? json['longitude'] ?? 0).toDouble(),
+      age: json['age'] ?? 0,
+      openHours: json['openHours'] != null
+          ? List<String>.from(json['openHours'])
+          : null,
+      dayOff: json['dayOff'],
+    );
+  }
 
-        // Extract all tag types into categories
-        tags.forEach((key, value) {
-          if (value != null && value is List && value.isNotEmpty) {
-            for (var item in value) {
-              if (item is String) {
-                categories.add(item);
-              }
-            }
-          }
-        });
-      }
+  static Map<String, List<String>> _parseTags(dynamic tags) {
+    final parsedTags = <String, List<String>>{};
 
-      // Determine FilterType from tags
-      FilterType placeType = FilterType.religion; // default
-      if (categories.isNotEmpty) {
-        if (categories.any((tag) =>
-            tag.toLowerCase().contains('temple') ||
-            tag.toLowerCase().contains('church') ||
-            tag.toLowerCase().contains('mosque') ||
-            tag.toLowerCase().contains('worship') ||
-            tag.toLowerCase().contains('religion'))) {
-          placeType = FilterType.religion;
+    if (tags != null && tags is Map) {
+      tags.forEach((key, value) {
+        if (value is List) {
+          parsedTags[key.toString()] =
+              value.map((item) => item.toString()).toList();
         }
-      }
-
-      return Place(
-        id: json['id'].toString(),
-        name: json['name'] ?? 'Unknown',
-        categories: categories,
-        imageUrl: json['imageLink'] ?? '',
-        description: json['description'] ?? '',
-        type: placeType,
-        latitude: (json['lat'] as num).toDouble(),
-        longitude: (json['lon'] as num).toDouble(),
-        address: json['name'] ??
-            '', // Using name as address since address field doesn't exist
-      );
+      });
     }
 
-    // Handle original Place data structure
-    return Place(
-      id: json['_id'].toString(),
-      name: json['name'],
-      categories: List<String>.from(json['categories'] ?? []),
-      imageUrl: json['imageUrl'],
-      description: json['description'],
-      type: json['type'] is int
-          ? FilterType.values[json['type']]
-          : FilterType.religion, // default fallback
-      latitude: json['latitude'],
-      longitude: json['longitude'],
-      address: json['address'],
-    );
+    return parsedTags;
   }
 
   Map<String, dynamic> toJson() {
     return {
-      '_id': id,
+      'id': id,
       'name': name,
-      'categories': categories,
-      'imageUrl': imageUrl,
+      'tags': tags,
+      'imageLink': imageLink,
       'description': description,
-      'type': type.index,
-      'latitude': latitude,
-      'longitude': longitude,
-      'address': address,
+      'lat': lat,
+      'lon': lon,
+      'age': age,
+      'openHours': openHours,
+      'dayOff': dayOff,
     };
   }
 }

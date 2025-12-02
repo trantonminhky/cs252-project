@@ -2,8 +2,24 @@ import EventDB from '../db/EventDB.js';
 import UserDB from '../db/UserDB.js';
 import ServiceResponse from '../helper/ServiceResponse.js';
 import unwrapTyped from '../helper/unwrapTyped.js';
+import eventsData from '../../events.json' with { type: "json" };
 
 class EventService {
+	async importToDB() {
+		for (const entry of eventsData) {
+			const eventID = EventDB.autonum();
+			EventDB.set(eventID, {
+				id: eventID,
+				name: entry.name_translated,
+				description: entry.description_translated,
+				startTime: entry.s_milliseconds,
+				endTime: entry.e_milliseconds,
+				imageLink: entry.image_link,
+				participants: []
+			});
+		}
+	}
+
 	async createEvent(name, description, imageLink = null, endTime = null) {
 		if (!name) {
 			const response = new ServiceResponse(
@@ -87,6 +103,52 @@ class EventService {
 		}
 
 		EventDB.push(eventID, username, "participants");
+		const response = new ServiceResponse(
+			true,
+			200,
+			"Success"
+		);
+		return response;
+	}
+
+	async unsubscribe(username, eventID) {
+		if (!username) {
+			const response = new ServiceResponse(
+				false,
+				400,
+				"Username is required"
+			);
+			return response;
+		}
+
+		if (!eventID) {
+			const response = new ServiceResponse(
+				false,
+				400,
+				"Event ID is required"
+			);
+			return response;
+		}
+
+		if (!UserDB.has(username)) {
+			const response = new ServiceResponse(
+				false,
+				404,
+				"Username not found"
+			);
+			return response;
+		}
+
+		if (!EventDB.has(eventID)) {
+			const response = new ServiceResponse(
+				false,
+				404,
+				"Event not found"
+			);
+			return response;
+		}
+
+		EventDB.remove(eventID, username, "participants");
 		const response = new ServiceResponse(
 			true,
 			200,
