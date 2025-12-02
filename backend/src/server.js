@@ -20,7 +20,7 @@ import GeocodeRoutes from './routes/GeocodeRoutes.js';
 import ProfileRoutes from './routes/ProfileRoutes.js';
 import DBRoutes from './routes/DBRoutes.js';
 import LocationRoutes from './routes/LocationRoutes.js';
-import RecommendationRoutes from './routes/RecommendationRoutes.js
+import RecommendationRoutes from './routes/RecommendationRoutes.js';
 
 const app = express();
 const customStream = {

@@ -1,6 +1,6 @@
-const axios = require('axios');
-const ServiceResponse = require('../helper/ServiceResponse');
-const UserDB = require('../db/UserDB'); //
+import axios from 'axios';
+import ServiceResponse from '../helper/ServiceResponse.js';
+import UserDB from '../db/UserDB.js';
 
 const PYTHON_API_URL = 'http://localhost:8000/api/v1';
 
@@ -52,6 +52,7 @@ class RecommendationService {
             // 3. IMPORTANT: Update UserDB with the new state returned by Python
             if (response.data.profile_state) {
                 UserDB.set(username, response.data.profile_state, "rec_profile");
+				return new ServiceResponse(true, 200, "Feedback recorded & updated profile");
             }
 
             return new ServiceResponse(true, 200, "Feedback recorded");
@@ -62,4 +63,4 @@ class RecommendationService {
         }
     }
 }
-module.exports = new RecommendationService();
+export default new RecommendationService();
