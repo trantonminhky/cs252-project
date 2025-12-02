@@ -6,11 +6,14 @@ import "package:virtour_frontend/components/custom_text_field.dart";
 import "package:virtour_frontend/components/events_banner.dart";
 import "package:virtour_frontend/components/briefing_carousel.dart";
 import "package:virtour_frontend/screens/home_screen/region_overview.dart";
+import "package:virtour_frontend/screens/home_screen/place_overview.dart";
 import "package:virtour_frontend/screens/home_screen/search_screen.dart";
 import "package:virtour_frontend/screens/data_factories/filter_type.dart";
 import "package:virtour_frontend/providers/event_provider.dart";
 import "package:virtour_frontend/screens/data_factories/region.dart";
+import "package:virtour_frontend/screens/data_factories/place.dart";
 import "package:virtour_frontend/screens/data_factories/data_service.dart";
+import "package:virtour_frontend/constants/userinfo.dart";
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -22,15 +25,16 @@ class HomeScreen extends ConsumerStatefulWidget {
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   final TextEditingController _searchController = TextEditingController();
   final RegionService _regionService = RegionService();
+  final UserInfo _userInfo = UserInfo();
 
-  List<Region> _topRegions = [];
-  bool _isLoadingRegions = false;
+  List<Place> _topDestinations = [];
+  bool _isLoadingDestinations = false;
   String? _errorMessage;
 
   @override
   void initState() {
     super.initState();
-    _fetchTopRegions();
+    _fetchTopDestinations();
   }
 
   @override
@@ -39,47 +43,53 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     super.dispose();
   }
 
-  Future<void> _fetchTopRegions() async {
+  Future<void> _fetchTopDestinations() async {
     setState(() {
-      _isLoadingRegions = true;
+      _isLoadingDestinations = true;
       _errorMessage = null;
     });
 
     try {
-      final regions = <Region>[];
-      final regionIds = [
-        'sg',
-      ];
+      final username =
+          _userInfo.username.isNotEmpty ? _userInfo.username : 'guest';
 
-      for (final id in regionIds) {
+      // Use default location (Ho Chi Minh City center) - can be replaced with user's actual location
+      const double lat = 10.8231;
+      const double lon = 106.6297;
+
+      final locationIds =
+          await _regionService.fetchRecommendations(username, lat, lon);
+
+      final places = <Place>[];
+      for (final id in locationIds) {
         try {
-          final region = await _regionService.getRegionbyId(id);
-          regions.add(region);
+          final place = await _regionService.fetchPlacebyId(id);
+          places.add(place);
         } catch (e) {
-          print('Error fetching region $id: $e');
+          print('Error fetching place $id: $e');
         }
       }
 
       setState(() {
-        _topRegions = regions;
-        _isLoadingRegions = false;
+        _topDestinations = places;
+        _isLoadingDestinations = false;
       });
     } catch (e) {
       setState(() {
-        _errorMessage = 'Failed to load regions: $e';
-        _isLoadingRegions = false;
+        _errorMessage = 'Failed to load recommendations: $e';
+        _isLoadingDestinations = false;
       });
 
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to load regions: $e')),
+          SnackBar(content: Text('Failed to load recommendations: $e')),
         );
       }
     }
   }
 
   Widget _buildTopDestinations() {
-    if (_isLoadingRegions) {
+    if (_isLoadingDestinations) {
       return Container(
         height: 320,
         alignment: Alignment.center,
@@ -87,7 +97,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       );
     }
 
-    if (_errorMessage != null || _topRegions.isEmpty) {
+    if (_errorMessage != null || _topDestinations.isEmpty) {
       return Container(
         height: 320,
         alignment: Alignment.center,
@@ -97,13 +107,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             const Icon(Icons.error_outline, size: 48, color: Colors.grey),
             const SizedBox(height: 8),
             Text(
-              _errorMessage ?? 'No regions available',
+              _errorMessage ?? 'No recommendations available',
               style: const TextStyle(color: Colors.grey),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 8),
             TextButton(
-              onPressed: _fetchTopRegions,
+              onPressed: _fetchTopDestinations,
               child: const Text('Retry'),
             ),
           ],
@@ -114,24 +124,22 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     return VerticalBriefingCarousel(
       height: 320,
       autoPlay: true,
-      items: _topRegions.map((region) {
+      items: _topDestinations.map((place) {
         return GestureDetector(
           onTap: () {
             Navigator.push(
               context,
               CupertinoPageRoute(
-                builder: (context) => RegionOverview(
-                  region: region,
-                  currentFilter: FilterType.regionOverview,
-                ),
+                builder: (context) => PlaceOverview(place: place),
               ),
             );
           },
           child: Briefing(
             size: BriefingSize.vert,
-            title: region.name,
-            category: "Văn hóa",
-            imageUrl: region.imageUrl,
+            title: place.name,
+            category:
+                place.categories.isNotEmpty ? place.categories.first : "Place",
+            imageUrl: place.imageUrl,
           ),
         );
       }).toList(),

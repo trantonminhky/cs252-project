@@ -51,8 +51,10 @@ class TripScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final places = ref.watch(tripProvider);
-    final participatedEvents = ref.watch(participatedEventsProvider);
+    final placesAsync = ref.watch(tripProvider);
+    final places = placesAsync.value ?? {};
+    final participatedEventsAsync = ref.watch(participatedEventsProvider);
+    final participatedEvents = participatedEventsAsync.value ?? {};
     final hasContent = places.isNotEmpty || participatedEvents.isNotEmpty;
 
     return Scaffold(

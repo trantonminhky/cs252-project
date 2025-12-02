@@ -88,13 +88,15 @@ need functions to:
 
   Future<Place> fetchPlacebyId(String placeId) async {
     try {
-      final response = await dio.get('/places/$placeId');
+      final response = await dio.get('/location/find-by-id', queryParameters: {
+        'id': placeId,
+      });
 
       switch (response.statusCode) {
         case 200:
           final data = response.data;
           if (data['success']) {
-            final placeData = data['data'] ?? data['payload']?['data'];
+            final placeData = data['payload']['data'];
 
             // Update token if provided
             if (data['token'] != null) {
@@ -332,6 +334,85 @@ need functions to:
     } on DioException catch (e) {
       print('Error fetching events: ${e.message}');
       return {};
+    }
+  }
+
+  // Fetch subscribed events for a user
+  Future<List<Map<String, dynamic>>> fetchSubscribedEvents(
+      String username) async {
+    try {
+      final response =
+          await dio.get('/event/get-by-username', queryParameters: {
+        'username': username,
+      });
+
+      if (response.statusCode == 200) {
+        final data = response.data;
+        if (data['success'] == true) {
+          return List<Map<String, dynamic>>.from(data['payload']['data']);
+        }
+      }
+      return [];
+    } on DioException catch (e) {
+      print('Error fetching subscribed events: ${e.message}');
+      return [];
+    }
+  }
+
+  // Fetch ML-based recommendations for a user
+  Future<List<String>> fetchRecommendations(
+      String username, double lat, double lon) async {
+    try {
+      final response = await dio.get('/recommendation', queryParameters: {
+        'username': username,
+        'lat': lat,
+        'lon': lon,
+      });
+
+      if (response.statusCode == 200) {
+        final data = response.data;
+        if (data['success'] == true) {
+          final recommendations = data['payload']['data']['recommendations'];
+          if (recommendations is List) {
+            // Extract the 'id' field from each recommendation object
+            return recommendations
+                .map((item) => item['id'].toString())
+                .toList();
+          }
+        }
+      }
+      return [];
+    } on DioException catch (e) {
+      print('Error fetching recommendations: ${e.message}');
+      return [];
+    }
+  }
+
+  // Create a new event
+  Future<Map<String, dynamic>?> createEvent({
+    required String name,
+    required String description,
+    String? imageLink,
+    int? endTime,
+  }) async {
+    try {
+      final response = await dio.post('/event/create', data: {
+        'name': name,
+        'description': description,
+        'imageLink': imageLink,
+        'endTime': endTime,
+      });
+
+      if (response.statusCode == 201) {
+        final data = response.data;
+        if (data['success'] == true) {
+          return data['payload']['data'];
+        }
+      }
+      return null;
+    } on DioException catch (e) {
+      print('Error creating event: ${e.message}');
+      return null;
     }
   }
 }

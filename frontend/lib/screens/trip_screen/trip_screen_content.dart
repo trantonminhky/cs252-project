@@ -4,6 +4,9 @@ import 'package:intl/intl.dart';
 import 'package:virtour_frontend/providers/trip_provider.dart';
 import 'package:virtour_frontend/providers/participated_events_provider.dart';
 import 'package:virtour_frontend/screens/data_factories/event.dart';
+import 'package:virtour_frontend/screens/data_factories/data_service.dart';
+import 'package:virtour_frontend/screens/trip_screen/create_event_form.dart';
+import 'package:virtour_frontend/constants/userinfo.dart';
 
 class TripScreenContent extends ConsumerStatefulWidget {
   const TripScreenContent({super.key});
@@ -28,12 +31,58 @@ class _TripScreenContentState extends ConsumerState<TripScreenContent>
     super.dispose();
   }
 
+  Future<void> _showCreateEventDialog() async {
+    final event = await showDialog<Event>(
+      context: context,
+      builder: (context) => const CreateEventForm(),
+    );
+
+    if (event != null) {
+      // Call the backend API to create the event
+      final regionService = RegionService();
+      final result = await regionService.createEvent(
+        name: event.name,
+        description: event.description,
+        imageLink: event.imageUrl,
+        endTime: event.endTime.millisecondsSinceEpoch,
+      );
+
+      if (result != null && mounted) {
+        // Show success message
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Event "${event.name}" created successfully!'),
+            backgroundColor: Colors.green,
+            duration: const Duration(seconds: 2),
+          ),
+        );
+
+        // Subscribe the user to the event
+        final userInfo = UserInfo();
+        final username =
+            userInfo.username.isNotEmpty ? userInfo.username : 'guest';
+        await regionService.subscribeToEvent(username, result['id'].toString());
+
+        // Refresh participated events
+        ref.read(participatedEventsProvider.notifier).refresh();
+      } else if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Failed to create event'),
+            backgroundColor: Colors.red,
+            duration: Duration(seconds: 2),
+          ),
+        );
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final places = ref.watch(tripProvider);
-    final placesList = places.toList();
-    final participatedEvents = ref.watch(participatedEventsProvider);
-    final eventsList = participatedEvents.toList();
+    final placesAsync = ref.watch(tripProvider);
+    final placesList = placesAsync.value?.toList() ?? [];
+    final participatedEventsAsync = ref.watch(participatedEventsProvider);
+    final eventsList = participatedEventsAsync.value?.toList() ?? [];
 
     return Column(
       children: [
@@ -170,21 +219,35 @@ class _TripScreenContentState extends ConsumerState<TripScreenContent>
                                   child: SizedBox(
                                     width: double.infinity,
                                     height: 100,
-                                    // should be Image.network once data is ready
-                                    child: Image.asset(
-                                      place.imageUrl,
-                                      fit: BoxFit.cover,
-                                      errorBuilder:
-                                          (context, error, stackTrace) {
-                                        return Container(
-                                          color: Colors.grey[300],
-                                          child: const Icon(
-                                            Icons.image_not_supported,
-                                            size: 40,
+                                    child: place.imageUrl.startsWith('http')
+                                        ? Image.network(
+                                            place.imageUrl,
+                                            fit: BoxFit.cover,
+                                            errorBuilder:
+                                                (context, error, stackTrace) {
+                                              return Container(
+                                                color: Colors.grey[300],
+                                                child: const Icon(
+                                                  Icons.image_not_supported,
+                                                  size: 40,
+                                                ),
+                                              );
+                                            },
+                                          )
+                                        : Image.asset(
+                                            place.imageUrl,
+                                            fit: BoxFit.cover,
+                                            errorBuilder:
+                                                (context, error, stackTrace) {
+                                              return Container(
+                                                color: Colors.grey[300],
+                                                child: const Icon(
+                                                  Icons.image_not_supported,
+                                                  size: 40,
+                                                ),
+                                              );
+                                            },
                                           ),
-                                        );
-                                      },
-                                    ),
                                   ),
                                 ),
                                 const SizedBox(height: 7),
@@ -214,56 +277,94 @@ class _TripScreenContentState extends ConsumerState<TripScreenContent>
                       },
                     ),
               // Events tab
-              eventsList.isEmpty
-                  ? const Center(
-                      child: Text(
-                        'No events participated yet',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontFamily: "BeVietnamPro",
+              Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: TextButton(
+                        style: TextButton.styleFrom(
+                          backgroundColor: const Color(0xFFD72323),
+                          shape: RoundedRectangleBorder(
+                            side: const BorderSide(
+                              color: Colors.black,
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.circular(13),
+                          ),
+                        ),
+                        onPressed: () => _showCreateEventDialog(),
+                        child: const Padding(
+                          padding: EdgeInsets.symmetric(vertical: 12),
+                          child: Text(
+                            "Create New Event",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontFamily: "BeVietnamPro",
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
                         ),
                       ),
-                    )
-                  : ListView.builder(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 8),
-                      itemCount: eventsList.length,
-                      itemBuilder: (context, index) {
-                        final event = eventsList[index];
-                        return Dismissible(
-                          key: Key(event.id),
-                          direction: DismissDirection.endToStart,
-                          onDismissed: (direction) {
-                            ref
-                                .read(participatedEventsProvider.notifier)
-                                .removeEvent(event);
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text('Removed from ${event.name}'),
-                                duration: const Duration(seconds: 2),
-                              ),
-                            );
-                          },
-                          background: Container(
-                            alignment: Alignment.centerRight,
-                            padding: const EdgeInsets.only(right: 20),
-                            decoration: BoxDecoration(
-                              color: Colors.red,
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: const Icon(
-                              Icons.delete,
-                              color: Colors.white,
-                              size: 32,
-                            ),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.only(bottom: 16.0),
-                            child: _buildEventCard(event),
-                          ),
-                        );
-                      },
                     ),
+                  ),
+                  Expanded(
+                    child: eventsList.isEmpty
+                        ? const Center(
+                            child: Text(
+                              'No events participated yet',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontFamily: "BeVietnamPro",
+                              ),
+                            ),
+                          )
+                        : ListView.builder(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 8),
+                            itemCount: eventsList.length,
+                            itemBuilder: (context, index) {
+                              final event = eventsList[index];
+                              return Dismissible(
+                                key: Key(event.id),
+                                direction: DismissDirection.endToStart,
+                                onDismissed: (direction) {
+                                  ref
+                                      .read(participatedEventsProvider.notifier)
+                                      .removeEvent(event);
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content:
+                                          Text('Removed from ${event.name}'),
+                                      duration: const Duration(seconds: 2),
+                                    ),
+                                  );
+                                },
+                                background: Container(
+                                  alignment: Alignment.centerRight,
+                                  padding: const EdgeInsets.only(right: 20),
+                                  decoration: BoxDecoration(
+                                    color: Colors.red,
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: const Icon(
+                                    Icons.delete,
+                                    color: Colors.white,
+                                    size: 32,
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(bottom: 16.0),
+                                  child: _buildEventCard(event),
+                                ),
+                              );
+                            },
+                          ),
+                  ),
+                ],
+              ),
               // Itinerary tab (temporary version)
               Padding(
                 padding: const EdgeInsets.only(

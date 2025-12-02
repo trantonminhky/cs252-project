@@ -13,8 +13,9 @@ class EventDetailScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final participatedAsync = ref.watch(participatedEventsProvider);
     final isParticipating =
-        ref.watch(participatedEventsProvider).any((e) => e.id == event.id);
+        participatedAsync.value?.any((e) => e.id == event.id) ?? false;
 
     final bool isAssetImage = event.imageUrl.startsWith('../assets/') ||
         event.imageUrl.startsWith('assets/');
