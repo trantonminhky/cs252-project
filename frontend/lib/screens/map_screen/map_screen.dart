@@ -2,9 +2,12 @@ import "package:flutter/material.dart";
 import "package:flutter_map/flutter_map.dart";
 import "package:latlong2/latlong.dart";
 import "package:virtour_frontend/components/briefings.dart";
+import "package:virtour_frontend/screens/data_factories/place.dart";
 
 class MapScreen extends StatefulWidget {
-  const MapScreen({super.key});
+  final Place? place;
+
+  const MapScreen({super.key, this.place});
 
   @override
   State<MapScreen> createState() => _MapScreenState();
@@ -13,8 +16,29 @@ class MapScreen extends StatefulWidget {
 class _MapScreenState extends State<MapScreen> {
   final MapController _mapController = MapController();
 
-  // Bà Thiên Hậu Pagoda coordinates (example location)
-  final LatLng _pagodaLocation = const LatLng(10.7549, 106.6551);
+  // Default location (Bà Thiên Hậu Pagoda)
+  late LatLng _location;
+  late String _locationName;
+  late String _locationSubtitle;
+  late String _locationImage;
+
+  @override
+  void initState() {
+    super.initState();
+    // Use place data if provided, otherwise use default
+    if (widget.place != null) {
+      _location = LatLng(widget.place!.lat, widget.place!.lon);
+      _locationName = widget.place!.name;
+      _locationSubtitle = widget.place!.address;
+      _locationImage = widget.place!.imageLink;
+    } else {
+      _location = const LatLng(10.7549, 106.6551);
+      _locationName = 'Bà Thiên Hậu Pagoda';
+      _locationSubtitle =
+          '710 Nguyễn Trãi, Phường 11, Quận 5, Thành phố Hồ Chí Minh, Vietnam';
+      _locationImage = 'assets/images/places/Ba_Thien_Hau.jpg';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +50,7 @@ class _MapScreenState extends State<MapScreen> {
           FlutterMap(
             mapController: _mapController,
             options: MapOptions(
-              initialCenter: _pagodaLocation,
+              initialCenter: _location,
               initialZoom: 10.0,
               minZoom: 5.0,
               maxZoom: 18.0,
@@ -48,7 +72,7 @@ class _MapScreenState extends State<MapScreen> {
               MarkerLayer(
                 markers: [
                   Marker(
-                    point: _pagodaLocation,
+                    point: _location,
                     width: 48,
                     height: 48,
                     child: Container(
@@ -79,12 +103,11 @@ class _MapScreenState extends State<MapScreen> {
           Positioned(
             top: 48,
             left: (MediaQuery.of(context).size.width - 372) / 2,
-            child: const Briefing(
+            child: Briefing(
               size: BriefingSize.horiz,
-              title: 'Bà Thiên Hậu Pagoda',
-              subtitle:
-                  '710 Nguyễn Trãi, Phường 11, Quận 5, Thành phố Hồ Chí Minh, Vietnam',
-              imageUrl: 'assets/images/places/Ba_Thien_Hau.jpg',
+              title: _locationName,
+              subtitle: _locationSubtitle,
+              imageUrl: _locationImage,
             ),
           ),
         ],

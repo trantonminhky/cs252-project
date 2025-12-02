@@ -7,7 +7,9 @@ import "package:virtour_frontend/screens/home_screen/helpers.dart";
 import "package:virtour_frontend/screens/home_screen/search_screen.dart";
 import "package:virtour_frontend/providers/trip_provider.dart";
 import "package:virtour_frontend/screens/data_factories/review.dart";
-import "package:virtour_frontend/services/data_service.dart";
+import "package:virtour_frontend/services/place_service.dart";
+import "package:virtour_frontend/services/geocode_service.dart";
+import "package:virtour_frontend/screens/map_screen/map_screen.dart";
 
 class PlaceOverview extends ConsumerWidget {
   final Place place;
@@ -130,7 +132,54 @@ class PlaceOverview extends ConsumerWidget {
               const SizedBox(height: 48),
               Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    // Show loading indicator
+                    showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (context) => const Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    );
+
+                    try {
+                      // Get address from reverse geocoding
+                      final geocodeService = GeocodeService();
+                      final address = await geocodeService.reverseGeocode(
+                        place.lat,
+                        place.lon,
+                      );
+
+                      // Assign address to place object
+                      place.address = address ?? '${place.lat}, ${place.lon}';
+
+                      // Close loading dialog
+                      if (context.mounted) {
+                        Navigator.pop(context);
+
+                        // Navigate to map screen with place data
+                        Navigator.push(
+                          context,
+                          CupertinoPageRoute(
+                            builder: (context) => MapScreen(place: place),
+                          ),
+                        );
+                      }
+                    } catch (e) {
+                      // Close loading dialog
+                      if (context.mounted) {
+                        Navigator.pop(context);
+
+                        // Show error message
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('Error: ${e.toString()}'),
+                            backgroundColor: Colors.red,
+                          ),
+                        );
+                      }
+                    }
+                  },
                   style: TextButton.styleFrom(
                     backgroundColor: Colors.white,
                     padding: const EdgeInsets.symmetric(
