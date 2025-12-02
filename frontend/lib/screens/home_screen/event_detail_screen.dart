@@ -3,6 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:virtour_frontend/screens/data_factories/event.dart';
 import 'package:virtour_frontend/providers/participated_events_provider.dart';
+import 'package:virtour_frontend/providers/trip_provider.dart';
+import 'package:virtour_frontend/screens/data_factories/place.dart';
+import 'package:virtour_frontend/screens/data_factories/filter_type.dart';
 
 class EventDetailScreen extends ConsumerWidget {
   final Event event;
@@ -281,12 +284,29 @@ class EventDetailScreen extends ConsumerWidget {
             ),
             onPressed: () {
               // Add event to participated events
-              ref.read(participatedEventsProvider.notifier).addEvent(event);
+              //ref.read(participatedEventsProvider.notifier).addEvent(event);
+
+              // Create a mock place based on event location
+              final mockPlace = Place(
+                id: 'event_${event.id}',
+                name: event.name,
+                categories: ['Event', 'Cultural'],
+                imageUrl: event.imageUrl,
+                description: event.description,
+                type: FilterType.religion,
+                latitude: 1.3521, // Default Singapore coordinates
+                longitude: 103.8198,
+                address: event.location,
+              );
+
+              // Add mock place to trip
+              ref.read(tripProvider.notifier).addPlace(mockPlace);
 
               Navigator.of(context).pop();
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text('Successfully registered for ${event.name}!'),
+                  content: Text(
+                      'Successfully registered for ${event.name}! Place added to Saves.'),
                   backgroundColor: const Color(0xFF4CAF50),
                   duration: const Duration(seconds: 2),
                 ),

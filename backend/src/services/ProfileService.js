@@ -15,7 +15,7 @@ function renewToken(user) {
 	let newToken = generateToken32();
 	let newCreatedAt = Date.now();
 
-	if (check(oldToken) !== "valid") { // if token expires
+	if (SessionTokensDB.check(oldToken) !== "valid") { // if token expires
 		UserDB.set(user, newToken, "sessionToken.data");
 		UserDB.set(user, newCreatedAt, "sessionToken.createdAt");
 
@@ -107,7 +107,7 @@ class ProfileService {
 				"Success",
 				{
 					token: UserDB.get(user, 'sessionToken.data'),
-					createdAt: (new Date(get(user, 'sessionToken.createdAt'))).toString()
+					createdAt: (new Date(UserDB.get(user, 'sessionToken.createdAt'))).toString()
 				}
 			);
 
@@ -159,13 +159,17 @@ class ProfileService {
 
 		try {
 			const token = renewToken(user);
+			const isTourist = UserDB.get(user, 'isTourist');
+			const preferences = UserDB.get(user, 'preferences');
 			const response = new ServiceResponse(
 				true,
 				200,
 				"Success",
 				{
 					token: token.data,
-					createdAt: (new Date(token.createdAt)).toString()
+					createdAt: (new Date(token.createdAt)).toString(),
+					isTourist: isTourist,
+					preferences: preferences || []
 				}
 			)
 

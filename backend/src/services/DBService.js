@@ -1,6 +1,6 @@
 import { readdirSync } from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
+import { fileURLToPath, pathToFileURL } from 'url';
 import ServiceResponse from '../helper/ServiceResponse.js';
 import unwrapTyped from '../helper/unwrapTyped.js';
 
@@ -16,7 +16,9 @@ class DBService {
 		const dir = path.join(__dirname, '..', "db");
 		this.databases = Promise.all(
 			readdirSync(dir).map(async file => {
-				const mod = await import(path.join(dir, file));
+				const filePath = path.join(dir, file);
+				const fileUrl = pathToFileURL(filePath).href;
+				const mod = await import(fileUrl);
 				return mod.default ?? mod;
 			})
 		);
