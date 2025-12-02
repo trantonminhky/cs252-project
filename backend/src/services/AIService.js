@@ -55,7 +55,7 @@ class AIService {
 		}
 
 		try {
-			const client = await Client.connect("JustscrAPIng/cultour-filter-search");
+			const client = await Client.connect("JustscrAPIng/cultour-filter-search-en");
 			const result = await client.predict("/extract_tags", {
 				user_text: text
 			});
