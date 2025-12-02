@@ -15,7 +15,6 @@ class RecommendationService {
             // 1. Get existing profile state from DB (or null if new user)
             // 'rec_profile' is the specific key we use to store the AI data
             const profileState = UserDB.get(username, "rec_profile") || null;
-
             // 2. Send to Python with the profile_state
             const response = await axios.post(`${PYTHON_API_URL}/recommend`, {
                 user_id: username,
@@ -23,7 +22,6 @@ class RecommendationService {
                 current_lon: parseFloat(lon),
                 profile_state: profileState //
             });
-
             return new ServiceResponse(true, 200, "Success", response.data);
         } catch (error) {
             console.error("Rec Engine Error:", error.message);
@@ -52,6 +50,7 @@ class RecommendationService {
             // 3. IMPORTANT: Update UserDB with the new state returned by Python
             if (response.data.profile_state) {
                 UserDB.set(username, response.data.profile_state, "rec_profile");
+                return new ServiceResponse(true, 200, "Feedback recorded & updated profile");
             }
 
             return new ServiceResponse(true, 200, "Feedback recorded");

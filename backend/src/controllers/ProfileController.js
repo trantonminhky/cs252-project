@@ -89,6 +89,33 @@ class ProfileController {
               next(error);
            }
     }
+	async addSavedPlace(req, res, next) {
+		try {
+			const { username, placeId } = req.body;
+			const response = await ProfileService.addSavedPlace(username, placeId);
+			res.status(response.statusCode).json(response.get());
+		} catch (error) {
+			next(error);
+		}
+	}
+	async removeSavedPlace(req, res, next) {
+		try {
+			const { username, placeId } = req.body;
+			const response = await ProfileService.removeSavedPlace(username, placeId);
+			res.status(response.statusCode).json(response.get());
+		} catch (error) {
+			next(error);
+		}
+	}
+	async getSavedPlaces(req, res, next) {
+		try {
+			const { username } = req.query;
+			const response = await ProfileService.getSavedPlaces(username);
+			res.status(response.statusCode).json(response.get());
+		} catch (error) {
+			next(error);
+		}
+	}
 }
 
 export default new ProfileController();
