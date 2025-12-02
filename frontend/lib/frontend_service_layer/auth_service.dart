@@ -1,12 +1,11 @@
 import "package:dio/dio.dart";
 import "package:shared_preferences/shared_preferences.dart";
 import "package:virtour_frontend/constants/userinfo.dart";
-import "package:virtour_frontend/services/service_exception_handler.dart";
+import "package:virtour_frontend/frontend_service_layer/service_exception_handler.dart";
 
 class AuthService {
   late final Dio _dio;
-  static const String _baseUrl =
-      "https://scenic-descending-finger-politicians.trycloudflare.com";
+  final String _baseUrl = UserInfo().tunnelUrl;
   UserInfo userInfo = UserInfo();
 
   AuthService() {
@@ -32,7 +31,7 @@ class AuthService {
 
   Future<Map<String, dynamic>> signIn(String username, String password) async {
     try {
-      final response = await _dio.post("/api/profile/login",
+      final response = await _dio.post("$_baseUrl/api/profile/login",
           data: {"username": username, "password": password});
       final body = response.data as Map<String, dynamic>;
 
@@ -43,7 +42,6 @@ class AuthService {
           final data = payload["data"] as Map<String, dynamic>;
           final token = data["token"] as String;
           await prefs.setString("auth_token", token);
-          UserInfo().userSessionToken = token;
           UserInfo().userType =
               data["isTourist"] ? UserType.tourist : UserType.business;
           UserInfo().preferences = List<String>.from(data["preferences"] ?? []);
@@ -62,7 +60,7 @@ class AuthService {
   Future<Map<String, dynamic>> signUp(String username, String password,
       String name, int age, bool isTourist, List<String> preferences) async {
     try {
-      final response = await _dio.post("/api/profile/register", data: {
+      final response = await _dio.post("$_baseUrl/api/profile/register", data: {
         "username": username,
         "password": password,
         "name": name,

@@ -1,6 +1,5 @@
 import "package:flutter/material.dart";
 import "package:flutter/cupertino.dart";
-import "package:virtour_frontend/components/bottom_bar.dart";
 import "package:virtour_frontend/components/briefings.dart";
 import "package:virtour_frontend/components/cards.dart";
 import "package:virtour_frontend/screens/home_screen/place_overview.dart";
@@ -8,7 +7,7 @@ import "package:virtour_frontend/screens/home_screen/helpers.dart";
 import "package:virtour_frontend/screens/data_factories/filter_type.dart";
 import "package:virtour_frontend/screens/data_factories/region.dart";
 import "package:virtour_frontend/screens/data_factories/place.dart";
-import "package:virtour_frontend/services/data_service.dart";
+import "package:virtour_frontend/frontend_service_layer/place_service.dart";
 
 class RegionOverview extends StatefulWidget {
   final Region region;
@@ -40,7 +39,8 @@ class _RegionOverviewState extends State<RegionOverview> {
   void initState() {
     super.initState();
     _currentFilter = widget.currentFilter;
-    _loadPlaces();
+    // Removed automatic data loading on navigation
+    // Call _loadPlaces() manually when needed (e.g., filter selection)
   }
 
   Future<void> _loadPlaces() async {
@@ -285,9 +285,6 @@ class _RegionOverviewState extends State<RegionOverview> {
                       ],
                     ),
                   ),
-      ),
-      bottomNavigationBar: const BottomNavBar(
-        selectedIndex: 0, // Home screen (region overview is part of home flow)
       ),
     );
   }

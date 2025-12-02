@@ -2,14 +2,15 @@ import "package:flutter/material.dart";
 import "package:flutter/cupertino.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:virtour_frontend/components/briefings.dart";
+import "package:virtour_frontend/frontend_service_layer/review_service.dart";
 import "package:virtour_frontend/screens/data_factories/place.dart";
 import "package:virtour_frontend/screens/home_screen/helpers.dart";
 import "package:virtour_frontend/screens/home_screen/search_screen.dart";
 import "package:virtour_frontend/providers/trip_provider.dart";
 import "package:virtour_frontend/screens/data_factories/review.dart";
-import "package:virtour_frontend/services/place_service.dart";
-import "package:virtour_frontend/services/geocode_service.dart";
-import "package:virtour_frontend/screens/map_screen/map_screen.dart";
+import "package:virtour_frontend/frontend_service_layer/geocode_service.dart";
+import "package:virtour_frontend/providers/navigation_provider.dart";
+import "package:virtour_frontend/providers/selected_place_provider.dart";
 
 class PlaceOverview extends ConsumerWidget {
   final Place place;
@@ -55,7 +56,7 @@ class PlaceOverview extends ConsumerWidget {
                   child: Briefing(
                     size: BriefingSize.full,
                     title: place.name,
-                    category: 'PLACE',
+                    category: 'place',
                     subtitle: '${place.lat}, ${place.lon}',
                     imageUrl: place.imageLink,
                   ),
@@ -75,21 +76,21 @@ class PlaceOverview extends ConsumerWidget {
                     final category = place.tags.values
                         .expand((list) => list)
                         .elementAt(index);
-                    final color = getCategoryColor(category.name);
+                    final color = getCategoryColor(category);
                     return GestureDetector(
                       onTap: () {
                         Navigator.push(
                           context,
                           CupertinoPageRoute(
                             builder: (context) => SearchScreen(
-                              initialSelectedCategory: category.name,
+                              initialSelectedCategory: category,
                             ),
                           ),
                         );
                       },
                       child: Chip(
                         label: Text(
-                          category.name,
+                          category,
                           style: const TextStyle(
                             fontFamily: "BeVietnamPro",
                             fontWeight: FontWeight.w500,
@@ -157,13 +158,17 @@ class PlaceOverview extends ConsumerWidget {
                       if (context.mounted) {
                         Navigator.pop(context);
 
-                        // Navigate to map screen with place data
-                        Navigator.push(
-                          context,
-                          CupertinoPageRoute(
-                            builder: (context) => MapScreen(place: place),
-                          ),
-                        );
+                        // Set the selected place for the map screen
+                        ref
+                            .read(selectedPlaceProvider.notifier)
+                            .setPlace(place);
+
+                        // Navigate to map screen via bottom bar
+                        ref.read(navigationProvider.notifier).setIndex(2);
+
+                        // Pop back to home screen first so bottom nav works correctly
+                        Navigator.of(context)
+                            .popUntil((route) => route.isFirst);
                       }
                     } catch (e) {
                       // Close loading dialog
@@ -250,7 +255,7 @@ class PlaceOverview extends ConsumerWidget {
               ),
               const SizedBox(height: 16),
               FutureBuilder<List<Review>>(
-                future: RegionService().getReviewsForPlace(place.id),
+                future: ReviewService().getReviews(place.name),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(

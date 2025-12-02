@@ -1,19 +1,18 @@
 import "package:flutter/material.dart";
 import "package:flutter_map/flutter_map.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:latlong2/latlong.dart";
 import "package:virtour_frontend/components/briefings.dart";
-import "package:virtour_frontend/screens/data_factories/place.dart";
+import "package:virtour_frontend/providers/selected_place_provider.dart";
 
-class MapScreen extends StatefulWidget {
-  final Place? place;
-
-  const MapScreen({super.key, this.place});
+class MapScreen extends ConsumerStatefulWidget {
+  const MapScreen({super.key});
 
   @override
-  State<MapScreen> createState() => _MapScreenState();
+  ConsumerState<MapScreen> createState() => _MapScreenState();
 }
 
-class _MapScreenState extends State<MapScreen> {
+class _MapScreenState extends ConsumerState<MapScreen> {
   final MapController _mapController = MapController();
 
   // Default location (Bà Thiên Hậu Pagoda)
@@ -25,12 +24,19 @@ class _MapScreenState extends State<MapScreen> {
   @override
   void initState() {
     super.initState();
-    // Use place data if provided, otherwise use default
-    if (widget.place != null) {
-      _location = LatLng(widget.place!.lat, widget.place!.lon);
-      _locationName = widget.place!.name;
-      _locationSubtitle = widget.place!.address;
-      _locationImage = widget.place!.imageLink;
+    // Initial setup will be done in build using provider
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final selectedPlace = ref.watch(selectedPlaceProvider);
+
+    // Use selected place if provided, otherwise use default
+    if (selectedPlace != null) {
+      _location = LatLng(selectedPlace.lat, selectedPlace.lon);
+      _locationName = selectedPlace.name;
+      _locationSubtitle = selectedPlace.address;
+      _locationImage = selectedPlace.imageLink;
     } else {
       _location = const LatLng(10.7549, 106.6551);
       _locationName = 'Bà Thiên Hậu Pagoda';
@@ -38,10 +44,6 @@ class _MapScreenState extends State<MapScreen> {
           '710 Nguyễn Trãi, Phường 11, Quận 5, Thành phố Hồ Chí Minh, Vietnam';
       _locationImage = 'assets/images/places/Ba_Thien_Hau.jpg';
     }
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(

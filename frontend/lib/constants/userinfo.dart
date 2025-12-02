@@ -14,7 +14,10 @@ class UserInfo {
     _instance.preferences = preferences;
   }
 
-  String userSessionToken = "";
+  String userSessionToken = 'MIKU_MIKU_OO_EE_OO';
   UserType userType = UserType.tourist;
   List<String> preferences = [];
+  //for the sake of convenience
+  final String tunnelUrl =
+      'https://chelsea-scuba-bureau-imposed.trycloudflare.com';
 }

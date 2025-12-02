@@ -3,14 +3,13 @@ import "package:virtour_frontend/screens/data_factories/review.dart";
 import "package:dio/dio.dart";
 import "package:shared_preferences/shared_preferences.dart";
 import "package:virtour_frontend/constants/userinfo.dart";
-import "package:virtour_frontend/services/service_exception_handler.dart";
+import "package:virtour_frontend/frontend_service_layer/service_exception_handler.dart";
 
 //this is an interface for fetching region data from database
 class RegionService {
   static final RegionService _instance = RegionService._internal();
   late final Dio dio;
-  static const String _baseUrl =
-      "https://scenic-descending-finger-politicians.trycloudflare.com";
+  final String _baseUrl = UserInfo().tunnelUrl;
   late final UserInfo userInfo;
 
   factory RegionService() {
@@ -24,6 +23,7 @@ class RegionService {
         receiveTimeout: const Duration(seconds: 10),
         headers: {
           "Content-Type": "application/json",
+          'Cache-Control': 'no-cache',
         },
       ),
     );
@@ -54,14 +54,26 @@ class RegionService {
         'include': includeFilter.join(','),
       };
       final response = await dio.get(
-        '/api/location/search',
+        '$_baseUrl/api/location/search',
         queryParameters: queryParams,
+        options: Options(
+          headers: {
+            'Cache-Control': 'no-cache, no-store, must-revalidate',
+            'Pragma': 'no-cache',
+            'Expires': '0',
+          },
+        ),
       );
       final body = response.data as Map<String, dynamic>;
       switch (response.statusCode) {
         case 200:
-          final placesData = body["payload"]["data"] as List<dynamic>;
-          return placesData.map<Place>((json) => Place.fromJson(json)).toList();
+          // Extract the locations array from payload.data
+          final locations = body['payload']?['data'] as List? ?? [];
+          final placesList = locations
+              .map((location) => Place.fromJson(
+                  Map<String, dynamic>.from(location['value'] as Map)))
+              .toList();
+          return placesList;
         default:
           final message = body["payload"]["message"] as String;
           throw Exception('Failed to load filtered places: $message');
@@ -70,41 +82,6 @@ class RegionService {
       throw ServiceExceptionHandler.handleDioError(e);
     } catch (e) {
       throw Exception('Failed to load filtered places: $e');
-    }
-  }
-
-  Future<List<Review>> getReviewsForPlace(String placeId) async {
-    try {
-      final response = await dio.get('/api/locations/reviews/$placeId');
-
-      switch (response.statusCode) {
-        case 200:
-          final data = response.data;
-          if (data['success']) {
-            final reviewsData = data['reviews'] ?? [];
-
-            // Update token if provided
-            if (data['token'] != null) {
-              final prefs = await SharedPreferences.getInstance();
-              await prefs.setString("auth_token", data['token']);
-              userInfo.userSessionToken = data['token'];
-            }
-
-            return reviewsData
-                .map<Review>((json) => Review.fromJson(json))
-                .toList();
-          } else {
-            throw Exception(data['message'] ?? 'Failed to load reviews');
-          }
-        case 404:
-          throw Exception('Reviews not found');
-        default:
-          throw Exception('Unexpected response: ${response.statusCode}');
-      }
-    } on DioException catch (e) {
-      throw ServiceExceptionHandler.handleDioError(e);
-    } catch (e) {
-      throw Exception('Failed to load reviews: $e');
     }
   }
 }

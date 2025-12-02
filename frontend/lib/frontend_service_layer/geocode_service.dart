@@ -1,13 +1,13 @@
 import "package:dio/dio.dart";
 import "package:shared_preferences/shared_preferences.dart";
+import "package:virtour_frontend/constants/userinfo.dart";
 import "package:virtour_frontend/screens/data_factories/place.dart";
-import "package:virtour_frontend/services/service_exception_handler.dart";
+import "package:virtour_frontend/frontend_service_layer/service_exception_handler.dart";
 
 class GeocodeService {
   static final GeocodeService _instance = GeocodeService._internal();
   late final Dio dio;
-  static const String _baseUrl =
-      "https://scenic-descending-finger-politicians.trycloudflare.com";
+  final String _baseUrl = UserInfo().tunnelUrl;
 
   factory GeocodeService() {
     return _instance;
@@ -31,11 +31,9 @@ class GeocodeService {
     dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) async {
-          final prefs = await SharedPreferences.getInstance();
-          final token = prefs.getString('userinfo');
-          if (token != null) {
-            options.headers['Authorization'] = 'Bearer $token';
-          }
+          //final prefs = await SharedPreferences.getInstance();
+          final token = UserInfo().userSessionToken;
+          options.headers['Authorization'] = 'Bearer $token';
           handler.next(options);
         },
       ),
@@ -45,8 +43,11 @@ class GeocodeService {
   Future<Place?> geocodeAddress(String address) async {
     try {
       final response = await dio.get(
-        '/api/geocode/geocode',
-        queryParameters: {'address': address},
+        '$_baseUrl/api/geocode/geocode',
+        queryParameters: {
+          'address': address,
+          'credentials': UserInfo().userSessionToken
+        },
       );
       final body = response.data as Map<String, dynamic>;
       if (response.statusCode == 200 && body['place'] != null) {
@@ -65,10 +66,11 @@ class GeocodeService {
   Future<String?> reverseGeocode(double lat, double lon) async {
     try {
       final response = await dio.get(
-        '/api/geocode/reverse-geocode',
+        '$_baseUrl/api/geocode/reverse-geocode',
         queryParameters: {
           'lat': lat,
           'lon': lon,
+          'credentials': UserInfo().userSessionToken,
         },
       );
       final body = response.data as Map<String, dynamic>;

@@ -1,16 +1,15 @@
-import "package:virtour_frontend/screens/data_factories/filter_type.dart";
-
 class Place {
   final String id;
   final String name;
-  final Map<FilterType, List<CategoryType>> tags;
+  final Map<String, List<String>> tags;
   final String imageLink;
   final double lat;
   final double lon;
   final String description;
   final int age;
-  final String openHours;
-  final String dayOff;
+  final List<String>? openHours;
+  final String? dayOff;
+  late String address;
 
   Place({
     required this.id,
@@ -21,32 +20,18 @@ class Place {
     required this.lat,
     required this.lon,
     required this.age,
-    required this.openHours,
-    required this.dayOff,
+    this.openHours,
+    this.dayOff,
   });
 
   factory Place.fromJson(Map<String, dynamic> json) {
-    // Parse tags from JSON
-    Map<FilterType, List<CategoryType>> parsedTags = {};
+    Map<String, List<String>> parsedTags = {};
 
     if (json['tags'] != null && json['tags'] is Map) {
       final tagsMap = json['tags'] as Map<String, dynamic>;
       tagsMap.forEach((key, value) {
-        // Convert string key to FilterType enum
-        final filterType = FilterType.values.firstWhere(
-          (e) => e.name == key,
-          orElse: () => FilterType.regionOverview,
-        );
-
-        // Convert list of strings to CategoryType enums
-        final categories = (value as List)
-            .map((cat) => CategoryType.values.firstWhere(
-                  (e) => e.name == cat.toString(),
-                  orElse: () => CategoryType.landmark,
-                ))
-            .toList();
-
-        parsedTags[filterType] = categories;
+        parsedTags[key] =
+            (value as List).map((item) => item.toString()).toList();
       });
     }
 
@@ -59,22 +44,18 @@ class Place {
       lat: (json['lat'] ?? json['latitude'] ?? 0).toDouble(),
       lon: (json['lon'] ?? json['longitude'] ?? 0).toDouble(),
       age: json['age'] ?? 0,
-      openHours: json['openHours'] ?? '',
-      dayOff: json['dayOff'] ?? '',
+      openHours: json['openHours'] != null
+          ? List<String>.from(json['openHours'])
+          : null,
+      dayOff: json['dayOff'],
     );
   }
 
   Map<String, dynamic> toJson() {
-    // Convert tags map to JSON-serializable format
-    Map<String, List<String>> tagsJson = {};
-    tags.forEach((filterType, categories) {
-      tagsJson[filterType.name] = categories.map((cat) => cat.name).toList();
-    });
-
     return {
       'id': id,
       'name': name,
-      'tags': tagsJson,
+      'tags': tags,
       'imageLink': imageLink,
       'description': description,
       'lat': lat,

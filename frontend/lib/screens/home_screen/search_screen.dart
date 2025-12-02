@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 import "package:flutter/cupertino.dart";
 import "package:carousel_slider/carousel_slider.dart";
-import "package:virtour_frontend/services/data_service.dart";
+import "package:virtour_frontend/frontend_service_layer/place_service.dart";
 import "package:virtour_frontend/screens/data_factories/place.dart";
 import "package:virtour_frontend/screens/data_factories/filter_type.dart";
 import "package:virtour_frontend/components/cards.dart";
@@ -385,7 +385,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                         .take(2)
                                         .map(
                                           (cat) => (
-                                            label: cat.name,
+                                            label: cat,
                                             backgroundColor:
                                                 const Color(0xFFD72323)
                                           ),

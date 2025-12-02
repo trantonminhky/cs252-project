@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:virtour_frontend/screens/authenciation_screen/sign_up_form_1.dart';
 import 'package:virtour_frontend/screens/authenciation_screen/sign_up_form_2.dart';
 import 'package:virtour_frontend/screens/authenciation_screen/sign_up_form_3.dart';
-import 'package:virtour_frontend/services/auth_service.dart';
+import 'package:virtour_frontend/frontend_service_layer/auth_service.dart';
 import 'package:virtour_frontend/constants/userinfo.dart';
-import 'package:virtour_frontend/screens/main_layout.dart';
+import 'package:virtour_frontend/components/bottom_bar.dart';
 
 class SignUpContainer extends StatefulWidget {
   const SignUpContainer({super.key});
@@ -120,7 +120,7 @@ class _SignUpContainerState extends State<SignUpContainer> {
     Navigator.of(context).pushReplacement(
       CupertinoPageRoute(
         builder: (context) {
-          return const MainLayout();
+          return const BottomNavBar();
         },
       ),
     );
@@ -197,7 +197,7 @@ class _SignUpContainerState extends State<SignUpContainer> {
           ),
           if (_isLoading)
             Container(
-              color: Colors.black.withOpacity(0.5),
+              color: Colors.black.withValues(alpha: 0.5),
               child: const Center(
                 child: CircularProgressIndicator(color: Colors.white),
               ),

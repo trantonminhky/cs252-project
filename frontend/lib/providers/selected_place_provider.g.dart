@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'regions_visited_provider.dart';
+part of 'selected_place_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -9,49 +9,49 @@ part of 'regions_visited_provider.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(RegionsVisited)
-const regionsVisitedProvider = RegionsVisitedProvider._();
+@ProviderFor(SelectedPlace)
+const selectedPlaceProvider = SelectedPlaceProvider._();
 
-final class RegionsVisitedProvider
-    extends $NotifierProvider<RegionsVisited, Set<Region>> {
-  const RegionsVisitedProvider._()
+final class SelectedPlaceProvider
+    extends $NotifierProvider<SelectedPlace, Place?> {
+  const SelectedPlaceProvider._()
       : super(
           from: null,
           argument: null,
           retry: null,
-          name: r'regionsVisitedProvider',
+          name: r'selectedPlaceProvider',
           isAutoDispose: true,
           dependencies: null,
           $allTransitiveDependencies: null,
         );
 
   @override
-  String debugGetCreateSourceHash() => _$regionsVisitedHash();
+  String debugGetCreateSourceHash() => _$selectedPlaceHash();
 
   @$internal
   @override
-  RegionsVisited create() => RegionsVisited();
+  SelectedPlace create() => SelectedPlace();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(Set<Region> value) {
+  Override overrideWithValue(Place? value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<Set<Region>>(value),
+      providerOverride: $SyncValueProvider<Place?>(value),
     );
   }
 }
 
-String _$regionsVisitedHash() => r'624167d11ce7eae11109313be37900be28bfb3c8';
+String _$selectedPlaceHash() => r'096ee2c2f1cfc3d3e3130b9aab31f04a7d96d60b';
 
-abstract class _$RegionsVisited extends $Notifier<Set<Region>> {
-  Set<Region> build();
+abstract class _$SelectedPlace extends $Notifier<Place?> {
+  Place? build();
   @$mustCallSuper
   @override
   void runBuild() {
     final created = build();
-    final ref = this.ref as $Ref<Set<Region>, Set<Region>>;
+    final ref = this.ref as $Ref<Place?, Place?>;
     final element = ref.element as $ClassProviderElement<
-        AnyNotifier<Set<Region>, Set<Region>>, Set<Region>, Object?, Object?>;
+        AnyNotifier<Place?, Place?>, Place?, Object?, Object?>;
     element.handleValue(ref, created);
   }
 }

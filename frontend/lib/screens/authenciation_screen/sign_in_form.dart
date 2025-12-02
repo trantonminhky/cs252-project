@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:virtour_frontend/components/custom_text_field.dart';
 import 'package:virtour_frontend/constants/colors.dart';
-import 'package:virtour_frontend/services/auth_service.dart';
-import 'package:virtour_frontend/screens/main_layout.dart';
+import 'package:virtour_frontend/frontend_service_layer/auth_service.dart';
+import 'package:virtour_frontend/components/bottom_bar.dart';
 
 class SignInForm extends StatefulWidget {
   const SignInForm({super.key});
@@ -66,7 +66,7 @@ class _SignInFormState extends State<SignInForm> {
           _showSnackBar("Sign in successful! Navigating to home...");
           if (mounted) {
             await Navigator.of(context).pushReplacement(
-              CupertinoPageRoute(builder: (context) => const MainLayout()),
+              CupertinoPageRoute(builder: (context) => const BottomNavBar()),
             );
           }
           break;
