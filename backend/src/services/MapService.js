@@ -38,7 +38,7 @@ class MapService {
 		const toCoordinates = coordinates[1].map(coor => coor.toString()).join(',');
 
 		try {
-			const url = `${this.baseUrl}/directions/${profile}`;
+			const url = `${this.baseUrl}/v2/directions/${profile}`;
 			const axiosResponse = await axios.get(url, { params: {
 				api_key: this.apiKey,
 				start: fromCoordinates,
@@ -84,6 +84,8 @@ class MapService {
 			return response;
 		}
 
+		let filters = {};
+		
 		if (!Array.isArray(category_ids)) {
 			const response = new ServiceResponse(
 				flse,
@@ -93,6 +95,10 @@ class MapService {
 			return response;
 		}
 
+		if (category_ids.length) {
+			filters.category_ids = category_ids;
+		}
+
 		try {
 			const url = `${this.baseUrl}/pois`;
 			const axiosResponse = await axios.post(url, {
@@ -100,20 +106,29 @@ class MapService {
 				geometry: {
 					geojson: {
 						type: "Point",
-						coordinates: [lat, lon]
+						coordinates: [lon, lat]
 					},
 					buffer: radius
 				},
-				filters: {
-					category_ids: category_ids
+				filters
+			}, {
+				headers: {
+					Authorization: this.apiKey
 				}
 			});
+
+			let resp;
+			if (typeof axiosResponse.data === 'string' || axiosResponse.data instanceof String) {
+				resp = {};
+			} else {
+				resp = axiosResponse.data;
+			}
 	
 			const response = new ServiceResponse(
 				true,
 				200,
 				"Success",
-				axiosResponse.data
+				resp
 			);
 			return response;
 		} catch (err) {
