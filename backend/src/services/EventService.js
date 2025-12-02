@@ -1,9 +1,10 @@
 import EventDB from '../db/EventDB.js';
 import UserDB from '../db/UserDB.js';
 import ServiceResponse from '../helper/ServiceResponse.js';
+import unwrapTyped from '../helper/unwrapTyped.js';
 
 class EventService {
-	async createEvent(name, description, imageLink=null, endTime=null) {
+	async createEvent(name, description, imageLink = null, endTime = null) {
 		if (!name) {
 			const response = new ServiceResponse(
 				false,
@@ -28,9 +29,9 @@ class EventService {
 				imageLink: imageLink,
 				participants: []
 			}
-	
+
 			EventDB.set(eventID, eventData);
-	
+
 			const response = new ServiceResponse(
 				true,
 				201,
@@ -92,6 +93,47 @@ class EventService {
 			"Success"
 		);
 		return response;
+	}
+
+	async getByUsername(username) {
+		if (!username) {
+			const response = new ServiceResponse(
+				false,
+				400,
+				"Username is required"
+			);
+			return response;
+		}
+
+		try {
+			const parse = JSON.parse(EventDB.export());
+			const data = {};
+			for (const entry of parse.v.keys.v) {
+				data[entry.v.key.v] = unwrapTyped(JSON.parse(entry.v.value.v));
+			}
+
+			const results = [];
+			for (const [key, val] of Object.entries(data)) {
+				if (val.participants.includes(username)) {
+					results.push(val);
+				}
+			}
+
+			const response = new ServiceResponse(
+				true,
+				200,
+				"Success",
+				results
+			);
+			return response;
+		} catch (err) {
+			const response = new ServiceResponse(
+				false,
+				500,
+				"Something went wrong"
+			);
+			return response;
+		}
 	}
 }
 
