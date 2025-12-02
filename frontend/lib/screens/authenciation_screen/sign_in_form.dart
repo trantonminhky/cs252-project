@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:virtour_frontend/components/custom_text_field.dart';
 import 'package:virtour_frontend/constants/colors.dart';
-import 'package:virtour_frontend/screens/authenciation_screen/auth_service.dart';
+import 'package:virtour_frontend/services/auth_service.dart';
 import 'package:virtour_frontend/screens/main_layout.dart';
 
 class SignInForm extends StatefulWidget {

@@ -152,7 +152,7 @@ class _TripScreenContentState extends ConsumerState<TripScreenContent>
                                     height: 100,
                                     // should be Image.network once data is ready
                                     child: Image.asset(
-                                      place.imageUrl,
+                                      place.imageLink,
                                       fit: BoxFit.cover,
                                       errorBuilder:
                                           (context, error, stackTrace) {

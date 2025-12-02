@@ -7,7 +7,6 @@ import "package:virtour_frontend/screens/home_screen/region_overview.dart";
 import "package:virtour_frontend/screens/home_screen/search_screen.dart";
 import "package:virtour_frontend/screens/data_factories/filter_type.dart";
 import "package:virtour_frontend/screens/data_factories/region.dart";
-import "package:virtour_frontend/screens/data_factories/data_service.dart";
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -18,7 +17,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final TextEditingController _searchController = TextEditingController();
-  final RegionService _regionService = RegionService();
 
   List<Region> _topRegions = [];
   bool _isLoadingRegions = false;
@@ -43,19 +41,18 @@ class _HomeScreenState extends State<HomeScreen> {
     });
 
     try {
-      final regions = <Region>[];
-      final regionIds = [
-        'sg',
+      // Hardcoded region data - can be fetched from API later if needed
+      final regions = <Region>[
+        const Region(
+          id: 'sg',
+          name: 'Sài Gòn',
+          imageUrl: 'assets/images/places/Saigon.png',
+          description:
+              'Saigon is the former name of Ho Chi Minh City, one of the most attractive tourist destinations in Vietnam.',
+          placesId: [],
+          category: 'Văn hóa',
+        ),
       ];
-
-      for (final id in regionIds) {
-        try {
-          final region = await _regionService.getRegionbyId(id);
-          regions.add(region);
-        } catch (e) {
-          print('Error fetching region $id: $e');
-        }
-      }
 
       setState(() {
         _topRegions = regions;
@@ -127,7 +124,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Briefing(
             size: BriefingSize.vert,
             title: region.name,
-            category: "Văn hóa",
+            category: region.category ?? "Văn hóa",
             imageUrl: region.imageUrl,
           ),
         );

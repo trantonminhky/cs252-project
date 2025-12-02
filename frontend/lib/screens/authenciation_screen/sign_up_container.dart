@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:virtour_frontend/screens/authenciation_screen/sign_up_form_1.dart';
 import 'package:virtour_frontend/screens/authenciation_screen/sign_up_form_2.dart';
 import 'package:virtour_frontend/screens/authenciation_screen/sign_up_form_3.dart';
-import 'package:virtour_frontend/screens/authenciation_screen/auth_service.dart';
+import 'package:virtour_frontend/services/auth_service.dart';
 import 'package:virtour_frontend/constants/userinfo.dart';
 import 'package:virtour_frontend/screens/main_layout.dart';
 

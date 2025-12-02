@@ -9,10 +9,10 @@ String getTruncatedDescription(String description, {int maxLength = 200}) {
 
 /// Helper method to convert place categories to chips with colors
 List<({String label, Color backgroundColor})> getChipsFromPlace(Place place) {
-  return place.categories.map((category) {
+  return place.tags.values.expand((list) => list).map((category) {
     // Map categories to colors
     Color color;
-    switch (category.toLowerCase()) {
+    switch (category.name.toLowerCase()) {
       case 'historical':
         color = Colors.amber;
         break;
@@ -36,7 +36,7 @@ List<({String label, Color backgroundColor})> getChipsFromPlace(Place place) {
       default:
         color = Colors.grey;
     }
-    return (label: category, backgroundColor: color);
+    return (label: category.name, backgroundColor: color);
   }).toList();
 }
 
