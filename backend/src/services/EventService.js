@@ -1,4 +1,5 @@
 import EventDB from '../db/EventDB.js';
+import UserDB from '../db/UserDB.js';
 import ServiceResponse from '../helper/ServiceResponse.js';
 
 class EventService {
@@ -45,6 +46,52 @@ class EventService {
 			);
 			return response;
 		}
+	}
+
+	async subscribe(username, eventID) {
+		if (!username) {
+			const response = new ServiceResponse(
+				false,
+				400,
+				"Username is required"
+			);
+			return response;
+		}
+
+		if (!eventID) {
+			const response = new ServiceResponse(
+				false,
+				400,
+				"Event ID is required"
+			);
+			return response;
+		}
+
+		if (!UserDB.has(username)) {
+			const response = new ServiceResponse(
+				false,
+				404,
+				"Username not found"
+			);
+			return response;
+		}
+
+		if (!EventDB.has(eventID)) {
+			const response = new ServiceResponse(
+				false,
+				404,
+				"Event not found"
+			);
+			return response;
+		}
+
+		EventDB.push(eventID, username, "participants");
+		const response = new ServiceResponse(
+			true,
+			200,
+			"Success"
+		);
+		return response;
 	}
 }
 

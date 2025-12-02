@@ -24,6 +24,18 @@ class EventController {
 			next(err);
 		}
 	}
+
+	async subscribe(req, res, next) {
+		try {
+			const username = req.body.username;
+			const eventID = req.body.eventID;
+
+			const response = await EventService.subscribe(username, eventID);
+			res.status(response.statusCode).json(response.get());
+		} catch (err) {
+			next(err);
+		}
+	}
 }
 
 export default new EventController();

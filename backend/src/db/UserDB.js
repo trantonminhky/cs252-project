@@ -40,7 +40,7 @@ class UserDB {
 
 	has(key) {
 		try {
-			const value = this.db.has(key);;
+			const value = this.db.has(key);
 			return value;
 		} catch (err) {
 			console.error(err);
