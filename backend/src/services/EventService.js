@@ -76,7 +76,7 @@ class EventService {
 			return response;
 		}
 
-		if (!UserDB.has(eventID)) {
+		if (!EventDB.has(eventID)) {
 			const response = new ServiceResponse(
 				false,
 				404,
