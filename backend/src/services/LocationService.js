@@ -87,6 +87,34 @@ class LocationService {
 		);
 		return response;
 	}
+
+	async findByID(locationID) {
+		if (locationID == null) {
+			const response = new ServiceResponse(
+				false,
+				400,
+				"Location ID is required"
+			);
+			return response;
+		}
+
+		if (!LocationDB.has(locationID)) {
+			const response = new ServiceResponse(
+				false,
+				404,
+				"Location ID not found"
+			);
+			return response;
+		}
+
+		const response = new ServiceResponse(
+			true,
+			200,
+			"Success",
+			LocationDB.get(locationID)
+		);
+		return response;
+	}
 }
 
 export default new LocationService();
