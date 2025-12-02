@@ -100,7 +100,7 @@ class ProfileService {
 				"Success",
 				{
 					token: UserDB.get(user, 'sessionToken.data'),
-					createdAt: (new Date(get(user, 'sessionToken.createdAt'))).toString()
+					createdAt: (new Date(UserDB.get(user, 'sessionToken.createdAt'))).toString()
 				}
 			);
 
