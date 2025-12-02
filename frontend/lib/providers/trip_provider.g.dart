@@ -40,7 +40,7 @@ final class TripProvider extends $NotifierProvider<Trip, Set<Place>> {
   }
 }
 
-String _$tripHash() => r'b242a65b2a7023fcaa31b15bfe1c456cb8606c55';
+String _$tripHash() => r'6bf9071211907965fc3143381a1ad167eb5c6690';
 
 abstract class _$Trip extends $Notifier<Set<Place>> {
   Set<Place> build();

@@ -10,7 +10,8 @@ import "package:virtour_frontend/constants/userinfo.dart";
 class RegionService {
   static final RegionService _instance = RegionService._internal();
   late final Dio dio;
-  static const String _baseUrl = "http://10.0.2.2:3000/api";
+  static const String _baseUrl =
+      "https://chelsea-scuba-bureau-imposed.trycloudflare.com/api";
   late final UserInfo userInfo;
 
   factory RegionService() {
@@ -293,5 +294,44 @@ need functions to:
     }
 
     return Exception(errorMessage);
+  }
+
+  // Event subscription
+  Future<bool> subscribeToEvent(String username, String eventId) async {
+    try {
+      final response = await dio.post('/event/subscribe', data: {
+        'username': username,
+        'eventID': eventId,
+      });
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final data = response.data;
+        return data['success'] ?? false;
+      }
+      return false;
+    } on DioException catch (e) {
+      print('Error subscribing to event: ${e.message}');
+      return false;
+    }
+  }
+
+  // Fetch events from database
+  Future<Map<String, dynamic>> fetchEvents() async {
+    try {
+      final response = await dio.get('/db/export', queryParameters: {
+        'name': 'EventDB',
+      });
+
+      if (response.statusCode == 200) {
+        final data = response.data;
+        if (data['success'] == true) {
+          return data['payload']['data'] as Map<String, dynamic>;
+        }
+      }
+      return {};
+    } on DioException catch (e) {
+      print('Error fetching events: ${e.message}');
+      return {};
+    }
   }
 }

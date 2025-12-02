@@ -4,7 +4,7 @@ import "package:virtour_frontend/constants/userinfo.dart";
 
 class AuthService {
   late final Dio _dio;
-  static const String _baseUrl = "http://10.0.2.2:3000";
+  static const String _baseUrl = "https://chelsea-scuba-bureau-imposed.trycloudflare.com";
   UserInfo userInfo = UserInfo();
   AuthService() {
     _dio = Dio(BaseOptions(

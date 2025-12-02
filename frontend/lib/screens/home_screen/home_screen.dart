@@ -140,7 +140,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final events = ref.watch(eventsProvider);
+    final eventsAsync = ref.watch(eventsProvider);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -178,10 +178,21 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // Events Banner Section
-                    if (events.isNotEmpty) ...[
-                      EventsBanner(events: events),
-                      const SizedBox(height: 32),
-                    ],
+                    eventsAsync.when(
+                      data: (events) => events.isNotEmpty
+                          ? Column(
+                              children: [
+                                EventsBanner(events: events),
+                                const SizedBox(height: 32),
+                              ],
+                            )
+                          : const SizedBox.shrink(),
+                      loading: () => const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 20),
+                        child: CircularProgressIndicator(),
+                      ),
+                      error: (_, __) => const SizedBox.shrink(),
+                    ),
 
                     // Top Destinations Section
                     const Padding(

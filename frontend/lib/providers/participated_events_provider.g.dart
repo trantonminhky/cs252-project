@@ -20,7 +20,7 @@ final class ParticipatedEventsProvider
           argument: null,
           retry: null,
           name: r'participatedEventsProvider',
-          isAutoDispose: false,
+          isAutoDispose: true,
           dependencies: null,
           $allTransitiveDependencies: null,
         );
@@ -42,7 +42,7 @@ final class ParticipatedEventsProvider
 }
 
 String _$participatedEventsHash() =>
-    r'1b36c5fd9da911af0d716adc5b9fa9161fda67ea';
+    r'3385fbd870826504119b154e3fc3fc0d3db7e032';
 
 abstract class _$ParticipatedEvents extends $Notifier<Set<Event>> {
   Set<Event> build();
