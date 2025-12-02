@@ -42,6 +42,18 @@ class EventController {
 		}
 	}
 
+	async unsubscribe(req, res, next) {
+		try {
+			const username = req.body.username;
+			const eventID = req.body.eventID;
+
+			const response = await EventService.unsubscribe(username, eventID);
+			res.status(response.statusCode).json(response.get());
+		} catch (err) {
+			next(err);
+		}
+	}
+
 	async getByUsername(req, res, next) {
 		try {
 			const { username } = req.query;
