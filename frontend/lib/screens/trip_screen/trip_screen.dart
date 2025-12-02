@@ -3,6 +3,7 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:virtour_frontend/providers/trip_provider.dart";
 import "package:virtour_frontend/providers/event_provider.dart";
+import "package:virtour_frontend/providers/participated_events_provider.dart";
 import "package:virtour_frontend/screens/trip_screen/trip_screen_content.dart";
 import "package:virtour_frontend/screens/trip_screen/create_options_dialog.dart";
 import "package:virtour_frontend/screens/trip_screen/create_event_form.dart";
@@ -51,6 +52,8 @@ class TripScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final places = ref.watch(tripProvider);
+    final participatedEvents = ref.watch(participatedEventsProvider);
+    final hasContent = places.isNotEmpty || participatedEvents.isNotEmpty;
 
     return Scaffold(
       body: SafeArea(
@@ -74,8 +77,8 @@ class TripScreen extends ConsumerWidget {
                       letterSpacing: -1,
                     ),
                   ),
-                  // Add Create button in header when places exist
-                  if (places.isNotEmpty)
+                  // Add Create button in header when there's content
+                  if (hasContent)
                     IconButton(
                       onPressed: () => _showCreateOptions(context, ref),
                       icon: Container(
@@ -94,7 +97,7 @@ class TripScreen extends ConsumerWidget {
                     ),
                 ],
               ),
-              places.isEmpty
+              !hasContent
                   ? Expanded(
                       child: Center(
                         child: DottedBorder(

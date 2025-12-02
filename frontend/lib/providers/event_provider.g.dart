@@ -40,7 +40,7 @@ final class EventsProvider extends $NotifierProvider<Events, List<Event>> {
   }
 }
 
-String _$eventsHash() => r'08b4b7428c7348227c7b9403a9024dc19bba6f3e';
+String _$eventsHash() => r'c74d806ee3668237a08ec913a98ce2aeba87f6f5';
 
 abstract class _$Events extends $Notifier<List<Event>> {
   List<Event> build();
