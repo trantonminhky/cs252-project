@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:virtour_frontend/providers/trip_provider.dart';
 import 'package:virtour_frontend/providers/participated_events_provider.dart';
+import 'package:virtour_frontend/providers/event_provider.dart';
 import 'package:virtour_frontend/screens/data_factories/event.dart';
 import 'package:virtour_frontend/frontend_service_layer/place_service.dart';
 import 'package:virtour_frontend/screens/trip_screen/create_event_form.dart';
@@ -63,8 +64,9 @@ class _TripScreenContentState extends ConsumerState<TripScreenContent>
             userInfo.username.isNotEmpty ? userInfo.username : 'guest';
         await regionService.subscribeToEvent(username, result['id'].toString());
 
-        // Refresh participated events
+        // Refresh participated events and all events
         ref.read(participatedEventsProvider.notifier).refresh();
+        ref.read(eventsProvider.notifier).refresh();
       } else if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
