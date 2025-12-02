@@ -17,8 +17,9 @@ class EventService {
 		}
 
 		try {
+			const eventID = EventDB.autonum();
 			const eventData = {
-				id: EventDB.autonum(),
+				id: eventID,
 				name: name,
 				description: description,
 				startTime: Date.now(),
@@ -27,7 +28,7 @@ class EventService {
 				participants: []
 			}
 	
-			EventDB.set(EventDB.autonum(), eventData);
+			EventDB.set(eventID, eventData);
 	
 			const response = new ServiceResponse(
 				true,
