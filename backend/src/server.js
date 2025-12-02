@@ -21,6 +21,7 @@ import ProfileRoutes from './routes/ProfileRoutes.js';
 import DBRoutes from './routes/DBRoutes.js';
 import LocationRoutes from './routes/LocationRoutes.js';
 import RecommendationRoutes from './routes/RecommendationRoutes.js';
+import EventRoutes from './routes/EventRoutes.js';
 
 const app = express();
 const customStream = {
@@ -76,6 +77,7 @@ app.use('/api/profile', ProfileRoutes);
 app.use('/api/db', DBRoutes);
 app.use('/api/recommendation', RecommendationRoutes);
 app.use('/api/location', LocationRoutes);
+app.use('/api/event', EventRoutes);
 
 // Root endpoint
 app.get('/', (req, res) => {
