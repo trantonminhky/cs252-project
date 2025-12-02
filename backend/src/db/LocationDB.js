@@ -1,3 +1,25 @@
+/*
+	{
+		0: {
+			id: 0,
+			lat: 69.696969
+			lon: 36.363636
+			name: "Great Statue of Lorem Ipsum",
+			age: 420,
+			tags: {
+				religion: ["christianity"],
+				buildingType: ["restaurant"],
+				archStyle: ["gothic"],
+				foodType: ["italian"]
+			},
+			imageLink: "https://example.com",
+			description: "Lorem ipsum dolor sit amet",
+			openHours: ["0600", "1100", "1300", "2000"],
+			dayOff: "saturday, sunday"
+		} 
+	}
+*/
+
 class LocationDB {
 	constructor() {
 		import('enmap').then(async ({ default: Enmap }) => {

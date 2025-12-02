@@ -14,7 +14,7 @@ const config = {
 	},
 
 	openRouteService: {
-		baseUrl: 'https://api.openrouteservice.org/v2',
+		baseUrl: 'https://api.openrouteservice.org',
 		apiKey: process.env.OPEN_ROUTE_SERVICE
 	},
 

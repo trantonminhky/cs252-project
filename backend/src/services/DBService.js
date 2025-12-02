@@ -2,25 +2,10 @@ import { readdirSync } from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import ServiceResponse from '../helper/ServiceResponse.js';
+import unwrapTyped from '../helper/unwrapTyped.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
-function unwrapTyped(x) {
-	if (Array.isArray(x)) return x.map(unwrapTyped);
-
-	if (x && typeof x === "object") {
-		const keys = Object.keys(x);
-		if (keys.length === 2 && keys.includes("t") && keys.includes("v")) {
-			return unwrapTyped(x.v);
-		}
-		const out = {};
-		for (const k of keys) out[k] = unwrapTyped(x[k]);
-		return out;
-	}
-
-	return x;
-}
 
 /**
  * Representation of databases. Note that THIS OBJECT IS ONLY FOR VIEWING PURPOSE, REFRAIN FROM DIRECTLY MODIFYING VIA THIS INFERFACE.
