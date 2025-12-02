@@ -84,6 +84,14 @@ class EventService {
 			);
 			return response;
 		}
+
+		EventDB.push(eventID, username, "participants");
+		const response = new ServiceResponse(
+			true,
+			200,
+			"Success"
+		);
+		return response;
 	}
 }
 
