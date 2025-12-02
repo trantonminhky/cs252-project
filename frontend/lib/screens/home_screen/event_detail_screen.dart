@@ -3,9 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:virtour_frontend/screens/data_factories/event.dart';
 import 'package:virtour_frontend/providers/participated_events_provider.dart';
-import 'package:virtour_frontend/providers/trip_provider.dart';
-import 'package:virtour_frontend/screens/data_factories/place.dart';
-import 'package:virtour_frontend/screens/data_factories/filter_type.dart';
+import 'package:virtour_frontend/frontend_service_layer/place_service.dart';
+import 'package:virtour_frontend/constants/userinfo.dart';
 
 class EventDetailScreen extends ConsumerWidget {
   final Event event;
@@ -14,8 +13,9 @@ class EventDetailScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final participatedAsync = ref.watch(participatedEventsProvider);
     final isParticipating =
-        ref.watch(participatedEventsProvider).any((e) => e.id == event.id);
+        participatedAsync.value?.any((e) => e.id == event.id) ?? false;
 
     final bool isAssetImage = event.imageUrl.startsWith('../assets/') ||
         event.imageUrl.startsWith('assets/');
@@ -166,23 +166,26 @@ class EventDetailScreen extends ConsumerWidget {
             width: double.infinity,
             child: TextButton(
               style: TextButton.styleFrom(
-                backgroundColor: const Color(0xFFD72323),
+                backgroundColor:
+                    isParticipating ? Colors.grey : const Color(0xFFD72323),
                 shape: RoundedRectangleBorder(
                   side: const BorderSide(color: Colors.black, width: 2),
                   borderRadius: BorderRadius.circular(13),
                 ),
               ),
-              onPressed: isParticipating
-                  ? null
-                  : () {
-                      _showParticipateConfirmation(context, ref);
-                    },
+              onPressed: () {
+                if (isParticipating) {
+                  _showUnsubscribeConfirmation(context, ref);
+                } else {
+                  _showParticipateConfirmation(context, ref);
+                }
+              },
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 12),
                 child: Text(
-                  isParticipating ? "Already Participating" : "Participate",
-                  style: TextStyle(
-                    color: isParticipating ? Colors.grey : Colors.white,
+                  isParticipating ? "Unsubscribe" : "Participate",
+                  style: const TextStyle(
+                    color: Colors.white,
                     fontSize: 18,
                     fontFamily: "BeVietnamPro",
                     fontWeight: FontWeight.w600,
@@ -282,33 +285,150 @@ class EventDetailScreen extends ConsumerWidget {
                 borderRadius: BorderRadius.circular(8),
               ),
             ),
-            onPressed: () {
-              // Add event to participated events
-              //ref.read(participatedEventsProvider.notifier).addEvent(event);
+            onPressed: () async {
+              final username = UserInfo().username;
 
-              // Create a mock place based on event location
-              final mockPlace = Place(
-                id: 'event_${event.id}',
-                name: event.name,
-                tags: {
-                  'Religion': ['Buddhist Temple']
-                },
-                imageLink: event.imageUrl,
-                description: event.description,
-                lat: 1.3521, // Default Singapore coordinates
-                lon: 103.8198,
-                age: 100,
-                address: event.location,
+              if (username.isEmpty) {
+                Navigator.of(context).pop();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Please log in to participate in events'),
+                    backgroundColor: Color(0xFFD72323),
+                    duration: Duration(seconds: 2),
+                  ),
+                );
+                return;
+              }
+
+              // Call backend to subscribe to event
+              final success = await RegionService().subscribeToEvent(
+                username,
+                event.id.toString(),
               );
 
-              // Add mock place to trip
-              ref.read(tripProvider.notifier).addPlace(mockPlace);
+              if (!success) {
+                Navigator.of(context).pop();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content:
+                        Text('Failed to subscribe to event. Please try again.'),
+                    backgroundColor: Color(0xFFD72323),
+                    duration: Duration(seconds: 2),
+                  ),
+                );
+                return;
+              }
+
+              // Add event to local state for immediate UI update
+              ref.read(participatedEventsProvider.notifier).addEvent(event);
 
               Navigator.of(context).pop();
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text(
-                      'Successfully registered for ${event.name}! Place added to Saves.'),
+                  content: Text('Successfully registered for ${event.name}!'),
+                  backgroundColor: const Color(0xFF4CAF50),
+                  duration: const Duration(seconds: 2),
+                ),
+              );
+            },
+            child: const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 12),
+              child: Text(
+                "Confirm",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: "BeVietnamPro",
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showUnsubscribeConfirmation(BuildContext context, WidgetRef ref) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
+        title: const Text(
+          "Confirm Unsubscribe",
+          style: TextStyle(
+            fontFamily: "BeVietnamPro",
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+        content: Text(
+          "Do you want to unsubscribe from ${event.name}?",
+          style: const TextStyle(
+            fontFamily: "BeVietnamPro",
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text(
+              "Cancel",
+              style: TextStyle(
+                color: Colors.black,
+                fontFamily: "BeVietnamPro",
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+          TextButton(
+            style: TextButton.styleFrom(
+              backgroundColor: Colors.grey,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
+            onPressed: () async {
+              final username = UserInfo().username;
+
+              if (username.isEmpty) {
+                Navigator.of(context).pop();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Please log in'),
+                    backgroundColor: Color(0xFFD72323),
+                    duration: Duration(seconds: 2),
+                  ),
+                );
+                return;
+              }
+
+              // Call backend to unsubscribe from event
+              final success = await RegionService().unsubscribeFromEvent(
+                username,
+                event.id.toString(),
+              );
+
+              if (!success) {
+                Navigator.of(context).pop();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Failed to unsubscribe. Please try again.'),
+                    backgroundColor: Color(0xFFD72323),
+                    duration: Duration(seconds: 2),
+                  ),
+                );
+                return;
+              }
+
+              // Remove event from local state for immediate UI update
+              ref
+                  .read(participatedEventsProvider.notifier)
+                  .removeEvent(event.id);
+
+              Navigator.of(context).pop();
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('Successfully unsubscribed from ${event.name}'),
                   backgroundColor: const Color(0xFF4CAF50),
                   duration: const Duration(seconds: 2),
                 ),

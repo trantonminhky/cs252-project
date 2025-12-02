@@ -12,14 +12,14 @@ part of 'event_provider.dart';
 @ProviderFor(Events)
 const eventsProvider = EventsProvider._();
 
-final class EventsProvider extends $NotifierProvider<Events, List<Event>> {
+final class EventsProvider extends $AsyncNotifierProvider<Events, List<Event>> {
   const EventsProvider._()
       : super(
           from: null,
           argument: null,
           retry: null,
           name: r'eventsProvider',
-          isAutoDispose: true,
+          isAutoDispose: false,
           dependencies: null,
           $allTransitiveDependencies: null,
         );
@@ -30,27 +30,22 @@ final class EventsProvider extends $NotifierProvider<Events, List<Event>> {
   @$internal
   @override
   Events create() => Events();
-
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(List<Event> value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<List<Event>>(value),
-    );
-  }
 }
 
-String _$eventsHash() => r'c74d806ee3668237a08ec913a98ce2aeba87f6f5';
+String _$eventsHash() => r'81cb0f2f685286bd55fe0604f85fcc12e68c9007';
 
-abstract class _$Events extends $Notifier<List<Event>> {
-  List<Event> build();
+abstract class _$Events extends $AsyncNotifier<List<Event>> {
+  FutureOr<List<Event>> build();
   @$mustCallSuper
   @override
   void runBuild() {
     final created = build();
-    final ref = this.ref as $Ref<List<Event>, List<Event>>;
+    final ref = this.ref as $Ref<AsyncValue<List<Event>>, List<Event>>;
     final element = ref.element as $ClassProviderElement<
-        AnyNotifier<List<Event>, List<Event>>, List<Event>, Object?, Object?>;
+        AnyNotifier<AsyncValue<List<Event>>, List<Event>>,
+        AsyncValue<List<Event>>,
+        Object?,
+        Object?>;
     element.handleValue(ref, created);
   }
 }

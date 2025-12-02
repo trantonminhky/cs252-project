@@ -13,7 +13,7 @@ part of 'participated_events_provider.dart';
 const participatedEventsProvider = ParticipatedEventsProvider._();
 
 final class ParticipatedEventsProvider
-    extends $NotifierProvider<ParticipatedEvents, Set<Event>> {
+    extends $AsyncNotifierProvider<ParticipatedEvents, Set<Event>> {
   const ParticipatedEventsProvider._()
       : super(
           from: null,
@@ -31,28 +31,23 @@ final class ParticipatedEventsProvider
   @$internal
   @override
   ParticipatedEvents create() => ParticipatedEvents();
-
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(Set<Event> value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<Set<Event>>(value),
-    );
-  }
 }
 
 String _$participatedEventsHash() =>
-    r'1b36c5fd9da911af0d716adc5b9fa9161fda67ea';
+    r'37d5acfce6b751016824823b9880dddd6bd84659';
 
-abstract class _$ParticipatedEvents extends $Notifier<Set<Event>> {
-  Set<Event> build();
+abstract class _$ParticipatedEvents extends $AsyncNotifier<Set<Event>> {
+  FutureOr<Set<Event>> build();
   @$mustCallSuper
   @override
   void runBuild() {
     final created = build();
-    final ref = this.ref as $Ref<Set<Event>, Set<Event>>;
+    final ref = this.ref as $Ref<AsyncValue<Set<Event>>, Set<Event>>;
     final element = ref.element as $ClassProviderElement<
-        AnyNotifier<Set<Event>, Set<Event>>, Set<Event>, Object?, Object?>;
+        AnyNotifier<AsyncValue<Set<Event>>, Set<Event>>,
+        AsyncValue<Set<Event>>,
+        Object?,
+        Object?>;
     element.handleValue(ref, created);
   }
 }

@@ -11,6 +11,7 @@ import "package:virtour_frontend/screens/data_factories/place.dart";
 import "package:virtour_frontend/frontend_service_layer/place_service.dart";
 import "package:virtour_frontend/constants/userinfo.dart";
 import "package:virtour_frontend/providers/event_provider.dart";
+import "package:virtour_frontend/screens/data_factories/region.dart";
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -22,15 +23,16 @@ class HomeScreen extends ConsumerStatefulWidget {
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   final TextEditingController _searchController = TextEditingController();
   final RegionService _regionService = RegionService();
+  final UserInfo _userInfo = UserInfo();
 
-  List<Place> _topPlaces = [];
-  bool _isLoadingPlaces = false;
+  List<Place> _topDestinations = [];
+  bool _isLoadingDestinations = false;
   String? _errorMessage;
 
   @override
   void initState() {
     super.initState();
-    _fetchTopPlaces();
+    _fetchTopDestinations();
   }
 
   @override
@@ -39,35 +41,53 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     super.dispose();
   }
 
-  Future<void> _fetchTopPlaces() async {
+  Future<void> _fetchTopDestinations() async {
     setState(() {
-      _isLoadingPlaces = true;
+      _isLoadingDestinations = true;
       _errorMessage = null;
     });
 
     try {
-      final places = await _regionService.getPlace('famous places', []);
+      final username =
+          _userInfo.username.isNotEmpty ? _userInfo.username : 'guest';
+
+      // Use default location (Ho Chi Minh City center) - can be replaced with user's actual location
+      const double lat = 10.8231;
+      const double lon = 106.6297;
+
+      final locationIds =
+          await _regionService.fetchRecommendations(username, lat, lon);
+
+      final places = <Place>[];
+      for (final id in locationIds) {
+        try {
+          final place = await _regionService.fetchPlacebyId(id);
+          places.add(place);
+        } catch (e) {
+          print('Error fetching place $id: $e');
+        }
+      }
 
       setState(() {
-        _topPlaces = places.take(5).toList();
-        _isLoadingPlaces = false;
+        _topDestinations = places;
+        _isLoadingDestinations = false;
       });
     } catch (e) {
       setState(() {
-        _errorMessage = 'Failed to load places: $e';
-        _isLoadingPlaces = false;
+        _errorMessage = 'Failed to load recommendations: $e';
+        _isLoadingDestinations = false;
       });
 
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to load places: $e')),
+          SnackBar(content: Text('Failed to load recommendations: $e')),
         );
       }
     }
   }
 
   Widget _buildTopDestinations() {
-    if (_isLoadingPlaces) {
+    if (_isLoadingDestinations) {
       return Container(
         height: 320,
         alignment: Alignment.center,
@@ -75,7 +95,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       );
     }
 
-    if (_errorMessage != null || _topPlaces.isEmpty) {
+    if (_errorMessage != null || _topDestinations.isEmpty) {
       return Container(
         height: 320,
         alignment: Alignment.center,
@@ -85,13 +105,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             const Icon(Icons.error_outline, size: 48, color: Colors.grey),
             const SizedBox(height: 8),
             Text(
-              _errorMessage ?? 'No places available',
+              _errorMessage ?? 'No recommendations available',
               style: const TextStyle(color: Colors.grey),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 8),
             TextButton(
-              onPressed: _fetchTopPlaces,
+              onPressed: _fetchTopDestinations,
               child: const Text('Retry'),
             ),
           ],
@@ -102,19 +122,22 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     return VerticalBriefingCarousel(
       height: 320,
       autoPlay: true,
-      items: _topPlaces.map((place) {
-        // Get first category from tags for display
-        final category =
-            place.tags.values.expand((list) => list).firstOrNull ?? 'Place';
+      items: _topDestinations.map((place) {
+        // Extract first available category from tags
+        String category = 'Destination';
+        if (place.tags.isNotEmpty) {
+          final firstTagList = place.tags.values.first;
+          if (firstTagList.isNotEmpty) {
+            category = firstTagList.first;
+          }
+        }
 
         return GestureDetector(
           onTap: () {
             Navigator.push(
               context,
               CupertinoPageRoute(
-                builder: (context) => PlaceOverview(
-                  place: place,
-                ),
+                builder: (context) => PlaceOverview(place: place),
               ),
             );
           },
@@ -131,7 +154,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final events = ref.watch(eventsProvider);
+    final eventsAsync = ref.watch(eventsProvider);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -169,10 +192,21 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // Events Banner Section
-                    if (events.isNotEmpty) ...[
-                      EventsBanner(events: events),
-                      const SizedBox(height: 32),
-                    ],
+                    eventsAsync.when(
+                      data: (events) => events.isNotEmpty
+                          ? Column(
+                              children: [
+                                EventsBanner(events: events),
+                                const SizedBox(height: 32),
+                              ],
+                            )
+                          : const SizedBox.shrink(),
+                      loading: () => const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 20),
+                        child: CircularProgressIndicator(),
+                      ),
+                      error: (_, __) => const SizedBox.shrink(),
+                    ),
 
                     // Top Destinations Section
                     const Padding(

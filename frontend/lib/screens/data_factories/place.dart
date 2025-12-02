@@ -26,20 +26,10 @@ class Place {
   });
 
   factory Place.fromJson(Map<String, dynamic> json) {
-    Map<String, List<String>> parsedTags = {};
-
-    if (json['tags'] != null && json['tags'] is Map) {
-      final tagsMap = json['tags'] as Map<String, dynamic>;
-      tagsMap.forEach((key, value) {
-        parsedTags[key] =
-            (value as List).map((item) => item.toString()).toList();
-      });
-    }
-
     return Place(
       id: json['id']?.toString() ?? '',
       name: json['name'] ?? '',
-      tags: parsedTags,
+      tags: _parseTags(json['tags']),
       imageLink: json['imageLink'] ?? json['imageUrl'] ?? '',
       description: json['description'] ?? '',
       lat: (json['lat'] ?? json['latitude'] ?? 0).toDouble(),
@@ -50,6 +40,21 @@ class Place {
           : null,
       dayOff: json['dayOff'],
     );
+  }
+
+  static Map<String, List<String>> _parseTags(dynamic tags) {
+    final parsedTags = <String, List<String>>{};
+
+    if (tags != null && tags is Map) {
+      tags.forEach((key, value) {
+        if (value is List) {
+          parsedTags[key.toString()] =
+              value.map((item) => item.toString()).toList();
+        }
+      });
+    }
+
+    return parsedTags;
   }
 
   Map<String, dynamic> toJson() {

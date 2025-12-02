@@ -1,33 +1,34 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:virtour_frontend/screens/data_factories/place.dart';
-import 'package:virtour_frontend/screens/data_factories/data_service.dart';
+import 'package:virtour_frontend/frontend_service_layer/place_service.dart';
 import 'package:virtour_frontend/constants/userinfo.dart';
 
 part 'trip_provider.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class Trip extends _$Trip {
   final RegionService _regionService = RegionService();
   final UserInfo _userInfo = UserInfo();
 
   @override
-  Set<Place> build() {
-    // Load saved places from backend on initialization
-    _loadSavedPlaces();
-    return {};
+  FutureOr<Set<Place>> build() async {
+    return await _loadSavedPlaces();
   }
 
-  Future<void> _loadSavedPlaces() async {
+  Future<Set<Place>> _loadSavedPlaces() async {
     try {
-      // Get username (you may need to adjust this based on your auth implementation)
       final username =
           _userInfo.username.isNotEmpty ? _userInfo.username : 'guest';
 
       final placeIds = await _regionService.getSavedPlaces(username);
 
+      // Filter out event_ prefixed IDs as they don't exist in place database
+      final validPlaceIds =
+          placeIds.where((id) => !id.startsWith('event_')).toList();
+
       // Fetch full place details for each saved place
       final places = <Place>{};
-      for (final placeId in placeIds) {
+      for (final placeId in validPlaceIds) {
         try {
           final place = await _regionService.fetchPlacebyId(placeId);
           places.add(place);
@@ -36,15 +37,19 @@ class Trip extends _$Trip {
         }
       }
 
-      state = places;
+      return places;
     } catch (e) {
       print('Error loading saved places: $e');
+      return {};
     }
   }
 
   Future<void> addPlace(Place place) async {
+    // Get current state
+    final currentState = await future;
+
     // Add to local state immediately for better UX
-    state = {...state, place};
+    state = AsyncValue.data({...currentState, place});
 
     // Sync with backend
     try {
@@ -54,19 +59,22 @@ class Trip extends _$Trip {
 
       if (!success) {
         // Revert if backend fails
-        state = state.where((p) => p != place).toSet();
+        state = AsyncValue.data(currentState.where((p) => p != place).toSet());
         print('Failed to save place to backend');
       }
     } catch (e) {
       // Revert on error
-      state = state.where((p) => p != place).toSet();
+      state = AsyncValue.data(currentState.where((p) => p != place).toSet());
       print('Error saving place: $e');
     }
   }
 
   Future<void> removePlace(Place place) async {
+    // Get current state
+    final currentState = await future;
+
     // Remove from local state immediately
-    state = state.where((p) => p != place).toSet();
+    state = AsyncValue.data(currentState.where((p) => p != place).toSet());
 
     // Sync with backend
     try {
@@ -76,18 +84,19 @@ class Trip extends _$Trip {
 
       if (!success) {
         // Revert if backend fails
-        state = {...state, place};
+        state = AsyncValue.data({...currentState, place});
         print('Failed to remove place from backend');
       }
     } catch (e) {
       // Revert on error
-      state = {...state, place};
+      state = AsyncValue.data({...currentState, place});
       print('Error removing place: $e');
     }
   }
 
   // Refresh from backend
   Future<void> refresh() async {
-    await _loadSavedPlaces();
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() async => await _loadSavedPlaces());
   }
 }

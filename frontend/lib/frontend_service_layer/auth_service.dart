@@ -33,17 +33,52 @@ class AuthService {
     try {
       final response = await _dio.post("$_baseUrl/api/profile/login",
           data: {"username": username, "password": password});
+
       final body = response.data as Map<String, dynamic>;
 
       if (body['success'] == true) {
         final prefs = await SharedPreferences.getInstance();
-        final payload = body["payload"] as Map<String, dynamic>;
-        final data = payload["data"] as Map<String, dynamic>;
-        final token = data["token"] as String;
+        final payload = body["payload"];
+
+        if (payload == null) {
+          throw Exception('Payload is null');
+        }
+
+        final payloadMap = payload as Map<String, dynamic>;
+        final data = payloadMap["data"];
+
+        if (data == null) {
+          throw Exception('Data is null');
+        }
+
+        final dataMap = data as Map<String, dynamic>;
+        final token = dataMap["token"]?.toString() ?? '';
+
+        if (token.isEmpty) {
+          throw Exception('Token is empty');
+        }
+
         await prefs.setString("auth_token", token);
-        UserInfo().userType =
-            (data["isTourist"] ?? true) ? UserType.tourist : UserType.business;
-        UserInfo().preferences = List<String>.from(data["preferences"] ?? []);
+        await prefs.setString("username", username);
+
+        UserInfo().username = username;
+        UserInfo().userSessionToken = token;
+        UserInfo().userType = (dataMap["isTourist"] ?? true)
+            ? UserType.tourist
+            : UserType.business;
+
+        // Safely handle preferences - it might be a Map, List, or null
+        final prefsData = dataMap["preferences"];
+
+        if (prefsData is List) {
+          UserInfo().preferences = prefsData.map((e) => e.toString()).toList();
+        } else if (prefsData is Map) {
+          UserInfo().preferences =
+              prefsData.values.map((e) => e.toString()).toList();
+        } else {
+          UserInfo().preferences = [];
+        }
+
         return response.data;
       } else {
         final success = body["success"] as bool;
@@ -53,6 +88,8 @@ class AuthService {
       }
     } on DioException catch (e) {
       throw ServiceExceptionHandler.handleDioError(e);
+    } catch (e) {
+      rethrow;
     }
   }
 

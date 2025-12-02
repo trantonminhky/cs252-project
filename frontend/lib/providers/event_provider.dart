@@ -1,46 +1,67 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:virtour_frontend/screens/data_factories/event.dart';
+import 'package:virtour_frontend/frontend_service_layer/place_service.dart';
 
 part 'event_provider.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class Events extends _$Events {
   @override
-  List<Event> build() {
-    return [
-      Event(
-        id: "1",
-        name: "Saigon Heritage Festival",
-        location: "...",
-        description: "Experience the rich cultural heritage of Saigon",
-        startTime: DateTime(2025, 12, 15, 18, 0),
-        endTime: DateTime(2025, 12, 15, 22, 0),
-        imageUrl: "../assets/images/places/Saigon.png",
-        numberOfPeople: 250,
-      ),
-      Event(
-        id: "2",
-        name: "Hanoi Food Night Market",
-        location: "...",
-        description: "Explore traditional Vietnamese cuisine",
-        startTime: DateTime(2025, 12, 10, 19, 30),
-        endTime: DateTime(2025, 12, 10, 23, 0),
-        imageUrl: "../assets/images/places/Ha_Noi.jpg",
-        numberOfPeople: 180,
-      ),
-    ];
+  FutureOr<List<Event>> build() async {
+    return await _fetchEventsFromDB();
   }
 
-  void addEvent(Event event) {
-    state = [...state, event];
+  Future<List<Event>> _fetchEventsFromDB() async {
+    final eventsData = await RegionService().fetchEvents();
+    final List<Event> eventsList = [];
+
+    eventsData.forEach((key, value) {
+      try {
+        eventsList.add(Event(
+          id: key,
+          name: value['name'] ?? 'Unnamed Event',
+          location: value['location'] ?? 'TBD',
+          description: value['description'] ?? '',
+          startTime: value['startTime'] != null
+              ? DateTime.fromMillisecondsSinceEpoch(value['startTime'] as int)
+              : DateTime.now(),
+          endTime: value['endTime'] != null
+              ? DateTime.fromMillisecondsSinceEpoch(value['endTime'] as int)
+              : DateTime.now(),
+          imageUrl: value['imageLink'] ?? '',
+          numberOfPeople: (value['participants'] as List?)?.length ?? 0,
+        ));
+      } catch (e) {
+        print('Error parsing event $key: $e');
+      }
+    });
+
+    return eventsList;
   }
 
-  void removeEvent(Event event) {
-    state = state.where((e) => e.id != event.id).toList();
+  Future<void> addEvent(Event event) async {
+    final currentState = await future;
+    state = AsyncValue.data([...currentState, event]);
   }
 
-  void updateEvent(Event updatedEvent) {
-    state =
-        state.map((e) => e.id == updatedEvent.id ? updatedEvent : e).toList();
+  Future<void> removeEvent(Event event) async {
+    final currentState = await future;
+    state = AsyncValue.data(
+      currentState.where((e) => e.id != event.id).toList(),
+    );
+  }
+
+  Future<void> updateEvent(Event updatedEvent) async {
+    final currentState = await future;
+    state = AsyncValue.data(
+      currentState
+          .map((e) => e.id == updatedEvent.id ? updatedEvent : e)
+          .toList(),
+    );
+  }
+
+  Future<void> refresh() async {
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() async => await _fetchEventsFromDB());
   }
 }

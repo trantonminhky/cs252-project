@@ -51,9 +51,8 @@ class TripScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final places = ref.watch(tripProvider);
-    final participatedEvents = ref.watch(participatedEventsProvider);
-    final hasContent = places.isNotEmpty || participatedEvents.isNotEmpty;
+    final placesAsync = ref.watch(tripProvider);
+    final participatedEventsAsync = ref.watch(participatedEventsProvider);
 
     return Scaffold(
       body: SafeArea(
@@ -77,125 +76,176 @@ class TripScreen extends ConsumerWidget {
                       letterSpacing: -1,
                     ),
                   ),
-                  // Add Create button in header when there's content
-                  if (hasContent)
-                    IconButton(
-                      onPressed: () => _showCreateOptions(context, ref),
-                      icon: Container(
-                        padding: const EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          color: const Color(0xFFD72323),
-                          borderRadius: BorderRadius.circular(8),
-                          border: Border.all(color: Colors.black, width: 2),
-                        ),
-                        child: const Icon(
-                          Icons.add,
-                          color: Colors.white,
-                          size: 24,
-                        ),
+                  // Always show create button
+                  IconButton(
+                    onPressed: () => _showCreateOptions(context, ref),
+                    icon: Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFD72323),
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(color: Colors.black, width: 2),
+                      ),
+                      child: const Icon(
+                        Icons.add,
+                        color: Colors.white,
+                        size: 24,
                       ),
                     ),
+                  ),
                 ],
               ),
-              !hasContent
-                  ? Expanded(
-                      child: Center(
-                        child: DottedBorder(
-                          options: const RoundedRectDottedBorderOptions(
-                            radius: Radius.circular(16),
-                            dashPattern: <double>[3, 3],
-                            strokeWidth: 2,
-                          ),
-                          child: SizedBox(
-                            height: 279,
-                            width: 372,
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                vertical: 21,
-                                horizontal: 43,
+              Expanded(
+                child: placesAsync.when(
+                  data: (places) {
+                    return participatedEventsAsync.when(
+                      data: (events) {
+                        final hasContent =
+                            places.isNotEmpty || events.isNotEmpty;
+
+                        if (!hasContent) {
+                          return Center(
+                            child: DottedBorder(
+                              options: const RoundedRectDottedBorderOptions(
+                                radius: Radius.circular(16),
+                                dashPattern: <double>[3, 3],
+                                strokeWidth: 2,
                               ),
-                              child: Column(
-                                children: [
-                                  Image.asset(
-                                    "assets/icons/carbon_warning.png",
+                              child: SizedBox(
+                                height: 279,
+                                width: 372,
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 21,
+                                    horizontal: 43,
                                   ),
-                                  const SizedBox(height: 10),
-                                  const Text(
-                                    "Nothing here...",
-                                    style: TextStyle(
-                                      color: Color(0xffff6165),
-                                      fontSize: 20,
-                                      fontFamily: "BeVietnamPro",
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 24),
-                                  TextButton(
-                                    style: TextButton.styleFrom(
-                                      backgroundColor: const Color(0xffd72323),
-                                      shape: RoundedRectangleBorder(
-                                        side: const BorderSide(
-                                          color: Colors.black,
-                                          width: 2,
-                                        ),
-                                        borderRadius: BorderRadius.circular(13),
+                                  child: Column(
+                                    children: [
+                                      Image.asset(
+                                        "assets/icons/carbon_warning.png",
                                       ),
-                                    ),
-                                    onPressed: () =>
-                                        _showCreateOptions(context, ref),
-                                    child: const SizedBox(
-                                      width: 277,
-                                      height: 33,
-                                      child: Center(
-                                        child: Text(
-                                          "Create",
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 20,
-                                            fontFamily: "BeVietnamPro",
-                                            fontWeight: FontWeight.w600,
+                                      const SizedBox(height: 10),
+                                      const Text(
+                                        "Nothing here...",
+                                        style: TextStyle(
+                                          color: Color(0xffff6165),
+                                          fontSize: 20,
+                                          fontFamily: "BeVietnamPro",
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 24),
+                                      TextButton(
+                                        style: TextButton.styleFrom(
+                                          backgroundColor:
+                                              const Color(0xffd72323),
+                                          shape: RoundedRectangleBorder(
+                                            side: const BorderSide(
+                                              color: Colors.black,
+                                              width: 2,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(13),
+                                          ),
+                                        ),
+                                        onPressed: () =>
+                                            _showCreateOptions(context, ref),
+                                        child: const SizedBox(
+                                          width: 277,
+                                          height: 33,
+                                          child: Center(
+                                            child: Text(
+                                              "Create",
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 20,
+                                                fontFamily: "BeVietnamPro",
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
                                           ),
                                         ),
                                       ),
-                                    ),
-                                  ),
-                                  const SizedBox(height: 24),
-                                  TextButton(
-                                    style: TextButton.styleFrom(
-                                      backgroundColor: Colors.white,
-                                      shape: RoundedRectangleBorder(
-                                        side: const BorderSide(
-                                          color: Colors.black,
-                                          width: 2,
+                                      const SizedBox(height: 24),
+                                      TextButton(
+                                        style: TextButton.styleFrom(
+                                          backgroundColor: Colors.white,
+                                          shape: RoundedRectangleBorder(
+                                            side: const BorderSide(
+                                              color: Colors.black,
+                                              width: 2,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(13),
+                                          ),
                                         ),
-                                        borderRadius: BorderRadius.circular(13),
-                                      ),
-                                    ),
-                                    onPressed: () {},
-                                    child: const SizedBox(
-                                      width: 277,
-                                      height: 33,
-                                      child: Center(
-                                        child: Text(
-                                          "Create with AI",
-                                          style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 20,
-                                            fontFamily: "BeVietnamPro",
-                                            fontWeight: FontWeight.w600,
+                                        onPressed: () {},
+                                        child: const SizedBox(
+                                          width: 277,
+                                          height: 33,
+                                          child: Center(
+                                            child: Text(
+                                              "Create with AI",
+                                              style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 20,
+                                                fontFamily: "BeVietnamPro",
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
                                           ),
                                         ),
                                       ),
-                                    ),
+                                    ],
                                   ),
-                                ],
+                                ),
                               ),
                             ),
-                          ),
+                          );
+                        }
+
+                        return const TripScreenContent();
+                      },
+                      loading: () =>
+                          const Center(child: CircularProgressIndicator()),
+                      error: (error, stack) => Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(Icons.error,
+                                size: 48, color: Colors.red),
+                            const SizedBox(height: 16),
+                            Text('Error loading events: $error'),
+                            TextButton(
+                              onPressed: () => ref
+                                  .read(participatedEventsProvider.notifier)
+                                  .refresh(),
+                              child: const Text('Retry'),
+                            ),
+                          ],
                         ),
                       ),
-                    )
-                  : const Expanded(child: TripScreenContent()),
+                    );
+                  },
+                  loading: () =>
+                      const Center(child: CircularProgressIndicator()),
+                  error: (error, stack) => Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(Icons.error, size: 48, color: Colors.red),
+                        const SizedBox(height: 16),
+                        Text('Error loading places: $error'),
+                        TextButton(
+                          onPressed: () =>
+                              ref.read(tripProvider.notifier).refresh(),
+                          child: const Text('Retry'),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
