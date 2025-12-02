@@ -12,6 +12,7 @@ class EventController {
 			const name = req.body.name;
 			const description = req.body.description;
 			const imageLink = req.body.imageLink;
+			const startTime = req.body.startTime;
 			const endTime = req.body.endTime;
 
 			if (!name) {
@@ -23,7 +24,7 @@ class EventController {
 				return void res.status(response.statusCode).json(response.get());
 			}
 
-			const response = await EventService.createEvent(name, description, imageLink, endTime);
+			const response = await EventService.createEvent(name, description, imageLink, startTime, endTime);
 			return void res.status(response.statusCode).json(response.get());
 		} catch (err) {
 			next(err);

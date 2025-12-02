@@ -8,6 +8,8 @@ import "package:virtour_frontend/screens/trip_screen/trip_screen_content.dart";
 import "package:virtour_frontend/screens/trip_screen/create_options_dialog.dart";
 import "package:virtour_frontend/screens/trip_screen/create_event_form.dart";
 import "package:virtour_frontend/screens/data_factories/event.dart";
+import "package:virtour_frontend/frontend_service_layer/place_service.dart";
+import "package:virtour_frontend/constants/userinfo.dart";
 
 class TripScreen extends ConsumerWidget {
   const TripScreen({super.key});
@@ -25,15 +27,42 @@ class TripScreen extends ConsumerWidget {
       );
 
       if (newEvent != null) {
-        // Save event to provider
-        ref.read(eventsProvider.notifier).addEvent(newEvent);
+        // Call the backend API to create the event
+        final regionService = RegionService();
+        final apiResult = await regionService.createEvent(
+          name: newEvent.name,
+          description: newEvent.description,
+          imageLink: newEvent.imageUrl,
+          startTime: newEvent.startTime.millisecondsSinceEpoch,
+          endTime: newEvent.endTime.millisecondsSinceEpoch,
+        );
 
-        if (context.mounted) {
+        if (apiResult != null && context.mounted) {
+          // Show success message
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text('Event "${newEvent.name}" created successfully!'),
+              backgroundColor: Colors.green,
               duration: const Duration(seconds: 2),
-              backgroundColor: const Color(0xFF4CAF50),
+            ),
+          );
+
+          // Subscribe the user to the event
+          final userInfo = UserInfo();
+          final username =
+              userInfo.username.isNotEmpty ? userInfo.username : 'guest';
+          await regionService.subscribeToEvent(
+              username, apiResult['id'].toString());
+
+          // Refresh participated events and all events
+          ref.read(participatedEventsProvider.notifier).refresh();
+          ref.read(eventsProvider.notifier).refresh();
+        } else if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Failed to create event'),
+              backgroundColor: Colors.red,
+              duration: Duration(seconds: 2),
             ),
           );
         }

@@ -20,7 +20,7 @@ class EventService {
 		}
 	}
 
-	async createEvent(name, description, imageLink = null, endTime = null) {
+	async createEvent(name, description, imageLink = null, startTime = null, endTime = null) {
 		if (!name) {
 			const response = new ServiceResponse(
 				false,
@@ -40,7 +40,7 @@ class EventService {
 				id: eventID,
 				name: name,
 				description: description,
-				startTime: Date.now(),
+				startTime: startTime || Date.now(),
 				endTime: endTime,
 				imageLink: imageLink,
 				participants: []

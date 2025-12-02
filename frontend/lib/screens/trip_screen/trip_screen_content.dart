@@ -45,6 +45,7 @@ class _TripScreenContentState extends ConsumerState<TripScreenContent>
         name: event.name,
         description: event.description,
         imageLink: event.imageUrl,
+        startTime: event.startTime.millisecondsSinceEpoch,
         endTime: event.endTime.millisecondsSinceEpoch,
       );
 

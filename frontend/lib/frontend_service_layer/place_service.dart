@@ -365,6 +365,7 @@ class RegionService {
     required String name,
     required String description,
     String? imageLink,
+    int? startTime,
     int? endTime,
   }) async {
     try {
@@ -372,6 +373,7 @@ class RegionService {
         'name': name,
         'description': description,
         'imageLink': imageLink,
+        'startTime': startTime,
         'endTime': endTime,
       });
 
