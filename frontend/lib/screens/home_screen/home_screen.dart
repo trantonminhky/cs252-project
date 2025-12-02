@@ -5,12 +5,12 @@ import "package:virtour_frontend/components/briefings.dart";
 import "package:virtour_frontend/components/custom_text_field.dart";
 import "package:virtour_frontend/components/events_banner.dart";
 import "package:virtour_frontend/components/briefing_carousel.dart";
-import "package:virtour_frontend/screens/home_screen/region_overview.dart";
+import "package:virtour_frontend/screens/home_screen/place_overview.dart";
 import "package:virtour_frontend/screens/home_screen/search_screen.dart";
-import "package:virtour_frontend/screens/data_factories/filter_type.dart";
+import "package:virtour_frontend/screens/data_factories/place.dart";
+import "package:virtour_frontend/frontend_service_layer/place_service.dart";
+import "package:virtour_frontend/constants/userinfo.dart";
 import "package:virtour_frontend/providers/event_provider.dart";
-import "package:virtour_frontend/screens/data_factories/region.dart";
-import "package:virtour_frontend/screens/data_factories/data_service.dart";
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -23,14 +23,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   final TextEditingController _searchController = TextEditingController();
   final RegionService _regionService = RegionService();
 
-  List<Region> _topRegions = [];
-  bool _isLoadingRegions = false;
+  List<Place> _topPlaces = [];
+  bool _isLoadingPlaces = false;
   String? _errorMessage;
 
   @override
   void initState() {
     super.initState();
-    _fetchTopRegions();
+    _fetchTopPlaces();
   }
 
   @override
@@ -39,47 +39,35 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     super.dispose();
   }
 
-  Future<void> _fetchTopRegions() async {
+  Future<void> _fetchTopPlaces() async {
     setState(() {
-      _isLoadingRegions = true;
+      _isLoadingPlaces = true;
       _errorMessage = null;
     });
 
     try {
-      final regions = <Region>[];
-      final regionIds = [
-        'sg',
-      ];
-
-      for (final id in regionIds) {
-        try {
-          final region = await _regionService.getRegionbyId(id);
-          regions.add(region);
-        } catch (e) {
-          print('Error fetching region $id: $e');
-        }
-      }
+      final places = await _regionService.getPlace('famous places', []);
 
       setState(() {
-        _topRegions = regions;
-        _isLoadingRegions = false;
+        _topPlaces = places.take(5).toList();
+        _isLoadingPlaces = false;
       });
     } catch (e) {
       setState(() {
-        _errorMessage = 'Failed to load regions: $e';
-        _isLoadingRegions = false;
+        _errorMessage = 'Failed to load places: $e';
+        _isLoadingPlaces = false;
       });
 
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to load regions: $e')),
+          SnackBar(content: Text('Failed to load places: $e')),
         );
       }
     }
   }
 
   Widget _buildTopDestinations() {
-    if (_isLoadingRegions) {
+    if (_isLoadingPlaces) {
       return Container(
         height: 320,
         alignment: Alignment.center,
@@ -87,7 +75,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       );
     }
 
-    if (_errorMessage != null || _topRegions.isEmpty) {
+    if (_errorMessage != null || _topPlaces.isEmpty) {
       return Container(
         height: 320,
         alignment: Alignment.center,
@@ -97,13 +85,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             const Icon(Icons.error_outline, size: 48, color: Colors.grey),
             const SizedBox(height: 8),
             Text(
-              _errorMessage ?? 'No regions available',
+              _errorMessage ?? 'No places available',
               style: const TextStyle(color: Colors.grey),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 8),
             TextButton(
-              onPressed: _fetchTopRegions,
+              onPressed: _fetchTopPlaces,
               child: const Text('Retry'),
             ),
           ],
@@ -114,24 +102,27 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     return VerticalBriefingCarousel(
       height: 320,
       autoPlay: true,
-      items: _topRegions.map((region) {
+      items: _topPlaces.map((place) {
+        // Get first category from tags for display
+        final category =
+            place.tags.values.expand((list) => list).firstOrNull ?? 'Place';
+
         return GestureDetector(
           onTap: () {
             Navigator.push(
               context,
               CupertinoPageRoute(
-                builder: (context) => RegionOverview(
-                  region: region,
-                  currentFilter: FilterType.regionOverview,
+                builder: (context) => PlaceOverview(
+                  place: place,
                 ),
               ),
             );
           },
           child: Briefing(
             size: BriefingSize.vert,
-            title: region.name,
-            category: "Văn hóa",
-            imageUrl: region.imageUrl,
+            title: place.name,
+            category: category,
+            imageUrl: place.imageLink,
           ),
         );
       }).toList(),

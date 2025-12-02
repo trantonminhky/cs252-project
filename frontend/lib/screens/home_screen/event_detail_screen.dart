@@ -290,12 +290,14 @@ class EventDetailScreen extends ConsumerWidget {
               final mockPlace = Place(
                 id: 'event_${event.id}',
                 name: event.name,
-                categories: ['Event', 'Cultural'],
-                imageUrl: event.imageUrl,
+                tags: {
+                  'Religion': ['Buddhist Temple']
+                },
+                imageLink: event.imageUrl,
                 description: event.description,
-                type: FilterType.religion,
-                latitude: 1.3521, // Default Singapore coordinates
-                longitude: 103.8198,
+                lat: 1.3521, // Default Singapore coordinates
+                lon: 103.8198,
+                age: 100,
                 address: event.location,
               );
 

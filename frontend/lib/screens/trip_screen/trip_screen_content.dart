@@ -136,7 +136,7 @@ class _TripScreenContentState extends ConsumerState<TripScreenContent>
                       itemBuilder: (context, index) {
                         final place = placesList[index];
                         return Dismissible(
-                          key: Key(place.name + place.address),
+                          key: Key('${place.id}_${place.name}'),
                           direction: DismissDirection.endToStart,
                           onDismissed: (direction) {
                             ref.read(tripProvider.notifier).removePlace(place);
@@ -172,7 +172,7 @@ class _TripScreenContentState extends ConsumerState<TripScreenContent>
                                     height: 100,
                                     // should be Image.network once data is ready
                                     child: Image.asset(
-                                      place.imageUrl,
+                                      place.imageLink,
                                       fit: BoxFit.cover,
                                       errorBuilder:
                                           (context, error, stackTrace) {
@@ -199,7 +199,7 @@ class _TripScreenContentState extends ConsumerState<TripScreenContent>
                                 ),
                                 const SizedBox(height: 7),
                                 Text(
-                                  place.address,
+                                  place.address ?? '${place.lat}, ${place.lon}',
                                   style: const TextStyle(
                                     color: Colors.black,
                                     fontSize: 12,

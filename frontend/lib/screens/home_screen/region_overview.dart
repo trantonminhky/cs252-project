@@ -1,6 +1,5 @@
 import "package:flutter/material.dart";
 import "package:flutter/cupertino.dart";
-import "package:virtour_frontend/components/bottom_bar.dart";
 import "package:virtour_frontend/components/briefings.dart";
 import "package:virtour_frontend/components/cards.dart";
 import "package:virtour_frontend/screens/home_screen/place_overview.dart";
@@ -8,7 +7,7 @@ import "package:virtour_frontend/screens/home_screen/helpers.dart";
 import "package:virtour_frontend/screens/data_factories/filter_type.dart";
 import "package:virtour_frontend/screens/data_factories/region.dart";
 import "package:virtour_frontend/screens/data_factories/place.dart";
-import "package:virtour_frontend/screens/data_factories/data_service.dart";
+import "package:virtour_frontend/frontend_service_layer/place_service.dart";
 
 class RegionOverview extends StatefulWidget {
   final Region region;
@@ -29,31 +28,38 @@ class _RegionOverviewState extends State<RegionOverview> {
   bool _isExpanded = false; // Track "Read More" state
 
   // Data state
-  Region? _region;
   List<Place>? _filteredPlaces;
-  bool _isLoading = true;
+  bool _isLoading = false;
   String? _errorMessage;
+  FilterType _currentFilter = FilterType.regionOverview;
 
   final RegionService _regionService = RegionService();
 
   @override
   void initState() {
     super.initState();
-    _loadRegionData();
+    _currentFilter = widget.currentFilter;
+    // Removed automatic data loading on navigation
+    // Call _loadPlaces() manually when needed (e.g., filter selection)
   }
 
-  Future<void> _loadRegionData() async {
+  Future<void> _loadPlaces() async {
     setState(() {
       _isLoading = true;
       _errorMessage = null;
     });
 
     try {
-      // Fetch region data
-      final region = await _regionService.getRegionbyId(widget.region.id);
+      // Use getPlace to fetch places for this region
+      final places = await _regionService.getPlace(
+        widget.region.name,
+        _currentFilter == FilterType.regionOverview
+            ? []
+            : [_currentFilter.name],
+      );
 
-      setState(() async {
-        _region = region;
+      setState(() {
+        _filteredPlaces = places;
         _isLoading = false;
       });
     } catch (e) {
@@ -103,7 +109,7 @@ class _RegionOverviewState extends State<RegionOverview> {
                         ),
                         const SizedBox(height: 16),
                         ElevatedButton(
-                          onPressed: _loadRegionData,
+                          onPressed: _loadPlaces,
                           child: const Text('Retry'),
                         ),
                       ],
@@ -164,10 +170,9 @@ class _RegionOverviewState extends State<RegionOverview> {
                             height: briefingHeight,
                             child: Briefing(
                               size: BriefingSize.full,
-                              title: _region?.name ?? "Saigon",
-                              category: "Region",
-                              imageUrl: _region?.imageUrl ??
-                                  "../assets/images/places/Saigon.png",
+                              title: widget.region.name,
+                              category: widget.region.category ?? "Region",
+                              imageUrl: widget.region.imageUrl,
                             ),
                           ),
                         ),
@@ -183,9 +188,9 @@ class _RegionOverviewState extends State<RegionOverview> {
                               children: [
                                 Text(
                                   _isExpanded
-                                      ? (_region?.description ?? "")
+                                      ? widget.region.description
                                       : getTruncatedDescription(
-                                          _region?.description ?? ""),
+                                          widget.region.description),
                                   style: const TextStyle(
                                     fontSize: 14,
                                     fontFamily: "BeVietnamPro",
@@ -254,7 +259,7 @@ class _RegionOverviewState extends State<RegionOverview> {
                                         size: CardSize.list,
                                         title: place.name,
                                         chips: getChipsFromPlace(place),
-                                        imageUrl: place.imageUrl,
+                                        imageUrl: place.imageLink,
                                       ),
                                     ),
                                     const SizedBox(height: 16),
@@ -281,9 +286,6 @@ class _RegionOverviewState extends State<RegionOverview> {
                     ),
                   ),
       ),
-      bottomNavigationBar: const BottomNavBar(
-        selectedIndex: 0, // Home screen (region overview is part of home flow)
-      ),
     );
   }
 
@@ -306,16 +308,10 @@ class _RegionOverviewState extends State<RegionOverview> {
       selected: isSelected,
       onSelected: (selected) {
         if (selected && !isSelected) {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => RegionOverview(
-                region: widget.region,
-                places: widget.places,
-                currentFilter: filterType,
-              ),
-            ),
-          );
+          setState(() {
+            _currentFilter = filterType;
+          });
+          _loadPlaces();
         }
       },
     );
