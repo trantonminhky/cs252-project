@@ -2,7 +2,7 @@ import axios from 'axios';
 import ServiceResponse from '../helper/ServiceResponse.js';
 import UserDB from '../db/UserDB.js';
 
-const PYTHON_API_URL = 'http://localhost:8000/api/v1';
+const PYTHON_API_URL = 'https://committee-academy-rolls-club.trycloudflare.com/api/v1';
 
 class RecommendationService {
 
