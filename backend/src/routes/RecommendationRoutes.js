@@ -1,8 +1,9 @@
-const express = require('express');
-const router = express.Router();
-const recController = require('../controllers/RecommendationController');
+import { Router } from 'express';
+import recController from '../controllers/RecommendationController.js';
+
+const router = Router();
 
 router.get('/', recController.getRecommendations);
 router.post('/feedback', recController.sendFeedback);
 
-module.exports = router;
+export default router;
