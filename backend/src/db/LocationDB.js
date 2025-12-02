@@ -1,6 +1,6 @@
 /*
 	{
-		0: {
+		"0": {
 			id: 0,
 			lat: 69.696969
 			lon: 36.363636
@@ -17,7 +17,7 @@
 			openHours: ["0600", "1100", "1300", "2000"],
 			dayOff: "saturday, sunday"
 		} 
-	}
+	}, ...
 */
 
 class LocationDB {

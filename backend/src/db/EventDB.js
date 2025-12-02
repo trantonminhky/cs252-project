@@ -1,3 +1,15 @@
+/*
+	"0": {
+		id: 0,
+		name: "Great Event of Lorem Ipsum",
+		description: "Lorem ipsum dolor sit amet",
+		startTime: 123456789,
+		endTime: null,
+		imageLink: "https://example.com",
+		participants: ["miku", "teto"]
+	}, ...
+*/
+
 class EventDB {
 	constructor() {
 		import('enmap').then(async ({ default: Enmap }) => {

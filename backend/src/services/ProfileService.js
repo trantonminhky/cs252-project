@@ -73,6 +73,7 @@ class ProfileService {
 				"Username already taken"
 			));
 		}
+		
 		if(typeof isTourist === "boolean") 
 		{
 			return new ServiceResponse(false,400,"Malformed usertype parameter");
@@ -106,7 +107,7 @@ class ProfileService {
 				"Success",
 				{
 					token: UserDB.get(user, 'sessionToken.data'),
-					createdAt: (new Date(get(user, 'sessionToken.createdAt'))).toString()
+					createdAt: (new Date(UserDB.get(user, 'sessionToken.createdAt'))).toString()
 				}
 			);
 
