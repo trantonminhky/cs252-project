@@ -10,7 +10,7 @@ import "package:virtour_frontend/constants/userinfo.dart";
 class RegionService {
   static final RegionService _instance = RegionService._internal();
   late final Dio dio;
-  static const String _baseUrl = "http://localhost:3000/api";
+  static const String _baseUrl = "http://10.0.2.2:3000/api";
   late final UserInfo userInfo;
 
   factory RegionService() {
@@ -187,6 +187,67 @@ need functions to:
       throw _handleDioError(e);
     } catch (e) {
       throw Exception('Failed to load reviews: $e');
+    }
+  }
+
+  // Saved Places Methods
+  Future<List<String>> getSavedPlaces(String username) async {
+    try {
+      final response = await dio.get('/profile/saved-places', queryParameters: {
+        'username': username,
+      });
+
+      if (response.statusCode == 200) {
+        final data = response.data;
+        if (data['success']) {
+          final places = data['data'] ?? data['payload']?['data'] ?? [];
+          return List<String>.from(places);
+        }
+      }
+      return [];
+    } on DioException catch (e) {
+      print('Error fetching saved places: ${e.message}');
+      return [];
+    }
+  }
+
+  Future<bool> addSavedPlace(String username, String placeId) async {
+    try {
+      final response = await dio.post('/profile/saved-places', data: {
+        'username': username,
+        'placeId': placeId,
+      });
+
+      if (response.statusCode == 201 || response.statusCode == 200) {
+        final data = response.data;
+        return data['success'] ?? false;
+      }
+      return false;
+    } on DioException catch (e) {
+      print('Error adding saved place: ${e.message}');
+      if (e.response?.statusCode == 409) {
+        // Place already saved
+        return true;
+      }
+      return false;
+    }
+  }
+
+  Future<bool> removeSavedPlace(String username, String placeId) async {
+    try {
+      final response = await dio.delete('/profile/saved-places', data: {
+        'username': username,
+        'placeId': placeId,
+      });
+
+      if (response.statusCode == 200) {
+        final data = response.data;
+        return data['success'] ?? false;
+      }
+      return false;
+    } on DioException catch (e) {
+      print('Error removing saved place: ${e.message}');
+      return false;
     }
   }
 

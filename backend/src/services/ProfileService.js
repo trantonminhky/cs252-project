@@ -15,7 +15,7 @@ function renewToken(user) {
 	let newToken = generateToken32();
 	let newCreatedAt = Date.now();
 
-	if (check(oldToken) !== "valid") { // if token expires
+	if (SessionTokensDB.check(oldToken) !== "valid") { // if token expires
 		UserDB.set(user, newToken, "sessionToken.data");
 		UserDB.set(user, newCreatedAt, "sessionToken.createdAt");
 
@@ -93,7 +93,8 @@ class ProfileService {
 				sessionToken: {
 					data: token,
 					createdAt: tokenCreatedAt
-				}
+				},
+				savePlaces: []
 			});
 
 			SessionTokensDB.set(token, {
@@ -159,13 +160,17 @@ class ProfileService {
 
 		try {
 			const token = renewToken(user);
+			const isTourist = UserDB.get(user, 'isTourist');
+			const preferences = UserDB.get(user, 'preferences');
 			const response = new ServiceResponse(
 				true,
 				200,
 				"Success",
 				{
 					token: token.data,
-					createdAt: (new Date(token.createdAt)).toString()
+					createdAt: (new Date(token.createdAt)).toString(),
+					isTourist: isTourist,
+					preferences: preferences || []
 				}
 			)
 
@@ -194,7 +199,10 @@ class ProfileService {
 				return new ServiceResponse(false,400,"Malformed preferences");
 			}
             if(!UserDB.has(username)) return new ServiceResponse(false, 404, "Username not found");
-            UserDB.db.ensure(username,[],"preferences");
+            let currentPrefs = UserDB.get(username, "preferences");
+   			if (!Array.isArray(currentPrefs)) {
+        		UserDB.set(username, [], "preferences");
+    		}
     		if (!preferences) {
     			return new ServiceResponse(false, 400, "Preferences data is required");
     		}
@@ -211,7 +219,108 @@ class ProfileService {
     			return new ServiceResponse(false, 500, "Something went wrong");
     		}
     }
+	/**
+	 * Adds a place to the user's saved list.
+	 * @param {String} username - The username
+	 * @param {String|Number} placeId - The ID of the place to save
+	 * @returns {Promise<ServiceResponse>}
+	 */
+	async addSavedPlace(username, placeId) {
+		if (!username) return new ServiceResponse(false, 400, "Username is required");
+		if (!placeId) return new ServiceResponse(false, 400, "Place ID is required");
+		if (!UserDB.has(username)) {
+			return new ServiceResponse(false, 404, "User not found");
+		}
+		try {
+			// REPLACED: UserDB.ensure(...) and UserDB.push(...)
+			// FIX: Fetch the current array manually
+			let savedPlaces = UserDB.get(username, "savePlaces");
 
+			// If the array doesn't exist yet (or is null), initialize it
+			if (!Array.isArray(savedPlaces)) {
+				savedPlaces = [];
+			}
+
+			// Check for duplicates
+			if (savedPlaces.includes(placeId)) {
+				return new ServiceResponse(false, 409, "Place already saved");
+			}
+
+			// Add the new ID to the local array
+			savedPlaces.push(placeId);
+
+			// FIX: Save the updated array back to the DB using the available .set() method
+			UserDB.set(username, savedPlaces, "savePlaces");
+
+			return new ServiceResponse(true, 201, "Place saved successfully");
+		} catch (err) {
+			console.error(err);
+			return new ServiceResponse(false, 500, "Failed to save place");
+		}
+	}
+
+	/**
+	 * Removes a place from the user's saved list.
+	 * @param {String} username - The username
+	 * @param {String|Number} placeId - The ID of the place to remove
+	 * @returns {Promise<ServiceResponse>}
+	 */
+	async removeSavedPlace(username, placeId) {
+		if (!username || !placeId) {
+			return new ServiceResponse(false, 400, "Username and Place ID are required");
+		}
+
+		if (!UserDB.has(username)) {
+			return new ServiceResponse(false, 404, "User not found");
+		}
+
+		try {
+			// FIX: Fetch, Filter, then Set
+			let savedPlaces = UserDB.get(username, "savePlaces");
+
+			if (!Array.isArray(savedPlaces)) {
+				return new ServiceResponse(false, 404, "No saved places found");
+			}
+			
+			// Filter out the item
+			const newSavedPlaces = savedPlaces.filter(id => id !== placeId);
+			
+			// Save the updated list back
+			UserDB.set(username, newSavedPlaces, "savePlaces");
+
+			return new ServiceResponse(true, 200, "Place removed successfully");
+		} catch (err) {
+			console.error(err);
+			return new ServiceResponse(false, 500, "Failed to remove place");
+		}
+	}
+
+	/**
+	 * Gets the list of saved places for a user.
+	 * @param {String} username 
+	 * @returns {Promise<ServiceResponse>}
+	 */
+	async getSavedPlaces(username) {
+		if (!username) return new ServiceResponse(false, 400, "Username is required");
+		
+		if (!UserDB.has(username)) {
+			return new ServiceResponse(false, 404, "User not found");
+		}
+
+		try {
+			// FIX: Just use .get() and handle the undefined case
+			let places = UserDB.get(username, "savePlaces");
+			
+			if (!places) {
+				places = [];
+			}
+			
+			return new ServiceResponse(true, 200, "Success", places);
+		} catch (err) {
+			console.error(err);
+			return new ServiceResponse(false, 500, "Failed to fetch saved places");
+		}
+	}
 }
 
 export default new ProfileService();

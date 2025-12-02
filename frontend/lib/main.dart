@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:virtour_frontend/screens/introduction_screen/introduction_screen.dart';
+import 'package:virtour_frontend/screens/main_layout.dart';
+import 'package:virtour_frontend/screens/authenciation_screen/auth_service.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Restore user info from SharedPreferences
+  final authService = AuthService();
+  await authService.restoreUserInfo();
+
   runApp(const ProviderScope(child: MyApp()));
 }
 

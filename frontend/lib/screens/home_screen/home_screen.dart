@@ -1,22 +1,25 @@
 import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:virtour_frontend/components/briefings.dart";
 import "package:virtour_frontend/components/custom_text_field.dart";
+import "package:virtour_frontend/components/events_banner.dart";
 import "package:virtour_frontend/components/briefing_carousel.dart";
 import "package:virtour_frontend/screens/home_screen/region_overview.dart";
 import "package:virtour_frontend/screens/home_screen/search_screen.dart";
 import "package:virtour_frontend/screens/data_factories/filter_type.dart";
+import "package:virtour_frontend/providers/event_provider.dart";
 import "package:virtour_frontend/screens/data_factories/region.dart";
 import "package:virtour_frontend/screens/data_factories/data_service.dart";
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends ConsumerState<HomeScreen> {
   final TextEditingController _searchController = TextEditingController();
   final RegionService _regionService = RegionService();
 
@@ -137,6 +140,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final events = ref.watch(eventsProvider);
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -172,6 +177,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    // Events Banner Section
+                    if (events.isNotEmpty) ...[
+                      EventsBanner(events: events),
+                      const SizedBox(height: 32),
+                    ],
+
                     // Top Destinations Section
                     const Padding(
                       padding: EdgeInsets.only(left: 20, top: 16),

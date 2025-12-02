@@ -4,7 +4,7 @@ import "package:virtour_frontend/constants/userinfo.dart";
 
 class AuthService {
   late final Dio _dio;
-  static const String _baseUrl = "http://localhost:3000";
+  static const String _baseUrl = "http://10.0.2.2:3000";
   UserInfo userInfo = UserInfo();
   AuthService() {
     _dio = Dio(BaseOptions(
@@ -39,9 +39,11 @@ class AuthService {
         final data = payload["data"] as Map<String, dynamic>;
         final token = data["token"] as String;
         await prefs.setString("auth_token", token);
+        await prefs.setString("username", username);
         UserInfo().userSessionToken = token;
+        UserInfo().username = username;
         UserInfo().userType =
-            data["isTourist"] ? UserType.tourist : UserType.business;
+            (data["isTourist"] ?? true) ? UserType.tourist : UserType.business;
         UserInfo().preferences = List<String>.from(data["preferences"] ?? []);
         return response.data;
       default:
@@ -70,12 +72,29 @@ class AuthService {
         final data = payload["data"] as Map<String, dynamic>;
         final token = data["token"] as String;
         await prefs.setString("auth_token", token);
+        await prefs.setString("username", username);
+        UserInfo().userSessionToken = token;
+        UserInfo().username = username;
+        UserInfo().userType = isTourist ? UserType.tourist : UserType.business;
+        UserInfo().preferences = preferences;
         return response.data;
       default:
         final success = body["success"] as bool;
         final payload = body["payload"] as Map<String, dynamic>;
         final message = payload["message"] as String;
         return {'success': success, 'message': message};
+    }
+  }
+
+  // Restore UserInfo from SharedPreferences on app start
+  Future<void> restoreUserInfo() async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString("auth_token");
+    final username = prefs.getString("username");
+
+    if (token != null && username != null) {
+      UserInfo().userSessionToken = token;
+      UserInfo().username = username;
     }
   }
 }

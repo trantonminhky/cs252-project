@@ -1,5 +1,6 @@
 import RecommendationService from '../services/RecommendationService.js';
 import ServiceResponse from '../helper/ServiceResponse.js';
+
 class RecommendationController {
     async getRecommendations(req, res, next) {
         try {
@@ -14,6 +15,7 @@ class RecommendationController {
             next(error);
         }
     }
+
     async sendFeedback(req, res, next) {
         try {
             const { username, itemId, action } = req.body;
