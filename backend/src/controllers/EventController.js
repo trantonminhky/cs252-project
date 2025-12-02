@@ -36,6 +36,16 @@ class EventController {
 			next(err);
 		}
 	}
+
+	async getByUsername(req, res, next) {
+		try {
+			const { username } = req.query;
+			const response = await EventService.getByUsername(username);
+			res.status(response.statusCode).json(response.get());
+		} catch (err) {
+			next(err);
+		}
+	}
 }
 
 export default new EventController();
