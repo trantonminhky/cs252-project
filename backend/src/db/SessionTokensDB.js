@@ -75,4 +75,4 @@ class SessionTokensDB {
 	}
 }
 
-module.exports = new SessionTokensDB();
+export default new SessionTokensDB();

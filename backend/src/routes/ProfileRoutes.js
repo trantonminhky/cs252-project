@@ -1,8 +1,12 @@
-const express = require('express');
-const router = express.Router();
-const profileController = require('../controllers/ProfileController');
+import { Router } from 'express';
+const router = Router();
+import profileController from '../controllers/ProfileController.js';
 
 router.post('/register', profileController.register);
 router.post('/login', profileController.login);
+router.post('/preferences', profileController.setPreferences);
 
-module.exports = router;
+router.get('/saved-places', profileController.getSavedPlaces);     // Fetch list
+router.post('/saved-places', profileController.addSavedPlace);     // Add item
+router.delete('/saved-places', profileController.removeSavedPlace); // Remove item  
+export default router;

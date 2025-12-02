@@ -1,5 +1,5 @@
-const ServiceResponse = require('../helper/ServiceResponse');
-const ProfileService = require('../services/ProfileService');
+import ServiceResponse from '../helper/ServiceResponse.js';
+import ProfileService from '../services/ProfileService.js';
 
 // TO-DO: DOCUMENT CONTROLLER CLASSES
 class ProfileController {
@@ -18,7 +18,6 @@ class ProfileController {
 			const pass = req.body.password;
 			const name = req.body.name;
 			const age = req.body.age;
-
 			if (!user || !pass) {
 				const response = new ServiceResponse(
 					false,
@@ -77,6 +76,46 @@ class ProfileController {
 			next(err);
 		}
 	}
+	async setPreferences(req, res, next) {
+           try {
+              if (req.headers['content-type'] !== 'application/json') {
+                 const response = new ServiceResponse(false, 415, 'Malformed Content-Type header');
+                 return res.status(response.statusCode).json(response.get());
+              }
+              const {username, preferences}  =  req.body;
+              const response = await ProfileService.setPreferences(username, preferences);
+              res.status(response.statusCode).json(response.get());
+           } catch (error) {
+              next(error);
+           }
+    }
+	async addSavedPlace(req, res, next) {
+		try {
+			const { username, placeId } = req.body;
+			const response = await ProfileService.addSavedPlace(username, placeId);
+			res.status(response.statusCode).json(response.get());
+		} catch (error) {
+			next(error);
+		}
+	}
+	async removeSavedPlace(req, res, next) {
+		try {
+			const { username, placeId } = req.body;
+			const response = await ProfileService.removeSavedPlace(username, placeId);
+			res.status(response.statusCode).json(response.get());
+		} catch (error) {
+			next(error);
+		}
+	}
+	async getSavedPlaces(req, res, next) {
+		try {
+			const { username } = req.query;
+			const response = await ProfileService.getSavedPlaces(username);
+			res.status(response.statusCode).json(response.get());
+		} catch (error) {
+			next(error);
+		}
+	}
 }
 
-module.exports = new ProfileController();
+export default new ProfileController();

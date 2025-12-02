@@ -1,11 +1,8 @@
-const config = require('../config/config');
-const ServiceResponse = require('../helper/ServiceResponse');
-
-let gemini;
-import("gemini-ai").then(async ({ default: Gemini }) => {
-	gemini = new Gemini(config.gemini.apiKey);
-});
-
+import config from '../config/config.js';
+import ServiceResponse from '../helper/ServiceResponse.js';
+import { Client } from '@gradio/client';
+import Gemini from 'gemini-ai';
+const gemini = new Gemini(config.gemini.apiKey);
 
 class AIService {
 	constructor() {
@@ -46,6 +43,39 @@ class AIService {
 			return response;
 		}
 	}
+
+	async extractTags(text) {
+		if (!text) {
+			const response = new ServiceResponse(
+				false,
+				400,
+				"Text is required"
+			);
+			return response;
+		}
+
+		try {
+			const client = await Client.connect("JustscrAPIng/cultour-filter-search");
+			const result = await client.predict("/extract_tags", {
+				user_text: text
+			});
+			const response = new ServiceResponse(
+				true,
+				200,
+				"Success",
+				result
+			);
+			return response;
+		} catch (err) {
+			console.log(err);
+			const response = new ServiceResponse(
+				false,
+				500,
+				"Something went wrong"
+			);
+			return response;
+		}
+	}
 }
 
-module.exports = new AIService();
+export default new AIService();

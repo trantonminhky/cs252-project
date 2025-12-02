@@ -4,6 +4,7 @@ class Region {
   final String imageUrl;
   final String description;
   final List<String> placesId;
+  final String? category;
 
   const Region({
     required this.id,
@@ -11,25 +12,34 @@ class Region {
     required this.imageUrl,
     required this.description,
     required this.placesId,
+    this.category,
   });
 
-  factory Region.fromBson(Map<String, dynamic> bson) {
+  factory Region.fromJson(Map<String, dynamic> json) {
     return Region(
-      id: bson['_id'].toString(),
-      name: bson['name'],
-      imageUrl: bson['imageUrl'],
-      description: bson['description'],
-      placesId: List<String>.from(bson['placesId']),
+      id: json['id']?.toString() ?? '',
+      name: json['name'] ?? '',
+      imageUrl: json['imageUrl'] ?? json['image'] ?? '',
+      description: json['description'] ?? '',
+      placesId: (json['placesId'] as List<dynamic>?)
+              ?.map((e) => e.toString())
+              .toList() ??
+          (json['places'] as List<dynamic>?)
+              ?.map((e) => e.toString())
+              .toList() ??
+          [],
+      category: json['category'],
     );
   }
 
-  Map<String, dynamic> toBson() {
+  Map<String, dynamic> toJson() {
     return {
       '_id': id,
       'name': name,
       'imageUrl': imageUrl,
       'description': description,
       'placesId': placesId,
+      'category': category,
     };
   }
 }

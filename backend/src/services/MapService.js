@@ -1,79 +1,146 @@
-const axios = require('axios');
-const config = require('../config/config');
+import axios from 'axios';
+import config from '../config/config.js';
+import ServiceResponse from '../helper/ServiceResponse.js';
 
-// THESE SERVICES ARE SOMEWHAT OUTDATED
-// TO-DO: DEAL WITH THESE FUCKERS
-
+/**
+ * Map service provider class.
+ * @class
+ */
 class MapService {
 	constructor() {
-		this.apiKey = config.maptiler.apiKey;
-		this.baseUrl = config.maptiler.baseUrl;
-	}
-
-	// Get URL for displaying maps
-	// param - Map style (streets, outdoor, satellite,...)
-	// return - Tile URL and configuration
-	getMapTileUrl(style = 'streets') {
-		return {
-			tilesUrl: `${this.baseUrl}/maps/${style}/{z}/{x}/{y}.png?key=${this.apiKey}`,
-			attribution: 'MapTiler OpenStreetMap contributors',
-			maxZoom: 18,
-			minZoom: 0
-		};
+		this.apiKey = config.openRouteService.apiKey;
+		this.baseUrl = config.openRouteService.baseUrl;
 	}
 
 	// Get route between two points
 	// param - array of [lon,lat] pairs
 	// return - route data
-	async getRoute(coordinates, profile = 'driving') {
+	async getRoute(coordinates, profile = 'driving-car') {
+		if (coordinates.length !== 2) {
+			const response = new ServiceResponse(
+				false,
+				400,
+				"Only two pairs of coordinates must be specified"
+			);
+			return response;
+		}
+
+		if (Number.isNaN(parseFloat(coordinates[0][0])) || Number.isNaN(parseFloat(coordinates[0][1])) || Number.isNaN(parseFloat(coordinates[1][0])) || Number.isNaN(parseFloat(coordinates[1][1]))) {
+			const response = new ServiceResponse(
+				false,
+				400,
+				"Bad coordinates"
+			);
+			return response;
+		}
+
+		const fromCoordinates = coordinates[0].map(coor => coor.toString()).join(',');
+		const toCoordinates = coordinates[1].map(coor => coor.toString()).join(',');
+
 		try {
-			const coords = coordinates.map(c => `${c[0]},$c{[1]}`).json(';');
-			const response = await axios.get(`${this.baseUrl}/routing/${profile}/${coords}.json`, {
-				params: {
-					key: this.apiKey,
-					overview: 'full',
-					steps: true
-				}
-			});
-			return response.data;
-		} catch (error) {
-			throw new Error(`Routing failed: ${error.message}`);
+			const url = `${this.baseUrl}/v2/directions/${profile}`;
+			const axiosResponse = await axios.get(url, { params: {
+				api_key: this.apiKey,
+				start: fromCoordinates,
+				end: toCoordinates
+			}});
+
+			const response = new ServiceResponse(
+				true,
+				200,
+				"Success",
+				axiosResponse.data
+			);
+			return response;
+		} catch (err) {
+			const response = new ServiceResponse(
+				false,
+				500,
+				"Something went wrong"
+			);
+			return response;
 		}
 	}
 
 	// Search for places near a location
 	// params - lat, lon, rad, category
 	// return - places data
-	async searchNearBy(lat, lon, radius = 5000, category = null) {
+	async nearby(lat, lon, radius = 1000, category_ids = []) {
+		if (lat == null || lon == null) {
+			const response = new ServiceResponse(
+				false,
+				400,
+				"Latitude and longitude are required"
+			);
+			return response;
+		}
+
+		if (radius <= 0 || radius > 2000) {
+			const response = new ServiceResponse(
+				false,
+				400,
+				"Radius must be over 0 and no more than 2000"
+			);
+			return response;
+		}
+
+		let filters = {};
+		
+		if (!Array.isArray(category_ids)) {
+			const response = new ServiceResponse(
+				flse,
+				400,
+				"Malformed category id list"
+			);
+			return response;
+		}
+
+		if (category_ids.length) {
+			filters.category_ids = category_ids;
+		}
+
 		try {
-			const params = {
-				key: this.apiKey,
-				lat,
-				lon,
-				radius,
-				limit: 20
-			};
-
-			if (category) {
-				params.types = category;
-			}
-
-			const response = await axios.get(`${this.baseUrl}/geocoding/nearby.json`, {
-				params
+			const url = `${this.baseUrl}/pois`;
+			const axiosResponse = await axios.post(url, {
+				request: "pois",
+				geometry: {
+					geojson: {
+						type: "Point",
+						coordinates: [lon, lat]
+					},
+					buffer: radius
+				},
+				filters
+			}, {
+				headers: {
+					Authorization: this.apiKey
+				}
 			});
 
-			return response.data;
-		} catch (error) {
-			throw new Error(`Nearby search failed: ${error.message}`);
+			let resp;
+			if (typeof axiosResponse.data === 'string' || axiosResponse.data instanceof String) {
+				resp = {};
+			} else {
+				resp = axiosResponse.data;
+			}
+	
+			const response = new ServiceResponse(
+				true,
+				200,
+				"Success",
+				resp
+			);
+			return response;
+		} catch (err) {
+			console.error(err);
+			const response = new ServiceResponse(
+				false,
+				500,
+				"Something went wrong"
+			);
+			return response;
 		}
-	}
-
-	// Get static map image
-	// params - lat, lon, zoom, width, height
-	// return - image url
-	getStaticMapUrl(lat, lon, zoom = 14, width = 600, height = 400) {
-		return `${this.baseUrl}/maps/streets/static/${lon},${lat},${zoom},${width}x${height}.png?key=${this.apiKey}`;
 	}
 }
 
-module.exports = new MapService();
+export default new MapService();
