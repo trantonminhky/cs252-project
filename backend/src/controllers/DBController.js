@@ -1,5 +1,5 @@
-const ServiceResponse = require('../helper/ServiceResponse');
-const DBService = require('../services/DBService');
+import ServiceResponse from '../helper/ServiceResponse.js';
+import DBService from '../services/DBService.js';
 
 // TO-DO: DOCUMENT CONTROLLER CLASSES
 
@@ -65,4 +65,4 @@ class DBController {
 	}
 }
 
-module.exports = new DBController();
+export default new DBController();

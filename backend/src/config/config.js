@@ -1,4 +1,4 @@
-require('dotenv').config();
+import 'dotenv/config';
 
 const config = {
 	env: process.env.NODE_ENV || 'development',
@@ -11,6 +11,11 @@ const config = {
 
 	openStreetMap: {
 		baseUrl: 'https://nominatim.openstreetmap.org'
+	},
+
+	openRouteService: {
+		baseUrl: 'https://api.openrouteservice.org',
+		apiKey: process.env.OPEN_ROUTE_SERVICE
 	},
 
 	discord: {
@@ -31,4 +36,4 @@ const config = {
 	}
 };
 
-module.exports = config;
+export default config;

@@ -65,4 +65,4 @@ class UserDB {
 	}
 }
 
-module.exports = new UserDB();
+export default new UserDB();

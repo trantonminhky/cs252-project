@@ -23,21 +23,21 @@ class Place {
     required this.address,
   });
 
-  factory Place.fromBson(Map<String, dynamic> bson) {
+  factory Place.fromJson(Map<String, dynamic> json) {
     return Place(
-      id: bson['_id'].toString(),
-      name: bson['name'],
-      categories: List<String>.from(bson['categories']),
-      imageUrl: bson['imageUrl'],
-      description: bson['description'],
-      type: FilterType.values[bson['type']],
-      latitude: bson['latitude'],
-      longitude: bson['longitude'],
-      address: bson['address'],
+      id: json['_id'].toString(),
+      name: json['name'],
+      categories: List<String>.from(json['categories']),
+      imageUrl: json['imageUrl'],
+      description: json['description'],
+      type: FilterType.values[json['type']],
+      latitude: json['latitude'],
+      longitude: json['longitude'],
+      address: json['address'],
     );
   }
 
-  Map<String, dynamic> toBson() {
+  Map<String, dynamic> toJson() {
     return {
       '_id': id,
       'name': name,

@@ -58,7 +58,7 @@ class _MyTextFieldState extends State<MyTextField> {
         Container(
           decoration: BoxDecoration(
             color: const Color(0xffd9d9d9),
-            borderRadius: BorderRadius.circular(15),
+            borderRadius: BorderRadius.circular(16),
           ),
           child: TextField(
             controller: widget.textEditingController,

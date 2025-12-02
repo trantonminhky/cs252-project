@@ -1,8 +1,8 @@
 // src/services/geocode/geocode.js
-const axios = require('axios');
+import axios from 'axios';
 
-const ServiceResponse = require('../helper/ServiceResponse');
-const config = require('../config/config');
+import ServiceResponse from '../helper/ServiceResponse.js';
+import config from '../config/config.js';
 
 /**
  * Geocode service provider class.
@@ -100,4 +100,4 @@ class GeocodeService {
 	}
 }
 
-module.exports = new GeocodeService();
+export default new GeocodeService();
