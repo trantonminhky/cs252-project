@@ -2,6 +2,11 @@ import ServiceResponse from '../helper/ServiceResponse.js';
 import EventService from '../services/EventService.js'
 
 class EventController {
+	async importToDB(req, res, next) {
+		await EventService.importToDB();
+		res.status(200).json("lol");
+	}
+
 	async createEvent(req, res, next) {
 		try {
 			const name = req.body.name;
@@ -17,7 +22,7 @@ class EventController {
 				);
 				return void res.status(response.statusCode).json(response.get());
 			}
-			
+
 			const response = await EventService.createEvent(name, description, imageLink, endTime);
 			return void res.status(response.statusCode).json(response.get());
 		} catch (err) {
