@@ -23,6 +23,16 @@ class LocationController {
 			next(err);
 		}
 	}
+
+	async findByID(req, res, next) {
+		try {
+			const { id } = req.query;
+			const response = await LocationService.findByID(id);
+			res.statusCode(response.statusCode).json(response.get());
+		} catch (err) {
+			next(err);
+		}
+	}
 }
 
 export default new LocationController();
