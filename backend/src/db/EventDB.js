@@ -1,6 +1,6 @@
 /*
 	"0": {
-		id: 0,
+		id: "0",
 		name: "Great Event of Lorem Ipsum",
 		description: "Lorem ipsum dolor sit amet",
 		startTime: 123456789,
@@ -15,6 +15,11 @@ class EventDB {
 		import('enmap').then(async ({ default: Enmap }) => {
 			this.db = new Enmap({ name: 'EventDB' });
 		});
+	}
+
+	// autonum is used to ensure non-duplicate id
+	autonum() {
+		return this.db.autonum;
 	}
 
 	set(key, val, path) {
