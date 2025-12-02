@@ -28,7 +28,7 @@ class LocationController {
 		try {
 			const { id } = req.query;
 			const response = await LocationService.findByID(id);
-			res.statusCode(response.statusCode).json(response.get());
+			res.status(response.statusCode).json(response.get());
 		} catch (err) {
 			next(err);
 		}
