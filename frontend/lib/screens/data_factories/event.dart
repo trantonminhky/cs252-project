@@ -3,7 +3,8 @@ class Event {
   final String name;
   final String location;
   final String description;
-  final DateTime time;
+  final DateTime startTime;
+  final DateTime endTime;
   final String imageUrl;
   final int numberOfPeople;
 
@@ -12,7 +13,8 @@ class Event {
     required this.name,
     required this.location,
     required this.description,
-    required this.time,
+    required this.startTime,
+    required this.endTime,
     required this.imageUrl,
     required this.numberOfPeople,
   });
@@ -23,7 +25,8 @@ class Event {
       name: bson['name'],
       location: bson['location'],
       description: bson['description'],
-      time: DateTime.parse(bson['time']),
+      startTime: DateTime.parse(bson['startTime']),
+      endTime: DateTime.parse(bson['endTime']),
       imageUrl: bson['imageUrl'],
       numberOfPeople: bson['numberOfPeople'],
     );
@@ -35,7 +38,8 @@ class Event {
       'name': name,
       'location': location,
       'description': description,
-      'time': time.toIso8601String(),
+      'startTime': startTime.toIso8601String(),
+      'endTime': endTime.toIso8601String(),
       'imageUrl': imageUrl,
       'numberOfPeople': numberOfPeople,
     };

@@ -381,7 +381,7 @@ class _TripScreenContentState extends ConsumerState<TripScreenContent>
             ),
             const SizedBox(width: 4),
             Text(
-              DateFormat('MMM dd, yyyy - HH:mm').format(event.time),
+              DateFormat('MMM dd, yyyy - HH:mm').format(event.startTime),
               style: const TextStyle(
                 color: Color(0xFF666666),
                 fontSize: 14,

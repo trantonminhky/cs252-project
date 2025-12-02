@@ -79,12 +79,21 @@ class EventDetailScreen extends ConsumerWidget {
                         ),
                         const SizedBox(height: 20),
 
-                        // Date & Time
+                        // Start Time
                         _buildInfoRow(
                           Icons.calendar_today,
-                          "Date & Time",
+                          "Start Time",
                           DateFormat('EEEE, MMM dd, yyyy - HH:mm')
-                              .format(event.time),
+                              .format(event.startTime),
+                        ),
+                        const SizedBox(height: 16),
+
+                        // End Time
+                        _buildInfoRow(
+                          Icons.access_time,
+                          "End Time",
+                          DateFormat('EEEE, MMM dd, yyyy - HH:mm')
+                              .format(event.endTime),
                         ),
                         const SizedBox(height: 16),
 

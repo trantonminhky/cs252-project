@@ -165,7 +165,7 @@ class _EventCard extends StatelessWidget {
                             ),
                             const SizedBox(width: 4),
                             Text(
-                              _formatDateTime(event.time),
+                              _formatDateTime(event.startTime),
                               style: const TextStyle(
                                 fontSize: 12,
                                 fontFamily: "BeVietnamPro",
