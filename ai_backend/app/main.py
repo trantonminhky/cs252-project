@@ -18,7 +18,11 @@ app.add_middleware(
 )
 
 # Register the router
-app.include_router(recommendation.router, prefix="/api/v1", tags=["recommendation"])
+app.include_router(
+    recommendation.router,
+    prefix="/api/v1",
+    tags=["recommendation"]
+)
 
 @app.get("/")
 def health_check():
@@ -26,5 +30,9 @@ def health_check():
 
 if __name__ == "__main__":
     import uvicorn
-    # Run the server on port 8000
-    uvicorn.run(...)
+    uvicorn.run(
+        "app.main:app",     
+        host="0.0.0.0",
+        port=8000,
+        reload=True
+    )

@@ -18,6 +18,7 @@ const AIRoutes = require('./routes/AIRoutes');
 const GeocodeRoutes = require('./routes/GeocodeRoutes');
 const ProfileRoutes = require('./routes/ProfileRoutes');
 const DBRoutes = require('./routes/DBRoutes');
+const RecommendationRoutes = require('./routes/RecommendationRoutes');
 
 const app = express();
 const customStream = {
@@ -71,6 +72,7 @@ app.use('/api/geocode', GeocodeRoutes);
 app.use('/api/ai', AIRoutes);
 app.use('/api/profile', ProfileRoutes);
 app.use('/api/db', DBRoutes);
+app.use('/api/recommendation', RecommendationRoutes);
 
 // Root endpoint
 app.get('/', (req, res) => {

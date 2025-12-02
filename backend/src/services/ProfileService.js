@@ -4,6 +4,7 @@ const ServiceResponse = require('../helper/ServiceResponse');
 
 const UserDB = require('../db/UserDB');
 const SessionTokensDB = require('../db/SessionTokensDB');
+const { type } = require('os');
 
 function generateToken32() {
 	return crypto.randomBytes(24).toString('base64url').slice(0, 32);
@@ -46,7 +47,7 @@ class ProfileService {
 	 * @param {String} pass - Password
 	 * @returns {Promise<ServiceResponse>} Response
 	 */
-	async register(user, pass, name, age, user_type) {
+	async register(user, pass, name, age, isTourist) {
 		// if username or password is not provided
 		if (!user || !pass) {
 			return (new ServiceResponse(
@@ -73,7 +74,10 @@ class ProfileService {
 				"Username already taken"
 			));
 		}
-
+		if(typeof isTourist === "boolean") 
+		{
+			return new ServiceResponse(false,400,"Malformed usertype parameter");
+		}
 		const token = generateToken32(); // user session token
 		const tokenCreatedAt = Date.now(); // session token created timestamp in ms
 
@@ -84,9 +88,8 @@ class ProfileService {
 				name: name,
 				age: age,
 				preferences: [],
-				preferences_vec: [],
 				rec_profile: null,
-				type: user_type,
+				isTourist: isTourist,
 				sessionToken: {
 					data: token,
 					createdAt: tokenCreatedAt
@@ -186,6 +189,10 @@ class ProfileService {
             if (!username) {
                 return new ServiceResponse(false, 400, "Username is required");
             }
+			if(!Array.isArray(preferences))
+			{
+				return new ServiceResponse(false,400,"Malformed preferences");
+			}
             if(!UserDB.has(username)) return new ServiceResponse(false, 404, "Username not found");
             UserDB.db.ensure(username,[],"preferences");
     		if (!preferences) {
