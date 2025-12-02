@@ -93,7 +93,7 @@ class _MapScreenState extends ConsumerState<MapScreen> {
             mapController: _mapController,
             options: MapOptions(
               initialCenter: _location,
-              initialZoom: 10.0,
+              initialZoom: 15.0,
               minZoom: 5.0,
               maxZoom: 18.0,
               interactionOptions: const InteractionOptions(
@@ -105,7 +105,7 @@ class _MapScreenState extends ConsumerState<MapScreen> {
               TileLayer(
                 urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
                 userAgentPackageName: 'com.virtour.app',
-                maxZoom: 19,
+                maxZoom: 19.0,
                 tileBuilder: (context, widget, tile) {
                   return widget;
                 },
@@ -145,11 +145,16 @@ class _MapScreenState extends ConsumerState<MapScreen> {
           Positioned(
             top: 48,
             left: (MediaQuery.of(context).size.width - 372) / 2,
-            child: Briefing(
-              size: BriefingSize.horiz,
-              title: _locationName,
-              subtitle: _locationSubtitle,
-              imageUrl: _locationImage,
+            child: GestureDetector(
+              onTap: () {
+                Navigator.of(context).pop();
+              },
+              child: Briefing(
+                size: BriefingSize.horiz,
+                title: _locationName,
+                subtitle: _locationSubtitle,
+                imageUrl: _locationImage,
+              ),
             ),
           ),
         ],

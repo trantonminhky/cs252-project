@@ -8,9 +8,8 @@ import "package:virtour_frontend/screens/home_screen/helpers.dart";
 import "package:virtour_frontend/screens/home_screen/search_screen.dart";
 import "package:virtour_frontend/providers/trip_provider.dart";
 import "package:virtour_frontend/screens/data_factories/review.dart";
-import "package:virtour_frontend/frontend_service_layer/geocode_service.dart";
-import "package:virtour_frontend/providers/navigation_provider.dart";
 import "package:virtour_frontend/providers/selected_place_provider.dart";
+import "package:virtour_frontend/screens/map_screen/map_screen.dart";
 
 class PlaceOverview extends ConsumerWidget {
   final Place place;
@@ -133,57 +132,16 @@ class PlaceOverview extends ConsumerWidget {
               const SizedBox(height: 48),
               Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                 TextButton(
-                  onPressed: () async {
-                    // Show loading indicator
-                    showDialog(
-                      context: context,
-                      barrierDismissible: false,
-                      builder: (context) => const Center(
-                        child: CircularProgressIndicator(),
+                  onPressed: () {
+                    // Set the selected place for the map screen
+                    ref.read(selectedPlaceProvider.notifier).setPlace(place);
+
+                    // Navigate directly to map screen
+                    Navigator.of(context).push(
+                      CupertinoPageRoute(
+                        builder: (context) => const MapScreen(),
                       ),
                     );
-
-                    try {
-                      // Get address from reverse geocoding
-                      final geocodeService = GeocodeService();
-                      final address = await geocodeService.reverseGeocode(
-                        place.lat,
-                        place.lon,
-                      );
-
-                      // Assign address to place object
-                      place.address = address ?? '${place.lat}, ${place.lon}';
-
-                      // Close loading dialog
-                      if (context.mounted) {
-                        Navigator.pop(context);
-
-                        // Set the selected place for the map screen
-                        ref
-                            .read(selectedPlaceProvider.notifier)
-                            .setPlace(place);
-
-                        // Navigate to map screen via bottom bar
-                        ref.read(navigationProvider.notifier).setIndex(2);
-
-                        // Pop back to home screen first so bottom nav works correctly
-                        Navigator.of(context)
-                            .popUntil((route) => route.isFirst);
-                      }
-                    } catch (e) {
-                      // Close loading dialog
-                      if (context.mounted) {
-                        Navigator.pop(context);
-
-                        // Show error message
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text('Error: ${e.toString()}'),
-                            backgroundColor: Colors.red,
-                          ),
-                        );
-                      }
-                    }
                   },
                   style: TextButton.styleFrom(
                     backgroundColor: Colors.white,
