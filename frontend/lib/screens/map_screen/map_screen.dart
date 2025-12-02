@@ -3,6 +3,7 @@ import "package:flutter_map/flutter_map.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:latlong2/latlong.dart";
 import "package:virtour_frontend/components/briefings.dart";
+import "package:virtour_frontend/frontend_service_layer/geocode_service.dart";
 import "package:virtour_frontend/providers/selected_place_provider.dart";
 
 class MapScreen extends ConsumerStatefulWidget {
@@ -14,17 +15,57 @@ class MapScreen extends ConsumerStatefulWidget {
 
 class _MapScreenState extends ConsumerState<MapScreen> {
   final MapController _mapController = MapController();
+  final GeocodeService _geocodeService = GeocodeService();
 
   // Default location (Bà Thiên Hậu Pagoda)
   late LatLng _location;
   late String _locationName;
-  late String _locationSubtitle;
+  String _locationSubtitle = 'Loading address...';
   late String _locationImage;
+  bool _isLoadingAddress = false;
 
   @override
   void initState() {
     super.initState();
-    // Initial setup will be done in build using provider
+    _fetchAddress();
+  }
+
+  @override
+  void didUpdateWidget(MapScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _fetchAddress();
+  }
+
+  Future<void> _fetchAddress() async {
+    final selectedPlace = ref.read(selectedPlaceProvider);
+
+    if (selectedPlace != null && !_isLoadingAddress) {
+      setState(() {
+        _isLoadingAddress = true;
+      });
+
+      try {
+        final address = await _geocodeService.reverseGeocode(
+          selectedPlace.lat,
+          selectedPlace.lon,
+        );
+
+        if (mounted) {
+          setState(() {
+            _locationSubtitle =
+                address ?? '${selectedPlace.lat}, ${selectedPlace.lon}';
+            _isLoadingAddress = false;
+          });
+        }
+      } catch (e) {
+        if (mounted) {
+          setState(() {
+            _locationSubtitle = '${selectedPlace.lat}, ${selectedPlace.lon}';
+            _isLoadingAddress = false;
+          });
+        }
+      }
+    }
   }
 
   @override
@@ -35,7 +76,6 @@ class _MapScreenState extends ConsumerState<MapScreen> {
     if (selectedPlace != null) {
       _location = LatLng(selectedPlace.lat, selectedPlace.lon);
       _locationName = selectedPlace.name;
-      _locationSubtitle = selectedPlace.address;
       _locationImage = selectedPlace.imageLink;
     } else {
       _location = const LatLng(10.7549, 106.6551);

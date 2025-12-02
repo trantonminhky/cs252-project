@@ -35,22 +35,21 @@ class AuthService {
           data: {"username": username, "password": password});
       final body = response.data as Map<String, dynamic>;
 
-      switch (response.statusCode) {
-        case 200:
-          final prefs = await SharedPreferences.getInstance();
-          final payload = body["payload"] as Map<String, dynamic>;
-          final data = payload["data"] as Map<String, dynamic>;
-          final token = data["token"] as String;
-          await prefs.setString("auth_token", token);
-          UserInfo().userType =
-              data["isTourist"] ? UserType.tourist : UserType.business;
-          UserInfo().preferences = List<String>.from(data["preferences"] ?? []);
-          return response.data;
-        default:
-          final success = body["success"] as bool;
-          final payload = body["payload"] as Map<String, dynamic>;
-          final message = payload["message"] as String;
-          return {'success': success, 'message': message};
+      if (body['success'] == true) {
+        final prefs = await SharedPreferences.getInstance();
+        final payload = body["payload"] as Map<String, dynamic>;
+        final data = payload["data"] as Map<String, dynamic>;
+        final token = data["token"] as String;
+        await prefs.setString("auth_token", token);
+        UserInfo().userType =
+            data["isTourist"] ? UserType.tourist : UserType.business;
+        UserInfo().preferences = List<String>.from(data["preferences"] ?? []);
+        return response.data;
+      } else {
+        final success = body["success"] as bool;
+        final payload = body["payload"] as Map<String, dynamic>;
+        final message = payload["message"] as String;
+        return {'success': success, 'message': message};
       }
     } on DioException catch (e) {
       throw ServiceExceptionHandler.handleDioError(e);

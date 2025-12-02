@@ -9,7 +9,7 @@ class Place {
   final int age;
   final List<String>? openHours;
   final String? dayOff;
-  late String address;
+  String? address;
 
   Place({
     required this.id,
@@ -22,6 +22,7 @@ class Place {
     required this.age,
     this.openHours,
     this.dayOff,
+    this.address,
   });
 
   factory Place.fromJson(Map<String, dynamic> json) {
