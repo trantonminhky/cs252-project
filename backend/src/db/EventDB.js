@@ -66,6 +66,14 @@ class EventDB {
 		}
 	}
 
+	push(key, value, path, allowDupes=false) {
+		try {
+			this.db.push(key, value, path, allowDupes);
+		} catch (err) {
+			console.error(err);
+		}
+	}
+
 	export() {
 		try {
 			const exp = this.db.export();
