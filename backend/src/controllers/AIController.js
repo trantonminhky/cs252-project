@@ -52,7 +52,7 @@ class AIController {
 
 	async generateReviews(req, res, next) {
 		try {
-			const place = req.body.text;
+			const place = req.body.place;
 			const response = await AIService.generateReviews(place);
 			res.status(response.statusCode).json(response.get());
 		} catch (err) {
