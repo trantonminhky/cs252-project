@@ -1,15 +1,10 @@
 import ServiceResponse from '../helper/ServiceResponse.js';
 import AIService from '../services/AIService.js';
-import validateBearerToken from '../helper/validateBearerToken.js';
 
 // TO-DO: DOCUMENT CONTROLLER CLASSES
 class AIController {
 	async sendPrompt(req, res, next) {
 		try {
-			const credentials = req.headers["authorization"];
-			const tokenOK = validateBearerToken(credentials, res);
-			if (!tokenOK) return;
-
 			if (req.headers['content-type'] !== 'application/json') {
 				const response = new ServiceResponse(
 					false,

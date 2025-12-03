@@ -1,16 +1,11 @@
 import geocodeService from '../services/GeocodeService.js';
 import ServiceResponse from '../helper/ServiceResponse.js';
-import validateBearerToken from '../helper/validateBearerToken.js';
 
 // TO-DO: DOCUMENT CONTROLLER CLASSES
 class GeocodeController {
 	// Geocode an address
 	async geocode(req, res, next) {
 		try {
-			const credentials = req.headers["authorization"];
-			const tokenOK = validateBearerToken(credentials, res);
-			if (!tokenOK) return;
-
 			const { address } = req.query;
 			// if no address is specified
 			if (!address) {
@@ -33,10 +28,6 @@ class GeocodeController {
 	// Reverse geocode coordinates
 	async reverseGeocode(req, res, next) {
 		try {
-			const credentials = req.headers["authorization"];
-			const tokenOK = validateBearerToken(credentials, res);
-			if (!tokenOK) return;
-
 			const { lat, lon } = req.query;
 			if (!lat || !lon) {
 				const response = new ServiceResponse(

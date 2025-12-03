@@ -1,6 +1,5 @@
 import ServiceResponse from '../helper/ServiceResponse.js';
 import mapService from '../services/MapService.js';
-import validateBearerToken from '../helper/validateBearerToken.js';
 
 // TO-DO: DOCUMENT CONTROLLER CLASSES
 
@@ -8,10 +7,6 @@ class MapController {
 	// Get route between points
 	async getRoute(req, res, next) {
 		try {
-			const credentials = req.headers["authorization"];
-			const tokenOK = validateBearerToken(credentials, res);
-			if (!tokenOK) return;
-
 			const { coordinates, profile } = req.body;
 
 			if (!coordinates) {
@@ -51,10 +46,6 @@ class MapController {
 	// Search nearby place
 	async nearby(req, res, next) {
 		try {
-			const credentials = req.headers["authorization"];
-			const tokenOK = validateBearerToken(credentials, res);
-			if (!tokenOK) return;
-
 			const lat = req.body.lat;
 			const lon = req.body.lon;
 			const radius = req.body.radius;
