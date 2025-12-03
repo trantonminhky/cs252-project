@@ -1,6 +1,6 @@
 import ServiceResponse from '../helper/ServiceResponse.js';
 import mapService from '../services/MapService.js';
-import SessionTokensDB from '../db/SessionTokensDB.js';
+import validateBearerToken from '../helper/validateBearerToken.js';
 
 // TO-DO: DOCUMENT CONTROLLER CLASSES
 
@@ -8,51 +8,9 @@ class MapController {
 	// Get route between points
 	async getRoute(req, res, next) {
 		try {
-			const bearerCredentials = req.headers["authorization"];
-
-			if (!bearerCredentials) {
-				const response = new ServiceResponse(
-					false,
-					401,
-					"Access denied, no credentials"
-				);
-
-				return (res
-					.status(response.statusCode)
-					.set("WWW-Authenticate", 'Bearer realm="api"')
-					.json(response.get())
-				);
-			}
-
-			const credentials = bearerCredentials.split(' '); // [scheme, token]
-			if (credentials[0] !== 'Bearer') {
-				const response = new ServiceResponse(
-					false,
-					401,
-					"Access denied, authorization type must be Bearer"
-				);
-
-				return (res
-					.status(response.statusCode)
-					.set("WWW-Authenticate", 'Bearer realm="api"')
-					.json(response.get())
-				);
-			}
-
-			let authorizationStatus = SessionTokensDB.check(credentials[1]);
-			if (authorizationStatus !== "valid") {
-				const response = new ServiceResponse(
-					false,
-					401,
-					`Access denied, ${authorizationStatus}`
-				);
-
-				return (res
-					.status(response.statusCode)
-					.set("WWW-Authenticate", 'Bearer realm="api"')
-					.json(response.get())
-				);
-			}
+			const credentials = req.headers["authorization"];
+			const tokenOK = validateBearerToken(credentials, res);
+			if (!tokenOK) return;
 
 			const { coordinates, profile } = req.body;
 
@@ -93,36 +51,9 @@ class MapController {
 	// Search nearby place
 	async nearby(req, res, next) {
 		try {
-			const bearerCredentials = req.headers["authorization"];
-
-			if (!bearerCredentials) {
-				const response = new ServiceResponse(
-					false,
-					401,
-					"Access denied, no credentials"
-				);
-
-				return (res
-					.status(response.statusCode)
-					.set("WWW-Authenticate", 'Bearer realm="api"')
-					.json(response.get())
-				);
-			}
-
-			const credentials = bearerCredentials.split(' '); // [scheme, token]
-			if (credentials[0] !== 'Bearer') {
-				const response = new ServiceResponse(
-					false,
-					401,
-					"Access denied, authorization type must be Bearer"
-				);
-
-				return (res
-					.status(response.statusCode)
-					.set("WWW-Authenticate", 'Bearer realm="api"')
-					.json(response.get())
-				);
-			}
+			const credentials = req.headers["authorization"];
+			const tokenOK = validateBearerToken(credentials, res);
+			if (!tokenOK) return;
 
 			const lat = req.body.lat;
 			const lon = req.body.lon;

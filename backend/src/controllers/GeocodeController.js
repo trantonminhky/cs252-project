@@ -1,5 +1,4 @@
 import geocodeService from '../services/GeocodeService.js';
-import SessionTokensDB from '../db/SessionTokensDB.js';
 import ServiceResponse from '../helper/ServiceResponse.js';
 import validateBearerToken from '../helper/validateBearerToken.js';
 
@@ -27,59 +26,17 @@ class GeocodeController {
 			const response = await geocodeService.geocode(address);
 			return void res.status(response.statusCode).json(response.get());
 		} catch (error) {
-			console.log(error);
+			next(error);
 		}
 	}
 
 	// Reverse geocode coordinates
 	async reverseGeocode(req, res, next) {
 		try {
-			const bearerCredentials = req.headers["authorization"];
-			
-			if (!bearerCredentials) {
-				const response = new ServiceResponse(
-					false,
-					401,
-					"Access denied, no credentials"
-				);
-				
-				return (res
-					.status(response.statusCode)
-					.set("WWW-Authenticate", 'Bearer realm="api"')
-					.json(response.get())
-				);
-			}
+			const credentials = req.headers["authorization"];
+			const tokenOK = validateBearerToken(credentials, res);
+			if (!tokenOK) return;
 
-			const credentials = bearerCredentials.split(' '); // [scheme, token]
-			if (credentials[0] !== 'Bearer') {
-				const response = new ServiceResponse(
-					false,
-					401,
-					"Access denied, authorization type must be Bearer"
-				);
-
-				return (res
-					.status(response.statusCode)
-					.set("WWW-Authenticate", 'Bearer realm="api"')
-					.json(response.get())
-				);
-			}
-			
-			let authorizationStatus = SessionTokensDB.check(credentials[1]);
-			if (authorizationStatus !== "valid") {
-				const response = new ServiceResponse(
-					false,
-					401,
-					`Access denied, ${authorizationStatus}`
-				);
-				
-				return (res
-					.status(response.statusCode)
-					.set("WWW-Authenticate", 'Bearer realm="api"')
-					.json(response.get())
-				);
-			}
-			
 			const { lat, lon } = req.query;
 			if (!lat || !lon) {
 				const response = new ServiceResponse(
