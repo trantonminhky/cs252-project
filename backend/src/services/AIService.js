@@ -2,11 +2,11 @@ import config from '../config/config.js';
 import ServiceResponse from '../helper/ServiceResponse.js';
 import { Client } from '@gradio/client';
 import Gemini from 'gemini-ai';
-const gemini = new Gemini(config.gemini.apiKey);
+const gemini = new Gemini(config.gemini.APIKey);
 
 class AIService {
 	constructor() {
-		this.apiKey = config.gemini.apiKey;
+		this.apiKey = config.gemini.APIKey;
 	}
 
 	/**
