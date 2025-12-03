@@ -17,7 +17,11 @@ class GeocodeController {
 					"Access denied, no credentials"
 				);
 
-				return res.status(response.statusCode).json(response.get());
+				return (res
+					.status(response.statusCode)
+					.set("WWW-Authenticate", 'Bearer realm="api"')
+					.json(response.get())
+				);
 			}
 
 			const credentials = bearerCredentials.split(' '); // [scheme, token]
@@ -27,7 +31,12 @@ class GeocodeController {
 					401,
 					"Access denied, authorization type must be Bearer"
 				);
-				return res.status(response.statusCode).json(response.get());
+
+				return (res
+					.status(response.statusCode)
+					.set("WWW-Authenticate", 'Bearer realm="api"')
+					.json(response.get())
+				);
 			}
 
 			// if the credentials are invalid
@@ -39,7 +48,11 @@ class GeocodeController {
 					`Access denied, ${authorizationStatus}`
 				);
 
-				return res.status(response.statusCode).json(response.get());
+				return (res
+					.status(response.statusCode)
+					.set("WWW-Authenticate", 'Bearer realm="api"')
+					.json(response.get())
+				);
 			}
 
 			const { address } = req.query;
