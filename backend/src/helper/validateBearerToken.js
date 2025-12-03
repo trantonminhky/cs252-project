@@ -1,5 +1,5 @@
-import SessionTokensDB from "../db/SessionTokensDB";
-import ServiceResponse from "./ServiceResponse";
+import SessionTokensDB from "../db/SessionTokensDB.js";
+import ServiceResponse from "./ServiceResponse.js";
 
 function validateBearerToken(credentials, res) {
 	if (!credentials) {
@@ -9,11 +9,10 @@ function validateBearerToken(credentials, res) {
 			"Access denied, no credentials"
 		);
 
-		return (res
-			.status(response.statusCode)
+		res.status(response.statusCode)
 			.set("WWW-Authenticate", 'Bearer realm="api"')
-			.json(response.get())
-		);
+			.json(response.get());
+		return false;
 	}
 
 	const credentialsParts = credentials.split(' '); // [scheme, token]
@@ -27,11 +26,10 @@ function validateBearerToken(credentials, res) {
 			"Access denied, authorization type must be Bearer"
 		);
 
-		return (res
-			.status(response.statusCode)
+		res.status(response.statusCode)
 			.set("WWW-Authenticate", 'Bearer realm="api"')
-			.json(response.get())
-		);
+			.json(response.get());
+		return false;
 	}
 
 	// if the credentials are invalid
@@ -43,12 +41,13 @@ function validateBearerToken(credentials, res) {
 			`Access denied, ${authorizationStatus}`
 		);
 
-		return (res
-			.status(response.statusCode)
+		res.status(response.statusCode)
 			.set("WWW-Authenticate", 'Bearer realm="api"')
-			.json(response.get())
-		);
+			.json(response.get());
+		return false;
 	}
+
+	return true;
 }
 
 export default validateBearerToken;
