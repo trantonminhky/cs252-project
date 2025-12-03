@@ -7,7 +7,6 @@ class ReviewService {
   static final ReviewService _instance = ReviewService._internal();
   late final Dio dio;
   final String _baseUrl = UserInfo().tunnelUrl;
-  final String apiKey = 'AIzaSyD77qzUuF6jTKP86pjGg4h5-EP0NW2Keik';
 
   factory ReviewService() {
     return _instance;
