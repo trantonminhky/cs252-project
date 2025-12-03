@@ -1,10 +1,12 @@
 import "package:flutter/material.dart";
+import "package:flutter/cupertino.dart";
 import "package:flutter_map/flutter_map.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:latlong2/latlong.dart";
 import "package:virtour_frontend/components/briefings.dart";
 import "package:virtour_frontend/frontend_service_layer/geocode_service.dart";
 import "package:virtour_frontend/providers/selected_place_provider.dart";
+import "package:virtour_frontend/providers/navigation_provider.dart";
 
 class MapScreen extends ConsumerStatefulWidget {
   const MapScreen({super.key});
@@ -141,20 +143,40 @@ class _MapScreenState extends ConsumerState<MapScreen> {
             ],
           ),
 
+          // Back button at top left
+          Positioned(
+            top: 16,
+            left: 16,
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                shape: BoxShape.circle,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.2),
+                    blurRadius: 8,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: IconButton(
+                icon: const Icon(Icons.arrow_back, color: Colors.black),
+                onPressed: () {
+                  ref.read(navigationProvider.notifier).setIndex(0);
+                },
+              ),
+            ),
+          ),
+          const SizedBox(height: 96),
           // Horizontal briefing at the top (y = 48)
           Positioned(
-            top: 48,
+            top: 72,
             left: (MediaQuery.of(context).size.width - 372) / 2,
-            child: GestureDetector(
-              onTap: () {
-                Navigator.of(context).pop();
-              },
-              child: Briefing(
-                size: BriefingSize.horiz,
-                title: _locationName,
-                subtitle: _locationSubtitle,
-                imageUrl: _locationImage,
-              ),
+            child: Briefing(
+              size: BriefingSize.horiz,
+              title: _locationName,
+              subtitle: _locationSubtitle,
+              imageUrl: _locationImage,
             ),
           ),
         ],

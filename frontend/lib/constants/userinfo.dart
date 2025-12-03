@@ -22,5 +22,5 @@ class UserInfo {
   List<String> preferences = [];
   //for the sake of convenience
   final String tunnelUrl =
-      'https://angeles-explained-processed-adam.trycloudflare.com';
+      'https://summary-venture-velvet-moral.trycloudflare.com';
 }

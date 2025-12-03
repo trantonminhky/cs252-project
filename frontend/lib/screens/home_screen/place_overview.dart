@@ -9,7 +9,7 @@ import "package:virtour_frontend/screens/home_screen/search_screen.dart";
 import "package:virtour_frontend/providers/trip_provider.dart";
 import "package:virtour_frontend/screens/data_factories/review.dart";
 import "package:virtour_frontend/providers/selected_place_provider.dart";
-import "package:virtour_frontend/screens/map_screen/map_screen.dart";
+import "package:virtour_frontend/providers/navigation_provider.dart";
 
 class PlaceOverview extends ConsumerWidget {
   final Place place;
@@ -136,10 +136,16 @@ class PlaceOverview extends ConsumerWidget {
                     // Set the selected place for the map screen
                     ref.read(selectedPlaceProvider.notifier).setPlace(place);
 
-                    // Navigate directly to map screen
-                    Navigator.of(context).push(
-                      CupertinoPageRoute(
-                        builder: (context) => const MapScreen(),
+                    // Pop to root and navigate to map via bottom bar
+                    Navigator.of(context).popUntil((route) => route.isFirst);
+                    ref.read(navigationProvider.notifier).setIndex(2);
+
+                    // Show instruction snackbar
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text(
+                            'Please navigate to the map screen to view the location.'),
+                        duration: Duration(seconds: 2),
                       ),
                     );
                   },
