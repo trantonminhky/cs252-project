@@ -80,4 +80,4 @@ class ServiceResponse {
 	}
 }
 
-module.exports = ServiceResponse;
+export default ServiceResponse;

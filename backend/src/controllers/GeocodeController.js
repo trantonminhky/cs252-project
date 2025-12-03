@@ -1,6 +1,6 @@
-const geocodeService = require('../services/GeocodeService');
-const SessionTokensDB = require('../db/SessionTokensDB');
-const ServiceResponse = require('../helper/ServiceResponse');
+import geocodeService from '../services/GeocodeService.js';
+import SessionTokensDB from '../db/SessionTokensDB.js';
+import ServiceResponse from '../helper/ServiceResponse.js';
 
 // TO-DO: DOCUMENT CONTROLLER CLASSES
 class GeocodeController {
@@ -96,4 +96,4 @@ class GeocodeController {
 	}
 }
 
-module.exports = new GeocodeController();
+export default new GeocodeController();

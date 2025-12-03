@@ -1,28 +1,64 @@
-const AIService = require('../services/AIService');
+import ServiceResponse from '../helper/ServiceResponse.js';
+import AIService from '../services/AIService.js';
 
 // TO-DO: DOCUMENT CONTROLLER CLASSES
 class AIController {
-	async ask(req, res, next) {
+	async sendPrompt(req, res, next) {
 		try {
-			const prompt = req.body.prompt;
-
-			if (!prompt) {
-				return res.status(400).json({
-					success: false,
-					payload: { message: 'Prompt parameter is required' }
-				});
+			if (req.headers['content-type'] !== 'application/json') {
+				const response = new ServiceResponse(
+					false,
+					415,
+					'Malformed Content-Type header'
+				);
+				return res.status(response.statusCode).json(response.get());
 			}
 
-			const result = await AIService.sendPrompt(prompt);
+			const prompt = req.body.prompt;
+			if (!prompt) {
+				const response = new ServiceResponse(
+					false,
+					400,
+					"Prompt parameter is required"
+				);
+				return res.status(response.statusCode).json(response.get());
+			}
 
-			res.json({
-				success: true,
-				data: result
-			});
+			const response = await AIService.sendPrompt(prompt);
+			res.status(response.statusCode).json(response.get());
 		} catch (error) {
 			next(error);
 		}
 	}
+
+	async extractTags(req, res, next) {
+		try {
+			const text = req.query.text;
+			if (!text) {
+				const response = new ServiceResponse(
+					false,
+					400,
+					"Text is required"
+				);
+				return res.status(response.statusCode).json(response.get());
+			}
+
+			const response = await AIService.extractTags(text);
+			res.status(response.statusCode).json(response.get());
+		} catch (err) {
+			next(err);
+		}
+	}
+
+	async generateReviews(req, res, next) {
+		try {
+			const place = req.body.place;
+			const response = await AIService.generateReviews(place);
+			res.status(response.statusCode).json(response.get());
+		} catch (err) {
+			next(err);
+		}
+	}
 }
 
-module.exports = new AIController();
+export default new AIController();

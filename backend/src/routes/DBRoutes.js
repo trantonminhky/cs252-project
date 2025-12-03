@@ -1,8 +1,10 @@
-const express = require('express');
-const router = express.Router();
-const DBController = require('../controllers/DBController');
+import { Router } from 'express';
+const router = Router();
+import DBController from '../controllers/DBController.js';
 
+router.delete('/clear', DBController.clear);
+router.delete('/clear-all', DBController.clearAll);
 router.get('/export', DBController.export);
-router.get('/exportAll', DBController.exportAll);
+router.get('/export-all', DBController.exportAll);
 
-module.exports = router;
+export default router;

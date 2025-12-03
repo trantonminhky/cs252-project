@@ -1,22 +1,11 @@
-const fs = require('fs');
-const path = require('path');
-const ServiceResponse = require('../helper/ServiceResponse');
+import { readdirSync } from 'fs';
+import path from 'path';
+import { fileURLToPath, pathToFileURL } from 'url';
+import ServiceResponse from '../helper/ServiceResponse.js';
+import unwrapTyped from '../helper/unwrapTyped.js';
 
-function unwrapTyped(x) {
-	if (Array.isArray(x)) return x.map(unwrapTyped);
-
-	if (x && typeof x === "object") {
-		const keys = Object.keys(x);
-		if (keys.length === 2 && keys.includes("t") && keys.includes("v")) {
-			return unwrapTyped(x.v);
-		}
-		const out = {};
-		for (const k of keys) out[k] = unwrapTyped(x[k]);
-		return out;
-	}
-
-	return x;
-}
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 /**
  * Representation of databases. Note that THIS OBJECT IS ONLY FOR VIEWING PURPOSE, REFRAIN FROM DIRECTLY MODIFYING VIA THIS INFERFACE.
@@ -25,10 +14,70 @@ function unwrapTyped(x) {
 class DBService {
 	constructor() {
 		const dir = path.join(__dirname, '..', "db");
-		const databases = fs.readdirSync(dir).map(db => require(path.join(dir, db)));
-		this.databases = databases;
+		this.databases = Promise.all(
+			readdirSync(dir).map(async file => {
+				const filePath = path.join(dir, file);
+				const fileUrl = pathToFileURL(filePath).href;
+				const mod = await import(fileUrl);
+				return mod.default ?? mod;
+			})
+		);
 	}
 
+	/**
+	 * Clear selected database given name. This action is destructive and irreparable.
+	 * @param {name} name - Database name
+	 * @returns {Promise<ServiceResponse>}
+	 */
+	async clear(name) {
+		if (!name) {
+			return (new ServiceResponse(
+				false,
+				400,
+				"Name is required"
+			));
+		}
+
+		const databases = await this.databases;
+
+		for (const db of databases) {
+			const parse = JSON.parse(db.export());
+			if (parse.v.name.v == name) {
+				db.clear();
+				return (new ServiceResponse(
+					true,
+					204,
+					"Success"
+				));
+			}
+		}
+
+		return (new ServiceResponse(
+			false,
+			404,
+			"No database with such name is found"
+		));
+	}
+
+	/**
+	 * Clear all databases. This action is destructive and irreparable.
+	 * @returns {Promise<ServiceResponse>}
+	 */
+	async clearAll() {
+		const databases = await this.databases;
+		databases.forEach(db => db.clear());
+		return (new ServiceResponse(
+			true,
+			204,
+			"Success"
+		));
+	}
+
+	/**
+	 * Export Enmap database to readable JSON given database name
+	 * @param {String} name - Database name
+	 * @returns {Promise<ServiceResponse>} - Response
+	 */
 	async export(name) {
 		if (!name) {
 			return (new ServiceResponse(
@@ -38,7 +87,9 @@ class DBService {
 			));
 		}
 
-		for (const db of this.databases) {
+		const databases = await this.databases;
+
+		for (const db of databases) {
 			const parse = JSON.parse(db.export());
 			if (parse.v.name.v == name) {
 				const data = {};
@@ -58,16 +109,17 @@ class DBService {
 			false,
 			404,
 			"No database with such name is found"
-		).get());
+		));
 	}
 
 	/**
 	 * Get the Enmap exported and formatted as a readable JSON
-	 * @returns {ServiceResponse} Exported database
+	 * @returns {Promise<ServiceResponse>} Response
 	 */
 	async exportAll() {
+		const databases = await this.databases;
 		const exports = {};
-		for (const db of this.databases) {
+		for (const db of databases) {
 			const parse = JSON.parse(db.export());
 			const name = parse.v.name.v;
 			const data = {};
@@ -95,4 +147,4 @@ class DBService {
 	}
 }
 
-module.exports = new DBService();
+export default new DBService();

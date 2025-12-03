@@ -7,17 +7,18 @@ import "package:virtour_frontend/screens/home_screen/helpers.dart";
 import "package:virtour_frontend/screens/data_factories/filter_type.dart";
 import "package:virtour_frontend/screens/data_factories/region.dart";
 import "package:virtour_frontend/screens/data_factories/place.dart";
-import "package:virtour_frontend/screens/data_factories/region_service.dart";
+import "package:virtour_frontend/frontend_service_layer/place_service.dart";
 
 class RegionOverview extends StatefulWidget {
-  final String regionId;
-  final String regionName;
+  final Region region;
+  late final List<Place> places;
   final FilterType currentFilter;
-  const RegionOverview(
-      {super.key,
-      required this.regionId,
-      required this.regionName,
-      required this.currentFilter});
+  RegionOverview({
+    super.key,
+    required this.region,
+    required this.currentFilter,
+    places = const [],
+  });
 
   @override
   State<RegionOverview> createState() => _RegionOverviewState();
@@ -27,10 +28,8 @@ class _RegionOverviewState extends State<RegionOverview> {
   bool _isExpanded = false; // Track "Read More" state
 
   // Data state
-  Region? _region;
-  List<Place>? _allPlaces; // Store all places
   List<Place>? _filteredPlaces;
-  bool _isLoading = true;
+  bool _isLoading = false;
   String? _errorMessage;
   FilterType _currentFilter = FilterType.regionOverview;
 
@@ -40,30 +39,27 @@ class _RegionOverviewState extends State<RegionOverview> {
   void initState() {
     super.initState();
     _currentFilter = widget.currentFilter;
-    _loadRegionData();
+    // Removed automatic data loading on navigation
+    // Call _loadPlaces() manually when needed (e.g., filter selection)
   }
 
-  Future<void> _loadRegionData() async {
+  Future<void> _loadPlaces() async {
     setState(() {
       _isLoading = true;
       _errorMessage = null;
     });
 
     try {
-      // Fetch region data
-      final region = await _regionService.getRegionbyId(widget.regionId);
-
-      // Fetch all places for this region (service uses regionId, not placeIds list)
-      final places = await _regionService.fetchPlaceById(widget.regionId);
-
-      // Filter places based on current filter
-      final filteredPlaces =
-          _regionService.filterPlaces(places, _currentFilter);
+      // Use getPlace to fetch places for this region
+      final places = await _regionService.getPlace(
+        widget.region.name,
+        _currentFilter == FilterType.regionOverview
+            ? []
+            : [_currentFilter.name],
+      );
 
       setState(() {
-        _region = region;
-        _allPlaces = places; // Store all places
-        _filteredPlaces = filteredPlaces;
+        _filteredPlaces = places;
         _isLoading = false;
       });
     } catch (e) {
@@ -72,15 +68,6 @@ class _RegionOverviewState extends State<RegionOverview> {
         _isLoading = false;
       });
     }
-  }
-
-  void _updateFilter(FilterType newFilter) {
-    if (_allPlaces == null) return;
-
-    setState(() {
-      _currentFilter = newFilter;
-      _filteredPlaces = _regionService.filterPlaces(_allPlaces!, newFilter);
-    });
   }
 
   @override
@@ -122,7 +109,7 @@ class _RegionOverviewState extends State<RegionOverview> {
                         ),
                         const SizedBox(height: 16),
                         ElevatedButton(
-                          onPressed: _loadRegionData,
+                          onPressed: _loadPlaces,
                           child: const Text('Retry'),
                         ),
                       ],
@@ -161,33 +148,15 @@ class _RegionOverviewState extends State<RegionOverview> {
                               ),
                               const SizedBox(width: 8),
                               _buildFilterChip(
-                                FilterType.ethnic,
-                                "Ethnic",
-                                CupertinoIcons.person,
-                              ),
-                              const SizedBox(width: 8),
-                              _buildFilterChip(
-                                FilterType.origin,
-                                "Origin",
-                                Icons.public,
+                                FilterType.buildingType,
+                                "Building Type",
+                                Icons.apartment,
                               ),
                               const SizedBox(width: 8),
                               _buildFilterChip(
                                 FilterType.religion,
                                 "Religion",
                                 Icons.church,
-                              ),
-                              const SizedBox(width: 8),
-                              _buildFilterChip(
-                                FilterType.culture,
-                                "Culture",
-                                CupertinoIcons.heart,
-                              ),
-                              const SizedBox(width: 8),
-                              _buildFilterChip(
-                                FilterType.historical,
-                                "Historical",
-                                CupertinoIcons.time,
                               ),
                             ],
                           ),
@@ -201,10 +170,9 @@ class _RegionOverviewState extends State<RegionOverview> {
                             height: briefingHeight,
                             child: Briefing(
                               size: BriefingSize.full,
-                              title: _region?.name ?? "Saigon",
-                              category: "Region",
-                              imageUrl: _region?.imageUrl ??
-                                  "../assets/images/places/Saigon.png",
+                              title: widget.region.name,
+                              category: widget.region.category ?? "Region",
+                              imageUrl: widget.region.imageUrl,
                             ),
                           ),
                         ),
@@ -220,9 +188,9 @@ class _RegionOverviewState extends State<RegionOverview> {
                               children: [
                                 Text(
                                   _isExpanded
-                                      ? (_region?.description ?? "")
+                                      ? widget.region.description
                                       : getTruncatedDescription(
-                                          _region?.description ?? ""),
+                                          widget.region.description),
                                   style: const TextStyle(
                                     fontSize: 14,
                                     fontFamily: "BeVietnamPro",
@@ -281,7 +249,7 @@ class _RegionOverviewState extends State<RegionOverview> {
                                       onTap: () {
                                         Navigator.push(
                                           context,
-                                          CupertinoPageRoute(
+                                          MaterialPageRoute(
                                             builder: (context) =>
                                                 PlaceOverview(place: place),
                                           ),
@@ -291,7 +259,7 @@ class _RegionOverviewState extends State<RegionOverview> {
                                         size: CardSize.list,
                                         title: place.name,
                                         chips: getChipsFromPlace(place),
-                                        imageUrl: place.imageUrl,
+                                        imageUrl: place.imageLink,
                                       ),
                                     ),
                                     const SizedBox(height: 16),
@@ -323,7 +291,7 @@ class _RegionOverviewState extends State<RegionOverview> {
 
   // Helper method to build filter chips
   Widget _buildFilterChip(FilterType filterType, String label, IconData icon) {
-    final bool isSelected = _currentFilter == filterType;
+    final bool isSelected = widget.currentFilter == filterType;
     return FilterChip(
       avatar: CircleAvatar(
         foregroundColor: isSelected ? Colors.white : Colors.grey,
@@ -340,7 +308,10 @@ class _RegionOverviewState extends State<RegionOverview> {
       selected: isSelected,
       onSelected: (selected) {
         if (selected && !isSelected) {
-          _updateFilter(filterType);
+          setState(() {
+            _currentFilter = filterType;
+          });
+          _loadPlaces();
         }
       },
     );

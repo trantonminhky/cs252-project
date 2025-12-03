@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:virtour_frontend/providers/trip_provider.dart';
+import 'package:virtour_frontend/providers/participated_events_provider.dart';
+import 'package:virtour_frontend/providers/event_provider.dart';
+import 'package:virtour_frontend/screens/data_factories/event.dart';
+import 'package:virtour_frontend/frontend_service_layer/place_service.dart';
+import 'package:virtour_frontend/screens/trip_screen/create_event_form.dart';
+import 'package:virtour_frontend/constants/userinfo.dart';
 
 class TripScreenContent extends ConsumerStatefulWidget {
   const TripScreenContent({super.key});
@@ -16,7 +23,7 @@ class _TripScreenContentState extends ConsumerState<TripScreenContent>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 2, vsync: this);
+    _tabController = TabController(length: 3, vsync: this);
   }
 
   @override
@@ -25,10 +32,66 @@ class _TripScreenContentState extends ConsumerState<TripScreenContent>
     super.dispose();
   }
 
+  Future<void> _showCreateEventDialog() async {
+    final event = await showDialog<Event>(
+      context: context,
+      builder: (context) => const CreateEventForm(),
+    );
+
+    if (event != null) {
+      // Call the backend API to create the event
+      final regionService = RegionService();
+      final result = await regionService.createEvent(
+        name: event.name,
+        description: event.description,
+        imageLink: event.imageUrl,
+        startTime: event.startTime.millisecondsSinceEpoch,
+        endTime: event.endTime.millisecondsSinceEpoch,
+      );
+
+      if (result != null && mounted) {
+        // Show success message
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Event "${event.name}" created successfully!'),
+            backgroundColor: Colors.green,
+            duration: const Duration(seconds: 2),
+          ),
+        );
+
+        // Subscribe the user to the event
+        final userInfo = UserInfo();
+        final username =
+            userInfo.username.isNotEmpty ? userInfo.username : 'guest';
+        await regionService.subscribeToEvent(username, result['id'].toString());
+
+        // Refresh participated events and all events
+        ref.read(participatedEventsProvider.notifier).refresh();
+        ref.read(eventsProvider.notifier).refresh();
+      } else if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Failed to create event'),
+            backgroundColor: Colors.red,
+            duration: Duration(seconds: 2),
+          ),
+        );
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final places = ref.watch(tripProvider);
-    final placesList = places.toList();
+    final placesAsync = ref.watch(tripProvider);
+    final placesList = placesAsync.value?.toList() ?? [];
+    final participatedEventsAsync = ref.watch(participatedEventsProvider);
+    final eventsList = participatedEventsAsync.value?.toList() ?? [];
+
+    // Debug output
+    print('Places loaded: ${placesList.length}');
+    print('Events loaded: ${eventsList.length}');
+    print('Places async state: ${placesAsync.runtimeType}');
+    print('Events async state: ${participatedEventsAsync.runtimeType}');
 
     return Column(
       children: [
@@ -36,7 +99,8 @@ class _TripScreenContentState extends ConsumerState<TripScreenContent>
         Center(
           child: Container(
             height: 40,
-            width: 310,
+            width: double.infinity,
+            margin: const EdgeInsets.symmetric(horizontal: 20),
             decoration: BoxDecoration(
               color: const Color(0xffe2e0e0),
               borderRadius: BorderRadius.circular(500),
@@ -58,7 +122,6 @@ class _TripScreenContentState extends ConsumerState<TripScreenContent>
                 Tab(
                   child: SizedBox(
                     height: 32,
-                    width: 131,
                     child: Center(
                       child: Text(
                         "Saves",
@@ -75,7 +138,22 @@ class _TripScreenContentState extends ConsumerState<TripScreenContent>
                 Tab(
                   child: SizedBox(
                     height: 32,
-                    width: 131,
+                    child: Center(
+                      child: Text(
+                        "Events",
+                        style: TextStyle(
+                          color: Color(0xff1e1e1e),
+                          fontSize: 15,
+                          fontFamily: "BeVietnamPro",
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Tab(
+                  child: SizedBox(
+                    height: 32,
                     child: Center(
                       child: Text(
                         "Itinerary",
@@ -99,107 +177,294 @@ class _TripScreenContentState extends ConsumerState<TripScreenContent>
             controller: _tabController,
             children: [
               // Saves tab
-              placesList.isEmpty
-                  ? const Center(
-                      child: Text(
-                        'No places saved yet',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontFamily: "BeVietnamPro",
-                        ),
-                      ),
-                    )
-                  : ListView.builder(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 8),
-                      itemCount: placesList.length,
-                      itemBuilder: (context, index) {
-                        final place = placesList[index];
-                        return Dismissible(
-                          key: Key(place.name + place.address),
-                          direction: DismissDirection.endToStart,
-                          onDismissed: (direction) {
-                            ref.read(tripProvider.notifier).removePlace(place);
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text('${place.name} removed'),
-                                duration: const Duration(seconds: 2),
+              placesAsync.when(
+                data: (places) {
+                  final placesList = places.toList();
+                  print('Rendering ${placesList.length} places');
+                  return placesList.isEmpty
+                      ? const Center(
+                          child: Text(
+                            'No places saved yet',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontFamily: "BeVietnamPro",
+                            ),
+                          ),
+                        )
+                      : ListView.builder(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 8),
+                          itemCount: placesList.length,
+                          itemBuilder: (context, index) {
+                            final place = placesList[index];
+                            return Dismissible(
+                              key: Key('${place.id}_${place.name}'),
+                              direction: DismissDirection.endToStart,
+                              onDismissed: (direction) {
+                                ref
+                                    .read(tripProvider.notifier)
+                                    .removePlace(place);
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text('${place.name} removed'),
+                                    duration: const Duration(seconds: 2),
+                                  ),
+                                );
+                              },
+                              background: Container(
+                                alignment: Alignment.centerRight,
+                                padding: const EdgeInsets.only(right: 20),
+                                decoration: BoxDecoration(
+                                  color: Colors.red,
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: const Icon(
+                                  Icons.delete,
+                                  color: Colors.white,
+                                  size: 32,
+                                ),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.only(bottom: 16.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(8),
+                                      child: SizedBox(
+                                        width: double.infinity,
+                                        height: 100,
+                                        child: place.imageLink
+                                                .startsWith('http')
+                                            ? Image.network(
+                                                place.imageLink,
+                                                fit: BoxFit.cover,
+                                                errorBuilder: (context, error,
+                                                    stackTrace) {
+                                                  return Container(
+                                                    color: Colors.grey[300],
+                                                    child: const Icon(
+                                                      Icons.image_not_supported,
+                                                      size: 40,
+                                                    ),
+                                                  );
+                                                },
+                                              )
+                                            : Image.asset(
+                                                place.imageLink,
+                                                fit: BoxFit.cover,
+                                                errorBuilder: (context, error,
+                                                    stackTrace) {
+                                                  return Container(
+                                                    color: Colors.grey[300],
+                                                    child: const Icon(
+                                                      Icons.image_not_supported,
+                                                      size: 40,
+                                                    ),
+                                                  );
+                                                },
+                                              ),
+                                      ),
+                                    ),
+                                    const SizedBox(height: 7),
+                                    Text(
+                                      place.name,
+                                      style: const TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 16,
+                                        fontFamily: "BeVietnamPro",
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 7),
+                                    Text(
+                                      place.address ??
+                                          '${place.lat}, ${place.lon}',
+                                      style: const TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 12,
+                                        fontFamily: "BeVietnamPro",
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             );
                           },
-                          background: Container(
-                            alignment: Alignment.centerRight,
-                            padding: const EdgeInsets.only(right: 20),
-                            decoration: BoxDecoration(
-                              color: Colors.red,
-                              borderRadius: BorderRadius.circular(8),
+                        );
+                },
+                loading: () => const Center(child: CircularProgressIndicator()),
+                error: (error, stack) {
+                  print('Error loading places: $error');
+                  return Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(Icons.error, size: 48, color: Colors.red),
+                        const SizedBox(height: 16),
+                        Text('Error: $error'),
+                        TextButton(
+                          onPressed: () =>
+                              ref.read(tripProvider.notifier).refresh(),
+                          child: const Text('Retry'),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
+              // Events tab
+              Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: TextButton(
+                        style: TextButton.styleFrom(
+                          backgroundColor: const Color(0xFFD72323),
+                          shape: RoundedRectangleBorder(
+                            side: const BorderSide(
+                              color: Colors.black,
+                              width: 2,
                             ),
-                            child: const Icon(
-                              Icons.delete,
+                            borderRadius: BorderRadius.circular(13),
+                          ),
+                        ),
+                        onPressed: () => _showCreateEventDialog(),
+                        child: const Padding(
+                          padding: EdgeInsets.symmetric(vertical: 12),
+                          child: Text(
+                            "Create New Event",
+                            style: TextStyle(
                               color: Colors.white,
-                              size: 32,
+                              fontSize: 18,
+                              fontFamily: "BeVietnamPro",
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
-                          child: Padding(
-                            padding: const EdgeInsets.only(bottom: 16.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(8),
-                                  child: SizedBox(
-                                    width: double.infinity,
-                                    height: 100,
-                                    // should be Image.network once data is ready
-                                    child: Image.asset(
-                                      place.imageUrl,
-                                      fit: BoxFit.cover,
-                                      errorBuilder:
-                                          (context, error, stackTrace) {
-                                        return Container(
-                                          color: Colors.grey[300],
-                                          child: const Icon(
-                                            Icons.image_not_supported,
-                                            size: 40,
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(height: 7),
-                                Text(
-                                  place.name,
-                                  style: const TextStyle(
-                                    color: Colors.black,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: participatedEventsAsync.when(
+                      data: (events) {
+                        final eventsList = events.toList();
+                        print('Rendering ${eventsList.length} events');
+                        return eventsList.isEmpty
+                            ? const Center(
+                                child: Text(
+                                  'No events participated yet',
+                                  style: TextStyle(
                                     fontSize: 16,
                                     fontFamily: "BeVietnamPro",
-                                    fontWeight: FontWeight.w700,
                                   ),
                                 ),
-                                const SizedBox(height: 7),
-                                Text(
-                                  place.address,
-                                  style: const TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 12,
-                                    fontFamily: "BeVietnamPro",
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              ],
-                            ),
+                              )
+                            : ListView.builder(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 8),
+                                itemCount: eventsList.length,
+                                itemBuilder: (context, index) {
+                                  final event = eventsList[index];
+                                  return Dismissible(
+                                    key: Key(event.id),
+                                    direction: DismissDirection.endToStart,
+                                    confirmDismiss: (direction) async {
+                                      // Call backend to unsubscribe
+                                      final username = UserInfo().username;
+                                      if (username.isEmpty) return false;
+
+                                      final regionService = RegionService();
+                                      final success = await regionService
+                                          .unsubscribeFromEvent(
+                                              username, event.id);
+
+                                      if (!success && mounted) {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          const SnackBar(
+                                            content: Text(
+                                                'Failed to unsubscribe. Please try again.'),
+                                            backgroundColor: Colors.red,
+                                            duration: Duration(seconds: 2),
+                                          ),
+                                        );
+                                      }
+
+                                      return success;
+                                    },
+                                    onDismissed: (direction) {
+                                      ref
+                                          .read(participatedEventsProvider
+                                              .notifier)
+                                          .removeEvent(event.id);
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                              'Unsubscribed from ${event.name}'),
+                                          duration: const Duration(seconds: 2),
+                                        ),
+                                      );
+                                    },
+                                    background: Container(
+                                      alignment: Alignment.centerRight,
+                                      padding: const EdgeInsets.only(right: 20),
+                                      decoration: BoxDecoration(
+                                        color: Colors.red,
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      child: const Icon(
+                                        Icons.delete,
+                                        color: Colors.white,
+                                        size: 32,
+                                      ),
+                                    ),
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.only(bottom: 16.0),
+                                      child: _buildEventCard(event),
+                                    ),
+                                  );
+                                },
+                              );
+                      },
+                      loading: () =>
+                          const Center(child: CircularProgressIndicator()),
+                      error: (error, stack) {
+                        print('Error loading events: $error');
+                        return Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Icon(Icons.error,
+                                  size: 48, color: Colors.red),
+                              const SizedBox(height: 16),
+                              Text('Error: $error'),
+                              TextButton(
+                                onPressed: () => ref
+                                    .read(participatedEventsProvider.notifier)
+                                    .refresh(),
+                                child: const Text('Retry'),
+                              ),
+                            ],
                           ),
                         );
                       },
                     ),
+                  ),
+                ],
+              ),
               // Itinerary tab (temporary version)
               Padding(
                 padding: const EdgeInsets.only(
                   left: 83,
                   right: 83,
                   top: 47,
-                  bottom: 520,
+                  bottom: 500,
                 ),
                 child: TextButton(
                   style: TextButton.styleFrom(
@@ -232,6 +497,93 @@ class _TripScreenContentState extends ConsumerState<TripScreenContent>
               ),
             ],
           ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildEventCard(Event event) {
+    final bool isAssetImage = event.imageUrl.startsWith('../assets/') ||
+        event.imageUrl.startsWith('assets/');
+    final String cleanedImageUrl = event.imageUrl.replaceFirst('../', '');
+    final ImageProvider imageProvider = isAssetImage
+        ? AssetImage(cleanedImageUrl)
+        : NetworkImage(event.imageUrl) as ImageProvider;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: SizedBox(
+            width: double.infinity,
+            height: 120,
+            child: Image(
+              image: imageProvider,
+              fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) {
+                return Container(
+                  color: Colors.grey[300],
+                  child: const Icon(
+                    Icons.image_not_supported,
+                    size: 40,
+                  ),
+                );
+              },
+            ),
+          ),
+        ),
+        const SizedBox(height: 8),
+        Text(
+          event.name,
+          style: const TextStyle(
+            color: Colors.black,
+            fontSize: 18,
+            fontFamily: "BeVietnamPro",
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+        const SizedBox(height: 4),
+        Row(
+          children: [
+            const Icon(
+              Icons.location_on_outlined,
+              size: 14,
+              color: Color(0xFF666666),
+            ),
+            const SizedBox(width: 4),
+            Expanded(
+              child: Text(
+                event.location,
+                style: const TextStyle(
+                  color: Color(0xFF666666),
+                  fontSize: 14,
+                  fontFamily: "BeVietnamPro",
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 4),
+        Row(
+          children: [
+            const Icon(
+              Icons.calendar_today,
+              size: 14,
+              color: Color(0xFF666666),
+            ),
+            const SizedBox(width: 4),
+            Text(
+              DateFormat('MMM dd, yyyy - HH:mm').format(event.startTime),
+              style: const TextStyle(
+                color: Color(0xFF666666),
+                fontSize: 14,
+                fontFamily: "BeVietnamPro",
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+          ],
         ),
       ],
     );

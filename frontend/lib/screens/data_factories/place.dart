@@ -1,53 +1,74 @@
-import "package:virtour_frontend/screens/data_factories/filter_type.dart";
-
 class Place {
   final String id;
   final String name;
-  final List<String> categories;
-  final String imageUrl;
+  final Map<String, List<String>> tags;
+  final String imageLink;
+  final double lat;
+  final double lon;
   final String description;
-  final FilterType type;
-  final double latitude;
-  final double longitude;
-  final String address;
+  final int age;
+  final List<String>? openHours;
+  final String? dayOff;
+  String? address;
 
   Place({
     required this.id,
     required this.name,
-    required this.categories,
-    required this.imageUrl,
+    required this.tags,
+    required this.imageLink,
     required this.description,
-    required this.type,
-    required this.latitude,
-    required this.longitude,
-    required this.address,
+    required this.lat,
+    required this.lon,
+    required this.age,
+    this.openHours,
+    this.dayOff,
+    this.address,
   });
 
-  factory Place.fromBson(Map<String, dynamic> bson) {
+  factory Place.fromJson(Map<String, dynamic> json) {
     return Place(
-      id: bson['_id'].toString(),
-      name: bson['name'],
-      categories: List<String>.from(bson['categories']),
-      imageUrl: bson['imageUrl'],
-      description: bson['description'],
-      type: FilterType.values[bson['type']],
-      latitude: bson['latitude'],
-      longitude: bson['longitude'],
-      address: bson['address'],
+      id: json['id']?.toString() ?? '',
+      name: json['name'] ?? '',
+      tags: _parseTags(json['tags']),
+      imageLink: json['imageLink'] ?? json['imageUrl'] ?? '',
+      description: json['description'] ?? '',
+      lat: (json['lat'] ?? json['latitude'] ?? 0).toDouble(),
+      lon: (json['lon'] ?? json['longitude'] ?? 0).toDouble(),
+      age: json['age'] ?? 0,
+      openHours: json['openHours'] != null
+          ? List<String>.from(json['openHours'])
+          : null,
+      dayOff: json['dayOff'],
     );
   }
 
-  Map<String, dynamic> toBson() {
+  static Map<String, List<String>> _parseTags(dynamic tags) {
+    final parsedTags = <String, List<String>>{};
+
+    if (tags != null && tags is Map) {
+      tags.forEach((key, value) {
+        if (value is List) {
+          parsedTags[key.toString()] =
+              value.map((item) => item.toString()).toList();
+        }
+      });
+    }
+
+    return parsedTags;
+  }
+
+  Map<String, dynamic> toJson() {
     return {
-      '_id': id,
+      'id': id,
       'name': name,
-      'categories': categories,
-      'imageUrl': imageUrl,
+      'tags': tags,
+      'imageLink': imageLink,
       'description': description,
-      'type': type.index,
-      'latitude': latitude,
-      'longitude': longitude,
-      'address': address,
+      'lat': lat,
+      'lon': lon,
+      'age': age,
+      'openHours': openHours,
+      'dayOff': dayOff,
     };
   }
 }

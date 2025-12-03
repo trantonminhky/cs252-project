@@ -1,8 +1,10 @@
-const express = require('express');
-const router = express.Router();
-const AIController = require('../controllers/AIController');
+import { Router } from 'express';
+const router = Router();
+import AIController from '../controllers/AIController.js';
 
 // AI ask endpoint
-router.post('/ask', AIController.ask);
+router.post('/send-prompt', AIController.sendPrompt);
+router.get('/extract-tags', AIController.extractTags);
+router.post('/generate-reviews', AIController.generateReviews);
 
-module.exports = router;
+export default router;

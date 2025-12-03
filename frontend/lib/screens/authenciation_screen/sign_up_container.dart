@@ -2,8 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:virtour_frontend/screens/authenciation_screen/sign_up_form_1.dart';
 import 'package:virtour_frontend/screens/authenciation_screen/sign_up_form_2.dart';
-import 'package:virtour_frontend/screens/authenciation_screen/auth_service.dart';
-import 'package:virtour_frontend/screens/main_layout.dart';
+import 'package:virtour_frontend/screens/authenciation_screen/sign_up_form_3.dart';
+import 'package:virtour_frontend/frontend_service_layer/auth_service.dart';
+import 'package:virtour_frontend/constants/userinfo.dart';
+import 'package:virtour_frontend/components/bottom_bar.dart';
 
 class SignUpContainer extends StatefulWidget {
   const SignUpContainer({super.key});
@@ -18,8 +20,12 @@ class _SignUpContainerState extends State<SignUpContainer> {
   late final TextEditingController passwordController;
   late final TextEditingController nameController;
   late final TextEditingController ageController;
+  late final TextEditingController interestsController;
+  late final TextEditingController userTypeController;
+  List<String> _selectedPreferences = [];
   bool _isLoading = false;
   static final AuthService _authService = AuthService();
+  final UserInfo _userInfo = UserInfo();
 
   @override
   void initState() {
@@ -28,6 +34,8 @@ class _SignUpContainerState extends State<SignUpContainer> {
     passwordController = TextEditingController();
     nameController = TextEditingController();
     ageController = TextEditingController();
+    interestsController = TextEditingController();
+    userTypeController = TextEditingController();
   }
 
   //helper for error
@@ -60,6 +68,8 @@ class _SignUpContainerState extends State<SignUpContainer> {
         passwordController.text,
         nameController.text,
         int.parse(ageController.text),
+        userTypeController.text.toLowerCase() == 'tourist',
+        _selectedPreferences,
       );
 
       if (!mounted) return;
@@ -97,6 +107,8 @@ class _SignUpContainerState extends State<SignUpContainer> {
     passwordController.dispose();
     nameController.dispose();
     ageController.dispose();
+    interestsController.dispose();
+    userTypeController.dispose();
     super.dispose();
   }
 
@@ -108,7 +120,7 @@ class _SignUpContainerState extends State<SignUpContainer> {
     Navigator.of(context).pushReplacement(
       CupertinoPageRoute(
         builder: (context) {
-          return const MainLayout();
+          return const BottomNavBar();
         },
       ),
     );
@@ -158,18 +170,34 @@ class _SignUpContainerState extends State<SignUpContainer> {
                     else if (ageController.text.isEmpty)
                       {_showSnackBar("Age cannot be empty")}
                     else
-                      {_handleSignUp()},
+                      {changeIndex(2)},
                   },
                   onPrevious: () => changeIndex(0),
                   nameController: nameController,
                   ageController: ageController,
+                  userInfo: _userInfo,
+                ),
+              ),
+              SingleChildScrollView(
+                keyboardDismissBehavior:
+                    ScrollViewKeyboardDismissBehavior.manual,
+                child: SignUpForm3(
+                  onNext: () => _handleSignUp(),
+                  onPrevious: () => changeIndex(1),
+                  interestsController: interestsController,
+                  userTypeController: userTypeController,
+                  onPreferencesSelected: (preferences) {
+                    setState(() {
+                      _selectedPreferences = preferences;
+                    });
+                  },
                 ),
               ),
             ],
           ),
           if (_isLoading)
             Container(
-              color: Colors.black.withOpacity(0.5),
+              color: Colors.black.withValues(alpha: 0.5),
               child: const Center(
                 child: CircularProgressIndicator(color: Colors.white),
               ),

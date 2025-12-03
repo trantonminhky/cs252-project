@@ -1,31 +1,35 @@
 // IF YOU ARE USING AI TOOLS, MAKE SURE TO SET INDENTATION TO 4 SPACES INSTEAD OF 2 SPACES
 
 // library imports
-const express = require('express');
-const helmet = require('helmet');
-const rateLimit = require('express-rate-limit');
-const morgan = require('morgan');
-const exec = require('child_process').exec;
+import express, { json, urlencoded } from 'express';
+import helmet from 'helmet';
+import rateLimit from 'express-rate-limit';
+import morgan from 'morgan';
+import { exec } from 'child_process';
 
 // local imports
-const config = require('./config/config');
-const corsMiddleware = require('./middleware/cors');
-const errorHandler = require('./middleware/errorHandler');
+import config from './config/config.js';
+import corsMiddleware from './middleware/cors.js';
+import errorHandler from './middleware/errorHandler.js';
 
 // route imports
-const MapRoutes = require('./routes/MapRoutes');
-const AIRoutes = require('./routes/AIRoutes');
-const GeocodeRoutes = require('./routes/GeocodeRoutes');
-const ProfileRoutes = require('./routes/ProfileRoutes');
-const DBRoutes = require('./routes/DBRoutes');
+
+import MapRoutes from './routes/MapRoutes.js';
+import AIRoutes from './routes/AIRoutes.js';
+import GeocodeRoutes from './routes/GeocodeRoutes.js';
+import ProfileRoutes from './routes/ProfileRoutes.js';
+import DBRoutes from './routes/DBRoutes.js';
+import LocationRoutes from './routes/LocationRoutes.js';
+import RecommendationRoutes from './routes/RecommendationRoutes.js';
+import EventRoutes from './routes/EventRoutes.js';
 
 const app = express();
 const customStream = {
 	write: (message) => {
+		console.log(message.trimEnd());
 		const stripAnsi = (s) => s.replace(/\x1b\[[0-9;]*m/g, '');
 		const clean = stripAnsi(message).trimEnd();
-		exec(`./sendRequest.sh "${config.discord.webhook}" "${clean}"`);
-		console.log(message.trimEnd());
+		exec(`./sendRequest.sh "${clean}"`);
 	}
 };
 
@@ -44,8 +48,8 @@ app.use('/api/', limiter);
 app.use(corsMiddleware);
 
 // Body parsing middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(json());
+app.use(urlencoded({ extended: true }));
 
 // Logging
 if (config.env === 'development') {
@@ -71,6 +75,9 @@ app.use('/api/geocode', GeocodeRoutes);
 app.use('/api/ai', AIRoutes);
 app.use('/api/profile', ProfileRoutes);
 app.use('/api/db', DBRoutes);
+app.use('/api/recommendation', RecommendationRoutes);
+app.use('/api/location', LocationRoutes);
+app.use('/api/event', EventRoutes);
 
 // Root endpoint
 app.get('/', (req, res) => {
@@ -122,4 +129,4 @@ app.listen(PORT, () => {
 	console.clear();
 });
 
-module.exports = app;
+export default app;

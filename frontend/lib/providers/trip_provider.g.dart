@@ -12,14 +12,14 @@ part of 'trip_provider.dart';
 @ProviderFor(Trip)
 const tripProvider = TripProvider._();
 
-final class TripProvider extends $NotifierProvider<Trip, Set<Place>> {
+final class TripProvider extends $AsyncNotifierProvider<Trip, Set<Place>> {
   const TripProvider._()
       : super(
           from: null,
           argument: null,
           retry: null,
           name: r'tripProvider',
-          isAutoDispose: true,
+          isAutoDispose: false,
           dependencies: null,
           $allTransitiveDependencies: null,
         );
@@ -30,27 +30,22 @@ final class TripProvider extends $NotifierProvider<Trip, Set<Place>> {
   @$internal
   @override
   Trip create() => Trip();
-
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(Set<Place> value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<Set<Place>>(value),
-    );
-  }
 }
 
-String _$tripHash() => r'b242a65b2a7023fcaa31b15bfe1c456cb8606c55';
+String _$tripHash() => r'94ce0e4e34a67bef90728e5e61a239d7935dba4c';
 
-abstract class _$Trip extends $Notifier<Set<Place>> {
-  Set<Place> build();
+abstract class _$Trip extends $AsyncNotifier<Set<Place>> {
+  FutureOr<Set<Place>> build();
   @$mustCallSuper
   @override
   void runBuild() {
     final created = build();
-    final ref = this.ref as $Ref<Set<Place>, Set<Place>>;
+    final ref = this.ref as $Ref<AsyncValue<Set<Place>>, Set<Place>>;
     final element = ref.element as $ClassProviderElement<
-        AnyNotifier<Set<Place>, Set<Place>>, Set<Place>, Object?, Object?>;
+        AnyNotifier<AsyncValue<Set<Place>>, Set<Place>>,
+        AsyncValue<Set<Place>>,
+        Object?,
+        Object?>;
     element.handleValue(ref, created);
   }
 }

@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:virtour_frontend/constants/userinfo.dart';
 import 'package:virtour_frontend/components/custom_text_field.dart';
 
 class SignUpForm2 extends StatelessWidget {
@@ -7,6 +7,7 @@ class SignUpForm2 extends StatelessWidget {
   final Function onPrevious;
   final TextEditingController nameController;
   final TextEditingController ageController;
+  final UserInfo userInfo;
 
   const SignUpForm2({
     super.key,
@@ -14,6 +15,7 @@ class SignUpForm2 extends StatelessWidget {
     required this.onPrevious,
     required this.nameController,
     required this.ageController,
+    required this.userInfo,
   });
 
   @override
@@ -21,12 +23,14 @@ class SignUpForm2 extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 16, left: 32, right: 32),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
             "We would like to know more about you...",
             style: TextStyle(
               color: Colors.black,
-              fontSize: 23,
+              fontSize: 24,
               fontFamily: "BeVietnamPro",
               fontWeight: FontWeight.w700,
               letterSpacing: -1,
@@ -43,6 +47,54 @@ class SignUpForm2 extends StatelessWidget {
             textEditingController: ageController,
             label: "Age",
             digitsOnly: true,
+          ),
+          const SizedBox(height: 48),
+          const Text(
+            "I am signing up as a...",
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 16,
+              fontFamily: "BeVietnamPro",
+              fontWeight: FontWeight.w700,
+              height: 1.25,
+              letterSpacing: -1,
+            ),
+          ),
+          const SizedBox(height: 16),
+          DropdownButtonFormField(
+            items: const [
+              DropdownMenuItem(
+                value: 'Tourist',
+                child: Text('Tourist'),
+              ),
+              DropdownMenuItem(
+                value: 'Business',
+                child: Text('Business'),
+              ),
+            ],
+            initialValue: 'Tourist',
+            dropdownColor: Colors.white,
+            style: const TextStyle(
+              color: Colors.black,
+              fontSize: 16,
+              fontFamily: "BeVietnamPro",
+              fontWeight: FontWeight.w500,
+            ),
+            decoration: const InputDecoration(
+              contentPadding:
+                  EdgeInsets.symmetric(vertical: 16.0, horizontal: 12.0),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(16)),
+                borderSide: BorderSide(
+                  color: Colors.black,
+                  width: 2,
+                ),
+              ),
+            ),
+            onChanged: (String? value) {
+              UserInfo().userType =
+                  (value == 'Tourist') ? UserType.tourist : UserType.business;
+            },
           ),
           const SizedBox(height: 96),
           Padding(
@@ -86,14 +138,14 @@ class SignUpForm2 extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 32, vertical: 16),
                       decoration: ShapeDecoration(
-                        color: Color(0xffd72323),
+                        color: const Color(0xffd72323),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(16),
                         ),
                       ),
                       child: const Center(
                         child: Text(
-                          'Done',
+                          'Next',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: Colors.white,

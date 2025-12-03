@@ -1,8 +1,8 @@
 // src/services/geocode/geocode.js
-const axios = require('axios');
+import axios from 'axios';
 
-const ServiceResponse = require('../helper/ServiceResponse');
-const config = require('../config/config');
+import ServiceResponse from '../helper/ServiceResponse.js';
+import config from '../config/config.js';
 
 /**
  * Geocode service provider class.
@@ -16,8 +16,8 @@ class GeocodeService {
 	/**
 	 * Sends query to OpenMapTiles to return geocoded address.
 	 * @param {string} query - Address to query OpenMapTiles
-	 * @param {number|undefined} limit - Maximum number of results returned. Default is 5
-	 * @returns {ServiceResponse} Response 
+	 * @param {number} [limit=5] - Maximum number of results returned. Default is 5
+	 * @returns {Promise<ServiceResponse>} Response 
 	 */
 	async geocode(query, limit = 5) {
 
@@ -31,8 +31,11 @@ class GeocodeService {
 		}
 
 		try {
-			const url = `${this.baseUrl}/search?format=jsonv2&q=${encodeURIComponent(query)}`;
-			const resp = await axios.get(url);
+			const url = `${this.baseUrl}/search`;
+			const resp = await axios.get(url, { params: {
+				format: 'jsonv2',
+				q: query
+			}});
 			
 			const response = new ServiceResponse(
 				true,
@@ -55,7 +58,7 @@ class GeocodeService {
 	 * Sends latitude and longitude to OpenMapTiles to get reverse-geocoded address.
 	 * @param {Number} lat - Latitude
 	 * @param {Number} lon - Longitude
-	 * @returns {ServiceResponse} Response
+	 * @returns {Promise<ServiceResponse>} Response
 	 */
 	async reverseGeocode(lat, lon) {
 		// if latitudes and longitudes are not provided
@@ -97,4 +100,4 @@ class GeocodeService {
 	}
 }
 
-module.exports = new GeocodeService();
+export default new GeocodeService();
