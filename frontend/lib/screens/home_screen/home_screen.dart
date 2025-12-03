@@ -11,7 +11,6 @@ import "package:virtour_frontend/screens/data_factories/place.dart";
 import "package:virtour_frontend/frontend_service_layer/place_service.dart";
 import "package:virtour_frontend/constants/userinfo.dart";
 import "package:virtour_frontend/providers/event_provider.dart";
-import "package:virtour_frontend/screens/data_factories/region.dart";
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
