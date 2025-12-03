@@ -1,4 +1,4 @@
-import ServiceResponse from "../helper/ServiceResponse";
+import ServiceResponse from "../helper/ServiceResponse.js";
 
 function validateContentType(req, res, next) {
 	if (req.headers['content-type'] !== 'application/json') {

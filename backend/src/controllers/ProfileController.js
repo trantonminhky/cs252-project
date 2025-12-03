@@ -5,15 +5,6 @@ import ProfileService from '../services/ProfileService.js';
 class ProfileController {
 	async register(req, res, next) {
 		try {
-			if (req.headers['content-type'] !== 'application/json') {
-				const response = new ServiceResponse(
-					false,
-					415,
-					'Malformed Content-Type header'
-				);
-				return res.status(response.statusCode).json(response.get());
-			}
-
 			const user = req.body.username;
 			const pass = req.body.password;
 			const name = req.body.name;
@@ -48,15 +39,6 @@ class ProfileController {
 
 	async login(req, res, next) {
 		try {
-			if (req.headers['content-type'] !== 'application/json') {
-				const response = new ServiceResponse(
-					false,
-					415,
-					'Malformed Content-Type header'
-				);
-				return res.status(response.statusCode).json(response.get());
-			}
-
 			const username = req.body.username;
 			const password = req.body.password;
 
@@ -77,18 +59,14 @@ class ProfileController {
 		}
 	}
 	async setPreferences(req, res, next) {
-           try {
-              if (req.headers['content-type'] !== 'application/json') {
-                 const response = new ServiceResponse(false, 415, 'Malformed Content-Type header');
-                 return res.status(response.statusCode).json(response.get());
-              }
-              const {username, preferences}  =  req.body;
-              const response = await ProfileService.setPreferences(username, preferences);
-              res.status(response.statusCode).json(response.get());
-           } catch (error) {
-              next(error);
-           }
-    }
+		try {
+			const { username, preferences } = req.body;
+			const response = await ProfileService.setPreferences(username, preferences);
+			res.status(response.statusCode).json(response.get());
+		} catch (error) {
+			next(error);
+		}
+	}
 	async addSavedPlace(req, res, next) {
 		try {
 			const { username, placeId } = req.body;
