@@ -5,9 +5,9 @@ import SessionTokensDB from '../db/SessionTokensDB.js';
 // TO-DO: DOCUMENT CONTROLLER CLASSES
 
 class MapController {
-    // Get route between points
-    async getRoute(req, res, next) {
-        try {
+	// Get route between points
+	async getRoute(req, res, next) {
+		try {
 			const bearerCredentials = req.headers["authorization"];
 
 			if (!bearerCredentials) {
@@ -16,7 +16,7 @@ class MapController {
 					401,
 					"Access denied, no credentials"
 				);
-				
+
 				return (res
 					.status(response.statusCode)
 					.set("WWW-Authenticate", 'Bearer realm="api"')
@@ -38,7 +38,7 @@ class MapController {
 					.json(response.get())
 				);
 			}
-			
+
 			let authorizationStatus = SessionTokensDB.check(credentials[1]);
 			if (authorizationStatus !== "valid") {
 				const response = new ServiceResponse(
@@ -46,7 +46,7 @@ class MapController {
 					401,
 					`Access denied, ${authorizationStatus}`
 				);
-				
+
 				return (res
 					.status(response.statusCode)
 					.set("WWW-Authenticate", 'Bearer realm="api"')
@@ -54,7 +54,7 @@ class MapController {
 				);
 			}
 
-            const { coordinates, profile } = req.body;
+			const { coordinates, profile } = req.body;
 
 			if (!coordinates) {
 				const response = new ServiceResponse(
@@ -74,31 +74,62 @@ class MapController {
 				return res.status(response.statusCode).json(response.get());
 			}
 
-            if (coordinates.length != 2) {
+			if (coordinates.length != 2) {
 				const response = new ServiceResponse(
 					false,
 					400,
 					"Only two pairs of coordinates must be specified"
 				);
 				return res.status(response.statusCode).json(response.get());
-            }
+			}
 
-            const response = await mapService.getRoute(coordinates, profile);
-            res.status(response.statusCode).json(response.get());
-        } catch (error) {
-            next(error);
-        }
-    }
+			const response = await mapService.getRoute(coordinates, profile);
+			res.status(response.statusCode).json(response.get());
+		} catch (error) {
+			next(error);
+		}
+	}
 
-    // Search nearby place
-    async nearby(req, res, next) {
-        try {
-            const lat = req.body.lat;
+	// Search nearby place
+	async nearby(req, res, next) {
+		try {
+			const bearerCredentials = req.headers["authorization"];
+
+			if (!bearerCredentials) {
+				const response = new ServiceResponse(
+					false,
+					401,
+					"Access denied, no credentials"
+				);
+
+				return (res
+					.status(response.statusCode)
+					.set("WWW-Authenticate", 'Bearer realm="api"')
+					.json(response.get())
+				);
+			}
+
+			const credentials = bearerCredentials.split(' '); // [scheme, token]
+			if (credentials[0] !== 'Bearer') {
+				const response = new ServiceResponse(
+					false,
+					401,
+					"Access denied, authorization type must be Bearer"
+				);
+
+				return (res
+					.status(response.statusCode)
+					.set("WWW-Authenticate", 'Bearer realm="api"')
+					.json(response.get())
+				);
+			}
+
+			const lat = req.body.lat;
 			const lon = req.body.lon;
 			const radius = req.body.radius;
 			const category_ids = req.body.category_ids;
 
-            if (lat == null || lon == null) {
+			if (lat == null || lon == null) {
 				const response = new ServiceResponse(
 					false,
 					400,
@@ -106,14 +137,14 @@ class MapController {
 				);
 				return res.status(response.statusCode).json(response.get());
 			}
-			
+
 			const response = await mapService.nearby(lat, lon, radius, category_ids);
 			res.status(response.statusCode).json(response.get());
 
-        } catch (error) {
-            next(error);
-        }
-    }
+		} catch (error) {
+			next(error);
+		}
+	}
 };
 
 export default new MapController();
