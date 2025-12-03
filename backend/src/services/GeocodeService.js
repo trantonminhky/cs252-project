@@ -10,7 +10,7 @@ import config from '../config/config.js';
  */
 class GeocodeService {
 	constructor() {
-		this.baseUrl = config.openStreetMap.baseUrl;
+		this.baseUrl = config.openStreetMap.baseURL;
 	}
 
 	/**

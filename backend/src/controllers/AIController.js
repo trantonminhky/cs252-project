@@ -5,15 +5,6 @@ import AIService from '../services/AIService.js';
 class AIController {
 	async sendPrompt(req, res, next) {
 		try {
-			if (req.headers['content-type'] !== 'application/json') {
-				const response = new ServiceResponse(
-					false,
-					415,
-					'Malformed Content-Type header'
-				);
-				return res.status(response.statusCode).json(response.get());
-			}
-
 			const prompt = req.body.prompt;
 			if (!prompt) {
 				const response = new ServiceResponse(
