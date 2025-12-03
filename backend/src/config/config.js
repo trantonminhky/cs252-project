@@ -18,6 +18,10 @@ const config = {
 		apiKey: process.env.OPEN_ROUTE_SERVICE
 	},
 
+	pythonBackend: {
+		baseURL: 'https://points-stylus-refrigerator-toddler.trycloudflare.com/api/v1'
+	},
+
 	discord: {
 		webhook: process.env.WEBHOOK_LINK
 	},

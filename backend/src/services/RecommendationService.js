@@ -1,10 +1,12 @@
 import axios from 'axios';
 import ServiceResponse from '../helper/ServiceResponse.js';
 import UserDB from '../db/UserDB.js';
-
-const PYTHON_API_URL = 'https://sci-colleague-boost-ear.trycloudflare.com/api/v1';
+import config from '../config/config.js';
 
 class RecommendationService {
+	constructor() {
+		this.baseURL = config.pythonBackend.baseURL;
+	}
 
 	/**
 	 * Fetch recommendations.
@@ -17,7 +19,7 @@ class RecommendationService {
 			const profileState = UserDB.get(username, "rec_profile") || null;
 
 			// 2. Send to Python with the profile_state
-			const response = await axios.post(`${PYTHON_API_URL}/recommend`, {
+			const response = await axios.post(`${this.baseURL}/recommend`, {
 				user_id: username,
 				current_lat: parseFloat(lat),
 				current_lon: parseFloat(lon),
