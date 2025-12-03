@@ -8,8 +8,8 @@ import ServiceResponse from '../helper/ServiceResponse.js';
  */
 class MapService {
 	constructor() {
-		this.apiKey = config.openRouteService.apiKey;
-		this.baseUrl = config.openRouteService.baseUrl;
+		this.apiKey = config.openRouteService.APIKey;
+		this.baseUrl = config.openRouteService.baseURL;
 	}
 
 	// Get route between two points
