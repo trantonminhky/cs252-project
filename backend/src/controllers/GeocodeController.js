@@ -7,10 +7,10 @@ class GeocodeController {
 	// Geocode an address
 	async geocode(req, res, next) {
 		try {
-			const { address, credentials } = req.query;
+			const bearerCredentials = req.headers["authorization"];
 
 			// if no credentials are specified
-			if (!credentials) {
+			if (!bearerCredentials) {
 				const response = new ServiceResponse(
 					false,
 					401,
@@ -20,8 +20,18 @@ class GeocodeController {
 				return res.status(response.statusCode).json(response.get());
 			}
 
+			const credentials = bearerCredentials.split(' '); // [scheme, token]
+			if (credentials[0] !== 'Bearer') {
+				const response = new ServiceResponse(
+					false,
+					401,
+					"Access denied, authorization type must be Bearer"
+				);
+				return res.status(response.statusCode).json(response.get());
+			}
+
 			// if the credentials are invalid
-			let authorizationStatus = SessionTokensDB.check(credentials);
+			let authorizationStatus = SessionTokensDB.check(credentials[1]);
 			if (authorizationStatus !== "valid") {
 				const response = new ServiceResponse(
 					false,
@@ -32,6 +42,7 @@ class GeocodeController {
 				return res.status(response.statusCode).json(response.get());
 			}
 
+			const { address } = req.query;
 			// if no address is specified
 			if (!address) {
 				const response = new ServiceResponse(
