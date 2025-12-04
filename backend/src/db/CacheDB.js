@@ -45,6 +45,28 @@ class CacheDB {
 		}
 	}
 
+	findGeocode(query) {
+		this.db.ensure('geocode', []);
+		const caches = this.db.ensure('geocode', []);
+		console.log(caches);
+		let result = caches.find(entry => entry.address === query);
+		if (result == null) {
+			return null;
+		} else {
+			return result;
+		}
+	}
+
+	upsertGeocode(data) {
+		const caches = this.db.ensure('geocode', []);
+		const i = caches.findIndex(x => x.name === data.name);
+		if (i !== -1) {
+			this.db.set('geocode', data, i)
+		} else {
+			this.db.push('geocode', data);
+		}
+	}
+
 	delete(key, path) {
 		try {
 			this.db.delete(key, path);
