@@ -1,8 +1,8 @@
 import config from '../config/config.js';
 import ServiceResponse from '../helper/ServiceResponse.js';
 import { Client } from '@gradio/client';
-import Gemini from 'gemini-ai';
-const gemini = new Gemini(config.gemini.APIKey);
+import { GoogleGenAI } from '@google/genai';
+const gemini = new GoogleGenAI(config.gemini.APIKey);
 
 class AIService {
 	constructor() {
@@ -16,13 +16,28 @@ class AIService {
 	 * @returns {Promise<ServiceResponse>}
 	 */
 	async sendPrompt(prompt, model = 'gemini-flash-latest') {
-		const data = await gemini.ask(prompt, { model: model });
+		try {
+			await gemini.models.get({ model: model });
+		} catch (err) {
+			const response = new ServiceResponse(
+				false,
+				422,
+				"Cannot load model"
+			);
+			return response;
+		}
+
+		const data = await gemini.models.generateContent({
+			model: model,
+			contents: prompt
+		});
+		const text = data.candidates[0].content.parts[0].text;
 		const response = new ServiceResponse(
 			true,
 			200,
 			"Success",
-			data
-		)
+			text
+		);
 		return response;
 	}
 
