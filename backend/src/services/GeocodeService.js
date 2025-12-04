@@ -27,7 +27,6 @@ class GeocodeService {
 
 		if (cache && Date.now() - cache.createdAt < CACHE_LIFETIME_MS) {
 			// if the result is already stored in cache and hasn't expired
-			console.log("GET FROM CACHE");
 			const response = new ServiceResponse(
 				true,
 				200,
@@ -36,7 +35,6 @@ class GeocodeService {
 			);
 			return response;
 		} else {
-			console.log("SENT REQUEST")
 			const url = `${this.baseUrl}/search`;
 			const axiosResponse = await axios.get(url, {
 				params: {

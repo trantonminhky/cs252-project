@@ -33,8 +33,8 @@ class DBService {
 		const databases = await this.databases;
 
 		for (const db of databases) {
-			const parse = JSON.parse(db.export());
-			if (parse.v.name.v == name) {
+			const _export = db.export();
+			if (_export.name === name) {
 				db.clear();
 				return (new ServiceResponse(
 					true,
