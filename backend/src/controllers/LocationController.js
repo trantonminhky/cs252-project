@@ -4,7 +4,7 @@ import LocationService from '../services/LocationService.js';
 class LocationController {
 	async importToDB(req, res, next) {
 		await LocationService.importToDB();
-		res.status(200).json("lol");
+		return void res.status(200).json("lol");
 	}
 
 	async search(req, res, next) {
@@ -18,7 +18,7 @@ class LocationController {
 			const response = await LocationService.search(query, {
 				include: includeOption
 			});
-			res.status(response.statusCode).json(response.get());
+			return void res.status(response.statusCode).json(response.get());
 		} catch (err) {
 			next(err);
 		}
@@ -28,7 +28,7 @@ class LocationController {
 		try {
 			const { id } = req.query;
 			const response = await LocationService.findByID(id);
-			res.status(response.statusCode).json(response.get());
+			return void res.status(response.statusCode).json(response.get());
 		} catch (err) {
 			next(err);
 		}

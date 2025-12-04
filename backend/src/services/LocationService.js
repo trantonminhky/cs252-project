@@ -52,13 +52,9 @@ class LocationService {
 			return response;
 		}
 
-		const parse = JSON.parse(LocationDB.export());
-		const data = {};
-		for (const entry of parse.v.keys.v) {
-			data[entry.v.key.v] = unwrapTyped(JSON.parse(entry.v.value.v));
-		}
+		const _export = LocationDB.export();
 
-		const haystack = Object.entries(data).map(([key, value]) => ({
+		const haystack = Object.entries(_export.data).map(([key, value]) => ({
 			key,
 			value
 		}));

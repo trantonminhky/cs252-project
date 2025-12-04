@@ -16,15 +16,6 @@ class MapService {
 	// param - array of [lon,lat] pairs
 	// return - route data
 	async getRoute(coordinates, profile = 'driving-car') {
-		if (coordinates.length !== 2) {
-			const response = new ServiceResponse(
-				false,
-				400,
-				"Only two pairs of coordinates must be specified"
-			);
-			return response;
-		}
-
 		if (Number.isNaN(parseFloat(coordinates[0][0])) || Number.isNaN(parseFloat(coordinates[0][1])) || Number.isNaN(parseFloat(coordinates[1][0])) || Number.isNaN(parseFloat(coordinates[1][1]))) {
 			const response = new ServiceResponse(
 				false,
@@ -37,7 +28,6 @@ class MapService {
 		const fromCoordinates = coordinates[0].map(coor => coor.toString()).join(',');
 		const toCoordinates = coordinates[1].map(coor => coor.toString()).join(',');
 
-		try {
 			const url = `${this.baseUrl}/v2/directions/${profile}`;
 			const axiosResponse = await axios.get(url, { params: {
 				api_key: this.apiKey,
@@ -52,29 +42,12 @@ class MapService {
 				axiosResponse.data
 			);
 			return response;
-		} catch (err) {
-			const response = new ServiceResponse(
-				false,
-				500,
-				"Something went wrong"
-			);
-			return response;
-		}
 	}
 
 	// Search for places near a location
 	// params - lat, lon, rad, category
 	// return - places data
 	async nearby(lat, lon, radius = 1000, category_ids = []) {
-		if (lat == null || lon == null) {
-			const response = new ServiceResponse(
-				false,
-				400,
-				"Latitude and longitude are required"
-			);
-			return response;
-		}
-
 		if (radius <= 0 || radius > 2000) {
 			const response = new ServiceResponse(
 				false,
@@ -99,7 +72,6 @@ class MapService {
 			filters.category_ids = category_ids;
 		}
 
-		try {
 			const url = `${this.baseUrl}/pois`;
 			const axiosResponse = await axios.post(url, {
 				request: "pois",
@@ -131,15 +103,6 @@ class MapService {
 				resp
 			);
 			return response;
-		} catch (err) {
-			console.error(err);
-			const response = new ServiceResponse(
-				false,
-				500,
-				"Something went wrong"
-			);
-			return response;
-		}
 	}
 }
 

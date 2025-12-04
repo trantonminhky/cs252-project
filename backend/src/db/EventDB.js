@@ -10,11 +10,12 @@
 	}, ...
 */
 
+import Enmap from 'enmap';
+import unwrapTyped from '../helper/unwrapTyped.js';
+
 class EventDB {
 	constructor() {
-		import('enmap').then(async ({ default: Enmap }) => {
-			this.db = new Enmap({ name: 'EventDB' });
-		});
+		this.db = new Enmap({ name: 'EventDB' });
 	}
 
 	// autonum is used to ensure non-duplicate id
@@ -74,7 +75,7 @@ class EventDB {
 		}
 	}
 
-	push(key, value, path, allowDupes=false) {
+	push(key, value, path, allowDupes = false) {
 		try {
 			this.db.push(key, value, path, allowDupes);
 		} catch (err) {
@@ -83,12 +84,16 @@ class EventDB {
 	}
 
 	export() {
-		try {
-			const exp = this.db.export();
-			return exp;
-		} catch (err) {
-			console.error(err);
+		const data = {};
+		const parse = JSON.parse(this.db.export());
+		const name = parse.v.name.v;
+		for (const entry of parse.v.keys.v) {
+			data[entry.v.key.v] = unwrapTyped(JSON.parse(entry.v.value.v));
 		}
+		return {
+			name: name,
+			data: data
+		};
 	}
 }
 

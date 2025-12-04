@@ -8,14 +8,14 @@
 	...
 */
 
+import Enmap from 'enmap';
+import unwrapTyped from '../helper/unwrapTyped.js';
 const TOKEN_LIFETIME_MS = 1800000;
 
 
 class SessionTokensDB {
 	constructor() {
-		import('enmap').then(async ({ default: Enmap }) => {
-			this.db = new Enmap({ name: 'SessionTokensDB' });
-		});
+		this.db = new Enmap({ name: 'SessionTokensDB' });
 	}
 
 	set(key, val, path) {
@@ -55,12 +55,16 @@ class SessionTokensDB {
 	}
 
 	export() {
-		try {
-			const exp = this.db.export();
-			return exp;
-		} catch (err) {
-			console.error(err);
+		const data = {};
+		const parse = JSON.parse(this.db.export());
+		const name = parse.v.name.v;
+		for (const entry of parse.v.keys.v) {
+			data[entry.v.key.v] = unwrapTyped(JSON.parse(entry.v.value.v));
 		}
+		return {
+			name: name,
+			data: data
+		};
 	}
 
 	check(token) {

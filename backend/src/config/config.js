@@ -9,6 +9,10 @@ const config = {
 	// 	baseURL: process.env.MAP_TILER_BASE_URL
 	// },
 
+	tagsExtraction: {
+		baseURL: process.env.TAGS_EXTRACTION_BASE_URL
+	},
+
 	openStreetMap: {
 		baseURL: process.env.OPEN_STREET_MAP_BASE_URL
 	},
