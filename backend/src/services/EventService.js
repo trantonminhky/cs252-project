@@ -145,14 +145,10 @@ class EventService {
 			return response;
 		}
 
-		const parse = JSON.parse(EventDB.export());
-		const data = {};
-		for (const entry of parse.v.keys.v) {
-			data[entry.v.key.v] = unwrapTyped(JSON.parse(entry.v.value.v));
-		}
+		const _export = EventDB.export();
 
 		const results = [];
-		for (const [key, val] of Object.entries(data)) {
+		for (const [key, val] of Object.entries(_export)) {
 			if (val.participants.includes(username)) {
 				results.push(val);
 			}
