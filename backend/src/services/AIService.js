@@ -65,12 +65,26 @@ class AIService {
 			return response;
 		}
 
-		const data = await gemini.ask(`Provide a list of reviews for the place with name ${place} in JSON format. The JSON object data should have these fields: { String username, String id, String content, int rating, String date (formatted according to flutter DateTime format)}. The response should be a JSON array of review objects. Do not put it in codeblock of triple backtick, I want raw data that is easily parse-able`, { model: model });
+		try {
+			await gemini.models.get({ model: model });
+		} catch (err) {
+			const response = new ServiceResponse(
+				false,
+				422,
+				"Cannot load model"
+			);
+			return response;
+		}
+		const data = await gemini.models.generateContent({
+			model: model,
+			contents: `Provide a list of reviews for the place with name ${place} in JSON format. The JSON object data should have these fields: { String username, String id, String content, int rating, String date (formatted according to flutter DateTime format)}. The response should be a JSON array of review objects. Do not put it in codeblock of triple backtick, I want raw data that is easily parse-able`
+		});
+		const text = data.candidates[0].content.parts[0].text;
 		const response = new ServiceResponse(
 			true,
 			200,
 			"Success",
-			JSON.parse(data)
+			JSON.parse(text)
 		)
 		return response;
 	}
