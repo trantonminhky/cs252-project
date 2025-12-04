@@ -1,20 +1,25 @@
 import { Router } from 'express';
 const router = Router();
 import DBController from '../controllers/DBController.js';
+import ValidatorMiddleware from '../middleware/ValidatorMiddleware.js';
 
-router.delete('/clear',
+router.all('/clear',
+	ValidatorMiddleware.validateMethods(['DELETE']),
 	DBController.clear
 );
 
-router.delete('/clear-all',
+router.all('/clear-all',
+	ValidatorMiddleware.validateMethods(['DELETE']),
 	DBController.clearAll
 );
 
-router.get('/export',
+router.all('/export',
+	ValidatorMiddleware.validateMethods(['GET', 'HEAD']),
 	DBController.export
 );
 
-router.get('/export-all',
+router.all('/export-all',
+	ValidatorMiddleware.validateMethods(['GET', 'HEAD']),
 	DBController.exportAll
 );
 

@@ -3,11 +3,13 @@ const router = Router();
 import recController from '../controllers/RecommendationController.js'
 import ValidatorMiddleware from '../middleware/ValidatorMiddleware.js';
 
-router.get('/',
+router.all('/',
+	ValidatorMiddleware.validateMethods(['GET', 'HEAD']),
 	recController.getRecommendations
 );
 
-router.post('/feedback',
+router.all('/feedback',
+	ValidatorMiddleware.validateMethods(['POST']),
 	ValidatorMiddleware.validateContentType,
 	recController.sendFeedback
 );

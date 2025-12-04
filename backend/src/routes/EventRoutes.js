@@ -3,26 +3,31 @@ const router = Router();
 import EventController from '../controllers/EventController.js';
 import ValidatorMiddleware from '../middleware/ValidatorMiddleware.js';
 
-router.get('/import', 
+router.all('/import',
+	ValidatorMiddleware.validateMethods(['GET', 'HEAD']),
 	EventController.importToDB
 );
 
-router.post('/create', 
+router.all('/create',
+	ValidatorMiddleware.validateMethods(['POST']),
 	ValidatorMiddleware.validateContentType, 
 	EventController.createEvent
 );
 
-router.post('/subscribe', 
+router.all('/subscribe',
+	ValidatorMiddleware.validateMethods(['POST']),
 	ValidatorMiddleware.validateContentType, 
 	EventController.subscribe
 );
 
-router.post('/unsubscribe', 
+router.all('/unsubscribe',
+	ValidatorMiddleware.validateMethods(['POST']),
 	ValidatorMiddleware.validateContentType, 
 	EventController.unsubscribe
 );
 
-router.get('/get-by-username', 
+router.all('/get-by-username',
+	ValidatorMiddleware.validateMethods(['GET', 'HEAD']),
 	EventController.getByUsername
 );
 

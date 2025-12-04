@@ -3,12 +3,14 @@ const router = Router();
 import geocodeController from '../controllers/GeocodeController.js';
 import ValidatorMiddleware from '../middleware/ValidatorMiddleware.js';
 
-router.get('/geocode',
+router.all('/geocode',
+	ValidatorMiddleware.validateMethods(['GET', 'HEAD']),
 	ValidatorMiddleware.validateSessionToken,
 	geocodeController.geocode
 );
 
-router.get('/reverse-geocode',
+router.all('/reverse-geocode',
+	ValidatorMiddleware.validateMethods(['GET', 'HEAD']),
 	ValidatorMiddleware.validateSessionToken,
 	geocodeController.reverseGeocode
 );
