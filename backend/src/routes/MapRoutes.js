@@ -4,13 +4,13 @@ import mapController from '../controllers/MapController.js';
 import ValidatorMiddleware from '../middleware/ValidatorMiddleware.js';
 
 router.post('/route',
-	ValidatorMiddleware.validateBearerToken, 
+	ValidatorMiddleware.validateSessionToken, 
 	ValidatorMiddleware.validateContentType, 
 	mapController.getRoute
 );
 
 router.get('/nearby',
-	ValidatorMiddleware.validateBearerToken, 
+	ValidatorMiddleware.validateSessionToken, 
 	mapController.nearby
 );
 

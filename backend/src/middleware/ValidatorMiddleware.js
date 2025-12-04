@@ -1,7 +1,7 @@
 import ServiceResponse from "../helper/ServiceResponse.js";
 
 class ValidatorMiddleware {
-	validateBearerToken(req, res, next) {
+	validateSessionToken(req, res, next) {
 		const credentials = req.headers["authorization"];
 		if (!credentials) {
 			const response = new ServiceResponse(

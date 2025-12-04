@@ -4,7 +4,7 @@ import AIController from '../controllers/AIController.js';
 import ValidatorMiddleware from '../middleware/ValidatorMiddleware.js';
 
 router.post('/send-prompt',
-	ValidatorMiddleware.validateBearerToken,
+	ValidatorMiddleware.validateSessionToken,
 	ValidatorMiddleware.validateContentType,
 	AIController.sendPrompt
 );
@@ -14,7 +14,7 @@ router.get('/extract-tags',
 );
 
 router.post('/generate-reviews',
-	ValidatorMiddleware.validateBearerToken,
+	ValidatorMiddleware.validateSessionToken,
 	ValidatorMiddleware.validateContentType,
 	AIController.generateReviews
 );

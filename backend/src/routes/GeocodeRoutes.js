@@ -4,12 +4,12 @@ import geocodeController from '../controllers/GeocodeController.js';
 import ValidatorMiddleware from '../middleware/ValidatorMiddleware.js';
 
 router.get('/geocode',
-	ValidatorMiddleware.validateBearerToken,
+	ValidatorMiddleware.validateSessionToken,
 	geocodeController.geocode
 );
 
 router.get('/reverse-geocode',
-	ValidatorMiddleware.validateBearerToken,
+	ValidatorMiddleware.validateSessionToken,
 	geocodeController.reverseGeocode
 );
 
