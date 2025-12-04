@@ -3,32 +3,27 @@ const router = Router();
 import profileController from '../controllers/ProfileController.js';
 import ValidatorMiddleware from '../middleware/ValidatorMiddleware.js';
 
-router.post('/register',
+router.all('/register',
+	ValidatorMiddleware.validateMethods(['POST']),
 	ValidatorMiddleware.validateContentType,
 	profileController.register
 );
 
-router.post('/login',
+router.all('/login',
+	ValidatorMiddleware.validateMethods(['POST']),
 	ValidatorMiddleware.validateContentType,
 	profileController.login
 );
 
-router.post('/preferences',
+router.all('/preferences',
+	ValidatorMiddleware.validateMethods(['POST']),
 	ValidatorMiddleware.validateContentType,
 	profileController.setPreferences
 );
 
-router.get('/saved-places',
+router.all('/saved-places',
+	ValidatorMiddleware.validateMethods(['GET,', 'POST', 'DELETE', 'HEAD']),
 	profileController.getSavedPlaces
-);
-
-router.post('/saved-places',
-	ValidatorMiddleware.validateContentType,
-	profileController.addSavedPlace
-);
-
-router.delete('/saved-places',
-	profileController.removeSavedPlace
 );
 
 export default router;

@@ -67,6 +67,17 @@ class ProfileController {
 			next(error);
 		}
 	}
+
+	async savedPlacesController(req, res, next) {
+		if (req.method === 'GET') {
+			this.getSavedPlaces(req, res, next);
+		} else if (req.method === 'POST') {
+			this.addSavedPlace(req, res, next) 
+		} else if (req.method === 'DELETE') {
+			this.removeSavedPlace(req, res, next);
+		}
+	}
+
 	async addSavedPlace(req, res, next) {
 		try {
 			const { username, placeId } = req.body;
