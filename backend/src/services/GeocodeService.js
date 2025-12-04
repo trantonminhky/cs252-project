@@ -66,16 +66,41 @@ class GeocodeService {
 	 * @returns {Promise<ServiceResponse>} Response
 	 */
 	async reverseGeocode(lat, lon) {
-		const url = `${this.baseUrl}/reverse?format=jsonv2&lat=${lat}&lon=${lon}`;
-		const resp = await axios.get(url);
+		const cache = CacheDB.findReverseGeocode(lat, lon);
 
-		const response = new ServiceResponse(
-			true,
-			200,
-			"Success",
-			resp.data
-		);
-		return response;
+		if (cache && Date.now() - cache.createdAt < CACHE_LIFETIME_MS) {
+			const response = new ServiceResponse(
+				true,
+				200,
+				"Success",
+				cache.data
+			);
+			return response;
+		} else {
+			const url = `${this.baseUrl}/reverse?format=jsonv2&lat=${lat}&lon=${lon}`;
+			const axiosResponse = await axios.get(url, {
+				params: {
+					format: 'jsonv2',
+					lat: lat,
+					lon: lon
+				}
+			});
+
+			CacheDB.upsertReverseGeocode({
+				lat: lat,
+				lon: lon,
+				data: axiosResponse.data,
+				createdAt: Date.now()
+			});
+
+			const response = new ServiceResponse(
+				true,
+				200,
+				"Success",
+				axiosResponse.data
+			);
+			return response;
+		}
 	}
 }
 

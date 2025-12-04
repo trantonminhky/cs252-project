@@ -70,7 +70,6 @@ class CacheDB {
 	findReverseGeocode(lat, lon) {
 		this.db.ensure('geocode', []);
 		const caches = this.db.ensure('reverse_geocode', []);
-		console.log(caches);
 		let result = caches.find(entry => entry.lat === lat && entry.lon === lon);
 		if (result == null) {
 			return null;
