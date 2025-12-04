@@ -16,7 +16,7 @@ class ProfileController {
 					`Username or password is required`
 				);
 
-				return res.status(response.statusCode).json(response.get());
+				return void res.status(response.statusCode).json(response.get());
 			}
 
 			if (!name || !age) {
@@ -26,12 +26,12 @@ class ProfileController {
 					"User info is required"
 				);
 
-				return res.status(response.statusCode).json(response.get());
+				return void res.status(response.statusCode).json(response.get());
 			}
 
 			const response = await ProfileService.register(user, pass, name, age);
 
-			res.status(response.statusCode).json(response.get());
+			return void res.status(response.statusCode).json(response.get());
 		} catch (error) {
 			next(error);
 		}
@@ -49,11 +49,11 @@ class ProfileController {
 					"Username or password is required"
 				);
 
-				return res.status(response.statusCode).json(response.get());
+				return void res.status(response.statusCode).json(response.get());
 			}
 
 			const response = await ProfileService.login(username, password);
-			res.status(response.statusCode).json(response.get());
+			return void res.status(response.statusCode).json(response.get());
 		} catch (err) {
 			next(err);
 		}
@@ -62,7 +62,7 @@ class ProfileController {
 		try {
 			const { username, preferences } = req.body;
 			const response = await ProfileService.setPreferences(username, preferences);
-			res.status(response.statusCode).json(response.get());
+			return void res.status(response.statusCode).json(response.get());
 		} catch (error) {
 			next(error);
 		}
@@ -82,7 +82,7 @@ class ProfileController {
 		try {
 			const { username, placeId } = req.body;
 			const response = await ProfileService.addSavedPlace(username, placeId);
-			res.status(response.statusCode).json(response.get());
+			return void res.status(response.statusCode).json(response.get());
 		} catch (error) {
 			next(error);
 		}
@@ -91,7 +91,7 @@ class ProfileController {
 		try {
 			const { username, placeId } = req.body;
 			const response = await ProfileService.removeSavedPlace(username, placeId);
-			res.status(response.statusCode).json(response.get());
+			return void res.status(response.statusCode).json(response.get());
 		} catch (error) {
 			next(error);
 		}
@@ -100,7 +100,7 @@ class ProfileController {
 		try {
 			const { username } = req.query;
 			const response = await ProfileService.getSavedPlaces(username);
-			res.status(response.statusCode).json(response.get());
+			return void res.status(response.statusCode).json(response.get());
 		} catch (error) {
 			next(error);
 		}

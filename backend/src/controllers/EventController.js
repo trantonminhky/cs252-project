@@ -4,7 +4,7 @@ import EventService from '../services/EventService.js'
 class EventController {
 	async importToDB(req, res, next) {
 		await EventService.importToDB();
-		res.status(200).json("lol");
+		return void res.status(200).json("lol");
 	}
 
 	async createEvent(req, res, next) {
@@ -41,7 +41,7 @@ class EventController {
 			const eventID = req.body.eventID;
 
 			const response = await EventService.subscribe(username, eventID);
-			res.status(response.statusCode).json(response.get());
+			return void res.status(response.statusCode).json(response.get());
 		} catch (err) {
 			next(err);
 		}
@@ -53,7 +53,7 @@ class EventController {
 			const eventID = req.body.eventID;
 
 			const response = await EventService.unsubscribe(username, eventID);
-			res.status(response.statusCode).json(response.get());
+			return void res.status(response.statusCode).json(response.get());
 		} catch (err) {
 			next(err);
 		}
@@ -63,7 +63,7 @@ class EventController {
 		try {
 			const { username } = req.query;
 			const response = await EventService.getByUsername(username);
-			res.status(response.statusCode).json(response.get());
+			return void res.status(response.statusCode).json(response.get());
 		} catch (err) {
 			next(err);
 		}

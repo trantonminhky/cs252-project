@@ -12,11 +12,11 @@ class AIController {
 					400,
 					"Prompt parameter is required"
 				);
-				return res.status(response.statusCode).json(response.get());
+				return void res.status(response.statusCode).json(response.get());
 			}
 
 			const response = await AIService.sendPrompt(prompt);
-			res.status(response.statusCode).json(response.get());
+			return void res.status(response.statusCode).json(response.get());
 		} catch (error) {
 			next(error);
 		}
@@ -31,11 +31,11 @@ class AIController {
 					400,
 					"Text is required"
 				);
-				return res.status(response.statusCode).json(response.get());
+				return void res.status(response.statusCode).json(response.get());
 			}
 
 			const response = await AIService.extractTags(text);
-			res.status(response.statusCode).json(response.get());
+			return void res.status(response.statusCode).json(response.get());
 		} catch (err) {
 			next(err);
 		}
@@ -45,7 +45,7 @@ class AIController {
 		try {
 			const place = req.body.place;
 			const response = await AIService.generateReviews(place);
-			res.status(response.statusCode).json(response.get());
+			return void res.status(response.statusCode).json(response.get());
 		} catch (err) {
 			next(err);
 		}
