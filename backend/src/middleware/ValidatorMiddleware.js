@@ -11,7 +11,9 @@ class ValidatorMiddleware {
 					`${req.method} method is not allowed or implemented`
 				);
 
-				return void res.status(response.statusCode).json(response.get());
+				return void res.status(response.statusCode)
+				.set("Allow", methods.join(','))
+				.json(response.get());
 			}
 			next();
 		}
