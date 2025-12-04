@@ -1,5 +1,24 @@
+/*
+	{
+		"geocode": [
+			{
+				"address": "van hanh mall",
+				"data": { ... },
+				"createdAt": 123456789
+			}
+		],
+		"reverse_geocode": [
+			{
+				"lat": 6.767,
+				"lon": 7,676,
+				"data": { ... },
+				"createdAt": 123456789
+			}
+		]
+	}
+*/
+
 import Enmap from 'enmap';
-const CACHE_LIFETIME_MS = 86400000;
 
 class CacheDB {
 	constructor() {
