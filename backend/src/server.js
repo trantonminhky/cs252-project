@@ -22,6 +22,7 @@ import DBRoutes from './routes/DBRoutes.js';
 import LocationRoutes from './routes/LocationRoutes.js';
 import RecommendationRoutes from './routes/RecommendationRoutes.js';
 import EventRoutes from './routes/EventRoutes.js';
+import ServiceResponse from './helper/ServiceResponse.js';
 
 const app = express();
 const customStream = {
@@ -80,32 +81,13 @@ app.use('/api/location', LocationRoutes);
 app.use('/api/event', EventRoutes);
 
 // Root endpoint
-app.get('/', (req, res) => {
-	res.json({
-		success: true,
-		message: 'Welcome to Smart Tourism API',
-		version: '1.0.0',
-		endpoints: {
-			health: '/health',
-
-			geocode: '/api/geocode/geocode?address=<address>',
-			reverseGeocode: '/api/geocode/reverse-geocode?lat=<lat>&lon=<lon>',
-
-			mapConfig: '/api/map/config',
-			route: '/api/map/route (POST)',
-			searchNearby: '/api/map/search/nearby?lat=<lat>&lon=<lon>&radius=<radius>',
-			tourismSpots: '/api/map/tourism-spots',
-			tourismSpotsNearby: '/api/map/tourism-spots/nearby?lat=<lat>&lon=<lon>&radius=<radius>',
-			staticMap: '/api/map/static-map?lat=<lat>&lon=<lon>',
-
-			register: '/api/profile/register (POST) body: { "username": "<user>", "password": "<pass>" }',
-			login: '/api/profile/test-get?username=<user>&password=<pass>',
-
-			ask: '/api/ai/ask?prompt=<prompt>',
-
-			db: '/api/db/dangerous/get'
-		}
-	});
+app.get('/', (req, res, next) => {
+	const response = new ServiceResponse(
+		true,
+		200,
+		"Welcome to Smart Tourism API"
+	);
+	return void res.status(response.statusCode).json(response.get());
 });
 
 // 404 handler
