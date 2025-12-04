@@ -21,19 +21,6 @@ class EventService {
 	}
 
 	async createEvent(name, description, imageLink = null, startTime = null, endTime = null) {
-		if (!name) {
-			const response = new ServiceResponse(
-				false,
-				400,
-				"Evevnt name is required"
-			);
-			return response;
-		}
-
-		if (!description) {
-			description = "No description."
-		}
-
 		try {
 			const eventID = EventDB.autonum();
 			const eventData = {

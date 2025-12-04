@@ -16,15 +16,6 @@ class MapService {
 	// param - array of [lon,lat] pairs
 	// return - route data
 	async getRoute(coordinates, profile = 'driving-car') {
-		if (coordinates.length !== 2) {
-			const response = new ServiceResponse(
-				false,
-				400,
-				"Only two pairs of coordinates must be specified"
-			);
-			return response;
-		}
-
 		if (Number.isNaN(parseFloat(coordinates[0][0])) || Number.isNaN(parseFloat(coordinates[0][1])) || Number.isNaN(parseFloat(coordinates[1][0])) || Number.isNaN(parseFloat(coordinates[1][1]))) {
 			const response = new ServiceResponse(
 				false,
@@ -66,15 +57,6 @@ class MapService {
 	// params - lat, lon, rad, category
 	// return - places data
 	async nearby(lat, lon, radius = 1000, category_ids = []) {
-		if (lat == null || lon == null) {
-			const response = new ServiceResponse(
-				false,
-				400,
-				"Latitude and longitude are required"
-			);
-			return response;
-		}
-
 		if (radius <= 0 || radius > 2000) {
 			const response = new ServiceResponse(
 				false,

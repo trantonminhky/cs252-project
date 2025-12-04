@@ -16,15 +16,6 @@ class AIService {
 	 * @returns {Promise<ServiceResponse>}
 	 */
 	async sendPrompt(prompt, model = 'gemini-flash-latest') {
-		if (!prompt) {
-			const response = new ServiceResponse(
-				false,
-				400,
-				'Prompt is required'
-			);
-			return response;
-		}
-
 		try {
 			const data = await gemini.ask(prompt, { model: model });
 			const response = new ServiceResponse(
@@ -45,15 +36,6 @@ class AIService {
 	}
 
 	async extractTags(text) {
-		if (!text) {
-			const response = new ServiceResponse(
-				false,
-				400,
-				"Text is required"
-			);
-			return response;
-		}
-
 		try {
 			const client = await Client.connect("JustscrAPIng/cultour-filter-search-en");
 			const result = await client.predict("/extract_tags", {

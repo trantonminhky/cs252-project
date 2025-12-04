@@ -24,6 +24,10 @@ class EventController {
 				return void res.status(response.statusCode).json(response.get());
 			}
 
+			if (!description) {
+				description = "No description.";
+			}
+
 			const response = await EventService.createEvent(name, description, imageLink, startTime, endTime);
 			return void res.status(response.statusCode).json(response.get());
 		} catch (err) {

@@ -30,14 +30,6 @@ class DBService {
 	 * @returns {Promise<ServiceResponse>}
 	 */
 	async clear(name) {
-		if (!name) {
-			return (new ServiceResponse(
-				false,
-				400,
-				"Name is required"
-			));
-		}
-
 		const databases = await this.databases;
 
 		for (const db of databases) {
@@ -79,14 +71,6 @@ class DBService {
 	 * @returns {Promise<ServiceResponse>} - Response
 	 */
 	async export(name) {
-		if (!name) {
-			return (new ServiceResponse(
-				false,
-				400,
-				"Name is required"
-			));
-		}
-
 		const databases = await this.databases;
 
 		for (const db of databases) {

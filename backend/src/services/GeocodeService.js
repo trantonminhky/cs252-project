@@ -20,16 +20,6 @@ class GeocodeService {
 	 * @returns {Promise<ServiceResponse>} Response 
 	 */
 	async geocode(query, limit = 5) {
-
-		// if no query is specified
-		if (!query) {
-			return (new ServiceResponse(
-				false,
-				400,
-				"Query is required"
-			));
-		}
-
 		try {
 			const url = `${this.baseUrl}/search`;
 			const resp = await axios.get(url, { params: {
@@ -61,15 +51,6 @@ class GeocodeService {
 	 * @returns {Promise<ServiceResponse>} Response
 	 */
 	async reverseGeocode(lat, lon) {
-		// if latitudes and longitudes are not provided
-		if (lat == null || lon == null) {
-			return (new ServiceResponse(
-				false,
-				400,
-				"Latitude and longitude are required"
-			));
-		}
-
 		try {
 			const url = `${this.baseUrl}/reverse?format=jsonv2&lat=${lat}&lon=${lon}`;
 			const resp = await axios.get(url);
@@ -89,14 +70,6 @@ class GeocodeService {
 				"Something went wrong"
 			));
 		}
-	}
-
-	// Optional helper — return the best match (first feature) or null
-	getBestFeature(geocodeResponse) {
-		if (!geocodeResponse || !Array.isArray(geocodeResponse.features) || geocodeResponse.features.length === 0) {
-			return null;
-		}
-		return geocodeResponse.features[0];
 	}
 }
 

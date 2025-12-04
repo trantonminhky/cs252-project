@@ -47,24 +47,6 @@ class ProfileService {
 	 * @returns {Promise<ServiceResponse>} Response
 	 */
 	async register(user, pass, name, age, isTourist) {
-		// if username or password is not provided
-		if (!user || !pass) {
-			return (new ServiceResponse(
-				false,
-				400,
-				"Username or password is required"
-			));
-		}
-
-		// if no name or age is not provided
-		if (!name || !age) {
-			return (new ServiceResponse(
-				false,
-				400,
-				"User info is required"
-			));
-		}
-
 		// if the username is already registered
 		if (UserDB.has(user)) {
 			return (new ServiceResponse(
@@ -130,16 +112,6 @@ class ProfileService {
 	 * @returns {Promise<ServiceResponse>} Response
 	 */
 	async login(user, pass) {
-		// if no username or password is provided
-		if (!user || !pass) {
-			return (new ServiceResponse(
-				false,
-				400,
-				"Username or password is required"
-			));
-		}
-
-		const password = UserDB.get(user, 'password');
 		// if this user does not exist
 		if (!password) { 
 			return (new ServiceResponse(

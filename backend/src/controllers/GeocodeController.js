@@ -29,7 +29,7 @@ class GeocodeController {
 	async reverseGeocode(req, res, next) {
 		try {
 			const { lat, lon } = req.query;
-			if (!lat || !lon) {
+			if (lat == null || lon == null) {
 				const response = new ServiceResponse(
 					false,
 					400,
