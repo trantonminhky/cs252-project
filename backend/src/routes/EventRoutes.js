@@ -1,12 +1,34 @@
 import { Router } from 'express';
 const router = Router();
 import EventController from '../controllers/EventController.js';
-import validateContentType from '../middleware/validateContentType.js';
+import ValidatorMiddleware from '../middleware/ValidatorMiddleware.js';
 
-router.get('/import', EventController.importToDB);
-router.post('/create', validateContentType, EventController.createEvent);
-router.post('/subscribe', validateContentType, EventController.subscribe);
-router.post('/unsubscribe', validateContentType, EventController.unsubscribe);
-router.get('/get-by-username', EventController.getByUsername);
+router.all('/import',
+	ValidatorMiddleware.validateMethods(['GET', 'HEAD']),
+	EventController.importToDB
+);
+
+router.all('/create',
+	ValidatorMiddleware.validateMethods(['POST']),
+	ValidatorMiddleware.validateContentType, 
+	EventController.createEvent
+);
+
+router.all('/subscribe',
+	ValidatorMiddleware.validateMethods(['POST']),
+	ValidatorMiddleware.validateContentType, 
+	EventController.subscribe
+);
+
+router.all('/unsubscribe',
+	ValidatorMiddleware.validateMethods(['POST']),
+	ValidatorMiddleware.validateContentType, 
+	EventController.unsubscribe
+);
+
+router.all('/get-by-username',
+	ValidatorMiddleware.validateMethods(['GET', 'HEAD']),
+	EventController.getByUsername
+);
 
 export default router;

@@ -30,19 +30,11 @@ class DBService {
 	 * @returns {Promise<ServiceResponse>}
 	 */
 	async clear(name) {
-		if (!name) {
-			return (new ServiceResponse(
-				false,
-				400,
-				"Name is required"
-			));
-		}
-
 		const databases = await this.databases;
 
 		for (const db of databases) {
-			const parse = JSON.parse(db.export());
-			if (parse.v.name.v == name) {
+			const _export = db.export();
+			if (_export.name === name) {
 				db.clear();
 				return (new ServiceResponse(
 					true,
@@ -79,28 +71,16 @@ class DBService {
 	 * @returns {Promise<ServiceResponse>} - Response
 	 */
 	async export(name) {
-		if (!name) {
-			return (new ServiceResponse(
-				false,
-				400,
-				"Name is required"
-			));
-		}
-
 		const databases = await this.databases;
 
 		for (const db of databases) {
-			const parse = JSON.parse(db.export());
-			if (parse.v.name.v == name) {
-				const data = {};
-				for (const entry of parse.v.keys.v) {
-					data[entry.v.key.v] = unwrapTyped(JSON.parse(entry.v.value.v));
-				}
+			const _export = db.export();
+			if (_export.name === name) {
 				return (new ServiceResponse(
 					true,
 					200,
 					"Success",
-					data
+					_export.data
 				));
 			}
 		}
@@ -118,32 +98,19 @@ class DBService {
 	 */
 	async exportAll() {
 		const databases = await this.databases;
+
 		const exports = {};
 		for (const db of databases) {
-			const parse = JSON.parse(db.export());
-			const name = parse.v.name.v;
-			const data = {};
-			for (const entry of parse.v.keys.v) {
-				data[entry.v.key.v] = unwrapTyped(JSON.parse(entry.v.value.v));
-			}
-			exports[name] = data;
+			const _export = db.export();
+			exports[_export.name] = _export.data;
 		}
 
-		if (Object.keys(exports).length === 0) {
-			return (new ServiceResponse(
-				true,
-				204,
-				"Success, databases empty",
-				exports
-			));
-		} else {
-			return (new ServiceResponse(
-				true,
-				200,
-				"Success",
-				exports
-			));
-		}
+		return (new ServiceResponse(
+			true,
+			200,
+			"Success",
+			exports
+		));
 	}
 }
 

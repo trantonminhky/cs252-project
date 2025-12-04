@@ -21,48 +21,26 @@ class EventService {
 	}
 
 	async createEvent(name, description, imageLink = null, startTime = null, endTime = null) {
-		if (!name) {
-			const response = new ServiceResponse(
-				false,
-				400,
-				"Evevnt name is required"
-			);
-			return response;
+		const eventID = EventDB.autonum();
+		const eventData = {
+			id: eventID,
+			name: name,
+			description: description,
+			startTime: startTime || Date.now(),
+			endTime: endTime,
+			imageLink: imageLink,
+			participants: []
 		}
 
-		if (!description) {
-			description = "No description."
-		}
+		EventDB.set(eventID, eventData);
 
-		try {
-			const eventID = EventDB.autonum();
-			const eventData = {
-				id: eventID,
-				name: name,
-				description: description,
-				startTime: startTime || Date.now(),
-				endTime: endTime,
-				imageLink: imageLink,
-				participants: []
-			}
-
-			EventDB.set(eventID, eventData);
-
-			const response = new ServiceResponse(
-				true,
-				201,
-				"Success",
-				eventData
-			);
-			return response;
-		} catch (err) {
-			const response = new ServiceResponse(
-				false,
-				500,
-				"Something went wrong"
-			);
-			return response;
-		}
+		const response = new ServiceResponse(
+			true,
+			201,
+			"Success",
+			eventData
+		);
+		return response;
 	}
 
 	async subscribe(username, eventID) {
@@ -167,35 +145,22 @@ class EventService {
 			return response;
 		}
 
-		try {
-			const parse = JSON.parse(EventDB.export());
-			const data = {};
-			for (const entry of parse.v.keys.v) {
-				data[entry.v.key.v] = unwrapTyped(JSON.parse(entry.v.value.v));
-			}
+		const _export = EventDB.export();
 
-			const results = [];
-			for (const [key, val] of Object.entries(data)) {
-				if (val.participants.includes(username)) {
-					results.push(val);
-				}
+		const results = [];
+		for (const [key, val] of Object.entries(_export)) {
+			if (val.participants.includes(username)) {
+				results.push(val);
 			}
-
-			const response = new ServiceResponse(
-				true,
-				200,
-				"Success",
-				results
-			);
-			return response;
-		} catch (err) {
-			const response = new ServiceResponse(
-				false,
-				500,
-				"Something went wrong"
-			);
-			return response;
 		}
+
+		const response = new ServiceResponse(
+			true,
+			200,
+			"Success",
+			results
+		);
+		return response;
 	}
 }
 

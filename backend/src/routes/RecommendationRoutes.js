@@ -1,9 +1,17 @@
 import { Router } from 'express';
 const router = Router();
-import recController from '../controllers/RecommendationController.js';
-import validateContentType from '../middleware/validateContentType.js';
+import recController from '../controllers/RecommendationController.js'
+import ValidatorMiddleware from '../middleware/ValidatorMiddleware.js';
 
-router.get('/', recController.getRecommendations);
-router.post('/feedback', validateContentType, recController.sendFeedback);
+router.all('/',
+	ValidatorMiddleware.validateMethods(['GET', 'HEAD']),
+	recController.getRecommendations
+);
+
+router.all('/feedback',
+	ValidatorMiddleware.validateMethods(['POST']),
+	ValidatorMiddleware.validateContentType,
+	recController.sendFeedback
+);
 
 export default router

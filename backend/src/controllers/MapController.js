@@ -15,7 +15,7 @@ class MapController {
 					400,
 					"Coordinates are required"
 				);
-				return res.status(response.statusCode).json(response.get());
+				return void res.status(response.statusCode).json(response.get());
 			}
 
 			if (!Array.isArray(coordinates)) {
@@ -24,7 +24,7 @@ class MapController {
 					400,
 					"Coordinates must be expressed as an array of 2 coordinate pairs"
 				);
-				return res.status(response.statusCode).json(response.get());
+				return void res.status(response.statusCode).json(response.get());
 			}
 
 			if (coordinates.length != 2) {
@@ -33,11 +33,11 @@ class MapController {
 					400,
 					"Only two pairs of coordinates must be specified"
 				);
-				return res.status(response.statusCode).json(response.get());
+				return void res.status(response.statusCode).json(response.get());
 			}
 
 			const response = await mapService.getRoute(coordinates, profile);
-			res.status(response.statusCode).json(response.get());
+			return void res.status(response.statusCode).json(response.get());
 		} catch (error) {
 			next(error);
 		}
@@ -57,11 +57,11 @@ class MapController {
 					400,
 					"Latitude and longitude are required"
 				);
-				return res.status(response.statusCode).json(response.get());
+				return void res.status(response.statusCode).json(response.get());
 			}
 
 			const response = await mapService.nearby(lat, lon, radius, category_ids);
-			res.status(response.statusCode).json(response.get());
+			return void res.status(response.statusCode).json(response.get());
 
 		} catch (error) {
 			next(error);

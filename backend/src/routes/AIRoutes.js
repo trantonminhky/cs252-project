@@ -1,12 +1,25 @@
 import { Router } from 'express';
 const router = Router();
 import AIController from '../controllers/AIController.js';
-import validateBearerToken from '../middleware/validateBearerToken.js';
-import validateContentType from '../middleware/validateContentType.js';
+import ValidatorMiddleware from '../middleware/ValidatorMiddleware.js';
 
-// AI ask endpoint
-router.post('/send-prompt', validateBearerToken, validateContentType, AIController.sendPrompt);
-router.get('/extract-tags', AIController.extractTags);
-router.post('/generate-reviews', validateBearerToken, validateContentType, AIController.generateReviews);
+router.all('/send-prompt',
+	ValidatorMiddleware.validateMethods(['POST']),
+	ValidatorMiddleware.validateSessionToken,
+	ValidatorMiddleware.validateContentType,
+	AIController.sendPrompt
+);
+
+router.all('/extract-tags',
+	ValidatorMiddleware.validateMethods(['GET', 'HEAD']),
+	AIController.extractTags
+);
+
+router.all('/generate-reviews',
+	ValidatorMiddleware.validateMethods(['POST']),
+	ValidatorMiddleware.validateSessionToken,
+	ValidatorMiddleware.validateContentType,
+	AIController.generateReviews
+);
 
 export default router;

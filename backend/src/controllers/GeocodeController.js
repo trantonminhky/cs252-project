@@ -15,7 +15,7 @@ class GeocodeController {
 					"Address parameter is required"
 				);
 
-				return res.status(response.statusCode).json(response.get());
+				return void res.status(response.statusCode).json(response.get());
 			}
 
 			const response = await geocodeService.geocode(address);
@@ -29,19 +29,19 @@ class GeocodeController {
 	async reverseGeocode(req, res, next) {
 		try {
 			const { lat, lon } = req.query;
-			if (!lat || !lon) {
+			if (lat == null || lon == null) {
 				const response = new ServiceResponse(
 					false,
 					400,
 					`Latitude and longitude parameters are required`
 				);
 
-				return res.status(response.statusCode).json(response.get());
+				return void res.status(response.statusCode).json(response.get());
 			}
 
 			const response = await geocodeService.reverseGeocode(parseFloat(lat), parseFloat(lon));
 
-			res.status(response.statusCode).json(response.get());
+			return void res.status(response.statusCode).json(response.get());
 		} catch (error) {
 			next(error);
 		}

@@ -1,10 +1,20 @@
 import { Router } from 'express';
 const router = Router();
 import mapController from '../controllers/MapController.js';
-import validateBearerToken from '../middleware/validateBearerToken.js';
-import validateContentType from '../middleware/validateContentType.js';
+import ValidatorMiddleware from '../middleware/ValidatorMiddleware.js';
 
-router.post('/route', validateBearerToken, validateContentType, mapController.getRoute);
-router.get('/nearby', validateBearerToken, mapController.nearby);
+router.all('/route',
+	ValidatorMiddleware.validateMethods(['POST']),
+	ValidatorMiddleware.validateSessionToken, 
+	ValidatorMiddleware.validateContentType, 
+	mapController.getRoute
+);
+
+router.all('/nearby',
+	ValidatorMiddleware.validateMethods(['GET', 'HEAD']),
+	ValidatorMiddleware.validateSessionToken, 
+	mapController.nearby
+);
+
 
 export default router;
