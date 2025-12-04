@@ -3,7 +3,8 @@ const router = Router();
 import AIController from '../controllers/AIController.js';
 import ValidatorMiddleware from '../middleware/ValidatorMiddleware.js';
 
-router.post('/send-prompt',
+router.all('/send-prompt',
+	ValidatorMiddleware.validateMethods(['POST']),
 	ValidatorMiddleware.validateSessionToken,
 	ValidatorMiddleware.validateContentType,
 	AIController.sendPrompt

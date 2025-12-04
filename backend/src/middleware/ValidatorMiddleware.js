@@ -2,6 +2,21 @@ import ServiceResponse from "../helper/ServiceResponse.js";
 import SessionTokensDB from "../db/SessionTokensDB.js";
 
 class ValidatorMiddleware {
+	validateMethods(methods) {
+		return (req, res, next) => {
+			if (!methods.includes(req.method)) {
+				const response = new ServiceResponse(
+					false,
+					405,
+					`${req.method} method is not allowed or implemented`
+				);
+
+				return void res.status(response.statusCode).json(response.get());
+			}
+			next();
+		}
+	}
+
 	validateSessionToken(req, res, next) {
 		const credentials = req.headers["authorization"];
 		if (!credentials) {
