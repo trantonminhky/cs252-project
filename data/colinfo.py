@@ -53,7 +53,7 @@ class ArchColInfo(BaseColInfo):
 
 # --- 3. Restaurant Child Class ---
 class RestaurantColInfo(BaseColInfo):
-    def __init__(self, csv_file="Restaurant_Data.csv"):
+    def __init__(self, csv_file="CT_Data - Restaurant.csv"):
         # Initialize the parent class
         super().__init__(csv_file)
 
