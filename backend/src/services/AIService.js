@@ -16,49 +16,28 @@ class AIService {
 	 * @returns {Promise<ServiceResponse>}
 	 */
 	async sendPrompt(prompt, model = 'gemini-flash-latest') {
-		// try {
-			const data = await gemin.ask(prompt, { model: model });
-			const response = new ServiceResponse(
-				true,
-				200,
-				"Success",
-				data
-			)
-			return response;
-		// } catch (err) {
-		// 	console.error(err);
-		// 	const response = new ServiceResponse(
-		// 		false,
-		// 		500,
-		// 		"Something went wrong",
-		// 		err.toString()
-		// 	);
-		// 	return response;
-		// }
+		const data = await gemin.ask(prompt, { model: model });
+		const response = new ServiceResponse(
+			true,
+			200,
+			"Success",
+			data
+		)
+		return response;
 	}
 
 	async extractTags(text) {
-		try {
-			const client = await Client.connect("JustscrAPIng/cultour-filter-search-en");
-			const result = await client.predict("/extract_tags", {
-				user_text: text
-			});
-			const response = new ServiceResponse(
-				true,
-				200,
-				"Success",
-				result
-			);
-			return response;
-		} catch (err) {
-			console.error(err);
-			const response = new ServiceResponse(
-				false,
-				500,
-				"Something went wrong"
-			);
-			return response;
-		}
+		const client = await Client.connect("JustscrAPIng/cultour-filter-search-en");
+		const result = await client.predict("/extract_tags", {
+			user_text: text
+		});
+		const response = new ServiceResponse(
+			true,
+			200,
+			"Success",
+			result
+		);
+		return response;
 	}
 
 	async generateReviews(place, model = 'gemini-flash-latest') {
@@ -70,25 +49,15 @@ class AIService {
 			);
 			return response;
 		}
-
-		try {
-			const data = await gemini.ask(`Provide a list of reviews for the place with name ${place} in JSON format. The JSON object data should have these fields: { String username, String id, String content, int rating, String date (formatted according to flutter DateTime format)}. The response should be a JSON array of review objects. Do not put it in codeblock of triple backtick, I want raw data that is easily parse-able`, { model: model });
-			const response = new ServiceResponse(
-				true,
-				200,
-				"Success",
-				JSON.parse(data)
-			)
-			return response;
-		} catch (err) {
-			console.error(err);
-			const response = new ServiceResponse(
-				false,
-				500,
-				"Something went wrong"
-			);
-			return response;
-		}
+		
+		const data = await gemini.ask(`Provide a list of reviews for the place with name ${place} in JSON format. The JSON object data should have these fields: { String username, String id, String content, int rating, String date (formatted according to flutter DateTime format)}. The response should be a JSON array of review objects. Do not put it in codeblock of triple backtick, I want raw data that is easily parse-able`, { model: model });
+		const response = new ServiceResponse(
+			true,
+			200,
+			"Success",
+			JSON.parse(data)
+		)
+		return response;
 	}
 }
 

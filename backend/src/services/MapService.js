@@ -28,7 +28,6 @@ class MapService {
 		const fromCoordinates = coordinates[0].map(coor => coor.toString()).join(',');
 		const toCoordinates = coordinates[1].map(coor => coor.toString()).join(',');
 
-		try {
 			const url = `${this.baseUrl}/v2/directions/${profile}`;
 			const axiosResponse = await axios.get(url, { params: {
 				api_key: this.apiKey,
@@ -43,14 +42,6 @@ class MapService {
 				axiosResponse.data
 			);
 			return response;
-		} catch (err) {
-			const response = new ServiceResponse(
-				false,
-				500,
-				"Something went wrong"
-			);
-			return response;
-		}
 	}
 
 	// Search for places near a location
@@ -81,7 +72,6 @@ class MapService {
 			filters.category_ids = category_ids;
 		}
 
-		try {
 			const url = `${this.baseUrl}/pois`;
 			const axiosResponse = await axios.post(url, {
 				request: "pois",
@@ -113,15 +103,6 @@ class MapService {
 				resp
 			);
 			return response;
-		} catch (err) {
-			console.error(err);
-			const response = new ServiceResponse(
-				false,
-				500,
-				"Something went wrong"
-			);
-			return response;
-		}
 	}
 }
 

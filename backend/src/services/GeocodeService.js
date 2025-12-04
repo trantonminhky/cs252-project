@@ -20,28 +20,21 @@ class GeocodeService {
 	 * @returns {Promise<ServiceResponse>} Response 
 	 */
 	async geocode(query, limit = 5) {
-		try {
-			const url = `${this.baseUrl}/search`;
-			const resp = await axios.get(url, { params: {
+		const url = `${this.baseUrl}/search`;
+		const resp = await axios.get(url, {
+			params: {
 				format: 'jsonv2',
 				q: query
-			}});
-			
-			const response = new ServiceResponse(
-				true,
-				200,
-				"Success",
-				resp.data
-			);
-			return response;
-		} catch (err) {
-			console.log(err);
-			return new ServiceResponse(
-				false,
-				500,
-				"Something went wrong"
-			);
-		}
+			}
+		});
+
+		const response = new ServiceResponse(
+			true,
+			200,
+			"Success",
+			resp.data
+		);
+		return response;
 	}
 
 	/**
@@ -51,25 +44,16 @@ class GeocodeService {
 	 * @returns {Promise<ServiceResponse>} Response
 	 */
 	async reverseGeocode(lat, lon) {
-		try {
-			const url = `${this.baseUrl}/reverse?format=jsonv2&lat=${lat}&lon=${lon}`;
-			const resp = await axios.get(url);
+		const url = `${this.baseUrl}/reverse?format=jsonv2&lat=${lat}&lon=${lon}`;
+		const resp = await axios.get(url);
 
-			const response = new ServiceResponse(
-				true,
-				200,
-				"Success",
-				resp.data
-			);
-			return response;
-		} catch (err) {
-			console.log(err);
-			return (new ServiceResponse(
-				false,
-				500,
-				"Something went wrong"
-			));
-		}
+		const response = new ServiceResponse(
+			true,
+			200,
+			"Success",
+			resp.data
+		);
+		return response;
 	}
 }
 
