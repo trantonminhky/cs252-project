@@ -16,7 +16,7 @@ class AIService {
 	 * @returns {Promise<ServiceResponse>}
 	 */
 	async sendPrompt(prompt, model = 'gemini-flash-latest') {
-		const data = await gemin.ask(prompt, { model: model });
+		const data = await gemini.ask(prompt, { model: model });
 		const response = new ServiceResponse(
 			true,
 			200,
@@ -49,7 +49,7 @@ class AIService {
 			);
 			return response;
 		}
-		
+
 		const data = await gemini.ask(`Provide a list of reviews for the place with name ${place} in JSON format. The JSON object data should have these fields: { String username, String id, String content, int rating, String date (formatted according to flutter DateTime format)}. The response should be a JSON array of review objects. Do not put it in codeblock of triple backtick, I want raw data that is easily parse-able`, { model: model });
 		const response = new ServiceResponse(
 			true,

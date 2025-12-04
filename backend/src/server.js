@@ -91,11 +91,13 @@ app.get('/', (req, res, next) => {
 });
 
 // 404 handler
-app.use((req, res) => {
-	res.status(404).json({
-		success: false,
-		error: { message: 'Route not found' }
-	});
+app.use((req, res, next) => {
+	const response = new ServiceResponse(
+		false,
+		404,
+		"Route not found"
+	);
+	return void res.status(response.statusCode).json(response.get());
 });
 
 // Error handling middleware
