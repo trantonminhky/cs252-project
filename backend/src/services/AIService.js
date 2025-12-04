@@ -6,7 +6,7 @@ const gemini = new Gemini(config.gemini.APIKey);
 
 class AIService {
 	constructor() {
-		this.apiKey = config.gemini.APIKey;
+		this.tagsExtractionBaseURL = config.tagsExtraction
 	}
 
 	/**
@@ -27,7 +27,7 @@ class AIService {
 	}
 
 	async extractTags(text) {
-		const client = await Client.connect("JustscrAPIng/cultour-filter-search-en");
+		const client = await Client.connect(this.tagsExtractionBaseURL);
 		const result = await client.predict("/extract_tags", {
 			user_text: text
 		});
