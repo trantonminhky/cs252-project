@@ -74,17 +74,13 @@ class DBService {
 		const databases = await this.databases;
 
 		for (const db of databases) {
-			const parse = JSON.parse(db.export());
-			if (parse.v.name.v == name) {
-				const data = {};
-				for (const entry of parse.v.keys.v) {
-					data[entry.v.key.v] = unwrapTyped(JSON.parse(entry.v.value.v));
-				}
+			const _export = db.export();
+			if (_export.name === name) {
 				return (new ServiceResponse(
 					true,
 					200,
 					"Success",
-					data
+					_export.data
 				));
 			}
 		}
@@ -102,6 +98,7 @@ class DBService {
 	 */
 	async exportAll() {
 		const databases = await this.databases;
+		
 		const exports = {};
 		for (const db of databases) {
 			const parse = JSON.parse(db.export());

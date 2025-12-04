@@ -21,6 +21,7 @@
 */
 
 import Enmap from 'enmap';
+import unwrapTyped from '../helper/unwrapTyped.js';
 
 class LocationDB {
 	constructor() {
@@ -73,12 +74,16 @@ class LocationDB {
 	}
 
 	export() {
-		try {
-			const exp = this.db.export();
-			return exp;
-		} catch (err) {
-			console.error(err);
+		const data = {};
+		const parse = JSON.parse(this.db.export());
+		const name = parse.v.name.v;
+		for (const entry of parse.v.keys.v) {
+			data[entry.v.key.v] = unwrapTyped(JSON.parse(entry.v.value.v));
 		}
+		return {
+			name: name,
+			data: data
+		};
 	}
 }
 

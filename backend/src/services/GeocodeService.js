@@ -19,9 +19,9 @@ class GeocodeService {
 	 * @param {number} [limit=5] - Maximum number of results returned. Default is 5
 	 * @returns {Promise<ServiceResponse>} Response 
 	 */
-	async geocode(query, limit = 5) {
+	async geocode(query) {
 		const url = `${this.baseUrl}/search`;
-		const resp = await axios.get(url, {
+		const axiosResponse = await axios.get(url, {
 			params: {
 				format: 'jsonv2',
 				q: query
@@ -32,7 +32,7 @@ class GeocodeService {
 			true,
 			200,
 			"Success",
-			resp.data
+			axiosResponse.data
 		);
 		return response;
 	}
