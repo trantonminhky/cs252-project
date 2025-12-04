@@ -10,11 +10,11 @@
 	}, ...
 */
 
+import Enmap from 'enmap';
+
 class EventDB {
 	constructor() {
-		import('enmap').then(async ({ default: Enmap }) => {
-			this.db = new Enmap({ name: 'EventDB' });
-		});
+		this.db = new Enmap({ name: 'EventDB' });
 	}
 
 	// autonum is used to ensure non-duplicate id
@@ -74,7 +74,7 @@ class EventDB {
 		}
 	}
 
-	push(key, value, path, allowDupes=false) {
+	push(key, value, path, allowDupes = false) {
 		try {
 			this.db.push(key, value, path, allowDupes);
 		} catch (err) {

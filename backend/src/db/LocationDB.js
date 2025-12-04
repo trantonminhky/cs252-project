@@ -20,11 +20,12 @@
 	}, ...
 */
 
+import Enmap from 'enmap';
+
 class LocationDB {
 	constructor() {
-		import('enmap').then(async ({ default: Enmap }) => {
-			this.db = new Enmap({ name: 'LocationDB' });
-		});
+		this.db = new Enmap({ name: 'LocationDB' });
+
 	}
 
 	set(key, val, path) {

@@ -8,14 +8,13 @@
 	...
 */
 
+import Enmap from 'enmap';
 const TOKEN_LIFETIME_MS = 1800000;
 
 
 class SessionTokensDB {
 	constructor() {
-		import('enmap').then(async ({ default: Enmap }) => {
-			this.db = new Enmap({ name: 'SessionTokensDB' });
-		});
+		this.db = new Enmap({ name: 'SessionTokensDB' });
 	}
 
 	set(key, val, path) {

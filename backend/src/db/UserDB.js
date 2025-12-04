@@ -11,12 +11,11 @@
 	}
 */
 
+import Enmap from 'enmap';
 
 class UserDB {
 	constructor() {
-		import('enmap').then(async ({ default: Enmap }) => {
-			this.db = new Enmap({ name: 'UserDB' });
-		});
+		this.db = new Enmap({ name: 'UserDB' });
 	}
 
 	set(key, val, path) {
