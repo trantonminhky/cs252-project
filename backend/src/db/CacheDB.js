@@ -67,6 +67,28 @@ class CacheDB {
 		}
 	}
 
+	findReverseGeocode(lat, lon) {
+		this.db.ensure('geocode', []);
+		const caches = this.db.ensure('reverse_geocode', []);
+		console.log(caches);
+		let result = caches.find(entry => entry.lat === lat && entry.lon === lon);
+		if (result == null) {
+			return null;
+		} else {
+			return result;
+		}
+	}
+
+	upsertReverseGeocode(data) {
+		const caches = this.db.ensure('reverse_geocode', []);
+		const i = caches.findIndex(x => x.name === data.name);
+		if (i !== -1) {
+			this.db.set('reverse_geocode', data, i)
+		} else {
+			this.db.push('reverse_geocode', data);
+		}
+	}
+
 	delete(key, path) {
 		try {
 			this.db.delete(key, path);
