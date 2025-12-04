@@ -16,8 +16,8 @@ class AIService {
 	 * @returns {Promise<ServiceResponse>}
 	 */
 	async sendPrompt(prompt, model = 'gemini-flash-latest') {
-		try {
-			const data = await gemini.ask(prompt, { model: model });
+		// try {
+			const data = await gemin.ask(prompt, { model: model });
 			const response = new ServiceResponse(
 				true,
 				200,
@@ -25,14 +25,16 @@ class AIService {
 				data
 			)
 			return response;
-		} catch (err) {
-			const response = new ServiceResponse(
-				false,
-				500,
-				"Something went wrong"
-			);
-			return response;
-		}
+		// } catch (err) {
+		// 	console.error(err);
+		// 	const response = new ServiceResponse(
+		// 		false,
+		// 		500,
+		// 		"Something went wrong",
+		// 		err.toString()
+		// 	);
+		// 	return response;
+		// }
 	}
 
 	async extractTags(text) {

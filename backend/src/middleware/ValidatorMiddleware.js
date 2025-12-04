@@ -1,4 +1,5 @@
 import ServiceResponse from "../helper/ServiceResponse.js";
+import SessionTokensDB from "../db/SessionTokensDB.js";
 
 class ValidatorMiddleware {
 	validateSessionToken(req, res, next) {
