@@ -3,6 +3,9 @@ import axios from 'axios';
 
 import ServiceResponse from '../helper/ServiceResponse.js';
 import config from '../config/config.js';
+import CacheDB from '../db/CacheDB.js';
+
+const CACHE_LIFETIME_MS = 86400000; // 1 day
 
 /**
  * Geocode service provider class.
@@ -20,21 +23,40 @@ class GeocodeService {
 	 * @returns {Promise<ServiceResponse>} Response 
 	 */
 	async geocode(query) {
-		const url = `${this.baseUrl}/search`;
-		const axiosResponse = await axios.get(url, {
-			params: {
-				format: 'jsonv2',
-				q: query
-			}
-		});
+		const cache = CacheDB.find('geocode', query);
 
-		const response = new ServiceResponse(
-			true,
-			200,
-			"Success",
-			axiosResponse.data
-		);
-		return response;
+		if (cache && Date.now() - cache.createdAt < CACHE_LIFETIME_MS) {
+			// if the result is already stored in cache and hasn't expired
+			const response = new ServiceResponse(
+				true,
+				200,
+				"Success",
+				cache.data
+			);
+			return response;
+		} else {
+			const url = `${this.baseUrl}/search`;
+			const axiosResponse = await axios.get(url, {
+				params: {
+					format: 'jsonv2',
+					q: query
+				}
+			});
+
+			CacheDB.replaceGeocode({
+				address: query,
+				data: axiosResponse.data,
+				createdAt: Date.now()
+			});
+
+			const response = new ServiceResponse(
+				true,
+				200,
+				"Success",
+				axiosResponse.data
+			);
+			return response;
+		}
 	}
 
 	/**
