@@ -1,9 +1,16 @@
 import { Router } from 'express';
 const router = Router();
 import geocodeController from '../controllers/GeocodeController.js';
-import validateBearerToken from '../middleware/validateBearerToken.js';
+import ValidatorMiddleware from '../middleware/ValidatorMiddleware.js';
 
-router.get('/geocode', validateBearerToken, geocodeController.geocode);
-router.get('/reverse-geocode', validateBearerToken, geocodeController.reverseGeocode);
+router.get('/geocode',
+	ValidatorMiddleware.validateBearerToken,
+	geocodeController.geocode
+);
+
+router.get('/reverse-geocode',
+	ValidatorMiddleware.validateBearerToken,
+	geocodeController.reverseGeocode
+);
 
 export default router;
