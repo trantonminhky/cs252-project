@@ -11,6 +11,7 @@ class ProfileController {
 			const name = req.body.name;
 			const age = req.body.age;
 			const type = req.body.type;
+
 			if (!user || !pass) {
 				const response = new ServiceResponse(
 					false,
@@ -36,6 +37,26 @@ class ProfileController {
 					false,
 					400,
 					"User type is required"
+				);
+
+				return void res.status(response.statusCode).json(response.get());
+			}
+
+			if (!username.match(/^[0-9a-zA-Z]+$/)) {
+				const response = new ServiceResponse(
+					false,
+					400,
+					"Username must be alphanumeric"
+				);
+
+				return void res.status(response.statusCode).json(response.get());
+			}
+
+			if (!password.match(/^[A-Za-z0-9!@#$%^&*()_\-+={}[\]|\\:;"'<>,.?/~`]+$/)) {
+				const response = new ServiceResponse(
+					false,
+					400,
+					"Password cannot contain special symbols"
 				);
 
 				return void res.status(response.statusCode).json(response.get());
