@@ -7,7 +7,7 @@ class AIController {
 		try {
 			const prompt = req.body.prompt;
 			const model = req.body.model;
-			
+
 			if (!prompt) {
 				const response = new ServiceResponse(
 					false,
@@ -46,7 +46,18 @@ class AIController {
 	async generateReviews(req, res, next) {
 		try {
 			const place = req.body.place;
-			const response = await AIService.generateReviews(place);
+			const model = req.body.model;
+
+			if (!place) {
+				const response = new ServiceResponse(
+					false,
+					400,
+					"Place name is required"
+				);
+				return void res.status(response.statusCode).json(response.get());
+			}
+
+			const response = await AIService.generateReviews(place, model);
 			return void res.status(response.statusCode).json(response.get());
 		} catch (err) {
 			next(err);

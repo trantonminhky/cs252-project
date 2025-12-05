@@ -77,15 +77,6 @@ class AIService {
 	}
 
 	async generateReviews(place, model = 'gemini-flash-latest') {
-		if (!place) {
-			const response = new ServiceResponse(
-				false,
-				400,
-				"Place name is required"
-			);
-			return response;
-		}
-
 		try {
 			await gemini.models.get({ model: model });
 		} catch (err) {
