@@ -67,4 +67,5 @@ class RecommendationService {
 		return new ServiceResponse(true, 200, "Feedback recorded");
 	}
 }
+
 export default new RecommendationService();

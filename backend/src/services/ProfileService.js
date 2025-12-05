@@ -46,7 +46,7 @@ class ProfileService {
 	 * @param {String} pass - Password
 	 * @returns {Promise<ServiceResponse>} Response
 	 */
-	async register(user, pass, name, age, isTourist) {
+	async register(user, pass, name, age, type) {
 		if (UserDB.has(user)) {
 			const response = new ServiceResponse(
 				false,
@@ -66,8 +66,8 @@ class ProfileService {
 				name: name,
 				age: age,
 				preferences: [],
-				rec_profile: null,
-				isTourist: isTourist,
+				preferencesVector: null,
+				type: type,
 				sessionToken: {
 					data: token,
 					createdAt: tokenCreatedAt
