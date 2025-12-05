@@ -2,7 +2,6 @@ import { readdirSync } from 'fs';
 import path from 'path';
 import { fileURLToPath, pathToFileURL } from 'url';
 import ServiceResponse from '../helper/ServiceResponse.js';
-import unwrapTyped from '../helper/unwrapTyped.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);

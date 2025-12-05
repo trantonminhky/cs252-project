@@ -35,7 +35,7 @@ const customStream = {
 };
 
 // Security middleware
-app.use(helmet())
+app.use(helmet());
 
 // Rate limiting
 const limiter = rateLimit({
