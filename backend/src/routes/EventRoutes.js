@@ -4,7 +4,7 @@ import EventController from '../controllers/EventController.js';
 import ValidatorMiddleware from '../middleware/ValidatorMiddleware.js';
 
 router.all('/import',
-	ValidatorMiddleware.validateMethods(['GET', 'HEAD']),
+	ValidatorMiddleware.validateMethods(['POST']),
 	EventController.importToDB
 );
 

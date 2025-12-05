@@ -3,6 +3,7 @@ import AIService from '../services/AIService.js';
 
 // TO-DO: DOCUMENT CONTROLLER CLASSES
 class AIController {
+	// TO-DO: check prompt length to make it not exceed 2000 characters
 	async sendPrompt(req, res, next) {
 		try {
 			const prompt = req.body.prompt;
