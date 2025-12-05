@@ -35,27 +35,37 @@ class GeocodeService {
 			);
 			return response;
 		} else {
-			const url = `${this.baseUrl}/search`;
-			const axiosResponse = await axios.get(url, {
-				params: {
-					format: 'jsonv2',
-					q: query
-				}
-			});
+			try {
+				const url = `${this.baseUrl}/search`;
+				const axiosResponse = await axios.get(url, {
+					params: {
+						format: 'jsonv2',
+						q: query
+					}
+				});
 
-			CacheDB.upsertGeocode({
-				address: query,
-				data: axiosResponse.data,
-				createdAt: Date.now()
-			});
+				CacheDB.upsertGeocode({
+					address: query,
+					data: axiosResponse.data,
+					createdAt: Date.now()
+				});
 
-			const response = new ServiceResponse(
-				true,
-				200,
-				"Success",
-				axiosResponse.data
-			);
-			return response;
+				const response = new ServiceResponse(
+					true,
+					200,
+					"Success",
+					axiosResponse.data
+				);
+				return response;
+			} catch (err) {
+				const response = new ServiceResponse(
+					false,
+					502,
+					"Something went wrong",
+					err.toString()
+				);
+				return response;
+			}
 		}
 	}
 
@@ -77,29 +87,39 @@ class GeocodeService {
 			);
 			return response;
 		} else {
-			const url = `${this.baseUrl}/reverse?format=jsonv2&lat=${lat}&lon=${lon}`;
-			const axiosResponse = await axios.get(url, {
-				params: {
-					format: 'jsonv2',
+			try {
+				const url = `${this.baseUrl}/reverse?format=jsonv2&lat=${lat}&lon=${lon}`;
+				const axiosResponse = await axios.get(url, {
+					params: {
+						format: 'jsonv2',
+						lat: lat,
+						lon: lon
+					}
+				});
+	
+				CacheDB.upsertReverseGeocode({
 					lat: lat,
-					lon: lon
-				}
-			});
-
-			CacheDB.upsertReverseGeocode({
-				lat: lat,
-				lon: lon,
-				data: axiosResponse.data,
-				createdAt: Date.now()
-			});
-
-			const response = new ServiceResponse(
-				true,
-				200,
-				"Success",
-				axiosResponse.data
-			);
-			return response;
+					lon: lon,
+					data: axiosResponse.data,
+					createdAt: Date.now()
+				});
+	
+				const response = new ServiceResponse(
+					true,
+					200,
+					"Success",
+					axiosResponse.data
+				);
+				return response;
+			} catch (err) {
+				const response = new ServiceResponse(
+					false,
+					502,
+					'Something went wrong',
+					err.toString()
+				);
+				return response;
+			}
 		}
 	}
 }
