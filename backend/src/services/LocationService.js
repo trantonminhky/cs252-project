@@ -3,7 +3,6 @@ import FuzzySearch from 'fuzzy-search';
 import LocationDB from '../db/LocationDB.js';
 import architecturesData from '../../architecture.json' with { type: "json" };
 import ServiceResponse from '../helper/ServiceResponse.js';
-import unwrapTyped from '../helper/unwrapTyped.js';
 
 /**
  * Location service provider class.
@@ -30,6 +29,13 @@ class LocationService {
 			});
 			console.log(entry.open_hours);
 		}
+
+		const response = new ServiceResponse(
+			true,
+			201,
+			"Success"
+		);
+		return response;
 	}
 
 	/**

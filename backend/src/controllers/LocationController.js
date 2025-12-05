@@ -3,8 +3,12 @@ import LocationService from '../services/LocationService.js';
 
 class LocationController {
 	async importToDB(req, res, next) {
-		await LocationService.importToDB();
-		return void res.status(200).json("lol");
+		try {
+			const response = await LocationService.importToDB();
+			return void res.status(response.statusCode).json(response.get());
+		} catch (err) {
+			next(err)
+		}
 	}
 
 	async search(req, res, next) {
