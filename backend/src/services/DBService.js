@@ -33,6 +33,7 @@ class DBService {
 
 		for (const db of databases) {
 			const _export = db.export();
+
 			if (_export.name === name) {
 				db.clear();
 				return (new ServiceResponse(
@@ -56,6 +57,7 @@ class DBService {
 	 */
 	async clearAll() {
 		const databases = await this.databases;
+
 		databases.forEach(db => db.clear());
 		return (new ServiceResponse(
 			true,
@@ -74,6 +76,7 @@ class DBService {
 
 		for (const db of databases) {
 			const _export = db.export();
+			
 			if (_export.name === name) {
 				return (new ServiceResponse(
 					true,
