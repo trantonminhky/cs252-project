@@ -45,18 +45,9 @@ class LocationService {
 	 * @param {String[]|} [options.include] - Tags to only include in results so that each result has one or more tags included. By default all tags are included
 	 * @return {Promise<ServiceResponse>} Response
 	 */
-	async search(query, options = {include: []}) {
+	async search(query, options = { include: [] }) {
 		const searchAllResults = query === "" || query == null;
-		const searchAllTags = options.include == null;
-
-		if (!Array.isArray(options.include) && !searchAllTags) {
-			const response = new ServiceResponse(
-				false,
-				400,
-				"Malformed include option"
-			);
-			return response;
-		}
+		const searchAllTags = options.include == null || !options.include.length; // if no include option is specified, or the include option array is empty
 
 		const _export = LocationDB.export();
 
@@ -76,8 +67,8 @@ class LocationService {
 		results = results.filter(entry => {
 			if (searchAllTags) return true;
 			const tagsList = entry.value.tags.buildingType
-			.concat(entry.value.tags.archStyle)
-			.concat(entry.value.tags.religion);
+				.concat(entry.value.tags.archStyle)
+				.concat(entry.value.tags.religion);
 
 			return tagsList.some(tag => options.include.includes(tag));
 		});
@@ -90,17 +81,8 @@ class LocationService {
 		return response;
 	}
 
-	async findByID(locationID) {
-		if (locationID == null) {
-			const response = new ServiceResponse(
-				false,
-				400,
-				"Location ID is required"
-			);
-			return response;
-		}
-
-		if (!LocationDB.has(locationID)) {
+	async findByID(id) {
+		if (!LocationDB.has(id)) {
 			const response = new ServiceResponse(
 				false,
 				404,
@@ -108,12 +90,13 @@ class LocationService {
 			);
 			return response;
 		}
-
+		
+		const result = LocationDB.get(id);
 		const response = new ServiceResponse(
 			true,
 			200,
 			"Success",
-			LocationDB.get(locationID)
+			result
 		);
 		return response;
 	}
