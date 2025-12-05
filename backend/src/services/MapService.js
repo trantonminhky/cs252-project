@@ -16,7 +16,7 @@ class MapService {
 	// param - array of [lon,lat] pairs
 	// return - route data
 	async getRoute(coordinates, profile = 'driving-car') {
-		if (Number.isNaN(parseFloat(coordinates[0][0])) || Number.isNaN(parseFloat(coordinates[0][1])) || Number.isNaN(parseFloat(coordinates[1][0])) || Number.isNaN(parseFloat(coordinates[1][1]))) {
+		if (coordinates.flat().some(coor => Number.isNaN(parseFloat(coor)))) {
 			const response = new ServiceResponse(
 				false,
 				400,
