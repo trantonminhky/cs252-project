@@ -36,6 +36,15 @@ class MapController {
 				return void res.status(response.statusCode).json(response.get());
 			}
 
+			if (coordinates.flat().some(coor => Number.isNaN(parseFloat(coor)))) {
+				const response = new ServiceResponse(
+					false,
+					400,
+					"Bad coordinates"
+				);
+				return response;
+			}
+
 			const response = await mapService.getRoute(coordinates, profile);
 			return void res.status(response.statusCode).json(response.get());
 		} catch (error) {
@@ -48,7 +57,7 @@ class MapController {
 		try {
 			const lat = req.body.lat;
 			const lon = req.body.lon;
-			const radius = req.body.radius;
+			const radius = req.body.radius ?? 1000;
 			const category_ids = req.body.category_ids;
 
 			if (lat == null || lon == null) {
@@ -58,6 +67,24 @@ class MapController {
 					"Latitude and longitude are required"
 				);
 				return void res.status(response.statusCode).json(response.get());
+			}
+
+			if (radius <= 0 || radius > 2000) {
+				const response = new ServiceResponse(
+					false,
+					400,
+					"Radius must be over 0 and no more than 2000"
+				);
+				return response;
+			}
+
+			if (!Array.isArray(category_ids)) {
+				const response = new ServiceResponse(
+					flse,
+					400,
+					"Malformed category id list"
+				);
+				return response;
 			}
 
 			const response = await mapService.nearby(lat, lon, radius, category_ids);
