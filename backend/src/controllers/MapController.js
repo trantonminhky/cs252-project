@@ -42,7 +42,7 @@ class MapController {
 					400,
 					"Bad coordinates"
 				);
-				return response;
+				return void res.status(response.statusCode).json(response.get());
 			}
 
 			const response = await mapService.getRoute(coordinates, profile);
@@ -75,7 +75,7 @@ class MapController {
 					400,
 					"Radius must be over 0 and no more than 2000"
 				);
-				return response;
+				return void res.status(response.statusCode).json(response.get());
 			}
 
 			if (!Array.isArray(category_ids)) {
@@ -84,7 +84,7 @@ class MapController {
 					400,
 					"Malformed category id list"
 				);
-				return response;
+				return void res.status(response.statusCode).json(response.get());
 			}
 
 			const response = await mapService.nearby(lat, lon, radius, category_ids);

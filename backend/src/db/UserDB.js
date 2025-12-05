@@ -55,6 +55,14 @@ class UserDB {
 		}
 	}
 
+	remove(key, value, path) {
+		try {
+			this.db.remove(key, value, path);
+		} catch (err) {
+			console.error(err);
+		}
+	}
+
 	export() {
 		const data = {};
 		const parse = JSON.parse(this.db.export());

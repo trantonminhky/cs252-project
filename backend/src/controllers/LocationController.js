@@ -34,7 +34,7 @@ class LocationController {
 					400,
 					"Location ID is required"
 				);
-				return response;
+				return void res.status(response.statusCode).json(response.get());
 			}
 
 			const response = await LocationService.findByID(id);
