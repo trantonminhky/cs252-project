@@ -1,9 +1,12 @@
 import { randomBytes } from 'crypto';
+import bcrypt from 'bcrypt';
 
 import ServiceResponse from '../helper/ServiceResponse.js';
 
 import UserDB from '../db/UserDB.js';
 import SessionTokensDB from '../db/SessionTokensDB.js';
+
+const SALT_ROUNDS = 10;
 
 function generateToken32() {
 	return randomBytes(24).toString('base64url').slice(0, 32);
@@ -34,7 +37,6 @@ function renewToken(user) {
 	}
 }
 
-// TO-DO: IMPLEMENT PASSWORD ENCRYPTION INSTEAD OF PLAINTEXT STORAGE
 /**
  * Profile service provider class.
  * @class
@@ -42,12 +44,12 @@ function renewToken(user) {
 class ProfileService {
 	/**
 	 * Registers a user to a new profile given username and password.
-	 * @param {String} user - Username
-	 * @param {String} pass - Password
+	 * @param {String} username - Username
+	 * @param {String} password - Password
 	 * @returns {Promise<ServiceResponse>} Response
 	 */
-	async register(user, pass, name, age, type) {
-		if (UserDB.has(user)) {
+	async register(username, password, name, age, type) {
+		if (UserDB.has(username)) {
 			const response = new ServiceResponse(
 				false,
 				409,
@@ -56,13 +58,15 @@ class ProfileService {
 			return void res.status(response.statusCode).json(response.get());
 		}
 
+		const passwordHash = await bcrypt.hash(password, SALT_ROUNDS);
+
 		const token = generateToken32(); // user session token
 		const tokenCreatedAt = Date.now(); // session token created timestamp in ms
 
 		try {
-			UserDB.set(user, {
-				username: user,
-				password: pass,
+			UserDB.set(username, {
+				username: username,
+				password: passwordHash,
 				name: name,
 				age: age,
 				preferences: [],
@@ -76,7 +80,7 @@ class ProfileService {
 			});
 
 			SessionTokensDB.set(token, {
-				username: user,
+				username: username,
 				createdAt: tokenCreatedAt
 			});
 
@@ -85,8 +89,8 @@ class ProfileService {
 				201,
 				"Success",
 				{
-					token: UserDB.get(user, 'sessionToken.data'),
-					createdAt: (new Date(UserDB.get(user, 'sessionToken.createdAt'))).toString()
+					token: UserDB.get(username, 'sessionToken.data'),
+					createdAt: (new Date(UserDB.get(username, 'sessionToken.createdAt'))).toString()
 				}
 			);
 
