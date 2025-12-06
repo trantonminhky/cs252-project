@@ -1,5 +1,6 @@
 import { randomBytes } from 'crypto';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 import ServiceResponse from '../helper/ServiceResponse.js';
 
@@ -111,7 +112,7 @@ class ProfileService {
 	 * @param {String} password - Password
 	 * @returns {Promise<ServiceResponse>} Response
 	 */
-	async login(username, password) {
+	async login(username, password, staySignedIn) {
 		// if this user does not exist
 		if (!UserDB.has(username)) {
 			const response = new ServiceResponse(

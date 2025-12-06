@@ -74,6 +74,7 @@ class ProfileController {
 		try {
 			const username = req.body.username;
 			const password = req.body.password;
+			const staySignedIn = req.body.staySignedIn;
 
 			if (!username || !password) {
 				const response = new ServiceResponse(
@@ -85,7 +86,7 @@ class ProfileController {
 				return void res.status(response.statusCode).json(response.get());
 			}
 
-			const response = await ProfileService.login(username, password);
+			const response = await ProfileService.login(username, password, staySignedIn);
 			return void res.status(response.statusCode).json(response.get());
 		} catch (err) {
 			next(err);
