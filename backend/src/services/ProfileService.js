@@ -115,7 +115,7 @@ class ProfileService {
 	 */
 	async login(username, password, staySignedIn) {
 		// if this user does not exist
-		if (!UserDB.has(username)) {
+		if (!UserDB.find(user => user.username === username)) {
 			const response = new ServiceResponse(
 				false,
 				401,
@@ -136,7 +136,7 @@ class ProfileService {
 		}
 
 		try {
-			const token = renewToken(username);
+			const accessToken = renewToken(username);
 			const isTourist = UserDB.get(username, 'isTourist');
 			const preferences = UserDB.get(username, 'preferences');
 			const response = new ServiceResponse(
@@ -144,8 +144,8 @@ class ProfileService {
 				200,
 				"Success",
 				{
-					token: token.data,
-					createdAt: (new Date(token.createdAt)).toString(),
+					token: accessToken.data,
+					createdAt: (new Date(accessToken.createdAt)).toString(),
 					isTourist: isTourist,
 					preferences: preferences || []
 				}
