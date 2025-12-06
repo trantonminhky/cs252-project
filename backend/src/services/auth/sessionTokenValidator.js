@@ -1,6 +1,6 @@
 import { randomUUID } from 'crypto';
 import bcrypt from 'bcrypt';
-import SessionTokensDB from '../../db/SessionTokensDB';
+import SessionTokensDB from '../../db/SessionTokensDB.js';
 
 const SALT_ROUNDS = 10;
 const SESSION_TOKEN_LIFETIME = 604800000;
@@ -44,7 +44,7 @@ async function validateSessionToken(bundled) {
 	return data;
 }
 
-export default {
+export {
 	issueSessionToken,
 	validateSessionToken
 };

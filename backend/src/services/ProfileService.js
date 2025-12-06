@@ -7,6 +7,8 @@ import ServiceResponse from '../helper/ServiceResponse.js';
 import UserDB from '../db/UserDB.js';
 import SessionTokensDB from '../db/SessionTokensDB.js';
 
+import { issueSessionToken, validateSessionToken } from './auth/sessionTokenValidator.js'
+
 const SALT_ROUNDS = 10;
 
 function generateToken32() {
@@ -126,7 +128,6 @@ class ProfileService {
 		}
 
 		const passwordMatch = await bcrypt.compare(password, UserDB.get(userID, 'password'));
-
 		if (!passwordMatch) {
 			const response = new ServiceResponse(
 				false,
@@ -134,6 +135,16 @@ class ProfileService {
 				"Wrong password"
 			);
 			return response;
+		}
+
+		if (staySignedIn) {
+			const sessionToken = await issueSessionToken(userID);
+			res.cookie('sessionToken', sessionToken, {
+				httpOnly: true,
+				secure: true,
+				sameSite: 'strict',
+				path: '/refresh'
+			});
 		}
 
 		try {
