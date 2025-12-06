@@ -4,7 +4,7 @@ import "package:virtour_frontend/screens/data_factories/review.dart";
 import "package:dio/dio.dart";
 import "package:shared_preferences/shared_preferences.dart";
 import "package:virtour_frontend/constants/userinfo.dart";
-import "package:virtour_frontend/frontend_service_layer/service_exception_handler.dart";
+import "package:virtour_frontend/frontend_service_layer/service_helpers.dart";
 
 //this is an interface for fetching region data from database
 class RegionService {
@@ -63,7 +63,7 @@ class RegionService {
           throw Exception('Unexpected response: ${response.statusCode}');
       }
     } on DioException catch (e) {
-      throw ServiceExceptionHandler.handleDioError(e);
+      throw ServiceHelpers.handleDioError(e);
     } catch (e) {
       throw Exception('Failed to load region: $e');
     }
@@ -98,7 +98,7 @@ class RegionService {
           throw Exception('Unexpected response: ${response.statusCode}');
       }
     } on DioException catch (e) {
-      throw ServiceExceptionHandler.handleDioError(e);
+      throw ServiceHelpers.handleDioError(e);
     } catch (e) {
       throw Exception('Failed to load place: $e');
     }
@@ -150,7 +150,7 @@ class RegionService {
           throw Exception('Failed to load filtered places: $message');
       }
     } on DioException catch (e) {
-      throw ServiceExceptionHandler.handleDioError(e);
+      throw ServiceHelpers.handleDioError(e);
     } catch (e) {
       throw Exception('Failed to load filtered places: $e');
     }
@@ -185,7 +185,7 @@ class RegionService {
           throw Exception('Unexpected response: ${response.statusCode}');
       }
     } on DioException catch (e) {
-      throw ServiceExceptionHandler.handleDioError(e);
+      throw ServiceHelpers.handleDioError(e);
     } catch (e) {
       throw Exception('Failed to load reviews: $e');
     }

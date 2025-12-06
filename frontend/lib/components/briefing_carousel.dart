@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:virtour_frontend/components/briefings.dart';
 
 // Horizontal Briefing Carousel
 class HorizontalBriefingCarousel extends StatefulWidget {

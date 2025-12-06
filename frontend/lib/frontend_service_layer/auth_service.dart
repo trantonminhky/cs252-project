@@ -1,7 +1,7 @@
 import "package:dio/dio.dart";
 import "package:shared_preferences/shared_preferences.dart";
 import "package:virtour_frontend/constants/userinfo.dart";
-import "package:virtour_frontend/frontend_service_layer/service_exception_handler.dart";
+import "package:virtour_frontend/frontend_service_layer/service_helpers.dart";
 
 class AuthService {
   late final Dio _dio;
@@ -17,16 +17,6 @@ class AuthService {
         "Content-Type": "application/json",
       },
     ));
-    // _dio.interceptors.add(InterceptorsWrapper(
-    //   onRequest: (options, handler) async {
-    //     final prefs = await SharedPreferences.getInstance();
-    //     final token = prefs.getString("auth_token");
-    //     if (token != null) {
-    //       options.headers["Authorization"] = "Bearer $token";
-    //     }
-    //     return handler.next(options);
-    //   },
-    // ));
   }
 
   Future<Map<String, dynamic>> signIn(String username, String password) async {
@@ -87,7 +77,7 @@ class AuthService {
         return {'success': success, 'message': message};
       }
     } on DioException catch (e) {
-      throw ServiceExceptionHandler.handleDioError(e);
+      throw ServiceHelpers.handleDioError(e);
     } catch (e) {
       rethrow;
     }
@@ -120,7 +110,7 @@ class AuthService {
           return {'success': success, 'message': message};
       }
     } on DioException catch (e) {
-      throw ServiceExceptionHandler.handleDioError(e);
+      throw ServiceHelpers.handleDioError(e);
     }
   }
 

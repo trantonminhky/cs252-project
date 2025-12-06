@@ -1,6 +1,21 @@
 import "package:dio/dio.dart";
+import "package:virtour_frontend/constants/userinfo.dart";
 
-class ServiceExceptionHandler {
+class ServiceHelpers {
+  static void addAuthInterceptor(Dio dio) {
+    dio.interceptors.add(
+      InterceptorsWrapper(
+        onRequest: (options, handler) async {
+          final token = UserInfo().userSessionToken;
+          if (token.isNotEmpty) {
+            options.headers['Authorization'] = 'Bearer $token';
+          }
+          handler.next(options);
+        },
+      ),
+    );
+  }
+
   static Exception handleDioError(DioException e) {
     String errorMessage;
 

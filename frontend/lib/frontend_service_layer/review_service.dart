@@ -1,7 +1,7 @@
 import "package:dio/dio.dart";
 import "package:virtour_frontend/constants/userinfo.dart";
 import "package:virtour_frontend/screens/data_factories/review.dart";
-import "package:virtour_frontend/frontend_service_layer/service_exception_handler.dart";
+import "package:virtour_frontend/frontend_service_layer/service_helpers.dart";
 
 class ReviewService {
   static final ReviewService _instance = ReviewService._internal();
@@ -20,6 +20,7 @@ class ReviewService {
         receiveTimeout: const Duration(seconds: 30),
       ),
     );
+    ServiceHelpers.addAuthInterceptor(dio);
   }
 
   Future<List<Review>> getReviews(String placeName) async {
@@ -38,7 +39,7 @@ class ReviewService {
         throw Exception('Failed to generate reviews: ${response.statusCode}');
       }
     } on DioException catch (e) {
-      throw ServiceExceptionHandler.handleDioError(e);
+      throw ServiceHelpers.handleDioError(e);
     } catch (e) {
       throw Exception('Error fetching reviews: $e');
     }

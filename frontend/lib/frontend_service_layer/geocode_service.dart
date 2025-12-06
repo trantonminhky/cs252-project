@@ -1,8 +1,7 @@
 import "package:dio/dio.dart";
-import "package:shared_preferences/shared_preferences.dart";
 import "package:virtour_frontend/constants/userinfo.dart";
 import "package:virtour_frontend/screens/data_factories/place.dart";
-import "package:virtour_frontend/frontend_service_layer/service_exception_handler.dart";
+import "package:virtour_frontend/frontend_service_layer/service_helpers.dart";
 
 class GeocodeService {
   static final GeocodeService _instance = GeocodeService._internal();
@@ -24,21 +23,9 @@ class GeocodeService {
         },
       ),
     );
-    _addAuthInterceptor();
+    ServiceHelpers.addAuthInterceptor(dio);
   }
-
-  Future<void> _addAuthInterceptor() async {
-    dio.interceptors.add(
-      InterceptorsWrapper(
-        onRequest: (options, handler) async {
-          //final prefs = await SharedPreferences.getInstance();
-          final token = UserInfo().userSessionToken;
-          options.headers['Authorization'] = 'Bearer $token';
-          handler.next(options);
-        },
-      ),
-    );
-  }
+  
 
   Future<Place?> geocodeAddress(String address) async {
     try {
@@ -56,7 +43,7 @@ class GeocodeService {
         return null;
       }
     } on DioException catch (e) {
-      throw ServiceExceptionHandler.handleDioError(e);
+      throw ServiceHelpers.handleDioError(e);
     } catch (e) {
       print('Geocoding error: $e');
       return null;
@@ -80,7 +67,7 @@ class GeocodeService {
         return null;
       }
     } on DioException catch (e) {
-      throw ServiceExceptionHandler.handleDioError(e);
+      throw ServiceHelpers.handleDioError(e);
     } catch (e) {
       print('Reverse geocoding error: $e');
       return null;

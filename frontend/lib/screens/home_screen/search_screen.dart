@@ -7,6 +7,7 @@ import "package:virtour_frontend/screens/data_factories/filter_type.dart";
 import "package:virtour_frontend/components/cards.dart";
 import "package:virtour_frontend/constants/userinfo.dart";
 import "package:virtour_frontend/screens/home_screen/place_overview.dart";
+import "package:virtour_frontend/frontend_service_layer/search_cache_service.dart";
 
 class SearchScreen extends StatefulWidget {
   final String? initialSelectedCategory;
@@ -24,10 +25,12 @@ class _SearchScreenState extends State<SearchScreen> {
   final TextEditingController _searchController = TextEditingController();
   final RegionService _regionService = RegionService();
   final UserInfo _userInfo = UserInfo();
+  final SearchCacheService _cacheService = SearchCacheService();
 
   List<String> _availableCategories = [];
   List<String> _selectedCategories = [];
   List<Place> _searchResults = [];
+  List<Place> _recentPlaces = [];
   bool _isLoading = false;
   String? _errorMessage;
 
@@ -35,6 +38,7 @@ class _SearchScreenState extends State<SearchScreen> {
   void initState() {
     super.initState();
     _initializeCategories();
+    _loadRecentPlaces();
 
     // If an initial category is provided, make sure it's selected
     if (widget.initialSelectedCategory != null) {
@@ -51,6 +55,13 @@ class _SearchScreenState extends State<SearchScreen> {
         _selectedCategories.add(widget.initialSelectedCategory!);
       }
     }
+  }
+
+  Future<void> _loadRecentPlaces() async {
+    final recent = await _cacheService.getCache();
+    setState(() {
+      _recentPlaces = recent.take(5).toList();
+    });
   }
 
   void _initializeCategories() {
@@ -104,10 +115,12 @@ class _SearchScreenState extends State<SearchScreen> {
       // Query is now optional - use text if available, otherwise empty string
       final query = _searchController.text.trim();
 
+      // Fetch from API
       final results = await _regionService.getPlace(
         query,
         filtersToUse,
       );
+
       setState(() {
         _searchResults = results;
         _isLoading = false;
@@ -118,6 +131,15 @@ class _SearchScreenState extends State<SearchScreen> {
         _isLoading = false;
       });
     }
+  }
+
+  void _navigateToRecentPlace(Place place) {
+    Navigator.push(
+      context,
+      CupertinoPageRoute(
+        builder: (context) => PlaceOverview(place: place),
+      ),
+    );
   }
 
   void _toggleCategory(String category) {
@@ -356,17 +378,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           ),
                         )
                       : _searchResults.isEmpty
-                          ? Center(
-                              child: Text(
-                                _searchController.text.isEmpty
-                                    ? "Start typing to search..."
-                                    : "No places found",
-                                style: TextStyle(
-                                  color: Colors.grey[600],
-                                  fontFamily: "BeVietnamPro",
-                                ),
-                              ),
-                            )
+                          ? _buildEmptyState()
                           : ListView.builder(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 16),
@@ -392,6 +404,8 @@ class _SearchScreenState extends State<SearchScreen> {
                                         )
                                         .toList(),
                                     onTap: () {
+                                      // Add to cache when viewing
+                                      _cacheService.addCache(place);
                                       Navigator.push(
                                         context,
                                         CupertinoPageRoute(
@@ -407,6 +421,100 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildEmptyState() {
+    if (_searchController.text.isNotEmpty) {
+      return Center(
+        child: Text(
+          "No places found",
+          style: TextStyle(
+            color: Colors.grey[600],
+            fontFamily: "BeVietnamPro",
+          ),
+        ),
+      );
+    }
+
+    // Show recent places if available
+    if (_recentPlaces.isEmpty) {
+      return Center(
+        child: Text(
+          "Start typing to search...",
+          style: TextStyle(
+            color: Colors.grey[600],
+            fontFamily: "BeVietnamPro",
+          ),
+        ),
+      );
+    }
+
+    // Display recent places
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Recently Viewed",
+                style: TextStyle(
+                  color: Colors.grey[800],
+                  fontSize: 18,
+                  fontFamily: "BeVietnamPro",
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              TextButton(
+                onPressed: () async {
+                  await _cacheService.writeCache([]);
+                  await _loadRecentPlaces();
+                },
+                child: const Text(
+                  "Clear",
+                  style: TextStyle(
+                    color: Color(0xFFD72323),
+                    fontFamily: "BeVietnamPro",
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          Expanded(
+            child: ListView.builder(
+              itemCount: _recentPlaces.length,
+              itemBuilder: (context, index) {
+                final place = _recentPlaces[index];
+
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 12),
+                  child: Cards(
+                    size: CardSize.horiz,
+                    imageUrl: place.imageLink,
+                    title: place.name,
+                    subtitle: '${place.lat}, ${place.lon}',
+                    chips: place.tags.values
+                        .expand((list) => list)
+                        .take(2)
+                        .map(
+                          (cat) => (
+                            label: cat,
+                            backgroundColor: const Color(0xFFD72323)
+                          ),
+                        )
+                        .toList(),
+                    onTap: () => _navigateToRecentPlace(place),
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
