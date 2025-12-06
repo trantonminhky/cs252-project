@@ -16,7 +16,7 @@ async function issueSessionToken(userID) {
 		createdAt: Date.now()
 	});
 	
-	const bundled = `${tokenID}:${raw}`;
+	const bundled = `${tokenID}:${rawSessionToken}`;
 	return bundled;
 }
 
@@ -24,10 +24,10 @@ async function validateSessionToken(bundled) {
 	if (!bundled) return null;
 
 	const [tokenID, rawSessionToken] = bundled.split(':');
-	if (!tokenID || !raw) return null;
+	if (!tokenID || !rawSessionToken) return null;
 
 	const sessionToken = SessionTokensDB.get(tokenID);
-	if (!entry) return null;
+	if (!sessionToken) return null;
 
 	if (Date.now() - SESSION_TOKEN_LIFETIME > sessionToken.createdAt) {
 		SessionTokensDB.delete(tokenID);

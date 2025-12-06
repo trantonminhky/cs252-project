@@ -6,6 +6,7 @@ import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import morgan from 'morgan';
 import { exec } from 'child_process';
+import cookies from 'cookie-parser';
 
 // local imports
 import config from './config/config.js';
@@ -14,15 +15,6 @@ import errorHandler from './middleware/errorHandler.js';
 
 // route imports
 
-import MapRoutes from './routes/MapRoutes.js';
-import AIRoutes from './routes/AIRoutes.js';
-import GeocodeRoutes from './routes/GeocodeRoutes.js';
-import ProfileRoutes from './routes/ProfileRoutes.js';
-import DBRoutes from './routes/DBRoutes.js';
-import LocationRoutes from './routes/LocationRoutes.js';
-import RecommendationRoutes from './routes/RecommendationRoutes.js';
-import EventRoutes from './routes/EventRoutes.js';
-import ServiceResponse from './helper/ServiceResponse.js';
 
 const app = express();
 const customStream = {
@@ -36,6 +28,17 @@ const customStream = {
 
 // Security middleware
 app.use(helmet());
+app.use(cookies());
+
+import MapRoutes from './routes/MapRoutes.js';
+import AIRoutes from './routes/AIRoutes.js';
+import GeocodeRoutes from './routes/GeocodeRoutes.js';
+import ProfileRoutes from './routes/ProfileRoutes.js';
+import DBRoutes from './routes/DBRoutes.js';
+import LocationRoutes from './routes/LocationRoutes.js';
+import RecommendationRoutes from './routes/RecommendationRoutes.js';
+import EventRoutes from './routes/EventRoutes.js';
+import ServiceResponse from './helper/ServiceResponse.js';
 
 // Rate limiting
 const limiter = rateLimit({

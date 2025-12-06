@@ -94,9 +94,9 @@ class ProfileController {
 				const sessionToken = await issueSessionToken(userID);
 				res.cookie("sessionToken", sessionToken, {
 					httpOnly: true,
-					secure: true,
+					secure: false,
 					sameSite: "strict",
-					path: "/refresj"
+					path: "/api/profile/refresh"
 				});
 			}
 
@@ -114,9 +114,9 @@ class ProfileController {
 			if (response.success) {
 				res.cookie("sessionToken", response.payload.data.sessionToken, {
 					httpOnly: true,
-					secure: true,
+					secure: false,
 					sameSite: "strict",
-					path: "/refresh"
+					path: "/api/profile/refresh"
 				});
 			}
 

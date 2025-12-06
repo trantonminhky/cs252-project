@@ -15,6 +15,11 @@ router.all('/login',
 	profileController.login
 );
 
+router.all('/refresh',
+	ValidatorMiddleware.validateMethods(['POST']),
+	profileController.refresh
+);
+
 router.all('/preferences',
 	ValidatorMiddleware.validateMethods(['POST']),
 	ValidatorMiddleware.validateContentType,
