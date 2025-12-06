@@ -1,4 +1,4 @@
-import { randomBytes } from 'crypto';
+import { randomBytes, randomUUID } from 'crypto';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
@@ -61,11 +61,12 @@ class ProfileService {
 
 		const passwordHash = await bcrypt.hash(password, SALT_ROUNDS);
 
+		const userID = randomUUID();
 		const token = generateToken32(); // user session token
 		const tokenCreatedAt = Date.now(); // session token created timestamp in ms
 
 		try {
-			UserDB.set(username, {
+			UserDB.set(userID, {
 				username: username,
 				password: passwordHash,
 				name: name,
