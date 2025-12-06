@@ -6,13 +6,13 @@ import UserDB from '../db/UserDB.js';
 class ProfileController {
 	async register(req, res, next) {
 		try {
-			const user = req.body.username;
-			const pass = req.body.password;
+			const username = req.body.username;
+			const password = req.body.password;
 			const name = req.body.name;
 			const age = req.body.age;
 			const type = req.body.type;
 
-			if (!user || !pass) {
+			if (!username || !password) {
 				const response = new ServiceResponse(
 					false,
 					400,
@@ -62,7 +62,7 @@ class ProfileController {
 				return void res.status(response.statusCode).json(response.get());
 			}
 
-			const response = await ProfileService.register(user, pass, name, age);
+			const response = await ProfileService.register(username, password, name, age);
 
 			return void res.status(response.statusCode).json(response.get());
 		} catch (error) {

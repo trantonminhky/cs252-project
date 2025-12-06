@@ -122,7 +122,9 @@ class ProfileService {
 			return response;
 		}
 
-		if (UserDB.get(username, 'password') !== password) {
+		const passwordMatch = await bcrypt.compare(password, UserDB.get(username, 'password'));
+
+		if (!passwordMatch) {
 			const response = new ServiceResponse(
 				false,
 				401,
