@@ -1,6 +1,8 @@
 import ServiceResponse from '../helper/ServiceResponse.js';
 import AIService from '../services/AIService.js';
 
+const PROMPT_MAXIMUM_LENGTH = 500;
+
 // TO-DO: DOCUMENT CONTROLLER CLASSES
 class AIController {
 	// TO-DO: check prompt length to make it not exceed 2000 characters
@@ -14,6 +16,15 @@ class AIController {
 					false,
 					400,
 					"Prompt parameter is required"
+				);
+				return void res.status(response.statusCode).json(response.get());
+			}
+
+			if (prompt.length > PROMPT_MAXIMUM_LENGTH) {
+				const response = new ServiceResponse(
+					false,
+					413,
+					"Prompt must not exceed 500 characters"
 				);
 				return void res.status(response.statusCode).json(response.get());
 			}
