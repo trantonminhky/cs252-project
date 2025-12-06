@@ -97,7 +97,7 @@ class ProfileController {
 					secure: true,
 					sameSite: "strict",
 					path: "/refresj"
-				})
+				});
 			}
 
 			return void res.status(response.statusCode).json(response.get());
@@ -105,6 +105,27 @@ class ProfileController {
 			next(err);
 		}
 	}
+
+	async refresh(req, res, next) {
+		try {
+			const sessionToken = req.cookies.sessionToken;
+
+			const response = await ProfileService.refresh(sessionToken);
+			if (response.success) {
+				res.cookie("sessionToken", response.payload.data.sessionToken, {
+					httpOnly: true,
+					secure: true,
+					sameSite: "strict",
+					path: "/refresh"
+				});
+			}
+
+			return void res.status(response.statusCode).json(response.get());
+		} catch (err) {
+			next(err);
+		}
+	}
+
 	async setPreferences(req, res, next) {
 		try {
 			const { username, preferences } = req.body;

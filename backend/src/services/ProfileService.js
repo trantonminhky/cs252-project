@@ -6,8 +6,7 @@ import ServiceResponse from '../helper/ServiceResponse.js';
 
 import UserDB from '../db/UserDB.js';
 import SessionTokensDB from '../db/SessionTokensDB.js';
-
-import { issueSessionToken, validateSessionToken } from './auth/sessionTokenValidator.js'
+import { issueSessionToken, validateSessionToken } from './auth/sessionTokenValidator.js';
 
 const SALT_ROUNDS = 10;
 
@@ -52,13 +51,13 @@ class ProfileService {
 	 * @returns {Promise<ServiceResponse>} Response
 	 */
 	async register(username, password, name, age, type) {
-		if (UserDB.has(username)) {
+		if (UserDB.findIndex(user => user.username === username)) {
 			const response = new ServiceResponse(
 				false,
 				409,
 				"Username already taken"
 			);
-			return void res.status(response.statusCode).json(response.get());
+			return response;
 		}
 
 		const passwordHash = await bcrypt.hash(password, SALT_ROUNDS);
@@ -178,6 +177,7 @@ class ProfileService {
 		const oldTokenID = validated.tokenID;
 		SessionTokensDB.delete(oldTokenID);
 
+		const newSessionToken = await issueSessionToken(validated.userID);
 		const accessToken = jwt.sign({
 			sub: validated.userID,
 			name: UserDB.get(validated.userID, 'name')
@@ -187,8 +187,9 @@ class ProfileService {
 			true,
 			200,
 			"Success",
-			{
-				token: accessToken
+			{	
+				sessionToken: newSessionToken,
+				accessToken: accessToken
 			}
 		)
 
