@@ -1,6 +1,7 @@
 import ServiceResponse from '../helper/ServiceResponse.js';
 import ProfileService from '../services/ProfileService.js';
 import UserDB from '../db/UserDB.js';
+import { issueSessionToken } from '../services/auth/sessionTokenValidator.js';
 
 // TO-DO: DOCUMENT CONTROLLER CLASSES
 class ProfileController {
@@ -86,7 +87,19 @@ class ProfileController {
 				return void res.status(response.statusCode).json(response.get());
 			}
 
-			const response = await ProfileService.login(username, password, staySignedIn);
+			const response = await ProfileService.login(username, password);
+
+			if (staySignedIn) {
+				const userID = response.payload.data.userID;
+				const sessionToken = await issueSessionToken(userID);
+				res.cookie("sessionToken", sessionToken, {
+					httpOnly: true,
+					secure: true,
+					sameSite: "strict",
+					path: "/refresj"
+				})
+			}
+
 			return void res.status(response.statusCode).json(response.get());
 		} catch (err) {
 			next(err);

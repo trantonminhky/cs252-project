@@ -148,6 +148,7 @@ class ProfileService {
 				200,
 				"Success",
 				{
+					userID: userID,
 					token: accessToken
 				}
 			)
