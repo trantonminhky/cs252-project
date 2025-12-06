@@ -65,7 +65,15 @@ class UserDB {
 
 	find(pathOrFn, value) {
 		try {
-			this.db.find(pathOrFn, value);
+			return this.db.find(pathOrFn, value);
+		} catch (err) {
+			console.error(err);
+		}
+	}
+
+	findIndex(pathOrFn, value) {
+		try {
+			return this.db.findIndex(pathOrFn, value);
 		} catch (err) {
 			console.error(err);
 		}

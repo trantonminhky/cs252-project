@@ -115,7 +115,8 @@ class ProfileService {
 	 */
 	async login(username, password, staySignedIn) {
 		// if this user does not exist
-		if (!UserDB.find(user => user.username === username)) {
+		const userID = UserDB.findIndex(user => user.username === username);
+		if (!userID) {
 			const response = new ServiceResponse(
 				false,
 				401,
@@ -124,7 +125,7 @@ class ProfileService {
 			return response;
 		}
 
-		const passwordMatch = await bcrypt.compare(password, UserDB.get(username, 'password'));
+		const passwordMatch = await bcrypt.compare(password, UserDB.get(userID, 'password'));
 
 		if (!passwordMatch) {
 			const response = new ServiceResponse(
@@ -136,18 +137,17 @@ class ProfileService {
 		}
 
 		try {
-			const accessToken = renewToken(username);
-			const isTourist = UserDB.get(username, 'isTourist');
-			const preferences = UserDB.get(username, 'preferences');
+			const accessToken = jwt.sign({
+				sub: userID,
+				name: UserDB.get(userID, 'name')
+			}, process.env.JWT_SECRET);
+
 			const response = new ServiceResponse(
 				true,
 				200,
 				"Success",
 				{
-					token: accessToken.data,
-					createdAt: (new Date(accessToken.createdAt)).toString(),
-					isTourist: isTourist,
-					preferences: preferences || []
+					token: accessToken
 				}
 			)
 
