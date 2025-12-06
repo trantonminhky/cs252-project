@@ -63,6 +63,14 @@ class UserDB {
 		}
 	}
 
+	find(pathOrFn, value) {
+		try {
+			this.db.find(pathOrFn, value);
+		} catch (err) {
+			console.error(err);
+		}
+	}
+
 	export() {
 		const data = {};
 		const parse = JSON.parse(this.db.export());
