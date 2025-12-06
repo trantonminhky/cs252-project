@@ -115,7 +115,7 @@ class ProfileService {
 	 * @param {String} password - Password
 	 * @returns {Promise<ServiceResponse>} Response
 	 */
-	async login(username, password, staySignedIn) {
+	async login(username, password) {
 		// if this user does not exist
 		const userID = UserDB.findIndex(user => user.username === username);
 		if (!userID) {
@@ -135,16 +135,6 @@ class ProfileService {
 				"Wrong password"
 			);
 			return response;
-		}
-
-		if (staySignedIn) {
-			const sessionToken = await issueSessionToken(userID);
-			res.cookie('sessionToken', sessionToken, {
-				httpOnly: true,
-				secure: true,
-				sameSite: 'strict',
-				path: '/refresh'
-			});
 		}
 
 		try {
@@ -172,6 +162,38 @@ class ProfileService {
 			));
 		}
 	}
+
+	async refresh(sessionToken) {
+		const validated = await validateSessionToken(sessionToken);
+		if (!validated) {
+			const response = new ServiceResponse(
+				false,
+				401,
+				"Validation of session token failed"
+			);
+			return response;
+		}
+
+		const oldTokenID = validated.tokenID;
+		SessionTokensDB.delete(oldTokenID);
+
+		const accessToken = jwt.sign({
+			sub: validated.userID,
+			name: UserDB.get(validated.userID, 'name')
+		}, process.env.JWT_SECRET);
+
+		const response = new ServiceResponse(
+			true,
+			200,
+			"Success",
+			{
+				token: accessToken
+			}
+		)
+
+		return response;
+	}
+
 	/**
 		 * Updates user preferences.
 		 * @param {String} token - Session token
