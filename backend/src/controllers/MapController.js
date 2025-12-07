@@ -55,6 +55,13 @@ class MapController {
 	// Search nearby place
 	async nearby(req, res, next) {
 		try {
+			const r = new ServiceResponse(
+				false,
+				503,
+				"OpenRouteService is FUCKING RETARDED"
+			);
+			return void res.status(r.statusCode).json(r.get());
+
 			const lat = req.body.lat;
 			const lon = req.body.lon;
 			const radius = req.body.radius ?? 1000;
