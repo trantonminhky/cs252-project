@@ -4,13 +4,13 @@ from chromadb.utils.embedding_functions import SentenceTransformerEmbeddingFunct
 from sentence_transformers import CrossEncoder
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
+from typing import Optional, Dict, Any
 import time
 
 # --- 1. CONFIGURATION & MODEL LOADING ---
-# Load these GLOBALLY so they stay in memory (do not load inside the function)
 print("Loading models... (This may take a moment)")
 
-# A. Embedding Function (Must match what you used to ingest data)
+# A. Embedding Function
 ef = SentenceTransformerEmbeddingFunction(
     model_name="BAAI/bge-m3", 
     device="cuda"
@@ -18,20 +18,19 @@ ef = SentenceTransformerEmbeddingFunction(
 
 # B. Reranker Model
 reranker = CrossEncoder(
-    "E:/rr_model", # the model is "BAAI/bge-reranker-v2-m3"
+    "E:/rr_model", 
     device="cuda", 
     model_kwargs={"dtype": "float16"}
 )
 
-# C. Warmup (CRITICAL for API speed)
-# We run a dummy prediction so PyTorch initializes CUDA drivers now, not on the first user request.
+# C. Warmup
 print("Warming up GPU...")
 reranker.predict([["warmup", "warmup"]])
 print("Models loaded and warmed up!")
 
 # --- 2. DATABASE SETUP ---
 client = chromadb.PersistentClient(path="./vector_db")
-collection = client.get_or_create_collection(
+collection = client.get_collection(
     name='ct_data',
     embedding_function=ef
 )
@@ -43,7 +42,10 @@ class SearchRequest(BaseModel):
     query: str
     final_k: int = 3      # How many results to return to the user
     initial_k: int = 10   # How many candidates to fetch from DB before reranking
-    threshold: float = 0.0
+    
+    # NEW: Accepts a dictionary for ChromaDB filtering 
+    # Example: {"building_type": "restaurant"} or {"$and": [...]}
+    filters: Optional[Dict[str, Any]] = None 
 
 # --- 4. ENDPOINTS ---
 
@@ -52,11 +54,12 @@ async def search_locations(request: SearchRequest):
     try:
         start_time = time.perf_counter()
 
-        # Step A: Initial Retrieval (Get a candidate pool)
-        # We fetch MORE than we need (initial_k) to let the reranker find the diamonds in the rough
+        # Step A: Initial Retrieval with Metadata Filtering
+        # We pass 'where=request.filters' directly to ChromaDB
         results = collection.query(
             query_texts=[request.query],
-            n_results=request.initial_k
+            n_results=request.initial_k,
+            where=request.filters 
         )
 
         retrieved_docs = results['documents'][0]
@@ -64,7 +67,14 @@ async def search_locations(request: SearchRequest):
 
         # Handle case with no results
         if not retrieved_docs:
-            return {"data": [], "time_taken": 0}
+            return {
+                "data": [], 
+                "meta": {
+                    "query": request.query,
+                    "count": 0,
+                    "time_taken_seconds": 0
+                }
+            }
 
         # Step B: Reranking
         pairs = [[request.query, doc] for doc in retrieved_docs]
@@ -74,23 +84,26 @@ async def search_locations(request: SearchRequest):
         combined_results = list(zip(scores, retrieved_docs, retrieved_metas))
         combined_results.sort(key=lambda x: x[0], reverse=True)
 
-        # Step C: Formatting & Filtering with Threshold
+        # Step C: Formatting (Threshold Removed)
         formatted_results = []
         
         for score, doc, meta in combined_results:
-            # 1. Stop if we have enough results
+            # Stop if we have enough results
             if len(formatted_results) >= request.final_k:
                 break
             
-            # 2. Skip if score is below threshold
-            if score < request.threshold:
-                continue
+            # (Threshold check deleted here)
 
             item = {
                 "name": meta.get('name', 'Unknown'),
                 "description": doc,
                 "image_link": meta.get('image link', ''),
-                "relevance_score": float(score)
+                "relevance_score": float(score),
+                # Optional: Return type to verify filtering worked
+                "building_type": meta.get('building_type', 'unknown'), 
+                "arch_style": meta.get('arch_style', 'unknown'),
+                "religion": meta.get('religion', 'unknown'),
+                "food_type": meta.get('food_type', 'unknown')
             }
             formatted_results.append(item)
 
@@ -101,15 +114,15 @@ async def search_locations(request: SearchRequest):
             "meta": {
                 "query": request.query,
                 "candidates_reranked": len(retrieved_docs),
-                "results_returned": len(formatted_results), # Useful for debugging
-                "threshold_used": request.threshold,
+                "results_returned": len(formatted_results),
+                "filters_used": request.filters,
                 "time_taken_seconds": f"{total_time:.4f}"
             }
         }
 
     except Exception as e:
         print(f"Error: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=400, detail=str(e))
 
 @app.get("/")
 def health_check():

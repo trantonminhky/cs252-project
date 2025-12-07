@@ -48,7 +48,7 @@ class BaseColInfo:
         cols_to_keep = ["name"]
         
         # Add common useful columns if they exist
-        possible_meta_cols = ["image link", "building_type", "food_type", "location.lat", "location.lon"]
+        possible_meta_cols = ["building_type", "arch_style", "religion", "food_type"]
         for col in possible_meta_cols:
             if col in self.df.columns:
                 cols_to_keep.append(col)

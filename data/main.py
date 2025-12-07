@@ -13,19 +13,19 @@ collection = client.get_or_create_collection(
     name='ct_data',
     embedding_function=ef
 )
-if (collection.count()==0):
-    arch_info = ArchColInfo()
-    collection.upsert(
-        ids=arch_info.ids,
-        documents=arch_info.documents,
-        metadatas=arch_info.metadatas,
-    )
-    res_info = RestaurantColInfo()
-    collection.upsert(
-        ids=res_info.ids,
-        documents=res_info.documents,
-        metadatas=res_info.metadatas,
-    )
+# if (collection.count()==0):
+arch_info = ArchColInfo()
+collection.upsert(
+    ids=arch_info.ids,
+    documents=arch_info.documents,
+    metadatas=arch_info.metadatas,
+)
+res_info = RestaurantColInfo()
+collection.upsert(
+    ids=res_info.ids,
+    documents=res_info.documents,
+    metadatas=res_info.metadatas,
+)
 
 test_query = [
     # 1. Architecture & Style (Tests 'arch_style' and specific descriptive keywords)
@@ -89,16 +89,16 @@ test_query_extended = [
 # --- STEP 1: RETRIEVAL ---
 # We retrieve MORE results than we need (e.g., top 10 or 20)
 # to give the reranker a pool of candidates to sort.
-initial_k = 10
+initial_k = 20
 final_k = 3
 
 results = collection.query(
-    query_texts=test_query_extended,
+    query_texts=test_query,
     n_results=initial_k 
 )
 before = time.perf_counter()
 # --- STEP 2: RERANKING ---
-for i, query_text in enumerate(test_query_extended):
+for i, query_text in enumerate(test_query):
     print(f"\nQuery {i+1}: {query_text}")
     
     # Extract documents and metadata for this specific query
