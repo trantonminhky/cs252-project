@@ -1,6 +1,5 @@
 import ServiceResponse from '../helper/ServiceResponse.js';
 import ProfileService from '../services/ProfileService.js';
-import UserDB from '../db/UserDB.js';
 import { issueSessionToken } from '../services/auth/sessionTokenValidator.js';
 
 // TO-DO: DOCUMENT CONTROLLER CLASSES

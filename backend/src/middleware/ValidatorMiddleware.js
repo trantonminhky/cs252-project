@@ -1,6 +1,5 @@
 import ServiceResponse from "../helper/ServiceResponse.js";
 import jwt from 'jsonwebtoken';
-import SessionTokensDB from "../db/SessionTokensDB.js";
 
 class ValidatorMiddleware {
 	validateMethods(methods) {

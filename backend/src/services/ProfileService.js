@@ -14,31 +14,6 @@ function generateToken32() {
 	return randomBytes(24).toString('base64url').slice(0, 32);
 }
 
-function renewToken(user) {
-	const oldCreatedAt = UserDB.get(user, "sessionToken.createdAt");
-	const oldToken = UserDB.get(user, "sessionToken.data");
-	let newToken = generateToken32();
-	let newCreatedAt = Date.now();
-
-	if (SessionTokensDB.check(oldToken) !== "valid") { // if token expires
-		UserDB.set(user, newToken, "sessionToken.data");
-		UserDB.set(user, newCreatedAt, "sessionToken.createdAt");
-
-		SessionTokensDB.set(newToken, {
-			username: user,
-			createdAt: newCreatedAt
-		});
-		SessionTokensDB.delete(oldToken);
-	} else {
-		newToken = UserDB.get(user, "sessionToken.data");
-		newCreatedAt = oldCreatedAt;
-	}
-	return {
-		data: newToken,
-		createdAt: newCreatedAt
-	}
-}
-
 /**
  * Profile service provider class.
  * @class
@@ -63,8 +38,6 @@ class ProfileService {
 		const passwordHash = await bcrypt.hash(password, SALT_ROUNDS);
 
 		const userID = randomUUID();
-		const token = generateToken32(); // user session token
-		const tokenCreatedAt = Date.now(); // session token created timestamp in ms
 
 		try {
 			UserDB.set(userID, {
@@ -75,26 +48,13 @@ class ProfileService {
 				preferences: [],
 				preferencesVector: null,
 				type: type,
-				sessionToken: {
-					data: token,
-					createdAt: tokenCreatedAt
-				},
 				savePlaces: []
-			});
-
-			SessionTokensDB.set(token, {
-				username: username,
-				createdAt: tokenCreatedAt
 			});
 
 			const response = new ServiceResponse(
 				true,
 				201,
-				"Success",
-				{
-					token: UserDB.get(username, 'sessionToken.data'),
-					createdAt: (new Date(UserDB.get(username, 'sessionToken.createdAt'))).toString()
-				}
+				"Success"
 			);
 
 			return response;
