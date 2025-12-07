@@ -76,7 +76,7 @@ class ProfileService {
 		if (!userID) {
 			const response = new ServiceResponse(
 				false,
-				401,
+				404,
 				"Username does not exist"
 			);
 			return response;
@@ -149,6 +149,29 @@ class ProfileService {
 			}
 		)
 
+		return response;
+	}
+
+	async getUser(userID) {
+		if (!UserDB.has(userID)) {
+			const response = new ServiceResponse(
+				false,
+				404,
+				"User not found"
+			);
+			return response;
+		}
+
+		const data = UserDB.get(userID);
+		delete data.password;
+		delete data.preferencesVector;
+
+		const response = new ServiceResponse(
+			true,
+			200,
+			"Success",
+			data
+		);
 		return response;
 	}
 
