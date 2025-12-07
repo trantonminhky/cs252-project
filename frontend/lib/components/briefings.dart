@@ -180,7 +180,6 @@ class Briefing extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.start,
-        spacing: 8,
         children: [
           SizedBox(
             width: 141,

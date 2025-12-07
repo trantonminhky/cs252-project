@@ -1,6 +1,9 @@
 import axios from 'axios';
 import config from '../config/config.js';
 import ServiceResponse from '../helper/ServiceResponse.js';
+import CacheDB from '../db/CacheDB.js';
+
+const MAP_CACHE_LIFETIME_MS = 120000; // 2 minutes
 
 /**
  * Map service provider class.
@@ -8,28 +11,22 @@ import ServiceResponse from '../helper/ServiceResponse.js';
  */
 class MapService {
 	constructor() {
-		this.apiKey = config.openRouteService.apiKey;
-		this.baseUrl = config.openRouteService.baseUrl;
+		this.APIKey = config.openRouteService.APIKey;
+		this.baseURL = config.openRouteService.baseURL;
 	}
 
 	// Get route between two points
 	// param - array of [lon,lat] pairs
 	// return - route data
 	async getRoute(coordinates, profile = 'driving-car') {
-		if (coordinates.length !== 2) {
-			const response = new ServiceResponse(
-				false,
-				400,
-				"Only two pairs of coordinates must be specified"
-			);
-			return response;
-		}
+		const cache = CacheDB.findRoute(coordinates, profile);
 
-		if (Number.isNaN(parseFloat(coordinates[0][0])) || Number.isNaN(parseFloat(coordinates[0][1])) || Number.isNaN(parseFloat(coordinates[1][0])) || Number.isNaN(parseFloat(coordinates[1][1]))) {
+		if (cache && Date.now() - cache.createdAt < MAP_CACHE_LIFETIME_MS) {
 			const response = new ServiceResponse(
-				false,
-				400,
-				"Bad coordinates"
+				true,
+				200,
+				"Success",
+				cache.data
 			);
 			return response;
 		}
@@ -38,12 +35,21 @@ class MapService {
 		const toCoordinates = coordinates[1].map(coor => coor.toString()).join(',');
 
 		try {
-			const url = `${this.baseUrl}/v2/directions/${profile}`;
-			const axiosResponse = await axios.get(url, { params: {
-				api_key: this.apiKey,
-				start: fromCoordinates,
-				end: toCoordinates
-			}});
+			const url = `${this.baseURL}/v2/directions/${profile}`;
+			const axiosResponse = await axios.get(url, {
+				params: {
+					api_key: this.APIKey,
+					start: fromCoordinates,
+					end: toCoordinates
+				}
+			});
+
+			CacheDB.upsertRoute({
+				coordinates: coordinates,
+				profile: profile,
+				data: axiosResponse.data,
+				createdAt: Date.now()
+			});
 
 			const response = new ServiceResponse(
 				true,
@@ -55,8 +61,9 @@ class MapService {
 		} catch (err) {
 			const response = new ServiceResponse(
 				false,
-				500,
-				"Something went wrong"
+				502,
+				"Something went wrong",
+				err.toString()
 			);
 			return response;
 		}
@@ -66,41 +73,14 @@ class MapService {
 	// params - lat, lon, rad, category
 	// return - places data
 	async nearby(lat, lon, radius = 1000, category_ids = []) {
-		if (lat == null || lon == null) {
-			const response = new ServiceResponse(
-				false,
-				400,
-				"Latitude and longitude are required"
-			);
-			return response;
-		}
-
-		if (radius <= 0 || radius > 2000) {
-			const response = new ServiceResponse(
-				false,
-				400,
-				"Radius must be over 0 and no more than 2000"
-			);
-			return response;
-		}
-
 		let filters = {};
-		
-		if (!Array.isArray(category_ids)) {
-			const response = new ServiceResponse(
-				flse,
-				400,
-				"Malformed category id list"
-			);
-			return response;
-		}
 
 		if (category_ids.length) {
 			filters.category_ids = category_ids;
 		}
 
 		try {
-			const url = `${this.baseUrl}/pois`;
+			const url = `${this.baseURL}/pois`;
 			const axiosResponse = await axios.post(url, {
 				request: "pois",
 				geometry: {
@@ -113,7 +93,7 @@ class MapService {
 				filters
 			}, {
 				headers: {
-					Authorization: this.apiKey
+					Authorization: this.APIKey
 				}
 			});
 
@@ -123,7 +103,7 @@ class MapService {
 			} else {
 				resp = axiosResponse.data;
 			}
-	
+
 			const response = new ServiceResponse(
 				true,
 				200,
@@ -132,11 +112,11 @@ class MapService {
 			);
 			return response;
 		} catch (err) {
-			console.error(err);
 			const response = new ServiceResponse(
 				false,
-				500,
-				"Something went wrong"
+				502,
+				"Something went wrong",
+				err.toString()
 			);
 			return response;
 		}

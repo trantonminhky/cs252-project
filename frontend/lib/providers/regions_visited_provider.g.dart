@@ -41,7 +41,7 @@ final class RegionsVisitedProvider
   }
 }
 
-String _$regionsVisitedHash() => r'38fe12ae0eb12a4031fda85a0265490d43685ed4';
+String _$regionsVisitedHash() => r'624167d11ce7eae11109313be37900be28bfb3c8';
 
 abstract class _$RegionsVisited extends $Notifier<Set<Region>> {
   Set<Region> build();

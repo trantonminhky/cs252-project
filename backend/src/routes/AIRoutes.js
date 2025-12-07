@@ -1,9 +1,25 @@
 import { Router } from 'express';
 const router = Router();
 import AIController from '../controllers/AIController.js';
+import ValidatorMiddleware from '../middleware/ValidatorMiddleware.js';
 
-// AI ask endpoint
-router.post('/send-prompt', AIController.sendPrompt);
-router.get('/extract-tags', AIController.extractTags);
+router.all('/send-prompt',
+	ValidatorMiddleware.validateMethods(['POST']),
+	ValidatorMiddleware.validateAccessToken,
+	ValidatorMiddleware.validateContentType,
+	AIController.sendPrompt
+);
+
+router.all('/extract-tags',
+	ValidatorMiddleware.validateMethods(['GET', 'HEAD']),
+	AIController.extractTags
+);
+
+router.all('/generate-reviews',
+	ValidatorMiddleware.validateMethods(['POST']),
+	ValidatorMiddleware.validateAccessToken,
+	ValidatorMiddleware.validateContentType,
+	AIController.generateReviews
+);
 
 export default router;

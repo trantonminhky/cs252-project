@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 import "package:flutter/cupertino.dart";
 import "package:carousel_slider/carousel_slider.dart";
-import "package:virtour_frontend/screens/data_factories/data_service.dart";
+import "package:virtour_frontend/frontend_service_layer/place_service.dart";
 import "package:virtour_frontend/screens/data_factories/place.dart";
 import "package:virtour_frontend/screens/data_factories/filter_type.dart";
 import "package:virtour_frontend/components/cards.dart";
@@ -104,7 +104,7 @@ class _SearchScreenState extends State<SearchScreen> {
       // Query is now optional - use text if available, otherwise empty string
       final query = _searchController.text.trim();
 
-      final results = await _regionService.getFilteredPlaces(
+      final results = await _regionService.getPlace(
         query,
         filtersToUse,
       );
@@ -377,10 +377,11 @@ class _SearchScreenState extends State<SearchScreen> {
                                   padding: const EdgeInsets.only(bottom: 12),
                                   child: Cards(
                                     size: CardSize.horiz,
-                                    imageUrl: place.imageUrl,
+                                    imageUrl: place.imageLink,
                                     title: place.name,
-                                    subtitle: place.address,
-                                    chips: place.categories
+                                    subtitle: '${place.lat}, ${place.lon}',
+                                    chips: place.tags.values
+                                        .expand((list) => list)
                                         .take(2)
                                         .map(
                                           (cat) => (

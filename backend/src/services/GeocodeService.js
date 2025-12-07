@@ -3,6 +3,9 @@ import axios from 'axios';
 
 import ServiceResponse from '../helper/ServiceResponse.js';
 import config from '../config/config.js';
+import CacheDB from '../db/CacheDB.js';
+
+const GEOCODE_CACHE_LIFETIME_MS = 86400000; // 1 day
 
 /**
  * Geocode service provider class.
@@ -10,7 +13,7 @@ import config from '../config/config.js';
  */
 class GeocodeService {
 	constructor() {
-		this.baseUrl = config.openStreetMap.baseUrl;
+		this.baseUrl = config.openStreetMap.baseURL;
 	}
 
 	/**
@@ -19,38 +22,50 @@ class GeocodeService {
 	 * @param {number} [limit=5] - Maximum number of results returned. Default is 5
 	 * @returns {Promise<ServiceResponse>} Response 
 	 */
-	async geocode(query, limit = 5) {
+	async geocode(query) {
+		const cache = CacheDB.findGeocode(query);
 
-		// if no query is specified
-		if (!query) {
-			return (new ServiceResponse(
-				false,
-				400,
-				"Query is required"
-			));
-		}
-
-		try {
-			const url = `${this.baseUrl}/search`;
-			const resp = await axios.get(url, { params: {
-				format: 'jsonv2',
-				q: query
-			}});
-			
+		if (cache && Date.now() - cache.createdAt < GEOCODE_CACHE_LIFETIME_MS) {
+			// if the result is already stored in cache and hasn't expired
 			const response = new ServiceResponse(
 				true,
 				200,
 				"Success",
-				resp.data
+				cache.data
+			);
+			return response;
+		}
+
+		try {
+			const url = `${this.baseUrl}/search`;
+			const axiosResponse = await axios.get(url, {
+				params: {
+					format: 'jsonv2',
+					q: query
+				}
+			});
+
+			CacheDB.upsertGeocode({
+				address: query,
+				data: axiosResponse.data,
+				createdAt: Date.now()
+			});
+
+			const response = new ServiceResponse(
+				true,
+				200,
+				"Success",
+				axiosResponse.data
 			);
 			return response;
 		} catch (err) {
-			console.log(err);
-			return new ServiceResponse(
+			const response = new ServiceResponse(
 				false,
-				500,
-				"Something went wrong"
+				502,
+				"Something went wrong",
+				err.toString()
 			);
+			return response;
 		}
 	}
 
@@ -61,42 +76,52 @@ class GeocodeService {
 	 * @returns {Promise<ServiceResponse>} Response
 	 */
 	async reverseGeocode(lat, lon) {
-		// if latitudes and longitudes are not provided
-		if (lat == null || lon == null) {
-			return (new ServiceResponse(
-				false,
-				400,
-				"Latitude and longitude are required"
-			));
-		}
+		const cache = CacheDB.findReverseGeocode(lat, lon);
 
+		if (cache && Date.now() - cache.createdAt < GEOCODE_CACHE_LIFETIME_MS) {
+			const response = new ServiceResponse(
+				true,
+				200,
+				"Success",
+				cache.data
+			);
+			return response;
+		}
+		
 		try {
 			const url = `${this.baseUrl}/reverse?format=jsonv2&lat=${lat}&lon=${lon}`;
-			const resp = await axios.get(url);
+			const axiosResponse = await axios.get(url, {
+				params: {
+					format: 'jsonv2',
+					lat: lat,
+					lon: lon
+				}
+			});
+
+			CacheDB.upsertReverseGeocode({
+				lat: lat,
+				lon: lon,
+				data: axiosResponse.data,
+				createdAt: Date.now()
+			});
 
 			const response = new ServiceResponse(
 				true,
 				200,
 				"Success",
-				resp.data
+				axiosResponse.data
 			);
 			return response;
 		} catch (err) {
-			console.log(err);
-			return (new ServiceResponse(
+			console.error(err);
+			const response = new ServiceResponse(
 				false,
-				500,
-				"Something went wrong"
-			));
+				502,
+				'Something went wrong',
+				err.toString()
+			);
+			return response;
 		}
-	}
-
-	// Optional helper — return the best match (first feature) or null
-	getBestFeature(geocodeResponse) {
-		if (!geocodeResponse || !Array.isArray(geocodeResponse.features) || geocodeResponse.features.length === 0) {
-			return null;
-		}
-		return geocodeResponse.features[0];
 	}
 }
 

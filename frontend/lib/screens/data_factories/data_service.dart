@@ -1,4 +1,3 @@
-import "package:virtour_frontend/screens/data_factories/filter_type.dart";
 import "package:virtour_frontend/screens/data_factories/place.dart";
 import "package:virtour_frontend/screens/data_factories/region.dart";
 import "package:virtour_frontend/screens/data_factories/review.dart";
@@ -10,7 +9,8 @@ import "package:virtour_frontend/constants/userinfo.dart";
 class RegionService {
   static final RegionService _instance = RegionService._internal();
   late final Dio dio;
-  static const String _baseUrl = "http://localhost:3000/api";
+  static const String _baseUrl =
+      "https://chelsea-scuba-bureau-imposed.trycloudflare.com/api";
   late final UserInfo userInfo;
 
   factory RegionService() {
@@ -87,13 +87,15 @@ need functions to:
 
   Future<Place> fetchPlacebyId(String placeId) async {
     try {
-      final response = await dio.get('/places/$placeId');
+      final response = await dio.get('/location/find-by-id', queryParameters: {
+        'id': placeId,
+      });
 
       switch (response.statusCode) {
         case 200:
           final data = response.data;
           if (data['success']) {
-            final placeData = data['data'] ?? data['payload']?['data'];
+            final placeData = data['payload']['data'];
 
             // Update token if provided
             if (data['token'] != null) {
@@ -190,6 +192,67 @@ need functions to:
     }
   }
 
+  // Saved Places Methods
+  Future<List<String>> getSavedPlaces(String username) async {
+    try {
+      final response = await dio.get('/profile/saved-places', queryParameters: {
+        'username': username,
+      });
+
+      if (response.statusCode == 200) {
+        final data = response.data;
+        if (data['success']) {
+          final places = data['data'] ?? data['payload']?['data'] ?? [];
+          return List<String>.from(places);
+        }
+      }
+      return [];
+    } on DioException catch (e) {
+      print('Error fetching saved places: ${e.message}');
+      return [];
+    }
+  }
+
+  Future<bool> addSavedPlace(String username, String placeId) async {
+    try {
+      final response = await dio.post('/profile/saved-places', data: {
+        'username': username,
+        'placeId': placeId,
+      });
+
+      if (response.statusCode == 201 || response.statusCode == 200) {
+        final data = response.data;
+        return data['success'] ?? false;
+      }
+      return false;
+    } on DioException catch (e) {
+      print('Error adding saved place: ${e.message}');
+      if (e.response?.statusCode == 409) {
+        // Place already saved
+        return true;
+      }
+      return false;
+    }
+  }
+
+  Future<bool> removeSavedPlace(String username, String placeId) async {
+    try {
+      final response = await dio.delete('/profile/saved-places', data: {
+        'username': username,
+        'placeId': placeId,
+      });
+
+      if (response.statusCode == 200) {
+        final data = response.data;
+        return data['success'] ?? false;
+      }
+      return false;
+    } on DioException catch (e) {
+      print('Error removing saved place: ${e.message}');
+      return false;
+    }
+  }
+
   Exception _handleDioError(DioException e) {
     String errorMessage;
 
@@ -232,5 +295,123 @@ need functions to:
     }
 
     return Exception(errorMessage);
+  }
+
+  // Event subscription
+  Future<bool> subscribeToEvent(String username, String eventId) async {
+    try {
+      final response = await dio.post('/event/subscribe', data: {
+        'username': username,
+        'eventID': eventId,
+      });
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final data = response.data;
+        return data['success'] ?? false;
+      }
+      return false;
+    } on DioException catch (e) {
+      print('Error subscribing to event: ${e.message}');
+      return false;
+    }
+  }
+
+  // Fetch events from database
+  Future<Map<String, dynamic>> fetchEvents() async {
+    try {
+      final response = await dio.get('/db/export', queryParameters: {
+        'name': 'EventDB',
+      });
+
+      if (response.statusCode == 200) {
+        final data = response.data;
+        if (data['success'] == true) {
+          return data['payload']['data'] as Map<String, dynamic>;
+        }
+      }
+      return {};
+    } on DioException catch (e) {
+      print('Error fetching events: ${e.message}');
+      return {};
+    }
+  }
+
+  // Fetch subscribed events for a user
+  Future<List<Map<String, dynamic>>> fetchSubscribedEvents(
+      String username) async {
+    try {
+      final response =
+          await dio.get('/event/get-by-username', queryParameters: {
+        'username': username,
+      });
+
+      if (response.statusCode == 200) {
+        final data = response.data;
+        if (data['success'] == true) {
+          return List<Map<String, dynamic>>.from(data['payload']['data']);
+        }
+      }
+      return [];
+    } on DioException catch (e) {
+      print('Error fetching subscribed events: ${e.message}');
+      return [];
+    }
+  }
+
+  // Fetch ML-based recommendations for a user
+  Future<List<String>> fetchRecommendations(
+      String username, double lat, double lon) async {
+    try {
+      final response = await dio.get('/recommendation', queryParameters: {
+        'username': username,
+        'lat': lat,
+        'lon': lon,
+      });
+
+      if (response.statusCode == 200) {
+        final data = response.data;
+        if (data['success'] == true) {
+          final recommendations = data['payload']['data']['recommendations'];
+          if (recommendations is List) {
+            // Extract the 'id' field from each recommendation object
+            return recommendations
+                .map((item) => item['id'].toString())
+                .toList();
+          }
+        }
+      }
+      return [];
+    } on DioException catch (e) {
+      print('Error fetching recommendations: ${e.message}');
+      return [];
+    }
+  }
+
+  // Create a new event
+  Future<Map<String, dynamic>?> createEvent({
+    required String name,
+    required String description,
+    String? imageLink,
+    int? endTime,
+  }) async {
+    try {
+      final response = await dio.post('/event/create', data: {
+        'name': name,
+        'description': description,
+        'imageLink': imageLink,
+        'endTime': endTime,
+      });
+
+      if (response.statusCode == 201) {
+        final data = response.data;
+        if (data['success'] == true) {
+          return data['payload']['data'];
+        }
+      }
+      return null;
+    } on DioException catch (e) {
+      print('Error creating event: ${e.message}');
+      return null;
+    }
   }
 }

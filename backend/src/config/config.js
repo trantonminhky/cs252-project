@@ -4,18 +4,26 @@ const config = {
 	env: process.env.NODE_ENV || 'development',
 	port: process.env.PORT || 3000,
 
-	maptiler: {
-		apiKey: process.env.MAPTILER_API_KEY,
-		baseUrl: 'https://api.maptiler.com'
+	// maptiler: {
+	// 	apiKey: process.env.MAP_TILER_API_KEY,
+	// 	baseURL: process.env.MAP_TILER_BASE_URL
+	// },
+
+	tagsExtraction: {
+		baseURL: process.env.TAGS_EXTRACTION_BASE_URL
 	},
 
 	openStreetMap: {
-		baseUrl: 'https://nominatim.openstreetmap.org'
+		baseURL: process.env.OPEN_STREET_MAP_BASE_URL
 	},
 
 	openRouteService: {
-		baseUrl: 'https://api.openrouteservice.org',
-		apiKey: process.env.OPEN_ROUTE_SERVICE
+		baseURL: process.env.OPEN_ROUTE_SERVICE_BASE_URL,
+		APIKey: process.env.OPEN_ROUTE_SERVICE_API_KEY
+	},
+
+	pythonBackend: {
+		baseURL: process.env.PYTHON_BACKEND_BASE_URL
 	},
 
 	discord: {
@@ -32,7 +40,7 @@ const config = {
 	},
 
 	gemini: {
-		apiKey: process.env.GEMINI_API_KEY,
+		APIKey: process.env.GEMINI_API_KEY,
 	}
 };
 

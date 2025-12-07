@@ -2,18 +2,19 @@ import "package:flutter/material.dart";
 import "package:flutter/cupertino.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:virtour_frontend/components/briefings.dart";
+import "package:virtour_frontend/frontend_service_layer/review_service.dart";
 import "package:virtour_frontend/screens/data_factories/place.dart";
 import "package:virtour_frontend/screens/home_screen/helpers.dart";
 import "package:virtour_frontend/screens/home_screen/search_screen.dart";
 import "package:virtour_frontend/providers/trip_provider.dart";
 import "package:virtour_frontend/screens/data_factories/review.dart";
-import "package:virtour_frontend/screens/data_factories/data_service.dart";
+import "package:virtour_frontend/providers/selected_place_provider.dart";
+import "package:virtour_frontend/providers/navigation_provider.dart";
 
 class PlaceOverview extends ConsumerWidget {
   final Place place;
-  final RegionService _regionService = RegionService();
 
-  PlaceOverview({
+  const PlaceOverview({
     super.key,
     required this.place,
   });
@@ -54,9 +55,9 @@ class PlaceOverview extends ConsumerWidget {
                   child: Briefing(
                     size: BriefingSize.full,
                     title: place.name,
-                    category: place.type.name.toUpperCase(),
-                    subtitle: place.address,
-                    imageUrl: place.imageUrl,
+                    category: 'place',
+                    subtitle: '${place.lat}, ${place.lon}',
+                    imageUrl: place.imageLink,
                   ),
                 ),
               ),
@@ -67,11 +68,13 @@ class PlaceOverview extends ConsumerWidget {
                 child: ListView.separated(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   scrollDirection: Axis.horizontal,
-                  itemCount: place.categories.length,
+                  itemCount: place.tags.values.expand((list) => list).length,
                   separatorBuilder: (context, index) =>
                       const SizedBox(width: 8),
                   itemBuilder: (context, index) {
-                    final category = place.categories[index];
+                    final category = place.tags.values
+                        .expand((list) => list)
+                        .elementAt(index);
                     final color = getCategoryColor(category);
                     return GestureDetector(
                       onTap: () {
@@ -129,7 +132,23 @@ class PlaceOverview extends ConsumerWidget {
               const SizedBox(height: 48),
               Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    // Set the selected place for the map screen
+                    ref.read(selectedPlaceProvider.notifier).setPlace(place);
+
+                    // Pop to root and navigate to map via bottom bar
+                    Navigator.of(context).popUntil((route) => route.isFirst);
+                    ref.read(navigationProvider.notifier).setIndex(2);
+
+                    // Show instruction snackbar
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text(
+                            'Please navigate to the map screen to view the location.'),
+                        duration: Duration(seconds: 2),
+                      ),
+                    );
+                  },
                   style: TextButton.styleFrom(
                     backgroundColor: Colors.white,
                     padding: const EdgeInsets.symmetric(
@@ -200,7 +219,7 @@ class PlaceOverview extends ConsumerWidget {
               ),
               const SizedBox(height: 16),
               FutureBuilder<List<Review>>(
-                future: RegionService().getReviewsForPlace(place.id),
+                future: ReviewService().getReviews(place.name),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(

@@ -1,12 +1,40 @@
 import { Router } from 'express';
 const router = Router();
 import profileController from '../controllers/ProfileController.js';
+import ValidatorMiddleware from '../middleware/ValidatorMiddleware.js';
 
-router.post('/register', profileController.register);
-router.post('/login', profileController.login);
-router.post('/preferences', profileController.setPreferences);
+router.all('/register',
+	ValidatorMiddleware.validateMethods(['POST']),
+	ValidatorMiddleware.validateContentType,
+	profileController.register
+);
 
-router.get('/saved-places', profileController.getSavedPlaces);     // Fetch list
-router.post('/saved-places', profileController.addSavedPlace);     // Add item
-router.delete('/saved-places', profileController.removeSavedPlace); // Remove item  
+router.all('/login',
+	ValidatorMiddleware.validateMethods(['POST']),
+	ValidatorMiddleware.validateContentType,
+	profileController.login
+);
+
+router.all('/refresh',
+	ValidatorMiddleware.validateMethods(['POST']),
+	profileController.refresh
+);
+
+router.all('/:userID',
+	ValidatorMiddleware.validateMethods(['GET', 'HEAD']),
+	profileController.getUser	
+);
+
+router.all('/preferences',
+	ValidatorMiddleware.validateMethods(['POST']),
+	ValidatorMiddleware.validateContentType,
+	profileController.setPreferences
+);
+
+router.all('/saved-places',
+	ValidatorMiddleware.validateMethods(['GET', 'POST', 'DELETE', 'HEAD']),
+	ValidatorMiddleware.validateContentType,
+	profileController.savedPlacesController
+);
+
 export default router;

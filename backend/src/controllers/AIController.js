@@ -1,31 +1,36 @@
 import ServiceResponse from '../helper/ServiceResponse.js';
 import AIService from '../services/AIService.js';
 
+const PROMPT_MAXIMUM_LENGTH = 500;
+
 // TO-DO: DOCUMENT CONTROLLER CLASSES
 class AIController {
+	// TO-DO: check prompt length to make it not exceed 2000 characters
 	async sendPrompt(req, res, next) {
 		try {
-			if (req.headers['content-type'] !== 'application/json') {
-				const response = new ServiceResponse(
-					false,
-					415,
-					'Malformed Content-Type header'
-				);
-				return res.status(response.statusCode).json(response.get());
-			}
-
 			const prompt = req.body.prompt;
+			const model = req.body.model;
+
 			if (!prompt) {
 				const response = new ServiceResponse(
 					false,
 					400,
 					"Prompt parameter is required"
 				);
-				return res.status(response.statusCode).json(response.get());
+				return void res.status(response.statusCode).json(response.get());
 			}
 
-			const response = await AIService.sendPrompt(prompt);
-			res.status(response.statusCode).json(response.get());
+			if (prompt.length > PROMPT_MAXIMUM_LENGTH) {
+				const response = new ServiceResponse(
+					false,
+					413,
+					"Prompt must not exceed 500 characters"
+				);
+				return void res.status(response.statusCode).json(response.get());
+			}
+
+			const response = await AIService.sendPrompt(prompt, model);
+			return void res.status(response.statusCode).json(response.get());
 		} catch (error) {
 			next(error);
 		}
@@ -40,11 +45,32 @@ class AIController {
 					400,
 					"Text is required"
 				);
-				return res.status(response.statusCode).json(response.get());
+				return void res.status(response.statusCode).json(response.get());
 			}
 
 			const response = await AIService.extractTags(text);
-			res.status(response.statusCode).json(response.get());
+			return void res.status(response.statusCode).json(response.get());
+		} catch (err) {
+			next(err);
+		}
+	}
+
+	async generateReviews(req, res, next) {
+		try {
+			const place = req.body.place;
+			const model = req.body.model;
+
+			if (!place) {
+				const response = new ServiceResponse(
+					false,
+					400,
+					"Place name is required"
+				);
+				return void res.status(response.statusCode).json(response.get());
+			}
+
+			const response = await AIService.generateReviews(place, model);
+			return void res.status(response.statusCode).json(response.get());
 		} catch (err) {
 			next(err);
 		}

@@ -3,7 +3,6 @@ import FuzzySearch from 'fuzzy-search';
 import LocationDB from '../db/LocationDB.js';
 import architecturesData from '../../architecture.json' with { type: "json" };
 import ServiceResponse from '../helper/ServiceResponse.js';
-import unwrapTyped from '../helper/unwrapTyped.js';
 
 /**
  * Location service provider class.
@@ -30,6 +29,13 @@ class LocationService {
 			});
 			console.log(entry.open_hours);
 		}
+
+		const response = new ServiceResponse(
+			true,
+			201,
+			"Success"
+		);
+		return response;
 	}
 
 	/**
@@ -39,26 +45,13 @@ class LocationService {
 	 * @param {String[]|} [options.include] - Tags to only include in results so that each result has one or more tags included. By default all tags are included
 	 * @return {Promise<ServiceResponse>} Response
 	 */
-	async search(query, options = {include: []}) {
+	async search(query, options = { include: [] }) {
 		const searchAllResults = query === "" || query == null;
-		const searchAllTags = options.include == null;
+		const searchAllTags = options.include == null || !options.include.length; // if no include option is specified, or the include option array is empty
 
-		if (!Array.isArray(options.include) && !searchAllTags) {
-			const response = new ServiceResponse(
-				false,
-				400,
-				"Malformed include option"
-			);
-			return response;
-		}
+		const _export = LocationDB.export();
 
-		const parse = JSON.parse(LocationDB.export());
-		const data = {};
-		for (const entry of parse.v.keys.v) {
-			data[entry.v.key.v] = unwrapTyped(JSON.parse(entry.v.value.v));
-		}
-
-		const haystack = Object.entries(data).map(([key, value]) => ({
+		const haystack = Object.entries(_export.data).map(([key, value]) => ({
 			key,
 			value
 		}));
@@ -74,8 +67,8 @@ class LocationService {
 		results = results.filter(entry => {
 			if (searchAllTags) return true;
 			const tagsList = entry.value.tags.buildingType
-			.concat(entry.value.tags.archStyle)
-			.concat(entry.value.tags.religion);
+				.concat(entry.value.tags.archStyle)
+				.concat(entry.value.tags.religion);
 
 			return tagsList.some(tag => options.include.includes(tag));
 		});
@@ -84,6 +77,26 @@ class LocationService {
 			200,
 			"Success",
 			results
+		);
+		return response;
+	}
+
+	async findByID(id) {
+		if (!LocationDB.has(id)) {
+			const response = new ServiceResponse(
+				false,
+				404,
+				"Location ID not found"
+			);
+			return response;
+		}
+		
+		const result = LocationDB.get(id);
+		const response = new ServiceResponse(
+			true,
+			200,
+			"Success",
+			result
 		);
 		return response;
 	}
