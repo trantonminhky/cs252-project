@@ -125,6 +125,22 @@ class ProfileController {
 		}
 	}
 
+	async getUser(req, res, next) {
+		const userID = req.params.userID;
+		
+		if (!userID) {
+			const response = new ServiceResponse(
+				false,
+				404,
+				"Route not found"
+			);
+			return void res.status(response.statusCode).json(response.get());
+		}
+
+		const response = await ProfileService.getUser(userID);
+		return void res.status(response.statusCode).json(response.payload.data);
+	}
+
 	async setPreferences(req, res, next) {
 		try {
 			const { userID, preferences } = req.body;
