@@ -18,17 +18,40 @@ class BaseColInfo:
         raise NotImplementedError("Subclasses must implement _process_doc")
 
     def _process_metadata_and_ids(self):
-        """Common logic for IDs and Metadata."""
+        """
+        UPDATED: Uses 'location.lat' + 'location.lon' as the ID if available.
+        Falls back to MD5 hash of text if location is missing.
+        """
         self.ids = []
-        for doc_text in self.documents:
-            # Create a unique hash (MD5) based on the text content
-            doc_hash = hashlib.md5(doc_text.encode('utf-8')).hexdigest()
-            self.ids.append(doc_hash)
         
+        # We iterate through the dataframe to get columns, assuming self.documents is 1-to-1 with self.df
+        for index, row in self.df.iterrows():
+            
+            # --- NEW ID LOGIC ---
+            # Check for standard location column names
+            lat = row.get('location.lat') or row.get('lat')
+            lon = row.get('location.lon') or row.get('lon') or row.get('lng')
+
+            if pd.notnull(lat) and pd.notnull(lon):
+                # Create a composite ID: "10.776_106.705"
+                # This ensures uniqueness better than just 'lat'
+                doc_id = f"{lat}_{lon}"
+            else:
+                # Fallback: Hash the text content if no location data
+                doc_text = self.documents[index]
+                doc_id = hashlib.md5(doc_text.encode('utf-8')).hexdigest()
+            
+            self.ids.append(str(doc_id))
+        
+        # --- METADATA LOGIC ---
         # Check specific columns for metadata
         cols_to_keep = ["name"]
-        if "image link" in self.df.columns:
-            cols_to_keep.append("image link")
+        
+        # Add common useful columns if they exist
+        possible_meta_cols = ["image link", "building_type", "food_type", "location.lat", "location.lon"]
+        for col in possible_meta_cols:
+            if col in self.df.columns:
+                cols_to_keep.append(col)
             
         # Use .fillna("") to ensure metadata doesn't break on NaNs
         self.metadatas = self.df[cols_to_keep].fillna("").to_dict(orient="records")
