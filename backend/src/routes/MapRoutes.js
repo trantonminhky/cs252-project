@@ -5,14 +5,14 @@ import ValidatorMiddleware from '../middleware/ValidatorMiddleware.js';
 
 router.all('/route',
 	ValidatorMiddleware.validateMethods(['POST']),
-	ValidatorMiddleware.validateSessionToken, 
+	ValidatorMiddleware.validateAccessToken, 
 	ValidatorMiddleware.validateContentType, 
 	mapController.getRoute
 );
 
 router.all('/nearby',
 	ValidatorMiddleware.validateMethods(['GET', 'HEAD']),
-	ValidatorMiddleware.validateSessionToken, 
+	ValidatorMiddleware.validateAccessToken, 
 	mapController.nearby
 );
 

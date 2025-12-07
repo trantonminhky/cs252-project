@@ -5,7 +5,7 @@ import ValidatorMiddleware from '../middleware/ValidatorMiddleware.js';
 
 router.all('/send-prompt',
 	ValidatorMiddleware.validateMethods(['POST']),
-	ValidatorMiddleware.validateSessionToken,
+	ValidatorMiddleware.validateAccessToken,
 	ValidatorMiddleware.validateContentType,
 	AIController.sendPrompt
 );
@@ -17,7 +17,7 @@ router.all('/extract-tags',
 
 router.all('/generate-reviews',
 	ValidatorMiddleware.validateMethods(['POST']),
-	ValidatorMiddleware.validateSessionToken,
+	ValidatorMiddleware.validateAccessToken,
 	ValidatorMiddleware.validateContentType,
 	AIController.generateReviews
 );

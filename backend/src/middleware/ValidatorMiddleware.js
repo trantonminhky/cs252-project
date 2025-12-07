@@ -20,7 +20,7 @@ class ValidatorMiddleware {
 		}
 	}
 
-	validateSessionToken(req, res, next) {
+	validateAccessToken(req, res, next) {
 		const credentials = req.headers["authorization"];
 		if (!credentials) {
 			const response = new ServiceResponse(

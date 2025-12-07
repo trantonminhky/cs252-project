@@ -5,13 +5,13 @@ import ValidatorMiddleware from '../middleware/ValidatorMiddleware.js';
 
 router.all('/geocode',
 	ValidatorMiddleware.validateMethods(['GET', 'HEAD']),
-	ValidatorMiddleware.validateSessionToken,
+	ValidatorMiddleware.validateAccessToken,
 	geocodeController.geocode
 );
 
 router.all('/reverse-geocode',
 	ValidatorMiddleware.validateMethods(['GET', 'HEAD']),
-	ValidatorMiddleware.validateSessionToken,
+	ValidatorMiddleware.validateAccessToken,
 	geocodeController.reverseGeocode
 );
 
