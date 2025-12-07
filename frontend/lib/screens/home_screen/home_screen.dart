@@ -5,12 +5,15 @@ import "package:virtour_frontend/components/briefings.dart";
 import "package:virtour_frontend/components/custom_text_field.dart";
 import "package:virtour_frontend/components/events_banner.dart";
 import "package:virtour_frontend/components/briefing_carousel.dart";
+import "package:virtour_frontend/screens/home_screen/region_overview.dart";
 import "package:virtour_frontend/screens/home_screen/place_overview.dart";
 import "package:virtour_frontend/screens/home_screen/search_screen.dart";
 import "package:virtour_frontend/screens/data_factories/place.dart";
 import "package:virtour_frontend/frontend_service_layer/place_service.dart";
 import "package:virtour_frontend/global/userinfo.dart";
 import "package:virtour_frontend/providers/event_provider.dart";
+import "package:virtour_frontend/screens/data_factories/filter_type.dart";
+import "package:virtour_frontend/screens/data_factories/region.dart";
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -85,6 +88,65 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     }
   }
 
+  Widget _buildTopRegions() {
+    return FullBriefingCarousel(
+      height: 320,
+      autoPlay: true,
+      items: [
+        GestureDetector(
+          onTap: () async {
+            final places = await _regionService.getPlace("famous places", []);
+            if (mounted) {
+              Navigator.push(
+                context,
+                CupertinoPageRoute(
+                  builder: (context) => RegionOverview(
+                    region: const Region(
+                      id: "southern",
+                      name: "Southern Vietnam",
+                      description:
+                          "Explore the vibrant culture and bustling cities of Southern Vietnam.",
+                      imageUrl: "../assets/images/regions/saigon.jpg",
+                      //placeholder
+                      placesId: ["place1", "place2", "place3"],
+                    ),
+                    currentFilter: FilterType.regionOverview,
+                    places: places,
+                  ),
+                ),
+              );
+            }
+          },
+          child: const Briefing(
+            size: BriefingSize.full,
+            title: "Saigon",
+            category: "Southern",
+            imageUrl: "../assets/images/places/Saigon.jpg",
+          ),
+        ),
+        //hardcode the remaining places
+        const Briefing(
+          size: BriefingSize.full,
+          title: "Hanoi",
+          category: "Northern",
+          imageUrl: "../assets/images/places/Ha_Noi.jpg",
+        ),
+        const Briefing(
+          size: BriefingSize.full,
+          title: "Hue",
+          category: "Central",
+          imageUrl: "../assets/images/places/Hue.jpg",
+        ),
+        const Briefing(
+          size: BriefingSize.full,
+          title: "Da Nang",
+          category: "Central",
+          imageUrl: "../assets/images/places/Da_Nang.jpg",
+        ),
+      ],
+    );
+  }
+
   Widget _buildTopDestinations() {
     if (_isLoadingDestinations) {
       return Container(
@@ -123,11 +185,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       autoPlay: true,
       items: _topDestinations.map((place) {
         // Extract first available category from tags
-        String category = 'Destination';
+        List<String> category = UserInfo().preferences;
         if (place.tags.isNotEmpty) {
-          final firstTagList = place.tags.values.first;
+          final firstTagList = place.tags;
           if (firstTagList.isNotEmpty) {
-            category = firstTagList.first;
+            category = firstTagList.keys.toList();
           }
         }
 
@@ -143,7 +205,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           child: Briefing(
             size: BriefingSize.vert,
             title: place.name,
-            category: category,
+            category: category.first,
             imageUrl: place.imageLink,
           ),
         );
@@ -206,7 +268,22 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       ),
                       error: (_, __) => const SizedBox.shrink(),
                     ),
-
+                    const SizedBox(height: 16),
+                    // Top Regions Section
+                    const Padding(
+                      padding: EdgeInsets.only(left: 20, top: 16),
+                      child: Text(
+                        "Top regions in Vietnam",
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontFamily: "BeVietnamPro",
+                          fontWeight: FontWeight.w700,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    _buildTopRegions(),
                     // Top Destinations Section
                     const Padding(
                       padding: EdgeInsets.only(left: 20, top: 16),
