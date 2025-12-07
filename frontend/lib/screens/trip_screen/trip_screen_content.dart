@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:virtour_frontend/frontend_service_layer/event_service.dart';
 import 'package:virtour_frontend/providers/trip_provider.dart';
 import 'package:virtour_frontend/providers/participated_events_provider.dart';
 import 'package:virtour_frontend/providers/event_provider.dart';
 import 'package:virtour_frontend/screens/data_factories/event.dart';
-import 'package:virtour_frontend/frontend_service_layer/place_service.dart';
 import 'package:virtour_frontend/screens/trip_screen/create_event_form.dart';
-import 'package:virtour_frontend/constants/userinfo.dart';
 
 class TripScreenContent extends ConsumerStatefulWidget {
   const TripScreenContent({super.key});
@@ -39,10 +38,9 @@ class _TripScreenContentState extends ConsumerState<TripScreenContent>
     );
 
     if (event != null) {
-      // Call the backend API to create the event
-      final regionService = RegionService();
-      final result = await regionService.createEvent(
+      final result = await EventService().createEvent(
         name: event.name,
+        location: event.location,
         description: event.description,
         imageLink: event.imageUrl,
         startTime: event.startTime.millisecondsSinceEpoch,
@@ -59,11 +57,7 @@ class _TripScreenContentState extends ConsumerState<TripScreenContent>
           ),
         );
 
-        // Subscribe the user to the event
-        final userInfo = UserInfo();
-        final username =
-            userInfo.username.isNotEmpty ? userInfo.username : 'guest';
-        await regionService.subscribeToEvent(username, result['id'].toString());
+        await EventService().subscribeToEvent(result["id"]);
 
         // Refresh participated events and all events
         ref.read(participatedEventsProvider.notifier).refresh();
@@ -83,15 +77,7 @@ class _TripScreenContentState extends ConsumerState<TripScreenContent>
   @override
   Widget build(BuildContext context) {
     final placesAsync = ref.watch(tripProvider);
-    final placesList = placesAsync.value?.toList() ?? [];
     final participatedEventsAsync = ref.watch(participatedEventsProvider);
-    final eventsList = participatedEventsAsync.value?.toList() ?? [];
-
-    // Debug output
-    print('Places loaded: ${placesList.length}');
-    print('Events loaded: ${eventsList.length}');
-    print('Places async state: ${placesAsync.runtimeType}');
-    print('Events async state: ${participatedEventsAsync.runtimeType}');
 
     return Column(
       children: [
@@ -180,7 +166,6 @@ class _TripScreenContentState extends ConsumerState<TripScreenContent>
               placesAsync.when(
                 data: (places) {
                   final placesList = places.toList();
-                  print('Rendering ${placesList.length} places');
                   return placesList.isEmpty
                       ? const Center(
                           child: Text(
@@ -296,7 +281,6 @@ class _TripScreenContentState extends ConsumerState<TripScreenContent>
                 },
                 loading: () => const Center(child: CircularProgressIndicator()),
                 error: (error, stack) {
-                  print('Error loading places: $error');
                   return Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -352,7 +336,6 @@ class _TripScreenContentState extends ConsumerState<TripScreenContent>
                     child: participatedEventsAsync.when(
                       data: (events) {
                         final eventsList = events.toList();
-                        print('Rendering ${eventsList.length} events');
                         return eventsList.isEmpty
                             ? const Center(
                                 child: Text(
@@ -373,16 +356,10 @@ class _TripScreenContentState extends ConsumerState<TripScreenContent>
                                     key: Key(event.id),
                                     direction: DismissDirection.endToStart,
                                     confirmDismiss: (direction) async {
-                                      // Call backend to unsubscribe
-                                      final username = UserInfo().username;
-                                      if (username.isEmpty) return false;
+                                      final success = await EventService()
+                                          .unsubscribeFromEvent(event.id);
 
-                                      final regionService = RegionService();
-                                      final success = await regionService
-                                          .unsubscribeFromEvent(
-                                              username, event.id);
-
-                                      if (!success && mounted) {
+                                      if (!success && context.mounted) {
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(
                                           const SnackBar(
@@ -435,7 +412,6 @@ class _TripScreenContentState extends ConsumerState<TripScreenContent>
                       loading: () =>
                           const Center(child: CircularProgressIndicator()),
                       error: (error, stack) {
-                        print('Error loading events: $error');
                         return Center(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,

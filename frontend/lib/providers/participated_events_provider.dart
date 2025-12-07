@@ -1,7 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:virtour_frontend/frontend_service_layer/event_service.dart';
 import 'package:virtour_frontend/screens/data_factories/event.dart';
-import 'package:virtour_frontend/frontend_service_layer/place_service.dart';
-import 'package:virtour_frontend/constants/userinfo.dart';
 
 part 'participated_events_provider.g.dart';
 
@@ -9,47 +8,9 @@ part 'participated_events_provider.g.dart';
 class ParticipatedEvents extends _$ParticipatedEvents {
   @override
   FutureOr<Set<Event>> build() async {
-    return await _loadSubscribedEvents();
-  }
-
-  Future<Set<Event>> _loadSubscribedEvents() async {
-    final username = UserInfo().username;
-    if (username.isEmpty) {
-      return {};
-    }
-
-    try {
-      final eventsData = await RegionService().fetchSubscribedEvents(username);
-      final Set<Event> events = {};
-
-      for (var eventData in eventsData) {
-        try {
-          events.add(Event(
-            id: eventData['id'].toString(),
-            name: eventData['name'] ?? 'Unnamed Event',
-            location: eventData['location'] ?? 'TBD',
-            description: eventData['description'] ?? '',
-            startTime: eventData['startTime'] != null
-                ? DateTime.fromMillisecondsSinceEpoch(
-                    eventData['startTime'] as int)
-                : DateTime.now(),
-            endTime: eventData['endTime'] != null
-                ? DateTime.fromMillisecondsSinceEpoch(
-                    eventData['endTime'] as int)
-                : DateTime.now(),
-            imageUrl: eventData['imageLink'] ?? '',
-            numberOfPeople: (eventData['participants'] as List?)?.length ?? 0,
-          ));
-        } catch (e) {
-          print('Error parsing subscribed event: $e');
-        }
-      }
-
-      return events;
-    } catch (e) {
-      print('Error loading subscribed events: $e');
-      return {};
-    }
+    final events =
+        (await EventService().fetchSubscribedEvents())?.toSet() ?? <Event>{};
+    return events;
   }
 
   Future<void> addEvent(Event event) async {
@@ -68,6 +29,7 @@ class ParticipatedEvents extends _$ParticipatedEvents {
 
   Future<void> refresh() async {
     state = const AsyncValue.loading();
-    state = await AsyncValue.guard(() async => await _loadSubscribedEvents());
+    state = await AsyncValue.guard(
+        () async => (await EventService().fetchSubscribedEvents())?.toSet() ?? <Event>{});
   }
 }
