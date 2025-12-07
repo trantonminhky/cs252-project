@@ -34,10 +34,12 @@ class ProfileService {
 		const passwordHash = await bcrypt.hash(password, SALT_ROUNDS);
 
 		const userID = randomUUID();
+		const discriminant = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
 
 		try {
 			UserDB.set(userID, {
 				username: username,
+				discriminant: discriminant,
 				password: passwordHash,
 				name: name,
 				age: age,
