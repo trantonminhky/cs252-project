@@ -127,13 +127,13 @@ class ProfileController {
 
 	async setPreferences(req, res, next) {
 		try {
-			const { username, preferences } = req.body;
+			const { userID, preferences } = req.body;
 
-			if (!username) {
+			if (!userID) {
 				const response = new ServiceResponse(
 					false,
 					400,
-					"Username is required"
+					"User ID is required"
 				);
 
 				return void res.status(response.statusCode).json(response.get());
@@ -159,7 +159,7 @@ class ProfileController {
 				return void res.status(response.statusCode).json(response.get());
 			}
 
-			const response = await ProfileService.setPreferences(username, preferences);
+			const response = await ProfileService.setPreferences(userID, preferences);
 			return void res.status(response.statusCode).json(response.get());
 		} catch (error) {
 			next(error);
@@ -178,13 +178,13 @@ class ProfileController {
 
 	async addSavedPlace(req, res, next) {
 		try {
-			const { username, placeId: placeID } = req.body;
+			const { userID,  placeID } = req.body;
 
-			if (!username) {
+			if (!userID) {
 				const response = new ServiceResponse(
 					false,
 					400,
-					"Username is required"
+					"User ID is required"
 				);
 
 				return void res.status(response.statusCode).json(response.get());
@@ -200,7 +200,7 @@ class ProfileController {
 				return void res.status(response.statusCode).json(response.get());
 			}
 
-			const response = await ProfileService.addSavedPlace(username, placeID);
+			const response = await ProfileService.addSavedPlace(userID, placeID);
 			return void res.status(response.statusCode).json(response.get());
 		} catch (error) {
 			next(error);
@@ -209,19 +209,19 @@ class ProfileController {
 
 	async removeSavedPlace(req, res, next) {
 		try {
-			const { username, placeID } = req.body;
+			const { userID, placeID } = req.body;
 
-			if (!username || !placeID) {
+			if (!userID || !placeID) {
 				const response = new ServiceResponse(
 					false,
 					400,
-					"Username and place ID are required"
+					"User ID and place ID are required"
 				);
 
 				return void res.status(response.statusCode).json(response.get());
 			}
 
-			const response = await ProfileService.removeSavedPlace(username, placeID);
+			const response = await ProfileService.removeSavedPlace(userID, placeID);
 			return void res.status(response.statusCode).json(response.get());
 		} catch (error) {
 			next(error);
@@ -230,18 +230,18 @@ class ProfileController {
 
 	async getSavedPlaces(req, res, next) {
 		try {
-			const { username } = req.query;
+			const { userID } = req.query;
 
-			if (!username) {
+			if (!userID) {
 				const response = new ServiceResponse(
 					false,
 					400,
-					"Username is required"
+					"User ID is required"
 				);
 				return void res.status(response.statusCode).json(response.get());
 			}
 
-			const response = await ProfileService.getSavedPlaces(username);
+			const response = await ProfileService.getSavedPlaces(userID);
 			return void res.status(response.statusCode).json(response.get());
 		} catch (error) {
 			next(error);

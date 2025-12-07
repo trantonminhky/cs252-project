@@ -1,7 +1,8 @@
 /*
 	{
-		"token1": {
-			"username": "username",
+		"token-uuid": {
+			"userID": "user-uuid"
+			"hashedSessionToken": "hashed-session-token",
 			"createdAt": "milliseconds"
 		}
 	},
@@ -10,7 +11,6 @@
 
 import Enmap from 'enmap';
 import unwrapTyped from '../helper/unwrapTyped.js';
-const TOKEN_LIFETIME_MS = 1800000;
 
 
 class SessionTokensDB {

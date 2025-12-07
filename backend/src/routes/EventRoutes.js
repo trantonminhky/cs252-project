@@ -26,9 +26,9 @@ router.all('/unsubscribe',
 	EventController.unsubscribe
 );
 
-router.all('/get-by-username',
+router.all('/get-by-userid',
 	ValidatorMiddleware.validateMethods(['GET', 'HEAD']),
-	EventController.getByUsername
+	EventController.getByUserID
 );
 
 export default router;

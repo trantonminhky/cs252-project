@@ -43,14 +43,14 @@ class EventController {
 
 	async subscribe(req, res, next) {
 		try {
-			const username = req.body.username;
+			const userID = req.body.userID;
 			const eventID = req.body.eventID;
 
-			if (!username) {
+			if (!userID) {
 				const response = new ServiceResponse(
 					false,
 					400,
-					"Username is required"
+					"User ID is required"
 				);
 				
 				return void res.status(response.statusCode).json(response.get());;
@@ -66,11 +66,11 @@ class EventController {
 				return void res.status(response.statusCode).json(response.get());;
 			}
 
-			if (!UserDB.has(username)) {
+			if (!UserDB.has(userID)) {
 				const response = new ServiceResponse(
 					false,
 					404,
-					"Username not found"
+					"User not found"
 				);
 				
 				return void res.status(response.statusCode).json(response.get());;
@@ -86,7 +86,7 @@ class EventController {
 				return void res.status(response.statusCode).json(response.get());;
 			}
 
-			const response = await EventService.subscribe(username, eventID);
+			const response = await EventService.subscribe(userID, eventID);
 			return void res.status(response.statusCode).json(response.get());
 		} catch (err) {
 			next(err);
@@ -95,14 +95,14 @@ class EventController {
 
 	async unsubscribe(req, res, next) {
 		try {
-			const username = req.body.username;
+			const userID = req.body.userID;
 			const eventID = req.body.eventID;
 
-			if (!username) {
+			if (!userID) {
 				const response = new ServiceResponse(
 					false,
 					400,
-					"Username is required"
+					"User ID is required"
 				);
 				
 				return void res.status(response.statusCode).json(response.get());;
@@ -118,11 +118,11 @@ class EventController {
 				return void res.status(response.statusCode).json(response.get());;
 			}
 
-			if (!UserDB.has(username)) {
+			if (!UserDB.has(userID)) {
 				const response = new ServiceResponse(
 					false,
 					404,
-					"Username not found"
+					"User ID not found"
 				);
 				
 				return void res.status(response.statusCode).json(response.get());;
@@ -138,28 +138,28 @@ class EventController {
 				return void res.status(response.statusCode).json(response.get());;
 			}
 
-			const response = await EventService.unsubscribe(username, eventID);
+			const response = await EventService.unsubscribe(userID, eventID);
 			return void res.status(response.statusCode).json(response.get());
 		} catch (err) {
 			next(err);
 		}
 	}
 
-	async getByUsername(req, res, next) {
+	async getByUserID(req, res, next) {
 		try {
-			const { username } = req.query;
+			const userID = req.query.userID;
 
-			if (!username) {
+			if (!userID) {
 				const response = new ServiceResponse(
 					false,
 					400,
-					"Username is required"
+					"User ID is required"
 				);
 				
 				return void res.status(response.statusCode).json(response.get());;
 			}
 
-			const response = await EventService.getByUsername(username);
+			const response = await EventService.getByUserID(userID);
 			return void res.status(response.statusCode).json(response.get());
 		} catch (err) {
 			next(err);

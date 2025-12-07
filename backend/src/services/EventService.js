@@ -1,5 +1,4 @@
 import EventDB from '../db/EventDB.js';
-import UserDB from '../db/UserDB.js';
 import ServiceResponse from '../helper/ServiceResponse.js';
 import eventsData from '../../events.json' with { type: "json" };
 
@@ -49,8 +48,8 @@ class EventService {
 		return response;
 	}
 
-	async subscribe(username, eventID) {
-		EventDB.push(eventID, username, "participants");
+	async subscribe(userID, eventID) {
+		EventDB.push(eventID, userID, "participants");
 		const response = new ServiceResponse(
 			true,
 			200,
@@ -59,8 +58,8 @@ class EventService {
 		return response;
 	}
 
-	async unsubscribe(username, eventID) {
-		EventDB.remove(eventID, username, "participants");
+	async unsubscribe(userID, eventID) {
+		EventDB.remove(eventID, userID, "participants");
 		const response = new ServiceResponse(
 			true,
 			200,
@@ -69,12 +68,12 @@ class EventService {
 		return response;
 	}
 
-	async getByUsername(username) {
+	async getByUserID(userID) {
 		const _export = EventDB.export();
 
 		const results = [];
 		for (const [key, val] of Object.entries(_export)) {
-			if (val.participants.includes(username)) {
+			if (val.participants.includes(userID)) {
 				results.push(val);
 			}
 		}

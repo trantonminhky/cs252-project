@@ -10,10 +10,6 @@ import { issueSessionToken, validateSessionToken } from './auth/sessionTokenVali
 
 const SALT_ROUNDS = 10;
 
-function generateToken32() {
-	return randomBytes(24).toString('base64url').slice(0, 32);
-}
-
 /**
  * Profile service provider class.
  * @class
@@ -162,15 +158,15 @@ class ProfileService {
 		 * @param {Array|Object} preferences - The preferences data to save
 		 * @returns {Promise<ServiceResponse>} Response
 		 */
-	async setPreferences(username, preferences) {
-		if (!UserDB.has(username)) return new ServiceResponse(false, 404, "Username not found");
+	async setPreferences(userID, preferences) {
+		if (!UserDB.has(userID)) return new ServiceResponse(false, 404, "User not found");
 
 		// let currentPrefs = UserDB.get(username, "preferences");
 		// if (!Array.isArray(currentPrefs)) {
 		// 	UserDB.set(username, [], "preferences");
 		// }
 
-		UserDB.set(username, preferences, "preferences");
+		UserDB.set(userID, preferences, "preferences");
 		return new ServiceResponse(
 			true,
 			201,
@@ -183,12 +179,12 @@ class ProfileService {
 	 * @param {String|Number} placeID - The ID of the place to save
 	 * @returns {Promise<ServiceResponse>}
 	 */
-	async addSavedPlace(username, placeID) {
-		if (!UserDB.has(username)) {
+	async addSavedPlace(userID, placeID) {
+		if (!UserDB.has(userID)) {
 			return new ServiceResponse(false, 404, "User not found");
 		}
 
-		let savedPlaces = UserDB.ensure(username, [], "savePlaces");
+		let savedPlaces = UserDB.ensure(userID, [], "savePlaces");
 
 		// Check for duplicates
 		if (savedPlaces.includes(placeID)) {
@@ -199,7 +195,7 @@ class ProfileService {
 			);
 		}
 
-		UserDB.push(username, placeID, "savePlaces");
+		UserDB.push(userID, placeID, "savePlaces");
 
 		return new ServiceResponse(
 			true,
@@ -214,8 +210,8 @@ class ProfileService {
 	 * @param {String|Number} placeID - The ID of the place to remove
 	 * @returns {Promise<ServiceResponse>}
 	 */
-	async removeSavedPlace(username, placeID) {
-		if (!UserDB.has(username)) {
+	async removeSavedPlace(userID, placeID) {
+		if (!UserDB.has(userID)) {
 			return new ServiceResponse(
 				false,
 				404,
@@ -223,7 +219,7 @@ class ProfileService {
 			);
 		}
 
-		let savedPlace = UserDB.ensure(username, "savePlaces");
+		let savedPlace = UserDB.ensure(userID, "savePlaces");
 
 		if (!savedPlace.includes(placeID)) {
 			return new ServiceResponse(
@@ -233,7 +229,7 @@ class ProfileService {
 			);
 		}
 
-		UserDB.remove(username, placeID, "savePlaces");
+		UserDB.remove(userID, placeID, "savePlaces");
 
 		return new ServiceResponse(
 			true,
@@ -247,12 +243,12 @@ class ProfileService {
 	 * @param {String} username 
 	 * @returns {Promise<ServiceResponse>}
 	 */
-	async getSavedPlaces(username) {
-		if (!UserDB.has(username)) {
+	async getSavedPlaces(userID) {
+		if (!UserDB.has(userID)) {
 			return new ServiceResponse(false, 404, "User not found");
 		}
 
-		let places = UserDB.ensure(username, [], "savePlaces");
+		let places = UserDB.ensure(userID, [], "savePlaces");
 
 		return new ServiceResponse(
 			true,
