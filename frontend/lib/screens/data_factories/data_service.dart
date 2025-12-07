@@ -1,4 +1,3 @@
-import "package:virtour_frontend/screens/data_factories/filter_type.dart";
 import "package:virtour_frontend/screens/data_factories/place.dart";
 import "package:virtour_frontend/screens/data_factories/region.dart";
 import "package:virtour_frontend/screens/data_factories/review.dart";

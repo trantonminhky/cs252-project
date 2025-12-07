@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:virtour_frontend/frontend_service_layer/event_service.dart';
 import 'package:virtour_frontend/screens/data_factories/event.dart';
 import 'package:virtour_frontend/providers/participated_events_provider.dart';
-import 'package:virtour_frontend/frontend_service_layer/place_service.dart';
-import 'package:virtour_frontend/constants/userinfo.dart';
 
 class EventDetailScreen extends ConsumerWidget {
   final Event event;
@@ -286,27 +285,9 @@ class EventDetailScreen extends ConsumerWidget {
               ),
             ),
             onPressed: () async {
-              final username = UserInfo().username;
+              final success = await EventService().subscribeToEvent(event.id);
 
-              if (username.isEmpty) {
-                Navigator.of(context).pop();
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Please log in to participate in events'),
-                    backgroundColor: Color(0xFFD72323),
-                    duration: Duration(seconds: 2),
-                  ),
-                );
-                return;
-              }
-
-              // Call backend to subscribe to event
-              final success = await RegionService().subscribeToEvent(
-                username,
-                event.id.toString(),
-              );
-
-              if (!success) {
+              if (!success && context.mounted) {
                 Navigator.of(context).pop();
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
@@ -322,14 +303,16 @@ class EventDetailScreen extends ConsumerWidget {
               // Add event to local state for immediate UI update
               ref.read(participatedEventsProvider.notifier).addEvent(event);
 
-              Navigator.of(context).pop();
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text('Successfully registered for ${event.name}!'),
-                  backgroundColor: const Color(0xFF4CAF50),
-                  duration: const Duration(seconds: 2),
-                ),
-              );
+              if (context.mounted) {
+                Navigator.of(context).pop();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('Successfully registered for ${event.name}!'),
+                    backgroundColor: const Color(0xFF4CAF50),
+                    duration: const Duration(seconds: 2),
+                  ),
+                );
+              }
             },
             child: const Padding(
               padding: EdgeInsets.symmetric(horizontal: 12),
@@ -388,27 +371,10 @@ class EventDetailScreen extends ConsumerWidget {
               ),
             ),
             onPressed: () async {
-              final username = UserInfo().username;
+              final success =
+                  await EventService().unsubscribeFromEvent(event.id);
 
-              if (username.isEmpty) {
-                Navigator.of(context).pop();
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Please log in'),
-                    backgroundColor: Color(0xFFD72323),
-                    duration: Duration(seconds: 2),
-                  ),
-                );
-                return;
-              }
-
-              // Call backend to unsubscribe from event
-              final success = await RegionService().unsubscribeFromEvent(
-                username,
-                event.id.toString(),
-              );
-
-              if (!success) {
+              if (!success && context.mounted) {
                 Navigator.of(context).pop();
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
@@ -420,19 +386,21 @@ class EventDetailScreen extends ConsumerWidget {
                 return;
               }
 
-              // Remove event from local state for immediate UI update
               ref
                   .read(participatedEventsProvider.notifier)
                   .removeEvent(event.id);
 
-              Navigator.of(context).pop();
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text('Successfully unsubscribed from ${event.name}'),
-                  backgroundColor: const Color(0xFF4CAF50),
-                  duration: const Duration(seconds: 2),
-                ),
-              );
+              if (context.mounted) {
+                Navigator.of(context).pop();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content:
+                        Text('Successfully unsubscribed from ${event.name}'),
+                    backgroundColor: const Color(0xFF4CAF50),
+                    duration: const Duration(seconds: 2),
+                  ),
+                );
+              }
             },
             child: const Padding(
               padding: EdgeInsets.symmetric(horizontal: 12),
