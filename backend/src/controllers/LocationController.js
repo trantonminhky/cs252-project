@@ -1,22 +1,22 @@
 import ServiceResponse from '../helper/ServiceResponse.js';
 import LocationService from '../services/LocationService.js';
+import LocationDB from '../db/LocationDB.js';
 
 class LocationController {
 	async importToDB(req, res, next) {
-		await LocationService.importToDB();
-		return void res.status(200).json("lol");
+		try {
+			const response = await LocationService.importToDB();
+			return void res.status(response.statusCode).json(response.get());
+		} catch (err) {
+			next(err)
+		}
 	}
 
 	async search(req, res, next) {
 		try {
-			const { query, include } = req.query;
-			let includeOption;
-			if (include) {
-				includeOption = include.split(',');
-			}
-
+			const { query, include } = req.body;
 			const response = await LocationService.search(query, {
-				include: includeOption
+				include: include
 			});
 			return void res.status(response.statusCode).json(response.get());
 		} catch (err) {
@@ -27,6 +27,16 @@ class LocationController {
 	async findByID(req, res, next) {
 		try {
 			const { id } = req.query;
+
+			if (id == null) {
+				const response = new ServiceResponse(
+					false,
+					400,
+					"Location ID is required"
+				);
+				return void res.status(response.statusCode).json(response.get());
+			}
+
 			const response = await LocationService.findByID(id);
 			return void res.status(response.statusCode).json(response.get());
 		} catch (err) {

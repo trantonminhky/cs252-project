@@ -1,40 +1,15 @@
-import { randomBytes } from 'crypto';
+import { randomBytes, randomUUID } from 'crypto';
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 import ServiceResponse from '../helper/ServiceResponse.js';
 
 import UserDB from '../db/UserDB.js';
 import SessionTokensDB from '../db/SessionTokensDB.js';
+import { issueSessionToken, validateSessionToken } from './auth/sessionTokenValidator.js';
 
-function generateToken32() {
-	return randomBytes(24).toString('base64url').slice(0, 32);
-}
+const SALT_ROUNDS = 10;
 
-function renewToken(user) {
-	const oldCreatedAt = UserDB.get(user, "sessionToken.createdAt");
-	const oldToken = UserDB.get(user, "sessionToken.data");
-	let newToken = generateToken32();
-	let newCreatedAt = Date.now();
-
-	if (SessionTokensDB.check(oldToken) !== "valid") { // if token expires
-		UserDB.set(user, newToken, "sessionToken.data");
-		UserDB.set(user, newCreatedAt, "sessionToken.createdAt");
-
-		SessionTokensDB.set(newToken, {
-			username: user,
-			createdAt: newCreatedAt
-		});
-		SessionTokensDB.delete(oldToken);
-	} else {
-		newToken = UserDB.get(user, "sessionToken.data");
-		newCreatedAt = oldCreatedAt;
-	}
-	return {
-		data: newToken,
-		createdAt: newCreatedAt
-	}
-}
-
-// TO-DO: IMPLEMENT PASSWORD ENCRYPTION INSTEAD OF PLAINTEXT STORAGE
 /**
  * Profile service provider class.
  * @class
@@ -42,55 +17,48 @@ function renewToken(user) {
 class ProfileService {
 	/**
 	 * Registers a user to a new profile given username and password.
-	 * @param {String} user - Username
-	 * @param {String} pass - Password
+	 * @param {String} username - Username
+	 * @param {String} password - Password
 	 * @returns {Promise<ServiceResponse>} Response
 	 */
-	async register(user, pass, name, age, isTourist) {
-		// if the username is already registered
-		if (UserDB.has(user)) {
-			return (new ServiceResponse(
+	async register(email, username, password, name, age, type) {
+		if (UserDB.findIndex(user => user.email === email)) {
+			const response = new ServiceResponse(
 				false,
 				409,
-				"Username already taken"
-			));
+				"This email already has an account"
+			);
+			return response;
 		}
 
-		if (typeof isTourist === "boolean") {
-			return new ServiceResponse(false, 400, "Malformed usertype parameter");
-		}
-		const token = generateToken32(); // user session token
-		const tokenCreatedAt = Date.now(); // session token created timestamp in ms
+		const passwordHash = await bcrypt.hash(password, SALT_ROUNDS);
+
+		const userID = randomUUID();
+		const discriminant = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
 
 		try {
-			UserDB.set(user, {
-				username: user,
-				password: pass,
+			UserDB.set(userID, {
+				username: username,
+				discriminant: discriminant,
+				email: email,
+				password: passwordHash,
 				name: name,
 				age: age,
 				preferences: [],
-				rec_profile: null,
-				isTourist: isTourist,
-				sessionToken: {
-					data: token,
-					createdAt: tokenCreatedAt
-				},
+				preferencesVector: null,
+				type: type,
 				savePlaces: []
 			});
 
-			SessionTokensDB.set(token, {
-				username: user,
-				createdAt: tokenCreatedAt
-			});
+			const data = {
+				userID: userID
+			}
 
 			const response = new ServiceResponse(
 				true,
 				201,
 				"Success",
-				{
-					token: UserDB.get(user, 'sessionToken.data'),
-					createdAt: (new Date(UserDB.get(user, 'sessionToken.createdAt'))).toString()
-				}
+				data
 			);
 
 			return response;
@@ -106,47 +74,45 @@ class ProfileService {
 
 	/**
 	 * Logins a user.
-	 * @param {String} user - Username
-	 * @param {String} pass - Password
+	 * @param {String} username - Username
+	 * @param {String} password - Password
 	 * @returns {Promise<ServiceResponse>} Response
 	 */
-	async login(user, pass) {
-		if (!UserDB.has(user)) {
-			return new ServiceResponse(false, 401, "Username does not exist");
-		}
-		const password = UserDB.get(user, "password");
-
+	async login(email, password) {
 		// if this user does not exist
-		if (!password) {
-			return (new ServiceResponse(
+		const userID = UserDB.findIndex(user => user.email === email);
+		if (!userID) {
+			const response = new ServiceResponse(
 				false,
-				401,
-				"Username does not exist"
-			));
+				404,
+				"There is no account associated with this email"
+			);
+			return response;
 		}
 
-		// if password mismatch
-		if (password !== pass) {
-			return (new ServiceResponse(
+		const passwordMatch = await bcrypt.compare(password, UserDB.get(userID, 'password'));
+		if (!passwordMatch) {
+			const response = new ServiceResponse(
 				false,
 				401,
 				"Wrong password"
-			));
+			);
+			return response;
 		}
 
 		try {
-			const token = renewToken(user);
-			const isTourist = UserDB.get(user, 'isTourist');
-			const preferences = UserDB.get(user, 'preferences');
+			const accessToken = jwt.sign({
+				sub: userID,
+				name: UserDB.get(userID, 'name')
+			}, process.env.JWT_SECRET, { expiresIn: "1h" });
+
 			const response = new ServiceResponse(
 				true,
 				200,
 				"Success",
 				{
-					token: token.data,
-					createdAt: (new Date(token.createdAt)).toString(),
-					isTourist: isTourist,
-					preferences: preferences || []
+					userID: userID,
+					token: accessToken
 				}
 			)
 
@@ -160,29 +126,78 @@ class ProfileService {
 			));
 		}
 	}
+
+	async refresh(sessionToken) {
+		const validated = await validateSessionToken(sessionToken);
+		if (!validated) {
+			const response = new ServiceResponse(
+				false,
+				401,
+				"Validation of session token failed"
+			);
+			return response;
+		}
+
+		const oldTokenID = validated.tokenID;
+		SessionTokensDB.delete(oldTokenID);
+
+		const newSessionToken = await issueSessionToken(validated.userID);
+		const accessToken = jwt.sign({
+			sub: validated.userID,
+			name: UserDB.get(validated.userID, 'name')
+		}, process.env.JWT_SECRET, { expiresIn: "1h" });
+
+		const response = new ServiceResponse(
+			true,
+			200,
+			"Success",
+			{	
+				sessionToken: newSessionToken,
+				accessToken: accessToken
+			}
+		)
+
+		return response;
+	}
+
+	async getUser(userID) {
+		if (!UserDB.has(userID)) {
+			const response = new ServiceResponse(
+				false,
+				404,
+				"User not found"
+			);
+			return response;
+		}
+
+		const data = UserDB.get(userID);
+		delete data.password;
+		delete data.preferencesVector;
+
+		const response = new ServiceResponse(
+			true,
+			200,
+			"Success",
+			data
+		);
+		return response;
+	}
+
 	/**
 		 * Updates user preferences.
 		 * @param {String} token - Session token
 		 * @param {Array|Object} preferences - The preferences data to save
 		 * @returns {Promise<ServiceResponse>} Response
 		 */
-	async setPreferences(username, preferences) {
-		if (!username) {
-			return new ServiceResponse(false, 400, "Username is required");
-		}
-		if (!Array.isArray(preferences)) {
-			return new ServiceResponse(false, 400, "Malformed preferences");
-		}
-		if (!UserDB.has(username)) return new ServiceResponse(false, 404, "Username not found");
-		let currentPrefs = UserDB.get(username, "preferences");
-		if (!Array.isArray(currentPrefs)) {
-			UserDB.set(username, [], "preferences");
-		}
-		if (!preferences) {
-			return new ServiceResponse(false, 400, "Preferences data is required");
-		}
+	async setPreferences(userID, preferences) {
+		if (!UserDB.has(userID)) return new ServiceResponse(false, 404, "User not found");
 
-		UserDB.set(username, preferences, "preferences");
+		// let currentPrefs = UserDB.get(username, "preferences");
+		// if (!Array.isArray(currentPrefs)) {
+		// 	UserDB.set(username, [], "preferences");
+		// }
+
+		UserDB.set(userID, preferences, "preferences");
 		return new ServiceResponse(
 			true,
 			201,
@@ -192,69 +207,66 @@ class ProfileService {
 	/**
 	 * Adds a place to the user's saved list.
 	 * @param {String} username - The username
-	 * @param {String|Number} placeId - The ID of the place to save
+	 * @param {String|Number} placeID - The ID of the place to save
 	 * @returns {Promise<ServiceResponse>}
 	 */
-	async addSavedPlace(username, placeId) {
-		if (!username) return new ServiceResponse(false, 400, "Username is required");
-		if (!placeId) return new ServiceResponse(false, 400, "Place ID is required");
-		if (!UserDB.has(username)) {
+	async addSavedPlace(userID, placeID) {
+		if (!UserDB.has(userID)) {
 			return new ServiceResponse(false, 404, "User not found");
 		}
 
-		// REPLACED: UserDB.ensure(...) and UserDB.push(...)
-		// FIX: Fetch the current array manually
-		let savedPlaces = UserDB.get(username, "savePlaces");
-
-		// If the array doesn't exist yet (or is null), initialize it
-		if (!Array.isArray(savedPlaces)) {
-			savedPlaces = [];
-		}
+		let savedPlaces = UserDB.ensure(userID, [], "savePlaces");
 
 		// Check for duplicates
-		if (savedPlaces.includes(placeId)) {
-			return new ServiceResponse(false, 409, "Place already saved");
+		if (savedPlaces.includes(placeID)) {
+			return new ServiceResponse(
+				false,
+				409,
+				"Place already saved"
+			);
 		}
 
-		// Add the new ID to the local array
-		savedPlaces.push(placeId);
+		UserDB.push(userID, placeID, "savePlaces");
 
-		// FIX: Save the updated array back to the DB using the available .set() method
-		UserDB.set(username, savedPlaces, "savePlaces");
-
-		return new ServiceResponse(true, 201, "Place saved successfully");
-
+		return new ServiceResponse(
+			true,
+			200,
+			"Place saved successfully"
+		);
 	}
 
 	/**
 	 * Removes a place from the user's saved list.
 	 * @param {String} username - The username
-	 * @param {String|Number} placeId - The ID of the place to remove
+	 * @param {String|Number} placeID - The ID of the place to remove
 	 * @returns {Promise<ServiceResponse>}
 	 */
-	async removeSavedPlace(username, placeId) {
-		if (!username || !placeId) {
-			return new ServiceResponse(false, 400, "Username and Place ID are required");
+	async removeSavedPlace(userID, placeID) {
+		if (!UserDB.has(userID)) {
+			return new ServiceResponse(
+				false,
+				404,
+				"User not found"
+			);
 		}
 
-		if (!UserDB.has(username)) {
-			return new ServiceResponse(false, 404, "User not found");
+		let savedPlace = UserDB.ensure(userID, "savePlaces");
+
+		if (!savedPlace.includes(placeID)) {
+			return new ServiceResponse(
+				false,
+				409,
+				"No saved place found"
+			);
 		}
 
-		// FIX: Fetch, Filter, then Set
-		let savedPlaces = UserDB.get(username, "savePlaces");
+		UserDB.remove(userID, placeID, "savePlaces");
 
-		if (!Array.isArray(savedPlaces)) {
-			return new ServiceResponse(false, 404, "No saved places found");
-		}
-
-		// Filter out the item
-		const newSavedPlaces = savedPlaces.filter(id => id !== placeId);
-
-		// Save the updated list back
-		UserDB.set(username, newSavedPlaces, "savePlaces");
-
-		return new ServiceResponse(true, 200, "Place removed successfully");
+		return new ServiceResponse(
+			true,
+			200,
+			"Place removed successfully"
+		);
 	}
 
 	/**
@@ -262,22 +274,19 @@ class ProfileService {
 	 * @param {String} username 
 	 * @returns {Promise<ServiceResponse>}
 	 */
-	async getSavedPlaces(username) {
-		if (!username) return new ServiceResponse(false, 400, "Username is required");
-
-		if (!UserDB.has(username)) {
+	async getSavedPlaces(userID) {
+		if (!UserDB.has(userID)) {
 			return new ServiceResponse(false, 404, "User not found");
 		}
 
+		let places = UserDB.ensure(userID, [], "savePlaces");
 
-		// FIX: Just use .get() and handle the undefined case
-		let places = UserDB.get(username, "savePlaces");
-
-		if (!places) {
-			places = [];
-		}
-
-		return new ServiceResponse(true, 200, "Success", places);
+		return new ServiceResponse(
+			true,
+			200,
+			"Success",
+			places
+		);
 	}
 }
 

@@ -29,7 +29,6 @@ class CacheDB {
 	set(key, val, path) {
 		try {
 			this.db.set(key, val, path);
-			// console.log(`SessionTokensDB set key=${key} val=${JSON.stringify(val)} success at path ${path}`);
 		} catch (err) {
 			console.error(err);
 		}
@@ -38,7 +37,6 @@ class CacheDB {
 	get(key, path) {
 		try {
 			const value = this.db.get(key, path);
-			// console.log(`SessionTokensDB get key=${key} returns ${value}`)
 			return value;
 		} catch (err) {
 			console.error(err);
@@ -46,9 +44,7 @@ class CacheDB {
 	}
 
 	findGeocode(query) {
-		this.db.ensure('geocode', []);
 		const caches = this.db.ensure('geocode', []);
-		console.log(caches);
 		let result = caches.find(entry => entry.address === query);
 		if (result == null) {
 			return null;
@@ -68,7 +64,6 @@ class CacheDB {
 	}
 
 	findReverseGeocode(lat, lon) {
-		this.db.ensure('geocode', []);
 		const caches = this.db.ensure('reverse_geocode', []);
 		let result = caches.find(entry => entry.lat === lat && entry.lon === lon);
 		if (result == null) {
@@ -80,18 +75,59 @@ class CacheDB {
 
 	upsertReverseGeocode(data) {
 		const caches = this.db.ensure('reverse_geocode', []);
-		const i = caches.findIndex(x => x.name === data.name);
-		if (i !== -1) {
+
+		// find if cache have the result query
+		const i = caches.findIndex(x => x.lat === data.lat && x.lon === data.lon);
+		if (i !== -1) { // if yes, then update
 			this.db.set('reverse_geocode', data, i)
-		} else {
+		} else { // if no, then insert
 			this.db.push('reverse_geocode', data);
+		}
+	}
+
+	findRoute(coordinates, profile) {
+		const caches = this.db.ensure('route', []);
+		let result = caches.find(entry => entry.coordinates === coordinates && entry.profile === profile);
+		if (result == null) {
+			return null;
+		} else {
+			return result;
+		}
+	}
+
+	upsertRoute(data) {
+		const caches = this.db.ensure('route', []);
+		const i = caches.findIndex(x => x.coordinates === data.coordinates && x.profile === data.profile);
+		if (i !== -1) {
+			this.db.set('route', data, i)
+		} else {
+			this.db.push('route', data);
+		}
+	}
+
+	findNearby(lat, lon, radius, category_ids) {
+		const caches = this.db.ensure('nearby', []);
+		let result = caches.find(entry => entry.lat === lat && entry.lon === lon && entry.radius === radius && entry.category_ids === category_ids);
+		if (result == null) {
+			return null;
+		} else {
+			return result;
+		}
+	}
+
+	upsertNearby(data) {
+		const caches = this.db.ensure('nearby', []);
+		const i = caches.findIndex(x => x.lat === data.lat && x.lon === data.lon && x.radius === data.radius && x.category_ids === data.category_ids);
+		if (i !== -1) {
+			this.db.set('nearby', data, i)
+		} else {
+			this.db.push('nearby', data);
 		}
 	}
 
 	delete(key, path) {
 		try {
 			this.db.delete(key, path);
-			// console.log(`SessionTokensDB delete key=${key}`);
 		} catch (err) {
 			console.error(err);
 		}

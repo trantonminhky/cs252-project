@@ -2,7 +2,6 @@ import { readdirSync } from 'fs';
 import path from 'path';
 import { fileURLToPath, pathToFileURL } from 'url';
 import ServiceResponse from '../helper/ServiceResponse.js';
-import unwrapTyped from '../helper/unwrapTyped.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -34,6 +33,7 @@ class DBService {
 
 		for (const db of databases) {
 			const _export = db.export();
+
 			if (_export.name === name) {
 				db.clear();
 				return (new ServiceResponse(
@@ -57,6 +57,7 @@ class DBService {
 	 */
 	async clearAll() {
 		const databases = await this.databases;
+
 		databases.forEach(db => db.clear());
 		return (new ServiceResponse(
 			true,
@@ -75,6 +76,7 @@ class DBService {
 
 		for (const db of databases) {
 			const _export = db.export();
+			
 			if (_export.name === name) {
 				return (new ServiceResponse(
 					true,

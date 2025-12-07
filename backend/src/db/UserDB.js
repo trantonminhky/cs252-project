@@ -1,12 +1,9 @@
 /*
 	{
-		user1: {
+		user-uuid: {
 			"username": "username",
-			"password": "password",
-			sessionToken: {
-				"data": "sessionTokenValue",
-				"createdAt": "milliseconds"
-			}
+			"password": "passwordHashed",
+			...
 		}, ...
 	}
 */
@@ -22,7 +19,6 @@ class UserDB {
 	set(key, val, path) {
 		try {
 			this.db.set(key, val, path);
-			// console.log(`UserDB set key=${key} val=${JSON.stringify(val)} success at path ${path}`);
 		} catch (err) {
 			console.error(err);
 		}
@@ -31,7 +27,6 @@ class UserDB {
 	get(key, path) {
 		try {
 			const value = this.db.get(key, path);
-			// console.log(`UserDB get key=${key} returns ${value}`)
 			return value;
 		} catch (err) {
 			console.error(err);
@@ -50,6 +45,30 @@ class UserDB {
 	clear() {
 		try {
 			this.db.clear();
+		} catch (err) {
+			console.error(err);
+		}
+	}
+
+	remove(key, value, path) {
+		try {
+			this.db.remove(key, value, path);
+		} catch (err) {
+			console.error(err);
+		}
+	}
+
+	find(pathOrFn, value) {
+		try {
+			return this.db.find(pathOrFn, value);
+		} catch (err) {
+			console.error(err);
+		}
+	}
+
+	findIndex(pathOrFn, value) {
+		try {
+			return this.db.findIndex(pathOrFn, value);
 		} catch (err) {
 			console.error(err);
 		}

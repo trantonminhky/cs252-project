@@ -4,7 +4,7 @@ import EventController from '../controllers/EventController.js';
 import ValidatorMiddleware from '../middleware/ValidatorMiddleware.js';
 
 router.all('/import',
-	ValidatorMiddleware.validateMethods(['GET', 'HEAD']),
+	ValidatorMiddleware.validateMethods(['POST']),
 	EventController.importToDB
 );
 
@@ -26,9 +26,9 @@ router.all('/unsubscribe',
 	EventController.unsubscribe
 );
 
-router.all('/get-by-username',
+router.all('/get-by-userid',
 	ValidatorMiddleware.validateMethods(['GET', 'HEAD']),
-	EventController.getByUsername
+	EventController.getByUserID
 );
 
 export default router;

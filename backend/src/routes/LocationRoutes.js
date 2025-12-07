@@ -4,17 +4,17 @@ import LocationController from '../controllers/LocationController.js';
 import ValidatorMiddleware from '../middleware/ValidatorMiddleware.js';
 
 router.all('/import',
-	ValidatorMiddleware.validateMethods(['GET']),
+	ValidatorMiddleware.validateMethods(['POST']),
 	LocationController.importToDB
 );
 
 router.all('/search',
-	ValidatorMiddleware.validateMethods(['GET']),
+	ValidatorMiddleware.validateMethods(['POST']),
 	LocationController.search
 );
 
 router.all('/find-by-id',
-	ValidatorMiddleware.validateMethods(['GET']),
+	ValidatorMiddleware.validateMethods(['GET', 'HEAD']),
 	LocationController.findByID
 )
 
