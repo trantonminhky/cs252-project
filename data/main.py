@@ -13,7 +13,6 @@ collection = client.get_or_create_collection(
     name='ct_data',
     embedding_function=ef
 )
-# if (collection.count()==0):
 arch_info = ArchColInfo()
 collection.upsert(
     ids=arch_info.ids,

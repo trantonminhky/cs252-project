@@ -122,7 +122,7 @@ async def search_locations(request: SearchRequest):
 
     except Exception as e:
         print(f"Error: {e}")
-        raise HTTPException(status_code=400, detail=str(e))
+        raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/")
 def health_check():
