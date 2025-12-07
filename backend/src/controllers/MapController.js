@@ -58,7 +58,7 @@ class MapController {
 			const lat = req.body.lat;
 			const lon = req.body.lon;
 			const radius = req.body.radius ?? 1000;
-			const category_ids = req.body.category_ids;
+			let category_ids = req.body.category_ids;
 
 			if (lat == null || lon == null) {
 				const response = new ServiceResponse(
@@ -78,9 +78,9 @@ class MapController {
 				return void res.status(response.statusCode).json(response.get());
 			}
 
-			if (!Array.isArray(category_ids)) {
+			if (category_ids != null && !Array.isArray(category_ids)) {
 				const response = new ServiceResponse(
-					flse,
+					false,
 					400,
 					"Malformed category id list"
 				);

@@ -5,7 +5,7 @@ import ServiceResponse from '../helper/ServiceResponse.js';
 import config from '../config/config.js';
 import CacheDB from '../db/CacheDB.js';
 
-const CACHE_LIFETIME_MS = 86400000; // 1 day
+const GEOCODE_CACHE_LIFETIME_MS = 86400000; // 1 day
 
 /**
  * Geocode service provider class.
@@ -25,7 +25,7 @@ class GeocodeService {
 	async geocode(query) {
 		const cache = CacheDB.findGeocode(query);
 
-		if (cache && Date.now() - cache.createdAt < CACHE_LIFETIME_MS) {
+		if (cache && Date.now() - cache.createdAt < GEOCODE_CACHE_LIFETIME_MS) {
 			// if the result is already stored in cache and hasn't expired
 			const response = new ServiceResponse(
 				true,
@@ -34,38 +34,38 @@ class GeocodeService {
 				cache.data
 			);
 			return response;
-		} else {
-			try {
-				const url = `${this.baseUrl}/search`;
-				const axiosResponse = await axios.get(url, {
-					params: {
-						format: 'jsonv2',
-						q: query
-					}
-				});
+		}
 
-				CacheDB.upsertGeocode({
-					address: query,
-					data: axiosResponse.data,
-					createdAt: Date.now()
-				});
+		try {
+			const url = `${this.baseUrl}/search`;
+			const axiosResponse = await axios.get(url, {
+				params: {
+					format: 'jsonv2',
+					q: query
+				}
+			});
 
-				const response = new ServiceResponse(
-					true,
-					200,
-					"Success",
-					axiosResponse.data
-				);
-				return response;
-			} catch (err) {
-				const response = new ServiceResponse(
-					false,
-					502,
-					"Something went wrong",
-					err.toString()
-				);
-				return response;
-			}
+			CacheDB.upsertGeocode({
+				address: query,
+				data: axiosResponse.data,
+				createdAt: Date.now()
+			});
+
+			const response = new ServiceResponse(
+				true,
+				200,
+				"Success",
+				axiosResponse.data
+			);
+			return response;
+		} catch (err) {
+			const response = new ServiceResponse(
+				false,
+				502,
+				"Something went wrong",
+				err.toString()
+			);
+			return response;
 		}
 	}
 
@@ -78,7 +78,7 @@ class GeocodeService {
 	async reverseGeocode(lat, lon) {
 		const cache = CacheDB.findReverseGeocode(lat, lon);
 
-		if (cache && Date.now() - cache.createdAt < CACHE_LIFETIME_MS) {
+		if (cache && Date.now() - cache.createdAt < GEOCODE_CACHE_LIFETIME_MS) {
 			const response = new ServiceResponse(
 				true,
 				200,
@@ -86,41 +86,41 @@ class GeocodeService {
 				cache.data
 			);
 			return response;
-		} else {
-			try {
-				const url = `${this.baseUrl}/reverse?format=jsonv2&lat=${lat}&lon=${lon}`;
-				const axiosResponse = await axios.get(url, {
-					params: {
-						format: 'jsonv2',
-						lat: lat,
-						lon: lon
-					}
-				});
-	
-				CacheDB.upsertReverseGeocode({
+		}
+		
+		try {
+			const url = `${this.baseUrl}/reverse?format=jsonv2&lat=${lat}&lon=${lon}`;
+			const axiosResponse = await axios.get(url, {
+				params: {
+					format: 'jsonv2',
 					lat: lat,
-					lon: lon,
-					data: axiosResponse.data,
-					createdAt: Date.now()
-				});
-	
-				const response = new ServiceResponse(
-					true,
-					200,
-					"Success",
-					axiosResponse.data
-				);
-				return response;
-			} catch (err) {
-				console.error(err);
-				const response = new ServiceResponse(
-					false,
-					502,
-					'Something went wrong',
-					err.toString()
-				);
-				return response;
-			}
+					lon: lon
+				}
+			});
+
+			CacheDB.upsertReverseGeocode({
+				lat: lat,
+				lon: lon,
+				data: axiosResponse.data,
+				createdAt: Date.now()
+			});
+
+			const response = new ServiceResponse(
+				true,
+				200,
+				"Success",
+				axiosResponse.data
+			);
+			return response;
+		} catch (err) {
+			console.error(err);
+			const response = new ServiceResponse(
+				false,
+				502,
+				'Something went wrong',
+				err.toString()
+			);
+			return response;
 		}
 	}
 }

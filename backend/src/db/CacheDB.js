@@ -105,6 +105,26 @@ class CacheDB {
 		}
 	}
 
+	findNearby(lat, lon, radius, category_ids) {
+		const caches = this.db.ensure('nearby', []);
+		let result = caches.find(entry => entry.lat === lat && entry.lon === lon && entry.radius === radius && entry.category_ids === category_ids);
+		if (result == null) {
+			return null;
+		} else {
+			return result;
+		}
+	}
+
+	upsertNearby(data) {
+		const caches = this.db.ensure('nearby', []);
+		const i = caches.findIndex(x => x.lat === data.lat && x.lon === data.lon && x.radius === data.radius && x.category_ids === data.category_ids);
+		if (i !== -1) {
+			this.db.set('nearby', data, i)
+		} else {
+			this.db.push('nearby', data);
+		}
+	}
+
 	delete(key, path) {
 		try {
 			this.db.delete(key, path);

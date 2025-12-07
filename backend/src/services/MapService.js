@@ -1,6 +1,9 @@
 import axios from 'axios';
 import config from '../config/config.js';
 import ServiceResponse from '../helper/ServiceResponse.js';
+import CacheDB from '../db/CacheDB.js';
+
+const MAP_CACHE_LIFETIME_MS = 120000; // 2 minutes
 
 /**
  * Map service provider class.
@@ -16,6 +19,18 @@ class MapService {
 	// param - array of [lon,lat] pairs
 	// return - route data
 	async getRoute(coordinates, profile = 'driving-car') {
+		const cache = CacheDB.findRoute(coordinates, profile);
+
+		if (cache && Date.now() - cache.createdAt < MAP_CACHE_LIFETIME_MS) {
+			const response = new ServiceResponse(
+				true,
+				200,
+				"Success",
+				cache.data
+			);
+			return response;
+		}
+
 		const fromCoordinates = coordinates[0].map(coor => coor.toString()).join(',');
 		const toCoordinates = coordinates[1].map(coor => coor.toString()).join(',');
 
@@ -28,7 +43,14 @@ class MapService {
 					end: toCoordinates
 				}
 			});
-	
+
+			CacheDB.upsertRoute({
+				coordinates: coordinates,
+				profile: profile,
+				data: axiosResponse.data,
+				createdAt: Date.now()
+			});
+
 			const response = new ServiceResponse(
 				true,
 				200,
@@ -74,14 +96,14 @@ class MapService {
 					Authorization: this.APIKey
 				}
 			});
-	
+
 			let resp;
 			if (typeof axiosResponse.data === 'string' || axiosResponse.data instanceof String) {
 				resp = {};
 			} else {
 				resp = axiosResponse.data;
 			}
-	
+
 			const response = new ServiceResponse(
 				true,
 				200,

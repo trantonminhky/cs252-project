@@ -11,7 +11,7 @@ router.all('/route',
 );
 
 router.all('/nearby',
-	ValidatorMiddleware.validateMethods(['GET', 'HEAD']),
+	ValidatorMiddleware.validateMethods(['POST']),
 	ValidatorMiddleware.validateAccessToken, 
 	mapController.nearby
 );
