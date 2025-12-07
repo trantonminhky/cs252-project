@@ -138,7 +138,7 @@ class ProfileController {
 		}
 
 		const response = await ProfileService.getUser(userID);
-		return void res.status(response.statusCode).json(response.payload.data);
+		return void res.status(response.statusCode).json(response.get());
 	}
 
 	async setPreferences(req, res, next) {

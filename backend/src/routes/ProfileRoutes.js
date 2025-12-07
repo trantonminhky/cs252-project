@@ -20,6 +20,11 @@ router.all('/refresh',
 	profileController.refresh
 );
 
+router.all('/:userID',
+	ValidatorMiddleware.validateMethods(['GET', 'HEAD']),
+	profileController.getUser	
+);
+
 router.all('/preferences',
 	ValidatorMiddleware.validateMethods(['POST']),
 	ValidatorMiddleware.validateContentType,
