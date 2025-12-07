@@ -64,7 +64,7 @@ class ProfileController {
 
 			const response = await ProfileService.register(username, password, name, age);
 
-			return void res.status(response.statusCode).json(response.get());
+			return void res.status(response.statusCode).set("Location", `/api/profile/${response.payload.data.userID}`).json(response.get());
 		} catch (error) {
 			next(error);
 		}

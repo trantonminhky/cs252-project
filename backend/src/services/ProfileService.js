@@ -47,10 +47,15 @@ class ProfileService {
 				savePlaces: []
 			});
 
+			const data = {
+				userID: userID
+			}
+
 			const response = new ServiceResponse(
 				true,
 				201,
-				"Success"
+				"Success",
+				data
 			);
 
 			return response;
