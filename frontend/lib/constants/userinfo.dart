@@ -21,6 +21,5 @@ class UserInfo {
   String username = '';
   List<String> preferences = [];
   //for the sake of convenience
-  final String tunnelUrl =
-      'https://summary-venture-velvet-moral.trycloudflare.com';
+  final String tunnelUrl = 'http://10.0.2.2:3000';
 }

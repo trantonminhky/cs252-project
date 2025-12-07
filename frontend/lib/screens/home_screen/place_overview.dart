@@ -14,7 +14,7 @@ import "package:virtour_frontend/providers/navigation_provider.dart";
 class PlaceOverview extends ConsumerWidget {
   final Place place;
 
-  PlaceOverview({
+  const PlaceOverview({
     super.key,
     required this.place,
   });

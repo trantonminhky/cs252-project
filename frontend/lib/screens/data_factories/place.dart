@@ -30,7 +30,7 @@ class Place {
       id: json['id']?.toString() ?? '',
       name: json['name'] ?? '',
       tags: _parseTags(json['tags']),
-      imageLink: json['imageLink'] ?? json['imageUrl'] ?? '',
+      imageLink: json['imageLink'] ?? json['image_link'] ?? '',
       description: json['description'] ?? '',
       lat: (json['lat'] ?? json['latitude'] ?? 0).toDouble(),
       lon: (json['lon'] ?? json['longitude'] ?? 0).toDouble(),

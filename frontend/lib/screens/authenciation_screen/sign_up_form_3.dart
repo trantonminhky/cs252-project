@@ -1,7 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:virtour_frontend/constants/userinfo.dart';
-import 'package:virtour_frontend/components/custom_text_field.dart';
 import 'package:virtour_frontend/screens/data_factories/filter_type.dart';
 
 class SignUpForm3 extends StatefulWidget {

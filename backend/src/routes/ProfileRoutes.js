@@ -32,8 +32,9 @@ router.all('/preferences',
 );
 
 router.all('/saved-places',
-	ValidatorMiddleware.validateMethods(['GET,', 'POST', 'DELETE', 'HEAD']),
-	profileController.getSavedPlaces
+	ValidatorMiddleware.validateMethods(['GET', 'POST', 'DELETE', 'HEAD']),
+	ValidatorMiddleware.validateContentType,
+	profileController.savedPlacesController
 );
 
 export default router;

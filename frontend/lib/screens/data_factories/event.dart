@@ -19,29 +19,12 @@ class Event {
     required this.numberOfPeople,
   });
 
-  factory Event.fromBson(Map<String, dynamic> bson) {
-    return Event(
-      id: bson['_id'].toString(),
-      name: bson['name'],
-      location: bson['location'],
-      description: bson['description'],
-      startTime: DateTime.parse(bson['startTime']),
-      endTime: DateTime.parse(bson['endTime']),
-      imageUrl: bson['imageUrl'],
-      numberOfPeople: bson['numberOfPeople'],
-    );
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    return other is Event && other.id == id;
   }
 
-  Map<String, dynamic> toBson() {
-    return {
-      '_id': id,
-      'name': name,
-      'location': location,
-      'description': description,
-      'startTime': startTime.toIso8601String(),
-      'endTime': endTime.toIso8601String(),
-      'imageUrl': imageUrl,
-      'numberOfPeople': numberOfPeople,
-    };
-  }
+  @override
+  int get hashCode => id.hashCode;
 }

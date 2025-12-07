@@ -1,6 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:virtour_frontend/frontend_service_layer/event_service.dart';
 import 'package:virtour_frontend/screens/data_factories/event.dart';
-import 'package:virtour_frontend/frontend_service_layer/place_service.dart';
 
 part 'event_provider.g.dart';
 
@@ -8,35 +8,7 @@ part 'event_provider.g.dart';
 class Events extends _$Events {
   @override
   FutureOr<List<Event>> build() async {
-    return await _fetchEventsFromDB();
-  }
-
-  Future<List<Event>> _fetchEventsFromDB() async {
-    final eventsData = await RegionService().fetchEvents();
-    final List<Event> eventsList = [];
-
-    eventsData.forEach((key, value) {
-      try {
-        eventsList.add(Event(
-          id: key,
-          name: value['name'] ?? 'Unnamed Event',
-          location: value['location'] ?? 'TBD',
-          description: value['description'] ?? '',
-          startTime: value['startTime'] != null
-              ? DateTime.fromMillisecondsSinceEpoch(value['startTime'] as int)
-              : DateTime.now(),
-          endTime: value['endTime'] != null
-              ? DateTime.fromMillisecondsSinceEpoch(value['endTime'] as int)
-              : DateTime.now(),
-          imageUrl: value['imageLink'] ?? '',
-          numberOfPeople: (value['participants'] as List?)?.length ?? 0,
-        ));
-      } catch (e) {
-        print('Error parsing event $key: $e');
-      }
-    });
-
-    return eventsList;
+    return await EventService().fetchEvents() ?? List<Event>.empty();
   }
 
   Future<void> addEvent(Event event) async {
@@ -62,6 +34,7 @@ class Events extends _$Events {
 
   Future<void> refresh() async {
     state = const AsyncValue.loading();
-    state = await AsyncValue.guard(() async => await _fetchEventsFromDB());
+    state =
+        await AsyncValue.guard(() async => await EventService().fetchEvents() ?? List<Event>.empty());
   }
 }

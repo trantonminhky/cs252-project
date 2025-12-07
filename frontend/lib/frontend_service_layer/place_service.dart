@@ -252,85 +252,6 @@ class RegionService {
     }
   }
 
-  // Event subscription
-  Future<bool> subscribeToEvent(String username, String eventId) async {
-    try {
-      final response = await dio.post('/event/subscribe', data: {
-        'username': username,
-        'eventID': eventId,
-      });
-
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        final data = response.data;
-        return data['success'] ?? false;
-      }
-      return false;
-    } on DioException catch (e) {
-      print('Error subscribing to event: ${e.message}');
-      return false;
-    }
-  }
-
-  Future<bool> unsubscribeFromEvent(String username, String eventId) async {
-    try {
-      final response = await dio.post('/event/unsubscribe', data: {
-        'username': username,
-        'eventID': eventId,
-      });
-
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        final data = response.data;
-        return data['success'] ?? false;
-      }
-      return false;
-    } on DioException catch (e) {
-      print('Error unsubscribing from event: ${e.message}');
-      return false;
-    }
-  }
-
-  // Fetch events from database
-  Future<Map<String, dynamic>> fetchEvents() async {
-    try {
-      final response = await dio.get('/db/export', queryParameters: {
-        'name': 'EventDB',
-      });
-
-      if (response.statusCode == 200) {
-        final data = response.data;
-        if (data['success'] == true) {
-          return data['payload']['data'] as Map<String, dynamic>;
-        }
-      }
-      return {};
-    } on DioException catch (e) {
-      print('Error fetching events: ${e.message}');
-      return {};
-    }
-  }
-
-  // Fetch subscribed events for a user
-  Future<List<Map<String, dynamic>>> fetchSubscribedEvents(
-      String username) async {
-    try {
-      final response =
-          await dio.get('/event/get-by-username', queryParameters: {
-        'username': username,
-      });
-
-      if (response.statusCode == 200) {
-        final data = response.data;
-        if (data['success'] == true) {
-          return List<Map<String, dynamic>>.from(data['payload']['data']);
-        }
-      }
-      return [];
-    } on DioException catch (e) {
-      print('Error fetching subscribed events: ${e.message}');
-      return [];
-    }
-  }
-
   // Fetch ML-based recommendations for a user
   Future<List<String>> fetchRecommendations(
       String username, double lat, double lon) async {
@@ -360,33 +281,33 @@ class RegionService {
     }
   }
 
-  // Create a new event
-  Future<Map<String, dynamic>?> createEvent({
-    required String name,
-    required String description,
-    String? imageLink,
-    int? startTime,
-    int? endTime,
-  }) async {
-    try {
-      final response = await dio.post('/event/create', data: {
-        'name': name,
-        'description': description,
-        'imageLink': imageLink,
-        'startTime': startTime,
-        'endTime': endTime,
-      });
+  // // Create a new event
+  // Future<Map<String, dynamic>?> createEvent({
+  //   required String name,
+  //   required String description,
+  //   String? imageLink,
+  //   int? startTime,
+  //   int? endTime,
+  // }) async {
+  //   try {
+  //     final response = await dio.post('/event/create', data: {
+  //       'name': name,
+  //       'description': description,
+  //       'imageLink': imageLink,
+  //       'startTime': startTime,
+  //       'endTime': endTime,
+  //     });
 
-      if (response.statusCode == 201) {
-        final data = response.data;
-        if (data['success'] == true) {
-          return data['payload']['data'];
-        }
-      }
-      return null;
-    } on DioException catch (e) {
-      print('Error creating event: ${e.message}');
-      return null;
-    }
-  }
+  //     if (response.statusCode == 201) {
+  //       final data = response.data;
+  //       if (data['success'] == true) {
+  //         return data['payload']['data'];
+  //       }
+  //     }
+  //     return null;
+  //   } on DioException catch (e) {
+  //     print('Error creating event: ${e.message}');
+  //     return null;
+  //   }
+  // }
 }
