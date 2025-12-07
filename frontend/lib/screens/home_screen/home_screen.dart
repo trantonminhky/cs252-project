@@ -9,7 +9,7 @@ import "package:virtour_frontend/screens/home_screen/place_overview.dart";
 import "package:virtour_frontend/screens/home_screen/search_screen.dart";
 import "package:virtour_frontend/screens/data_factories/place.dart";
 import "package:virtour_frontend/frontend_service_layer/place_service.dart";
-import "package:virtour_frontend/constants/userinfo.dart";
+import "package:virtour_frontend/global/userinfo.dart";
 import "package:virtour_frontend/providers/event_provider.dart";
 
 class HomeScreen extends ConsumerStatefulWidget {

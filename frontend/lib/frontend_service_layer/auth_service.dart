@@ -1,6 +1,6 @@
 import "package:dio/dio.dart";
 import "package:shared_preferences/shared_preferences.dart";
-import "package:virtour_frontend/constants/userinfo.dart";
+import "package:virtour_frontend/global/userinfo.dart";
 import "package:virtour_frontend/frontend_service_layer/service_helpers.dart";
 
 class AuthService {
@@ -19,10 +19,10 @@ class AuthService {
     ));
   }
 
-  Future<Map<String, dynamic>> signIn(String username, String password) async {
+  Future<Map<String, dynamic>> signIn(String userId, String password) async {
     try {
       final response = await _dio.post("$_baseUrl/api/profile/login",
-          data: {"username": username, "password": password});
+          data: {"username": userId, "password": password});
 
       final body = response.data as Map<String, dynamic>;
 
@@ -49,25 +49,16 @@ class AuthService {
         }
 
         await prefs.setString("auth_token", token);
-        await prefs.setString("username", username);
+        await prefs.setString("username", userId);
 
-        UserInfo().username = username;
+        UserInfo().userId = userId;
         UserInfo().userSessionToken = token;
         UserInfo().userType = (dataMap["isTourist"] ?? true)
             ? UserType.tourist
             : UserType.business;
 
-        // Safely handle preferences - it might be a Map, List, or null
-        final prefsData = dataMap["preferences"];
-
-        if (prefsData is List) {
-          UserInfo().preferences = prefsData.map((e) => e.toString()).toList();
-        } else if (prefsData is Map) {
-          UserInfo().preferences =
-              prefsData.values.map((e) => e.toString()).toList();
-        } else {
-          UserInfo().preferences = [];
-        }
+        // Call getUserInfo to populate all user data
+        await UserInfo().getUserInfo();
 
         return response.data;
       } else {
@@ -83,8 +74,14 @@ class AuthService {
     }
   }
 
-  Future<Map<String, dynamic>> signUp(String username, String password,
-      String name, int age, bool isTourist, List<String> preferences) async {
+  Future<Map<String, dynamic>> signUp(
+      String username,
+      String password,
+      String name,
+      int age,
+      bool isTourist,
+      List<String> preferences,
+      bool staySignedIn) async {
     try {
       final response = await _dio.post("$_baseUrl/api/profile/register", data: {
         "username": username,
@@ -93,6 +90,7 @@ class AuthService {
         "age": age,
         "isTourist": isTourist,
         "preferences": preferences,
+        "staySignedIn": staySignedIn,
       });
       final prefs = await SharedPreferences.getInstance();
       final body = response.data as Map<String, dynamic>;

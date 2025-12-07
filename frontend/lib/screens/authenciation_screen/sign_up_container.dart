@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:virtour_frontend/screens/authenciation_screen/sign_in_form.dart';
 import 'package:virtour_frontend/screens/authenciation_screen/sign_up_form_1.dart';
 import 'package:virtour_frontend/screens/authenciation_screen/sign_up_form_2.dart';
 import 'package:virtour_frontend/screens/authenciation_screen/sign_up_form_3.dart';
 import 'package:virtour_frontend/frontend_service_layer/auth_service.dart';
-import 'package:virtour_frontend/constants/userinfo.dart';
+import 'package:virtour_frontend/global/userinfo.dart';
 import 'package:virtour_frontend/components/bottom_bar.dart';
 
 class SignUpContainer extends StatefulWidget {
@@ -70,6 +71,7 @@ class _SignUpContainerState extends State<SignUpContainer> {
         int.parse(ageController.text),
         userTypeController.text.toLowerCase() == 'tourist',
         _selectedPreferences,
+        UserInfo().staySignedIn,
       );
 
       if (!mounted) return;
@@ -83,9 +85,9 @@ class _SignUpContainerState extends State<SignUpContainer> {
 
       switch (result['success']) {
         case true:
-          _showSnackBar("Sign up successful, navigating to home.");
+          _showSnackBar("Sign up successful, please log in to continue.");
           if (mounted) {
-            navigateToHome();
+            navigateToSignIn();
           }
           break;
         case false:
@@ -116,11 +118,11 @@ class _SignUpContainerState extends State<SignUpContainer> {
     setState(() => _index = newIndex);
   }
 
-  void navigateToHome() {
+  void navigateToSignIn() {
     Navigator.of(context).pushReplacement(
       CupertinoPageRoute(
         builder: (context) {
-          return const BottomNavBar();
+          return const SignInForm();
         },
       ),
     );

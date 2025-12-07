@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:virtour_frontend/screens/data_factories/event.dart';
 import 'package:virtour_frontend/providers/participated_events_provider.dart';
 import 'package:virtour_frontend/frontend_service_layer/place_service.dart';
-import 'package:virtour_frontend/constants/userinfo.dart';
+import 'package:virtour_frontend/global/userinfo.dart';
 
 class EventDetailScreen extends ConsumerWidget {
   final Event event;

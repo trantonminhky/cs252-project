@@ -7,7 +7,7 @@ import 'package:virtour_frontend/providers/event_provider.dart';
 import 'package:virtour_frontend/screens/data_factories/event.dart';
 import 'package:virtour_frontend/frontend_service_layer/place_service.dart';
 import 'package:virtour_frontend/screens/trip_screen/create_event_form.dart';
-import 'package:virtour_frontend/constants/userinfo.dart';
+import 'package:virtour_frontend/global/userinfo.dart';
 
 class TripScreenContent extends ConsumerStatefulWidget {
   const TripScreenContent({super.key});

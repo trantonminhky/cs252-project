@@ -1,5 +1,5 @@
 import "package:dio/dio.dart";
-import "package:virtour_frontend/constants/userinfo.dart";
+import "package:virtour_frontend/global/userinfo.dart";
 import "package:virtour_frontend/screens/data_factories/review.dart";
 import "package:virtour_frontend/frontend_service_layer/service_helpers.dart";
 

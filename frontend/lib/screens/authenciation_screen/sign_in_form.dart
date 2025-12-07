@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:virtour_frontend/components/custom_text_field.dart';
-import 'package:virtour_frontend/constants/colors.dart';
+import 'package:virtour_frontend/global/colors.dart';
 import 'package:virtour_frontend/frontend_service_layer/auth_service.dart';
 import 'package:virtour_frontend/components/bottom_bar.dart';
 

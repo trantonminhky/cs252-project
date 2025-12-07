@@ -1,5 +1,5 @@
 import "package:dio/dio.dart";
-import "package:virtour_frontend/constants/userinfo.dart";
+import "package:virtour_frontend/global/userinfo.dart";
 
 class ServiceHelpers {
   static void addAuthInterceptor(Dio dio) {

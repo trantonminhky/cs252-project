@@ -3,7 +3,7 @@ import "package:virtour_frontend/screens/data_factories/region.dart";
 import "package:virtour_frontend/screens/data_factories/review.dart";
 import "package:dio/dio.dart";
 import "package:shared_preferences/shared_preferences.dart";
-import "package:virtour_frontend/constants/userinfo.dart";
+import "package:virtour_frontend/global/userinfo.dart";
 
 //this is an interface for fetching region data from database
 class RegionService {

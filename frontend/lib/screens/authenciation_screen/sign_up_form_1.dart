@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:virtour_frontend/global/userinfo.dart';
 import 'package:virtour_frontend/components/custom_text_field.dart';
 
 class SignUpForm1 extends StatelessWidget {
@@ -45,6 +46,30 @@ class SignUpForm1 extends StatelessWidget {
             prefixIcon: CupertinoIcons.lock,
             obscureText: true,
           ),
+          Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                  padding: const EdgeInsets.only(top: 12),
+                  child: TextButton(
+                    onPressed: () {
+                      UserInfo().staySignedIn = true;
+                    },
+                    style: TextButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                    ),
+                    child: const Text(
+                      "Stay signed in",
+                      style: TextStyle(
+                        color: Color(0xffd72323),
+                        fontSize: 16,
+                        fontFamily: "BeVietnamPro",
+                        fontWeight: FontWeight.w500,
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                  ))),
           const SizedBox(height: 96),
           Center(
             child: TextButton(

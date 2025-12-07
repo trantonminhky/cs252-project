@@ -5,7 +5,7 @@ import "package:virtour_frontend/frontend_service_layer/place_service.dart";
 import "package:virtour_frontend/screens/data_factories/place.dart";
 import "package:virtour_frontend/screens/data_factories/filter_type.dart";
 import "package:virtour_frontend/components/cards.dart";
-import "package:virtour_frontend/constants/userinfo.dart";
+import "package:virtour_frontend/global/userinfo.dart";
 import "package:virtour_frontend/screens/home_screen/place_overview.dart";
 import "package:virtour_frontend/frontend_service_layer/search_cache_service.dart";
 
@@ -206,6 +206,7 @@ class _SearchScreenState extends State<SearchScreen> {
                         hintStyle: TextStyle(
                           color: Colors.grey[400],
                           fontFamily: "BeVietnamPro",
+                          fontWeight: FontWeight.w400,
                         ),
                         prefixIcon: const Icon(CupertinoIcons.search),
                         filled: true,
@@ -239,7 +240,6 @@ class _SearchScreenState extends State<SearchScreen> {
               ),
             ),
 
-            // SizedBox with height 48
             const SizedBox(height: 16),
 
             // Two rows of category chips
