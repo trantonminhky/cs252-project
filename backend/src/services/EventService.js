@@ -149,7 +149,7 @@ class EventService {
 
 		const results = [];
 		for (const [key, val] of Object.entries(_export)) {
-			if (val.participants.includes(username)) {
+			if (Array.isArray(val.participants) && val.participants.includes(username)) {
 				results.push(val);
 			}
 		}

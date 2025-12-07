@@ -111,6 +111,11 @@ class ProfileService {
 	 * @returns {Promise<ServiceResponse>} Response
 	 */
 	async login(user, pass) {
+		if (!UserDB.has(user)) {
+			return new ServiceResponse(false, 401, "Username does not exist");
+		}
+		const password = UserDB.get(user, "password");
+
 		// if this user does not exist
 		if (!password) {
 			return (new ServiceResponse(

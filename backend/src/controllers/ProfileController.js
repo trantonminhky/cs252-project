@@ -107,4 +107,11 @@ class ProfileController {
 	}
 }
 
-export default new ProfileController();
+//export default new ProfileController();
+const controller = new ProfileController();
+controller.savedPlacesController = controller.savedPlacesController.bind(controller);
+controller.addSavedPlace = controller.addSavedPlace.bind(controller);
+controller.removeSavedPlace = controller.removeSavedPlace.bind(controller);
+controller.getSavedPlaces = controller.getSavedPlaces.bind(controller);
+
+export default controller;
