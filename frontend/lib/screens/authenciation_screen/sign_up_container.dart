@@ -6,7 +6,6 @@ import 'package:virtour_frontend/screens/authenciation_screen/sign_up_form_2.dar
 import 'package:virtour_frontend/screens/authenciation_screen/sign_up_form_3.dart';
 import 'package:virtour_frontend/frontend_service_layer/auth_service.dart';
 import 'package:virtour_frontend/global/userinfo.dart';
-import 'package:virtour_frontend/components/bottom_bar.dart';
 
 class SignUpContainer extends StatefulWidget {
   const SignUpContainer({super.key});

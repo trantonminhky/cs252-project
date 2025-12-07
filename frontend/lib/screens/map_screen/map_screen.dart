@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:flutter/cupertino.dart";
 import "package:flutter_map/flutter_map.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:latlong2/latlong.dart";
@@ -17,6 +18,7 @@ class MapScreen extends ConsumerStatefulWidget {
 class _MapScreenState extends ConsumerState<MapScreen> {
   final MapController _mapController = MapController();
   final GeocodeService _geocodeService = GeocodeService();
+  final TextEditingController _searchController = TextEditingController();
 
   // Default location (Bà Thiên Hậu Pagoda)
   late LatLng _location;
@@ -24,6 +26,7 @@ class _MapScreenState extends ConsumerState<MapScreen> {
   String _locationSubtitle = 'Loading address...';
   late String _locationImage;
   bool _isLoadingAddress = false;
+  bool _isSearching = false;
 
   @override
   void initState() {
@@ -32,9 +35,78 @@ class _MapScreenState extends ConsumerState<MapScreen> {
   }
 
   @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  @override
   void didUpdateWidget(MapScreen oldWidget) {
     super.didUpdateWidget(oldWidget);
     _fetchAddress();
+  }
+
+  Future<void> _searchLocation(String query) async {
+    if (query.trim().isEmpty) return;
+
+    setState(() {
+      _isSearching = true;
+    });
+
+    try {
+      final place = await _geocodeService.geocodeAddress(query);
+
+      if (place != null && mounted) {
+        setState(() {
+          _location = LatLng(place.lat, place.lon);
+          _locationName = place.name;
+          _locationImage = place.imageLink;
+          _locationSubtitle = '${place.lat}, ${place.lon}';
+          _isSearching = false;
+        });
+
+        // Move map to new location
+        _mapController.move(_location, 15.0);
+
+        // Fetch proper address
+        _fetchAddressForLocation(place.lat, place.lon);
+      } else {
+        setState(() {
+          _isSearching = false;
+        });
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Location not found')),
+          );
+        }
+      }
+    } catch (e) {
+      setState(() {
+        _isSearching = false;
+      });
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error: $e')),
+        );
+      }
+    }
+  }
+
+  Future<void> _fetchAddressForLocation(double lat, double lon) async {
+    try {
+      final address = await _geocodeService.reverseGeocode(lat, lon);
+      if (mounted) {
+        setState(() {
+          _locationSubtitle = address ?? '$lat, $lon';
+        });
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() {
+          _locationSubtitle = '$lat, $lon';
+        });
+      }
+    }
   }
 
   Future<void> _fetchAddress() async {
@@ -166,8 +238,87 @@ class _MapScreenState extends ConsumerState<MapScreen> {
               ),
             ),
           ),
+
+          // Search bar
+          Positioned(
+            top: 16,
+            left: 72,
+            right: 16,
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.2),
+                    blurRadius: 8,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: TextField(
+                controller: _searchController,
+                textInputAction: TextInputAction.search,
+                onChanged: (value) {
+                  setState(() {}); // Rebuild to show/hide clear button
+                },
+                onSubmitted: (value) {
+                  _searchLocation(value);
+                },
+                decoration: InputDecoration(
+                  hintText: "Search for a location...",
+                  hintStyle: TextStyle(
+                    color: Colors.grey[400],
+                    fontFamily: "BeVietnamPro",
+                    fontWeight: FontWeight.w400,
+                  ),
+                  prefixIcon: _isSearching
+                      ? const Padding(
+                          padding: EdgeInsets.all(12.0),
+                          child: SizedBox(
+                            width: 20,
+                            height: 20,
+                            child: CircularProgressIndicator(strokeWidth: 2),
+                          ),
+                        )
+                      : const Icon(CupertinoIcons.search),
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(
+                      width: 2,
+                      color: Color(0xFFD72323),
+                    ),
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  suffixIcon: _searchController.text.isNotEmpty
+                      ? IconButton(
+                          icon: const Icon(Icons.clear),
+                          onPressed: () {
+                            setState(() {
+                              _searchController.clear();
+                            });
+                          },
+                        )
+                      : null,
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 12,
+                  ),
+                ),
+              ),
+            ),
+          ),
+
           const SizedBox(height: 96),
-          // Horizontal briefing at the top (y = 48)
           Positioned(
             top: 72,
             left: (MediaQuery.of(context).size.width - 372) / 2,

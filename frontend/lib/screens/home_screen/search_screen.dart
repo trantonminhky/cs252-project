@@ -288,6 +288,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           ),
                           child: Text(
                             _normalizeCategoryName(category),
+                            textAlign: TextAlign.center,
                             style: TextStyle(
                               color: isSelected ? Colors.white : chipColor,
                               fontSize: 14,
@@ -344,6 +345,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           ),
                           child: Text(
                             _normalizeCategoryName(category),
+                            textAlign: TextAlign.center,
                             style: TextStyle(
                               color: isSelected ? Colors.white : chipColor,
                               fontSize: 14,
