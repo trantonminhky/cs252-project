@@ -112,6 +112,7 @@ class GeocodeService {
 				);
 				return response;
 			} catch (err) {
+				console.error(err);
 				const response = new ServiceResponse(
 					false,
 					502,

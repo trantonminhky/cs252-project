@@ -44,9 +44,7 @@ class CacheDB {
 	}
 
 	findGeocode(query) {
-		this.db.ensure('geocode', []);
 		const caches = this.db.ensure('geocode', []);
-		console.log(caches);
 		let result = caches.find(entry => entry.address === query);
 		if (result == null) {
 			return null;
@@ -66,7 +64,6 @@ class CacheDB {
 	}
 
 	findReverseGeocode(lat, lon) {
-		this.db.ensure('geocode', []);
 		const caches = this.db.ensure('reverse_geocode', []);
 		let result = caches.find(entry => entry.lat === lat && entry.lon === lon);
 		if (result == null) {
@@ -78,11 +75,33 @@ class CacheDB {
 
 	upsertReverseGeocode(data) {
 		const caches = this.db.ensure('reverse_geocode', []);
-		const i = caches.findIndex(x => x.name === data.name);
-		if (i !== -1) {
+
+		// find if cache have the result query
+		const i = caches.findIndex(x => x.lat === data.lat && x.lon === data.lon);
+		if (i !== -1) { // if yes, then update
 			this.db.set('reverse_geocode', data, i)
-		} else {
+		} else { // if no, then insert
 			this.db.push('reverse_geocode', data);
+		}
+	}
+
+	findRoute(coordinates, profile) {
+		const caches = this.db.ensure('route', []);
+		let result = caches.find(entry => entry.coordinates === coordinates && entry.profile === profile);
+		if (result == null) {
+			return null;
+		} else {
+			return result;
+		}
+	}
+
+	upsertRoute(data) {
+		const caches = this.db.ensure('route', []);
+		const i = caches.findIndex(x => x.coordinates === data.coordinates && x.profile === data.profile);
+		if (i !== -1) {
+			this.db.set('route', data, i)
+		} else {
+			this.db.push('route', data);
 		}
 	}
 
