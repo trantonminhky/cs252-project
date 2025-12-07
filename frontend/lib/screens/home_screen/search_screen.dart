@@ -1,3 +1,4 @@
+import "dart:async";
 import "package:flutter/material.dart";
 import "package:flutter/cupertino.dart";
 import "package:carousel_slider/carousel_slider.dart";
@@ -26,6 +27,7 @@ class _SearchScreenState extends State<SearchScreen> {
   final RegionService _regionService = RegionService();
   final UserInfo _userInfo = UserInfo();
   final SearchCacheService _cacheService = SearchCacheService();
+  Timer? _debounce;
 
   List<String> _availableCategories = [];
   List<String> _selectedCategories = [];
@@ -39,6 +41,9 @@ class _SearchScreenState extends State<SearchScreen> {
     super.initState();
     _initializeCategories();
     _loadRecentPlaces();
+
+    // Add listener to search controller for real-time search
+    _searchController.addListener(_onSearchChanged);
 
     // If an initial category is provided, make sure it's selected
     if (widget.initialSelectedCategory != null) {
@@ -55,6 +60,25 @@ class _SearchScreenState extends State<SearchScreen> {
         _selectedCategories.add(widget.initialSelectedCategory!);
       }
     }
+  }
+
+  void _onSearchChanged() {
+    // Cancel previous timer if it exists
+    if (_debounce?.isActive ?? false) _debounce!.cancel();
+
+    // Set a new timer for debouncing (500ms delay)
+    _debounce = Timer(const Duration(milliseconds: 500), () {
+      if (_searchController.text.isNotEmpty) {
+        _performSearch();
+      } else {
+        // Clear results when search is empty to show cache again
+        setState(() {
+          _searchResults = [];
+        });
+        // Reload recent places to ensure cache is fresh
+        _loadRecentPlaces();
+      }
+    });
   }
 
   Future<void> _loadRecentPlaces() async {
@@ -104,6 +128,7 @@ class _SearchScreenState extends State<SearchScreen> {
     setState(() {
       _isLoading = true;
       _errorMessage = null;
+      _searchResults = []; // Clear previous results immediately
     });
 
     try {
@@ -172,6 +197,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   void dispose() {
+    _debounce?.cancel();
     _searchController.dispose();
     super.dispose();
   }

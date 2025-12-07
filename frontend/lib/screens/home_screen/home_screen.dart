@@ -60,15 +60,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       final locationIds =
           await _regionService.fetchRecommendations(username, lat, lon);
 
-      final places = <Place>[];
-      for (final id in locationIds) {
-        try {
-          final place = await _regionService.fetchPlacebyId(id);
-          places.add(place);
-        } catch (e) {
-          print('Error fetching place $id: $e');
-        }
-      }
+      final places = await _regionService.getPlace("top destinations", []);
 
       setState(() {
         _topDestinations = places;
@@ -300,99 +292,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     const SizedBox(height: 16),
                     _buildTopDestinations(),
 
-                    const SizedBox(height: 32),
-
-                    // Previously Viewed Section
-                    const Padding(
-                      padding: EdgeInsets.only(left: 20),
-                      child: Text(
-                        "Previously Viewed",
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontFamily: "BeVietnamPro",
-                          fontWeight: FontWeight.w700,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    const HorizontalBriefingCarousel(
-                      height: 187,
-                      autoPlay: false,
-                      items: [
-                        Briefing(
-                          size: BriefingSize.horiz,
-                          title: "Bà Thiên Hậu Pagoda",
-                          subtitle: "710 Nguyễn Trãi, Quận 5",
-                          imageUrl: "../assets/images/places/Ba_Thien_Hau.jpg",
-                        ),
-                        Briefing(
-                          size: BriefingSize.horiz,
-                          title: "Notre-Dame Cathedral",
-                          subtitle: "Quận 1, TP.HCM",
-                          imageUrl:
-                              "../assets/images/places/Notre_Dame_Cathedral.jpg",
-                        ),
-                        Briefing(
-                          size: BriefingSize.horiz,
-                          title: "Hanoi Railway",
-                          subtitle: "Old Quarter, Hà Nội",
-                          imageUrl: "../assets/images/places/Hanoi_rail.jpg",
-                        ),
-                      ],
-                    ),
-
-                    const SizedBox(height: 32),
-
-                    // Cultour Essentials in Sài Gòn Section
-                    const Padding(
-                      padding: EdgeInsets.only(left: 20),
-                      child: Text(
-                        "Cultour Essentials in Sài Gòn",
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontFamily: "BeVietnamPro",
-                          fontWeight: FontWeight.w700,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    const VerticalBriefingCarousel(
-                      height: 320,
-                      autoPlay: false,
-                      items: [
-                        Briefing(
-                          size: BriefingSize.vert,
-                          title: "Saigon Opera House",
-                          category: "Kiến trúc",
-                          imageUrl:
-                              "../assets/images/places/Saigon_Opera_House.jpg",
-                        ),
-                        Briefing(
-                          size: BriefingSize.vert,
-                          title: "Central Post Office",
-                          category: "Lịch sử",
-                          imageUrl:
-                              "../assets/images/places/Saigon_Central_Post_Office.jpg",
-                        ),
-                        Briefing(
-                          size: BriefingSize.vert,
-                          title: "Việt Nam Quốc Tự",
-                          category: "Di sản",
-                          imageUrl:
-                              "../assets/images/places/Viet_Nam_Quoc_Tu.jpg",
-                        ),
-                        Briefing(
-                          size: BriefingSize.vert,
-                          title: "Bà Thiên Hậu Pagoda",
-                          category: "Tâm linh",
-                          imageUrl: "../assets/images/places/Ba_Thien_Hau.jpg",
-                        ),
-                      ],
-                    ),
-
-                    const SizedBox(height: 20), // Bottom padding
+                    const SizedBox(height: 32), // Bottom padding
                   ],
                 ),
               ),
