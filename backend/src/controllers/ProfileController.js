@@ -2,27 +2,46 @@ import ServiceResponse from '../helper/ServiceResponse.js';
 import ProfileService from '../services/ProfileService.js';
 import { issueSessionToken } from '../services/auth/sessionTokenValidator.js';
 
+function validateEmail(email) {
+	return email
+		.toLowerCase()
+		.match(
+			/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+		);
+}
+
 // TO-DO: DOCUMENT CONTROLLER CLASSES
 class ProfileController {
 	async register(req, res, next) {
 		try {
 			const username = req.body.username;
+			const email = req.body.email;
 			const password = req.body.password;
 			const name = req.body.name;
 			const age = req.body.age;
 			const type = req.body.type;
 
-			if (!username || !password) {
+			if (!email || !password) {
 				const response = new ServiceResponse(
 					false,
 					400,
-					`Username or password is required`
+					`Email or password is required`
 				);
 
 				return void res.status(response.statusCode).json(response.get());
 			}
 
-			if (!name || !age) {
+			if (!validateEmail(email)) {
+				const response = new ServiceResponse(
+					false,
+					400,
+					`Email is invalid`
+				);
+
+				return void res.status(response.statusCode).json(response.get());
+			}
+
+			if (!username || !name || !age) {
 				const response = new ServiceResponse(
 					false,
 					400,
@@ -72,21 +91,21 @@ class ProfileController {
 
 	async login(req, res, next) {
 		try {
-			const username = req.body.username;
+			const email = req.body.email;
 			const password = req.body.password;
 			const staySignedIn = req.body.staySignedIn;
 
-			if (!username || !password) {
+			if (!email || !password) {
 				const response = new ServiceResponse(
 					false,
 					400,
-					"Username or password is required"
+					"Email or password is required"
 				);
 
 				return void res.status(response.statusCode).json(response.get());
 			}
 
-			const response = await ProfileService.login(username, password);
+			const response = await ProfileService.login(email, password);
 
 			if (staySignedIn) {
 				const userID = response.payload.data.userID;
@@ -126,19 +145,23 @@ class ProfileController {
 	}
 
 	async getUser(req, res, next) {
-		const userID = req.params.userID;
-		
-		if (!userID) {
-			const response = new ServiceResponse(
-				false,
-				404,
-				"Route not found"
-			);
-			return void res.status(response.statusCode).json(response.get());
-		}
+		try {
+			const userID = req.params.userID;
 
-		const response = await ProfileService.getUser(userID);
-		return void res.status(response.statusCode).json(response.get());
+			if (!userID) {
+				const response = new ServiceResponse(
+					false,
+					404,
+					"Route not found"
+				);
+				return void res.status(response.statusCode).json(response.get());
+			}
+
+			const response = await ProfileService.getUser(userID);
+			return void res.status(response.statusCode).json(response.get());
+		} catch (err) {
+			next(err);
+		}
 	}
 
 	async setPreferences(req, res, next) {
@@ -194,7 +217,7 @@ class ProfileController {
 
 	async addSavedPlace(req, res, next) {
 		try {
-			const { userID,  placeID } = req.body;
+			const { userID, placeID } = req.body;
 
 			if (!userID) {
 				const response = new ServiceResponse(

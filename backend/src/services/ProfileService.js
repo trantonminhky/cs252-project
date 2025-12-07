@@ -21,12 +21,12 @@ class ProfileService {
 	 * @param {String} password - Password
 	 * @returns {Promise<ServiceResponse>} Response
 	 */
-	async register(username, password, name, age, type) {
-		if (UserDB.findIndex(user => user.username === username)) {
+	async register(email, username, password, name, age, type) {
+		if (UserDB.findIndex(user => user.email === email)) {
 			const response = new ServiceResponse(
 				false,
 				409,
-				"Username already taken"
+				"This email already has an account"
 			);
 			return response;
 		}
@@ -40,6 +40,7 @@ class ProfileService {
 			UserDB.set(userID, {
 				username: username,
 				discriminant: discriminant,
+				email: email,
 				password: passwordHash,
 				name: name,
 				age: age,
@@ -77,14 +78,14 @@ class ProfileService {
 	 * @param {String} password - Password
 	 * @returns {Promise<ServiceResponse>} Response
 	 */
-	async login(username, password) {
+	async login(email, password) {
 		// if this user does not exist
-		const userID = UserDB.findIndex(user => user.username === username);
+		const userID = UserDB.findIndex(user => user.email === email);
 		if (!userID) {
 			const response = new ServiceResponse(
 				false,
 				404,
-				"Username does not exist"
+				"There is no account associated with this email"
 			);
 			return response;
 		}
