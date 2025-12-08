@@ -181,13 +181,13 @@
 <dl class="details">
     
     <dt class="tag-description">Description:</dt>
-    <dd class="tag-description"><ul class="dummy"><li>Clear selected database given name. This action is destructive and irreparable.</li></ul></dd>
+    <dd class="tag-description"><ul class="dummy"><li>Service function for <b>api/db/clear</b>. Clears a database given the name. <b>This action is irreversible</b>. Supports <b>DELETE</b> requests.</li></ul></dd>
     
 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DBService.js.html">DBService.js</a>, <a href="DBService.js.html#line31">line 31</a>
+        <a href="DBService.js.html">DBService.js</a>, <a href="DBService.js.html#line41">line 41</a>
     </li></ul></dd>
     
 
@@ -224,12 +224,168 @@
 
 
 
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>204</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">NO_CONTENT</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Successful request</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>400</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">BAD_REQUEST</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Missing name</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>404</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">NOT_FOUND</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">No database with the given name is found</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>405</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">METHOD_NOT_ALLOWED</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The endpoint does not support the HTTP method specified</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>500</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">INTERNAL_SERVER_ERROR</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Something went wrong with the backend (cooked)</td>
+        </tr>
+
+    
+    </tbody>
+</table>
 
 
 
 
 
 
+
+
+
+
+
+
+    <h5 class="h5-examples">Example</h5>
+    
+        <p class="code-caption">cURL</p>
+    
+    <pre class="prettyprint"><code>curl -X DELETE http://localhost:3000/api/db/clear?name=CacheDB</code></pre>
 
 
 
@@ -276,7 +432,7 @@
 
             
 
-            <td class="description last">Database name</td>
+            <td class="description last">Database name to delete</td>
         </tr>
 
     
@@ -335,13 +491,13 @@
 <dl class="details">
     
     <dt class="tag-description">Description:</dt>
-    <dd class="tag-description"><ul class="dummy"><li>Clear all databases. This action is destructive and irreparable.</li></ul></dd>
+    <dd class="tag-description"><ul class="dummy"><li>Service function for <b>api/db/clear-all</b>. Clears alls data from all databases. <b>This action is destructive and irreversible</b>. Supports <b>DELETE</b> requests.</li></ul></dd>
     
 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DBService.js.html">DBService.js</a>, <a href="DBService.js.html#line58">line 58</a>
+        <a href="DBService.js.html">DBService.js</a>, <a href="DBService.js.html#line75">line 75</a>
     </li></ul></dd>
     
 
@@ -378,12 +534,120 @@
 
 
 
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>204</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">NO_CONTENT</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Successful request</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>405</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">METHOD_NOT_ALLOWED</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The endpoint does not support the HTTP method specified</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>500</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">INTERNAL_SERVER_ERROR</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Something went wrong with the backend (cooked)</td>
+        </tr>
+
+    
+    </tbody>
+</table>
 
 
 
 
 
 
+
+
+
+
+
+
+    <h5 class="h5-examples">Example</h5>
+    
+        <p class="code-caption">cURL</p>
+    
+    <pre class="prettyprint"><code>curl -X DELETE http://localhost:3000/api/db/clear-all</code></pre>
 
 
 
@@ -445,7 +709,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DBService.js.html">DBService.js</a>, <a href="DBService.js.html#line74">line 74</a>
+        <a href="DBService.js.html">DBService.js</a>, <a href="DBService.js.html#line91">line 91</a>
     </li></ul></dd>
     
 
@@ -603,7 +867,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DBService.js.html">DBService.js</a>, <a href="DBService.js.html#line101">line 101</a>
+        <a href="DBService.js.html">DBService.js</a>, <a href="DBService.js.html#line118">line 118</a>
     </li></ul></dd>
     
 
@@ -710,7 +974,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Mon Dec 08 2025 19:37:01 GMT+0700 (Indochina Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Mon Dec 08 2025 21:43:11 GMT+0700 (Indochina Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>

@@ -62,8 +62,15 @@ class DBService {
 	}
 
 	/**
-	 * Clear all databases. This action is destructive and irreparable.
+	 * Service function for <b>api/db/clear-all</b>. Clears alls data from all databases. <b>This action is destructive and irreversible</b>. Supports <b>DELETE</b> requests.
 	 * @returns {Promise<ServiceResponse>}
+	 * 
+	 * @example <caption>cURL</caption>
+	 * curl -X DELETE http://localhost:3000/api/db/clear-all
+	 * 
+	 * @property {NO_CONTENT} 204 - Successful request
+	 * @property {METHOD_NOT_ALLOWED} 405 - The endpoint does not support the HTTP method specified
+	 * @property {INTERNAL_SERVER_ERROR} 500 - Something went wrong with the backend (cooked)
 	 */
 	async clearAll() {
 		const databases = await this.databases;
