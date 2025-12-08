@@ -5,11 +5,11 @@ import "package:virtour_frontend/components/briefings.dart";
 import "package:virtour_frontend/components/custom_text_field.dart";
 import "package:virtour_frontend/components/events_banner.dart";
 import "package:virtour_frontend/components/briefing_carousel.dart";
+import "package:virtour_frontend/providers/user_info_provider.dart";
 import "package:virtour_frontend/screens/home_screen/place_overview.dart";
 import "package:virtour_frontend/screens/home_screen/search_screen.dart";
 import "package:virtour_frontend/screens/data_factories/place.dart";
 import "package:virtour_frontend/frontend_service_layer/place_service.dart";
-import "package:virtour_frontend/constants/userinfo.dart";
 import "package:virtour_frontend/providers/event_provider.dart";
 
 class HomeScreen extends ConsumerStatefulWidget {
@@ -22,7 +22,6 @@ class HomeScreen extends ConsumerStatefulWidget {
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   final TextEditingController _searchController = TextEditingController();
   final RegionService _regionService = RegionService();
-  final UserInfo _userInfo = UserInfo();
 
   List<Place> _topDestinations = [];
   bool _isLoadingDestinations = false;
@@ -46,16 +45,22 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       _errorMessage = null;
     });
 
+    final user = ref.read(userSessionProvider);
+    if (user == null || user.userID.isEmpty) {
+      _topDestinations = [];
+      _isLoadingDestinations = false;
+      return;
+    }
+
     try {
-      final username =
-          _userInfo.username.isNotEmpty ? _userInfo.username : 'guest';
+      final userID = user.userID;
 
       // Use default location (Ho Chi Minh City center) - can be replaced with user's actual location
       const double lat = 10.8231;
       const double lon = 106.6297;
 
       final locationIds =
-          await _regionService.fetchRecommendations(username, lat, lon);
+          await _regionService.fetchRecommendations(userID, lat, lon);
 
       final places = <Place>[];
       for (final id in locationIds) {

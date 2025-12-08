@@ -1,25 +1,49 @@
 enum UserType { business, tourist }
 
 class UserInfo {
-  UserInfo._internal();
-  static final UserInfo _instance = UserInfo._internal();
-  factory UserInfo() => _instance;
-  static void init({
-    required String token,
-    required String username,
-    UserType type = UserType.tourist,
-    required List<String> preferences,
-  }) {
-    _instance.userSessionToken = token;
-    _instance.username = username;
-    _instance.userType = type;
-    _instance.preferences = preferences;
+  final String userSessionToken;
+  final String userID;
+  final String username;
+  final UserType userType;
+  final List<String> preferences;
+
+  static const tunnelUrl = "http://10.0.2.2:3000";
+  //static const tunnelUrl = "http://localhost:3000";
+
+  const UserInfo({
+    required this.userSessionToken,
+    required this.userID,
+    required this.username,
+    required this.userType,
+    required this.preferences,
+  });
+
+  factory UserInfo.fromProfileData(
+      String token, String userID, Map<String, dynamic> profileData) {
+    return UserInfo(
+      userSessionToken: token,
+      userID: userID,
+      username: profileData["username"],
+      userType: profileData["type"] == "tourist"
+          ? UserType.tourist
+          : UserType.business,
+      preferences: List<String>.from(profileData["preferences"] ?? []),
+    );
   }
 
-  String userSessionToken = 'MIKU_MIKU_OO_EE_OO';
-  UserType userType = UserType.tourist;
-  String username = '';
-  List<String> preferences = [];
-  //for the sake of convenience
-  final String tunnelUrl = 'http://10.0.2.2:3000';
+  UserInfo copyWith({
+    String? userSessionToken,
+    String? userID,
+    String? username,
+    UserType? userType,
+    List<String>? preferences,
+  }) {
+    return UserInfo(
+      userSessionToken: userSessionToken ?? this.userSessionToken,
+      userID: userID ?? this.userID,
+      username: username ?? this.username,
+      userType: userType ?? this.userType,
+      preferences: preferences ?? this.preferences,
+    );
+  }
 }

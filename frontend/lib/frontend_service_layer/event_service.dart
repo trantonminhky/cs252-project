@@ -6,12 +6,9 @@ import 'package:virtour_frontend/screens/data_factories/event.dart';
 class EventService {
   static final EventService _instance = EventService._internal();
   late final Dio _dio;
-  late final UserInfo _userInfo;
-  late final String _baseUrl;
+  final String _baseUrl = UserInfo.tunnelUrl;
 
   EventService._internal() {
-    _userInfo = UserInfo();
-    _baseUrl = _userInfo.tunnelUrl;
     _dio = Dio(
       BaseOptions(
         baseUrl: '$_baseUrl/api',
@@ -83,12 +80,12 @@ class EventService {
     }
   }
 
-  Future<List<Event>?> fetchSubscribedEvents() async {
+  Future<List<Event>?> fetchSubscribedEvents(String userID) async {
     try {
       final response = await _dio.get(
-        '/event/get-by-username',
+        '/event/get-by-userid',
         queryParameters: {
-          "username": _userInfo.username,
+          "userID": userID,
         },
       );
 
@@ -139,12 +136,12 @@ class EventService {
     }
   }
 
-  Future<bool> subscribeToEvent(String eventID) async {
+  Future<bool> subscribeToEvent(String userID, String eventID) async {
     try {
       final response = await _dio.post(
         "/event/subscribe",
         data: {
-          "username": _userInfo.username,
+          "userID": userID,
           "eventID": eventID,
         },
       );
@@ -162,12 +159,12 @@ class EventService {
     }
   }
 
-  Future<bool> unsubscribeFromEvent(String eventID) async {
+  Future<bool> unsubscribeFromEvent(String userID, String eventID) async {
     try {
       final response = await _dio.post(
         "/event/unsubscribe",
         data: {
-          "username": _userInfo.username,
+          "userID": userID,
           "eventID": eventID,
         },
       );

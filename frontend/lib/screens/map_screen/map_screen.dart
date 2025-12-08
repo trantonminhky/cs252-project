@@ -3,7 +3,7 @@ import "package:flutter_map/flutter_map.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:latlong2/latlong.dart";
 import "package:virtour_frontend/components/briefings.dart";
-import "package:virtour_frontend/frontend_service_layer/geocode_service.dart";
+import "package:virtour_frontend/providers/geocode_provider.dart";
 import "package:virtour_frontend/providers/selected_place_provider.dart";
 import "package:virtour_frontend/providers/navigation_provider.dart";
 
@@ -16,7 +16,6 @@ class MapScreen extends ConsumerStatefulWidget {
 
 class _MapScreenState extends ConsumerState<MapScreen> {
   final MapController _mapController = MapController();
-  final GeocodeService _geocodeService = GeocodeService();
 
   // Default location (Bà Thiên Hậu Pagoda)
   late LatLng _location;
@@ -46,7 +45,9 @@ class _MapScreenState extends ConsumerState<MapScreen> {
       });
 
       try {
-        final address = await _geocodeService.reverseGeocode(
+        final geocodeService = ref.read(geocodeServiceProvider);
+
+        final address = await geocodeService.reverseGeocode(
           selectedPlace.lat,
           selectedPlace.lon,
         );

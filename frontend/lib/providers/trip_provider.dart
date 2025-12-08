@@ -1,4 +1,5 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:virtour_frontend/providers/user_info_provider.dart';
 import 'package:virtour_frontend/screens/data_factories/place.dart';
 import 'package:virtour_frontend/frontend_service_layer/place_service.dart';
 import 'package:virtour_frontend/constants/userinfo.dart';
@@ -8,27 +9,25 @@ part 'trip_provider.g.dart';
 @Riverpod(keepAlive: true)
 class Trip extends _$Trip {
   final RegionService _regionService = RegionService();
-  final UserInfo _userInfo = UserInfo();
 
   @override
   FutureOr<Set<Place>> build() async {
-    return await _loadSavedPlaces();
+    final user = ref.watch(userSessionProvider);
+    return await _loadSavedPlaces(user);
   }
 
-  Future<Set<Place>> _loadSavedPlaces() async {
+  Future<Set<Place>> _loadSavedPlaces(UserInfo? user) async {
+    if (user == null || user.userID.isEmpty) {
+      return <Place>{};
+    }
+
     try {
-      final username =
-          _userInfo.username.isNotEmpty ? _userInfo.username : 'guest';
+      final userID = user.userID;
 
-      final placeIds = await _regionService.getSavedPlaces(username);
+      final placeIds = await _regionService.getSavedPlaces(userID);
 
-      // Filter out event_ prefixed IDs as they don't exist in place database
-      final validPlaceIds =
-          placeIds.where((id) => !id.startsWith('event_')).toList();
-
-      // Fetch full place details for each saved place
       final places = <Place>{};
-      for (final placeId in validPlaceIds) {
+      for (final placeId in placeIds) {
         try {
           final place = await _regionService.fetchPlacebyId(placeId);
           places.add(place);
@@ -51,11 +50,15 @@ class Trip extends _$Trip {
     // Add to local state immediately for better UX
     state = AsyncValue.data({...currentState, place});
 
+    final user = ref.read(userSessionProvider);
+    if (user == null || user.userID.isEmpty) {
+      throw Exception("User is null");
+    }
+
     // Sync with backend
     try {
-      final username =
-          _userInfo.username.isNotEmpty ? _userInfo.username : 'guest';
-      final success = await _regionService.addSavedPlace(username, place.id);
+      final userID = user.userID;
+      final success = await _regionService.addSavedPlace(userID, place.id);
 
       if (!success) {
         // Revert if backend fails
@@ -76,11 +79,15 @@ class Trip extends _$Trip {
     // Remove from local state immediately
     state = AsyncValue.data(currentState.where((p) => p != place).toSet());
 
+    final user = ref.read(userSessionProvider);
+    if (user == null || user.userID.isEmpty) {
+      throw Exception("User is null");
+    }
+
     // Sync with backend
     try {
-      final username =
-          _userInfo.username.isNotEmpty ? _userInfo.username : 'guest';
-      final success = await _regionService.removeSavedPlace(username, place.id);
+      final userID = user.userID;
+      final success = await _regionService.removeSavedPlace(userID, place.id);
 
       if (!success) {
         // Revert if backend fails
@@ -96,7 +103,7 @@ class Trip extends _$Trip {
 
   // Refresh from backend
   Future<void> refresh() async {
-    state = const AsyncValue.loading();
-    state = await AsyncValue.guard(() async => await _loadSavedPlaces());
+    ref.invalidateSelf();
+    await future;
   }
 }

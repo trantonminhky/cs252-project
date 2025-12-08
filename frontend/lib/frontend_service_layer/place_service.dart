@@ -2,7 +2,6 @@ import "package:virtour_frontend/screens/data_factories/place.dart";
 import "package:virtour_frontend/screens/data_factories/region.dart";
 import "package:virtour_frontend/screens/data_factories/review.dart";
 import "package:dio/dio.dart";
-import "package:shared_preferences/shared_preferences.dart";
 import "package:virtour_frontend/constants/userinfo.dart";
 import "package:virtour_frontend/frontend_service_layer/service_exception_handler.dart";
 
@@ -10,8 +9,7 @@ import "package:virtour_frontend/frontend_service_layer/service_exception_handle
 class RegionService {
   static final RegionService _instance = RegionService._internal();
   late final Dio dio;
-  final String _baseUrl = UserInfo().tunnelUrl;
-  late final UserInfo userInfo;
+  final String _baseUrl = UserInfo.tunnelUrl;
 
   factory RegionService() {
     return _instance;
@@ -28,7 +26,6 @@ class RegionService {
         },
       ),
     );
-    userInfo = UserInfo();
   }
 
   /* 
@@ -45,13 +42,6 @@ class RegionService {
           final data = response.data;
           if (data['success']) {
             final regionData = data['data'] ?? data['payload']?['data'];
-
-            // Update token if provided
-            if (data['token'] != null) {
-              final prefs = await SharedPreferences.getInstance();
-              await prefs.setString("auth_token", data['token']);
-              userInfo.userSessionToken = data['token'];
-            }
 
             return Region.fromJson(regionData);
           } else {
@@ -80,13 +70,6 @@ class RegionService {
           final data = response.data;
           if (data['success']) {
             final placeData = data['payload']['data'];
-
-            // Update token if provided
-            if (data['token'] != null) {
-              final prefs = await SharedPreferences.getInstance();
-              await prefs.setString("auth_token", data['token']);
-              userInfo.userSessionToken = data['token'];
-            }
 
             return Place.fromJson(placeData);
           } else {
@@ -124,11 +107,12 @@ class RegionService {
         'query': query,
         'include': includeFilter.join(','),
       };
-      final response = await dio.get(
+      final response = await dio.post(
         '/location/search',
         queryParameters: queryParams,
         options: Options(
           headers: {
+            "Content-Type": "application/json",
             'Cache-Control': 'no-cache, no-store, must-revalidate',
             'Pragma': 'no-cache',
             'Expires': '0',
@@ -166,13 +150,6 @@ class RegionService {
           if (data['success']) {
             final reviewsData = data['reviews'] ?? [];
 
-            // Update token if provided
-            if (data['token'] != null) {
-              final prefs = await SharedPreferences.getInstance();
-              await prefs.setString("auth_token", data['token']);
-              userInfo.userSessionToken = data['token'];
-            }
-
             return reviewsData
                 .map<Review>((json) => Review.fromJson(json))
                 .toList();
@@ -192,31 +169,34 @@ class RegionService {
   }
 
   // Saved Places Methods
-  Future<List<String>> getSavedPlaces(String username) async {
+  Future<List<String>> getSavedPlaces(String userID) async {
     try {
       final response = await dio.get('/profile/saved-places', queryParameters: {
-        'username': username,
+        'userID': userID,
       });
 
       if (response.statusCode == 200) {
         final data = response.data;
         if (data['success']) {
-          final places = data['data'] ?? data['payload']?['data'] ?? [];
-          return List<String>.from(places);
+          final placesData = data['payload']?['data'];
+          if (placesData is List) {
+            return List<String>.from(placesData);
+          }
         }
       }
       return [];
     } on DioException catch (e) {
-      print('Error fetching saved places: ${e.message}');
-      return [];
+      throw ServiceExceptionHandler.handleDioError(e);
+    } catch (e) {
+      throw Exception('Failed to fetch saved places: $e');
     }
   }
 
-  Future<bool> addSavedPlace(String username, String placeId) async {
+  Future<bool> addSavedPlace(String userID, String placeID) async {
     try {
       final response = await dio.post('/profile/saved-places', data: {
-        'username': username,
-        'placeId': placeId,
+        'userID': userID,
+        'placeID': placeID,
       });
 
       if (response.statusCode == 201 || response.statusCode == 200) {
@@ -234,11 +214,11 @@ class RegionService {
     }
   }
 
-  Future<bool> removeSavedPlace(String username, String placeId) async {
+  Future<bool> removeSavedPlace(String userID, String placeID) async {
     try {
       final response = await dio.delete('/profile/saved-places', data: {
-        'username': username,
-        'placeId': placeId,
+        'userID': userID,
+        'placeID': placeID,
       });
 
       if (response.statusCode == 200) {
@@ -254,10 +234,10 @@ class RegionService {
 
   // Fetch ML-based recommendations for a user
   Future<List<String>> fetchRecommendations(
-      String username, double lat, double lon) async {
+      String userID, double lat, double lon) async {
     try {
       final response = await dio.get('/recommendation', queryParameters: {
-        'username': username,
+        'userID': userID,
         'lat': lat,
         'lon': lon,
       });
@@ -280,34 +260,4 @@ class RegionService {
       return [];
     }
   }
-
-  // // Create a new event
-  // Future<Map<String, dynamic>?> createEvent({
-  //   required String name,
-  //   required String description,
-  //   String? imageLink,
-  //   int? startTime,
-  //   int? endTime,
-  // }) async {
-  //   try {
-  //     final response = await dio.post('/event/create', data: {
-  //       'name': name,
-  //       'description': description,
-  //       'imageLink': imageLink,
-  //       'startTime': startTime,
-  //       'endTime': endTime,
-  //     });
-
-  //     if (response.statusCode == 201) {
-  //       final data = response.data;
-  //       if (data['success'] == true) {
-  //         return data['payload']['data'];
-  //       }
-  //     }
-  //     return null;
-  //   } on DioException catch (e) {
-  //     print('Error creating event: ${e.message}');
-  //     return null;
-  //   }
-  // }
 }

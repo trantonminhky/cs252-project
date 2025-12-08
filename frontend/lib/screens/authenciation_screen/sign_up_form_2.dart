@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:virtour_frontend/constants/userinfo.dart';
 import 'package:virtour_frontend/components/custom_text_field.dart';
+import 'package:virtour_frontend/constants/userinfo.dart';
 
 class SignUpForm2 extends StatelessWidget {
   final Function onNext;
   final Function onPrevious;
   final TextEditingController nameController;
   final TextEditingController ageController;
-  final UserInfo userInfo;
+  final TextEditingController userTypeController;
 
   const SignUpForm2({
     super.key,
@@ -15,7 +15,7 @@ class SignUpForm2 extends StatelessWidget {
     required this.onPrevious,
     required this.nameController,
     required this.ageController,
-    required this.userInfo,
+    required this.userTypeController,
   });
 
   @override
@@ -92,8 +92,7 @@ class SignUpForm2 extends StatelessWidget {
               ),
             ),
             onChanged: (String? value) {
-              UserInfo().userType =
-                  (value == 'Tourist') ? UserType.tourist : UserType.business;
+              userTypeController.text = value ?? "Tourist";
             },
           ),
           const SizedBox(height: 96),

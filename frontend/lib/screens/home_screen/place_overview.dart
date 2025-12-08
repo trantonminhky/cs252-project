@@ -2,7 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter/cupertino.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:virtour_frontend/components/briefings.dart";
-import "package:virtour_frontend/frontend_service_layer/review_service.dart";
+import "package:virtour_frontend/providers/review_provider.dart";
 import "package:virtour_frontend/screens/data_factories/place.dart";
 import "package:virtour_frontend/screens/home_screen/helpers.dart";
 import "package:virtour_frontend/screens/home_screen/search_screen.dart";
@@ -219,7 +219,7 @@ class PlaceOverview extends ConsumerWidget {
               ),
               const SizedBox(height: 16),
               FutureBuilder<List<Review>>(
-                future: ReviewService().getReviews(place.name),
+                future: ref.watch(reviewServiceProvider).getReviews(place.name),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(

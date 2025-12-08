@@ -1,14 +1,15 @@
 import "package:flutter/material.dart";
 import "package:flutter/cupertino.dart";
 import "package:carousel_slider/carousel_slider.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:virtour_frontend/frontend_service_layer/place_service.dart";
+import "package:virtour_frontend/providers/user_info_provider.dart";
 import "package:virtour_frontend/screens/data_factories/place.dart";
 import "package:virtour_frontend/screens/data_factories/filter_type.dart";
 import "package:virtour_frontend/components/cards.dart";
-import "package:virtour_frontend/constants/userinfo.dart";
 import "package:virtour_frontend/screens/home_screen/place_overview.dart";
 
-class SearchScreen extends StatefulWidget {
+class SearchScreen extends ConsumerStatefulWidget {
   final String? initialSelectedCategory;
 
   const SearchScreen({
@@ -17,13 +18,12 @@ class SearchScreen extends StatefulWidget {
   });
 
   @override
-  State<SearchScreen> createState() => _SearchScreenState();
+  ConsumerState<SearchScreen> createState() => _SearchScreenState();
 }
 
-class _SearchScreenState extends State<SearchScreen> {
+class _SearchScreenState extends ConsumerState<SearchScreen> {
   final TextEditingController _searchController = TextEditingController();
   final RegionService _regionService = RegionService();
-  final UserInfo _userInfo = UserInfo();
 
   List<String> _availableCategories = [];
   List<String> _selectedCategories = [];
@@ -55,7 +55,8 @@ class _SearchScreenState extends State<SearchScreen> {
 
   void _initializeCategories() {
     // Get user preferences
-    List<String> userPreferences = _userInfo.preferences;
+    final user = ref.read(userSessionProvider);
+    List<String> userPreferences = user?.preferences ?? [];
 
     // Get all available categories
     List<String> allCategories =

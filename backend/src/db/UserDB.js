@@ -58,6 +58,22 @@ class UserDB {
 		}
 	}
 
+	ensure(key, defaultValue, path) {
+		try {
+			return this.db.ensure(key, defaultValue, path);
+		} catch (err) {
+			console.error(err);
+		}
+	}
+
+	push(key, value, path) {
+		try {
+			this.db.push(key, value, path);
+		} catch (err) {
+			console.error(err);
+		}
+	}
+
 	find(pathOrFn, value) {
 		try {
 			return this.db.find(pathOrFn, value);

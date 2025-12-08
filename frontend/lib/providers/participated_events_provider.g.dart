@@ -34,7 +34,7 @@ final class ParticipatedEventsProvider
 }
 
 String _$participatedEventsHash() =>
-    r'bfacd36455d6412bd2e437b93e095326bce99000';
+    r'fef1af84d85ee4323dd5f0c243c7afdcb99ea17a';
 
 abstract class _$ParticipatedEvents extends $AsyncNotifier<Set<Event>> {
   FutureOr<Set<Event>> build();

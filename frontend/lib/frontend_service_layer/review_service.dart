@@ -4,20 +4,20 @@ import "package:virtour_frontend/screens/data_factories/review.dart";
 import "package:virtour_frontend/frontend_service_layer/service_exception_handler.dart";
 
 class ReviewService {
-  static final ReviewService _instance = ReviewService._internal();
   late final Dio dio;
-  final String _baseUrl = UserInfo().tunnelUrl;
+  final String _baseUrl = UserInfo.tunnelUrl;
+  final String _token;
 
-  factory ReviewService() {
-    return _instance;
-  }
-
-  ReviewService._internal() {
+  ReviewService(this._token) {
     dio = Dio(
       BaseOptions(
         baseUrl: _baseUrl,
         connectTimeout: const Duration(seconds: 30),
         receiveTimeout: const Duration(seconds: 30),
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer $_token",
+        },
       ),
     );
   }

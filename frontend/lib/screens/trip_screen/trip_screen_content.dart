@@ -5,6 +5,7 @@ import 'package:virtour_frontend/frontend_service_layer/event_service.dart';
 import 'package:virtour_frontend/providers/trip_provider.dart';
 import 'package:virtour_frontend/providers/participated_events_provider.dart';
 import 'package:virtour_frontend/providers/event_provider.dart';
+import 'package:virtour_frontend/providers/user_info_provider.dart';
 import 'package:virtour_frontend/screens/data_factories/event.dart';
 import 'package:virtour_frontend/screens/trip_screen/create_event_form.dart';
 
@@ -57,7 +58,12 @@ class _TripScreenContentState extends ConsumerState<TripScreenContent>
           ),
         );
 
-        await EventService().subscribeToEvent(result["id"]);
+        final user = ref.read(userSessionProvider);
+        if (user == null || user.userID.isEmpty) {
+          print("User is null!");
+          return;
+        }
+        await EventService().subscribeToEvent(user.userID, result["id"]);
 
         // Refresh participated events and all events
         ref.read(participatedEventsProvider.notifier).refresh();
@@ -356,8 +362,15 @@ class _TripScreenContentState extends ConsumerState<TripScreenContent>
                                     key: Key(event.id),
                                     direction: DismissDirection.endToStart,
                                     confirmDismiss: (direction) async {
+                                      final user =
+                                          ref.read(userSessionProvider);
+                                      if (user == null || user.userID.isEmpty) {
+                                        print(
+                                            "User in null or userID is empty");
+                                        return false;
+                                      }
                                       final success = await EventService()
-                                          .unsubscribeFromEvent(event.id);
+                                          .unsubscribeFromEvent(user.userID, event.id);
 
                                       if (!success && context.mounted) {
                                         ScaffoldMessenger.of(context)

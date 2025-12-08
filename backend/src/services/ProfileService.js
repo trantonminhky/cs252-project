@@ -250,7 +250,7 @@ class ProfileService {
 			);
 		}
 
-		let savedPlace = UserDB.ensure(userID, "savePlaces");
+		let savedPlace = UserDB.ensure(userID, [], "savePlaces");
 
 		if (!savedPlace.includes(placeID)) {
 			return new ServiceResponse(
