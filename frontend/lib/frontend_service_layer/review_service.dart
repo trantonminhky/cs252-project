@@ -24,24 +24,23 @@ class ReviewService {
   }
 
   Future<List<Review>> getReviews(String placeName) async {
-    try {
-      final response =
-          await dio.post('$_baseUrl/api/ai/generate-reviews', data: {
-        'place': placeName,
-      });
-      final body = response.data as Map<String, dynamic>;
-      if (response.statusCode == 200) {
-        final reviewsData = body['payload']['data'] ?? [];
-        return reviewsData
-            .map<Review>((json) => Review.fromJson(json))
-            .toList();
-      } else {
-        throw Exception('Failed to generate reviews: ${response.statusCode}');
-      }
-    } on DioException catch (e) {
-      throw ServiceHelpers.handleDioError(e);
-    } catch (e) {
-      throw Exception('Error fetching reviews: $e');
-    }
+    return await ServiceHelpers.retryWithTokenRefresh(
+      dio: dio,
+      operation: () async {
+        final response =
+            await dio.post('$_baseUrl/api/ai/generate-reviews', data: {
+          'place': placeName,
+        });
+        final body = response.data as Map<String, dynamic>;
+        if (response.statusCode == 200) {
+          final reviewsData = body['payload']['data'] ?? [];
+          return reviewsData
+              .map<Review>((json) => Review.fromJson(json))
+              .toList();
+        } else {
+          throw Exception('Failed to generate reviews: ${response.statusCode}');
+        }
+      },
+    );
   }
 }

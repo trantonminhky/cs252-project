@@ -46,4 +46,50 @@ class ServiceHelpers {
 
     return Exception(errorMessage);
   }
+
+  static Future<String> refreshToken(Dio dio) async {
+    try {
+      final response =
+          await dio.post('${UserInfo().tunnelUrl}/api/profile/refresh');
+      final body = response.data as Map<String, dynamic>;
+      if (response.statusCode == 200) {
+        final newToken = body['payload'] as String;
+        UserInfo().userSessionToken = newToken;
+        return newToken;
+      } else {
+        throw Exception(
+            'Failed to refresh token. Error ${response.statusCode}: ${body['message']}');
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  // Retry wrapper for API calls with 401 unauthorized handling; will try 3 times before stopping
+  static Future<T> retryWithTokenRefresh<T>({
+    required Dio dio,
+    required Future<T> Function() operation,
+  }) async {
+    int retryCount = 0;
+
+    while (true) {
+      try {
+        return await operation();
+      } on DioException catch (e) {
+        final is401 = e.response?.statusCode == 401;
+
+        if (is401 && retryCount < 3) {
+          retryCount++;
+          try {
+            // Refresh token and retry
+            await refreshToken(dio);
+            continue;
+          } catch (refreshError) {
+            // If token refresh fails, throw the original error
+            throw handleDioError(e);
+          }
+        }
+      }
+    }
+  }
 }

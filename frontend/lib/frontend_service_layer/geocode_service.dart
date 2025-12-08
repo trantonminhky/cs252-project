@@ -25,25 +25,27 @@ class GeocodeService {
     );
     ServiceHelpers.addAuthInterceptor(dio);
   }
-  
 
   Future<Place?> geocodeAddress(String address) async {
     try {
-      final response = await dio.get(
-        '$_baseUrl/api/geocode/geocode',
-        queryParameters: {
-          'address': address,
-          'credentials': UserInfo().userSessionToken
+      return await ServiceHelpers.retryWithTokenRefresh(
+        dio: dio,
+        operation: () async {
+          final response = await dio.get(
+            '$_baseUrl/api/geocode/geocode',
+            queryParameters: {
+              'address': address,
+              'credentials': UserInfo().userSessionToken
+            },
+          );
+          final body = response.data as Map<String, dynamic>;
+          if (response.statusCode == 200 && body['place'] != null) {
+            return Place.fromJson(body['place']);
+          } else {
+            return null;
+          }
         },
       );
-      final body = response.data as Map<String, dynamic>;
-      if (response.statusCode == 200 && body['place'] != null) {
-        return Place.fromJson(body['place']);
-      } else {
-        return null;
-      }
-    } on DioException catch (e) {
-      throw ServiceHelpers.handleDioError(e);
     } catch (e) {
       print('Geocoding error: $e');
       return null;
@@ -52,26 +54,29 @@ class GeocodeService {
 
   Future<String?> reverseGeocode(double lat, double lon) async {
     try {
-      final response = await dio.get(
-        '$_baseUrl/api/geocode/reverse-geocode',
-        queryParameters: {
-          'lat': lat,
-          'lon': lon,
-          'credentials': UserInfo().userSessionToken,
+      return await ServiceHelpers.retryWithTokenRefresh(
+        dio: dio,
+        operation: () async {
+          final response = await dio.get(
+            '$_baseUrl/api/geocode/reverse-geocode',
+            queryParameters: {
+              'lat': lat,
+              'lon': lon,
+              'credentials': UserInfo().userSessionToken,
+            },
+          );
+          final body = response.data as Map<String, dynamic>;
+          if (response.statusCode == 200 &&
+              body['payload']['address'] != null) {
+            return body['payload']['address'] as String;
+          } else {
+            return null;
+          }
         },
       );
-      final body = response.data as Map<String, dynamic>;
-      if (response.statusCode == 200 && body['payload']['address'] != null) {
-        return body['payload']['address'] as String;
-      } else {
-        return null;
-      }
-    } on DioException catch (e) {
-      throw ServiceHelpers.handleDioError(e);
     } catch (e) {
       print('Reverse geocoding error: $e');
       return null;
     }
   }
-
 }

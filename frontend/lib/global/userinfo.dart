@@ -48,7 +48,7 @@ class UserInfo {
   Future<void> getUserInfo() async {
     try {
       final profile = await Dio().get(
-        '$tunnelUrl/api/profile/$userId',
+        '$tunnelUrl/api/profile/:$userId',
       );
       final body = profile.data as Map<String, dynamic>;
 
@@ -97,4 +97,5 @@ class UserInfo {
       print('Error fetching user info: $e');
     }
   }
+
 }

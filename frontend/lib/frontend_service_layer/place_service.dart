@@ -37,71 +37,69 @@ class RegionService {
   2. fetch place by id (place will be numbered with an id)
   */
   Future<Region> getRegionbyId(String regionId) async {
-    try {
-      final response = await dio.get('/regions/$regionId');
+    return await ServiceHelpers.retryWithTokenRefresh(
+      dio: dio,
+      operation: () async {
+        final response = await dio.get('/regions/$regionId');
 
-      switch (response.statusCode) {
-        case 200:
-          final data = response.data;
-          if (data['success']) {
-            final regionData = data['data'] ?? data['payload']?['data'];
+        switch (response.statusCode) {
+          case 200:
+            final data = response.data;
+            if (data['success']) {
+              final regionData = data['data'] ?? data['payload']?['data'];
 
-            // Update token if provided
-            if (data['token'] != null) {
-              final prefs = await SharedPreferences.getInstance();
-              await prefs.setString("auth_token", data['token']);
-              userInfo.userSessionToken = data['token'];
+              // Update token if provided
+              if (data['token'] != null) {
+                final prefs = await SharedPreferences.getInstance();
+                await prefs.setString("auth_token", data['token']);
+                userInfo.userSessionToken = data['token'];
+              }
+
+              return Region.fromJson(regionData);
+            } else {
+              throw Exception(data['message'] ?? 'Failed to load region');
             }
-
-            return Region.fromJson(regionData);
-          } else {
-            throw Exception(data['message'] ?? 'Failed to load region');
-          }
-        case 404:
-          throw Exception('Region not found');
-        default:
-          throw Exception('Unexpected response: ${response.statusCode}');
-      }
-    } on DioException catch (e) {
-      throw ServiceHelpers.handleDioError(e);
-    } catch (e) {
-      throw Exception('Failed to load region: $e');
-    }
+          case 404:
+            throw Exception('Region not found');
+          default:
+            throw Exception('Unexpected response: ${response.statusCode}');
+        }
+      },
+    );
   }
 
   Future<Place> fetchPlacebyId(String placeId) async {
-    try {
-      final response = await dio.get('/location/search', queryParameters: {
-        'id': placeId,
-      });
+    return await ServiceHelpers.retryWithTokenRefresh(
+      dio: dio,
+      operation: () async {
+        final response = await dio.get('/location/search', queryParameters: {
+          'id': placeId,
+        });
 
-      switch (response.statusCode) {
-        case 200:
-          final data = response.data;
-          if (data['success']) {
-            final placeData = data['payload']['data'];
+        switch (response.statusCode) {
+          case 200:
+            final data = response.data;
+            if (data['success']) {
+              final placeData = data['payload']['data'];
 
-            // Update token if provided
-            if (data['token'] != null) {
-              final prefs = await SharedPreferences.getInstance();
-              await prefs.setString("auth_token", data['token']);
-              userInfo.userSessionToken = data['token'];
+              // Update token if provided
+              if (data['token'] != null) {
+                final prefs = await SharedPreferences.getInstance();
+                await prefs.setString("auth_token", data['token']);
+                userInfo.userSessionToken = data['token'];
+              }
+
+              return Place.fromJson(placeData);
+            } else {
+              throw Exception(data['message'] ?? 'Failed to load place');
             }
-
-            return Place.fromJson(placeData);
-          } else {
-            throw Exception(data['message'] ?? 'Failed to load place');
-          }
-        case 404:
-          throw Exception('Place not found');
-        default:
-          throw Exception('Unexpected response: ${response.statusCode}');
-      }
-    } on DioException catch (e) {
-      throw ServiceHelpers.handleDioError(e);
-    } catch (e) {
-      throw Exception('Failed to load place: $e');
-    }
+          case 404:
+            throw Exception('Place not found');
+          default:
+            throw Exception('Unexpected response: ${response.statusCode}');
+        }
+      },
+    );
   }
 
   //legacy function; kept in case we need to use it
@@ -119,76 +117,74 @@ class RegionService {
   }
 
   Future<List<Place>> getPlace(String query, List<String> includeFilter) async {
-    try {
-      final queryParams = {
-        'query': query,
-        'include': includeFilter.join(','),
-      };
-      final response = await dio.get(
-        '/location/search',
-        queryParameters: queryParams,
-        options: Options(
-          headers: {
-            'Cache-Control': 'no-cache, no-store, must-revalidate',
-            'Pragma': 'no-cache',
-            'Expires': '0',
-          },
-        ),
-      );
-      final body = response.data as Map<String, dynamic>;
-      switch (response.statusCode) {
-        case 200:
-          // Extract the locations array from payload.data
-          final locations = body['payload']?['data'] as List? ?? [];
-          final placesList = locations
-              .map((location) => Place.fromJson(
-                  Map<String, dynamic>.from(location['value'] as Map)))
-              .toList();
-          return placesList;
-        default:
-          final message = body["payload"]["message"] as String;
-          throw Exception('Failed to load filtered places: $message');
-      }
-    } on DioException catch (e) {
-      throw ServiceHelpers.handleDioError(e);
-    } catch (e) {
-      throw Exception('Failed to load filtered places: $e');
-    }
+    return await ServiceHelpers.retryWithTokenRefresh(
+      dio: dio,
+      operation: () async {
+        final queryParams = {
+          'query': query,
+          'include': includeFilter.join(','),
+        };
+        final response = await dio.get(
+          '/location/search',
+          queryParameters: queryParams,
+          options: Options(
+            headers: {
+              'Cache-Control': 'no-cache, no-store, must-revalidate',
+              'Pragma': 'no-cache',
+              'Expires': '0',
+            },
+          ),
+        );
+        final body = response.data as Map<String, dynamic>;
+        switch (response.statusCode) {
+          case 200:
+            // Extract the locations array from payload.data
+            final locations = body['payload']?['data'] as List? ?? [];
+            final placesList = locations
+                .map((location) => Place.fromJson(
+                    Map<String, dynamic>.from(location['value'] as Map)))
+                .toList();
+            return placesList;
+          default:
+            final message = body["payload"]["message"] as String;
+            throw Exception('Failed to load filtered places: $message');
+        }
+      },
+    );
   }
 
   Future<List<Review>> getReviewsForPlace(String placeId) async {
-    try {
-      final response = await dio.get('/places/reviews/$placeId');
+    return await ServiceHelpers.retryWithTokenRefresh(
+      dio: dio,
+      operation: () async {
+        final response = await dio.get('/places/reviews/$placeId');
 
-      switch (response.statusCode) {
-        case 200:
-          final data = response.data;
-          if (data['success']) {
-            final reviewsData = data['reviews'] ?? [];
+        switch (response.statusCode) {
+          case 200:
+            final data = response.data;
+            if (data['success']) {
+              final reviewsData = data['reviews'] ?? [];
 
-            // Update token if provided
-            if (data['token'] != null) {
-              final prefs = await SharedPreferences.getInstance();
-              await prefs.setString("auth_token", data['token']);
-              userInfo.userSessionToken = data['token'];
+              // Update token if provided
+              if (data['token'] != null) {
+                final prefs = await SharedPreferences.getInstance();
+                await prefs.setString("auth_token", data['token']);
+                userInfo.userSessionToken = data['token'];
+              }
+
+              return reviewsData
+                  .map<Review>((json) => Review.fromJson(json))
+                  .toList();
+            } else {
+              throw Exception(data['message'] ?? 'Failed to load reviews');
             }
-
-            return reviewsData
-                .map<Review>((json) => Review.fromJson(json))
-                .toList();
-          } else {
-            throw Exception(data['message'] ?? 'Failed to load reviews');
-          }
-        case 404:
-          throw Exception('Reviews not found');
-        default:
-          throw Exception('Unexpected response: ${response.statusCode}');
-      }
-    } on DioException catch (e) {
-      throw ServiceHelpers.handleDioError(e);
-    } catch (e) {
-      throw Exception('Failed to load reviews: $e');
-    }
+          case 404:
+            throw Exception('Reviews not found');
+          default:
+            throw Exception('Unexpected response: ${response.statusCode}');
+        }
+      },
+    );
   }
 
   // Saved Places Methods
@@ -334,30 +330,30 @@ class RegionService {
   // Fetch ML-based recommendations for a user
   Future<List<String>> fetchRecommendations(
       String username, double lat, double lon) async {
-    try {
-      final response = await dio.get('/recommendation', queryParameters: {
-        'username': username,
-        'lat': lat,
-        'lon': lon,
-      });
+    return await ServiceHelpers.retryWithTokenRefresh(
+      dio: dio,
+      operation: () async {
+        final response = await dio.get('/recommendation', queryParameters: {
+          'username': username,
+          'lat': lat,
+          'lon': lon,
+        });
 
-      if (response.statusCode == 200) {
-        final data = response.data;
-        if (data['success'] == true) {
-          final recommendations = data['payload']['data']['recommendations'];
-          if (recommendations is List) {
-            // Extract the 'id' field from each recommendation object
-            return recommendations
-                .map((item) => item['id'].toString())
-                .toList();
+        if (response.statusCode == 200) {
+          final data = response.data;
+          if (data['success'] == true) {
+            final recommendations = data['payload']['data']['recommendations'];
+            if (recommendations is List) {
+              // Extract the 'id' field from each recommendation object
+              return recommendations
+                  .map((item) => item['id'].toString())
+                  .toList();
+            }
           }
         }
-      }
-      return [];
-    } on DioException catch (e) {
-      print('Error fetching recommendations: ${e.message}');
-      return [];
-    }
+        return [];
+      },
+    );
   }
 
   // Create a new event
