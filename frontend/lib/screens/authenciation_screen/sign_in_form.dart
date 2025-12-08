@@ -4,6 +4,7 @@ import 'package:virtour_frontend/components/custom_text_field.dart';
 import 'package:virtour_frontend/global/colors.dart';
 import 'package:virtour_frontend/frontend_service_layer/auth_service.dart';
 import 'package:virtour_frontend/components/bottom_bar.dart';
+import 'package:virtour_frontend/global/userinfo.dart';
 
 class SignInForm extends StatefulWidget {
   const SignInForm({super.key});
@@ -15,7 +16,7 @@ class SignInForm extends StatefulWidget {
 class _SignInFormState extends State<SignInForm> {
   late final TextEditingController _usernameController;
   late final TextEditingController _passwordController;
-  static final AuthService _authService = AuthService();
+  static final email _authService = email();
   bool _isLoading = false;
 
   @override
@@ -54,8 +55,8 @@ class _SignInFormState extends State<SignInForm> {
     setState(() => _isLoading = true);
 
     try {
-      final result = await _authService.signIn(
-          _usernameController.text, _passwordController.text);
+      final result = await _authService.signIn(_usernameController.text,
+          _passwordController.text, UserInfo().staySignedIn);
 
       if (!mounted) return;
 
@@ -116,23 +117,50 @@ class _SignInFormState extends State<SignInForm> {
               ),
               const SizedBox(height: 5),
               Align(
-                alignment: Alignment.topRight,
-                child: InkWell(
-                  onTap: () {},
-                  child: const Text(
-                    "Forgot password?",
-                    style: TextStyle(
-                      fontFamily: "BeVietnamPro",
-                      fontSize: 16,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w600,
-                      decoration: TextDecoration.underline,
-                      decorationColor: Colors.black,
-                      decorationThickness: 1.8,
-                    ),
-                  ),
-                ),
-              ),
+                  alignment: Alignment.center,
+                  child: Row(children: [
+                    Padding(
+                        padding: const EdgeInsets.only(top: 12),
+                        child: Row(
+                          children: [
+                            const Text(
+                              "Stay signed in",
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontFamily: "BeVietnamPro",
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            Switch(
+                              value: UserInfo().staySignedIn,
+                              onChanged: (newVal) {
+                                setState(() {
+                                  UserInfo().staySignedIn = newVal;
+                                });
+                              },
+                              activeTrackColor: const Color(0xffd72323),
+                              inactiveTrackColor: Colors.grey,
+                            ),
+                          ],
+                        )),
+                    // InkWell(
+                    //   onTap: () {},
+                    //   child: const Text(
+                    //     "Forgot password?",
+                    //     style: TextStyle(
+                    //       fontFamily: "BeVietnamPro",
+                    //       fontSize: 16,
+                    //       color: Colors.black,
+                    //       fontWeight: FontWeight.w600,
+                    //       decoration: TextDecoration.underline,
+                    //       decorationColor: Colors.black,
+                    //       decorationThickness: 1.8,
+                    //     ),
+                    //   ),
+                    // ),
+                  ])),
               const SizedBox(height: 48),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:virtour_frontend/screens/authenciation_screen/sign_in_form.dart';
+import 'package:virtour_frontend/screens/authenciation_screen/authenciation_screen.dart';
 import 'package:virtour_frontend/screens/authenciation_screen/sign_up_form_1.dart';
 import 'package:virtour_frontend/screens/authenciation_screen/sign_up_form_2.dart';
 import 'package:virtour_frontend/screens/authenciation_screen/sign_up_form_3.dart';
@@ -22,9 +22,10 @@ class _SignUpContainerState extends State<SignUpContainer> {
   late final TextEditingController ageController;
   late final TextEditingController interestsController;
   late final TextEditingController userTypeController;
+  late final TextEditingController emailController;
   List<String> _selectedPreferences = [];
   bool _isLoading = false;
-  static final AuthService _authService = AuthService();
+  static final email _authService = email();
   final UserInfo _userInfo = UserInfo();
 
   @override
@@ -36,6 +37,7 @@ class _SignUpContainerState extends State<SignUpContainer> {
     ageController = TextEditingController();
     interestsController = TextEditingController();
     userTypeController = TextEditingController();
+    emailController = TextEditingController();
   }
 
   //helper for error
@@ -64,9 +66,10 @@ class _SignUpContainerState extends State<SignUpContainer> {
 
     try {
       final result = await _authService.signUp(
-        usernameController.text,
+        emailController.text,
         passwordController.text,
         nameController.text,
+        usernameController.text,
         int.parse(ageController.text),
         userTypeController.text.toLowerCase() == 'tourist',
         _selectedPreferences,
@@ -121,7 +124,7 @@ class _SignUpContainerState extends State<SignUpContainer> {
     Navigator.of(context).pushReplacement(
       CupertinoPageRoute(
         builder: (context) {
-          return const SignInForm();
+          return const AuthenciationScreen(initialIndex: 1);
         },
       ),
     );
@@ -150,14 +153,14 @@ class _SignUpContainerState extends State<SignUpContainer> {
                     ScrollViewKeyboardDismissBehavior.manual,
                 child: SignUpForm1(
                   onNext: () => {
-                    if (usernameController.text.isEmpty)
+                    if (emailController.text.isEmpty)
                       {_showSnackBar("Username cannot be empty")}
                     else if (passwordController.text.isEmpty)
                       {_showSnackBar("Password cannot be empty")}
                     else
                       {changeIndex(1)},
                   },
-                  usernameController: usernameController,
+                  emailController: emailController,
                   passwordController: passwordController,
                 ),
               ),
@@ -168,6 +171,8 @@ class _SignUpContainerState extends State<SignUpContainer> {
                   onNext: () => {
                     if (nameController.text.isEmpty)
                       {_showSnackBar("Name cannot be empty")}
+                    else if (usernameController.text.isEmpty)
+                      {_showSnackBar("Age cannot be empty")}
                     else if (ageController.text.isEmpty)
                       {_showSnackBar("Age cannot be empty")}
                     else
@@ -176,6 +181,7 @@ class _SignUpContainerState extends State<SignUpContainer> {
                   onPrevious: () => changeIndex(0),
                   nameController: nameController,
                   ageController: ageController,
+                  usernameController: usernameController,
                   userInfo: _userInfo,
                 ),
               ),

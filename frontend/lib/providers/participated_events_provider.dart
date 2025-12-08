@@ -13,7 +13,7 @@ class ParticipatedEvents extends _$ParticipatedEvents {
   }
 
   Future<Set<Event>> _loadSubscribedEvents() async {
-    final username = UserInfo().username;
+    final username = UserInfo().email;
     if (username.isEmpty) {
       return {};
     }

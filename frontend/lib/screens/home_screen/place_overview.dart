@@ -11,7 +11,7 @@ import "package:virtour_frontend/screens/data_factories/review.dart";
 import "package:virtour_frontend/providers/selected_place_provider.dart";
 import "package:virtour_frontend/providers/navigation_provider.dart";
 
-class PlaceOverview extends ConsumerWidget {
+class PlaceOverview extends ConsumerStatefulWidget {
   final Place place;
 
   const PlaceOverview({
@@ -20,7 +20,21 @@ class PlaceOverview extends ConsumerWidget {
   });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<PlaceOverview> createState() => _PlaceOverviewState();
+}
+
+class _PlaceOverviewState extends ConsumerState<PlaceOverview> {
+  late Future<List<Review>> _reviewsFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    // Cache the future so it only executes once
+    _reviewsFuture = ReviewService().getReviews(widget.place.name);
+  }
+
+  @override
+  Widget build(BuildContext context) {
     // Calculate card width (screen width - 40px padding)
     final double screenWidth = MediaQuery.of(context).size.width;
     final double cardWidth = screenWidth - 40;
@@ -54,10 +68,10 @@ class PlaceOverview extends ConsumerWidget {
                   height: briefingHeight,
                   child: Briefing(
                     size: BriefingSize.full,
-                    title: place.name,
+                    title: widget.place.name,
                     category: 'place',
-                    subtitle: '${place.lat}, ${place.lon}',
-                    imageUrl: place.imageLink,
+                    subtitle: '${widget.place.lat}, ${widget.place.lon}',
+                    imageUrl: widget.place.imageLink,
                   ),
                 ),
               ),
@@ -68,11 +82,12 @@ class PlaceOverview extends ConsumerWidget {
                 child: ListView.separated(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   scrollDirection: Axis.horizontal,
-                  itemCount: place.tags.values.expand((list) => list).length,
+                  itemCount:
+                      widget.place.tags.values.expand((list) => list).length,
                   separatorBuilder: (context, index) =>
                       const SizedBox(width: 8),
                   itemBuilder: (context, index) {
-                    final category = place.tags.values
+                    final category = widget.place.tags.values
                         .expand((list) => list)
                         .elementAt(index);
                     final color = getCategoryColor(category);
@@ -119,7 +134,7 @@ class PlaceOverview extends ConsumerWidget {
                   color: Colors.grey[100],
                   padding: const EdgeInsets.all(20),
                   child: Text(
-                    place.description,
+                    widget.place.description,
                     style: const TextStyle(
                       fontSize: 14,
                       fontFamily: "BeVietnamPro",
@@ -134,7 +149,9 @@ class PlaceOverview extends ConsumerWidget {
                 TextButton(
                   onPressed: () {
                     // Set the selected place for the map screen
-                    ref.read(selectedPlaceProvider.notifier).setPlace(place);
+                    ref
+                        .read(selectedPlaceProvider.notifier)
+                        .setPlace(widget.place);
 
                     // Pop to root and navigate to map via bottom bar
                     Navigator.of(context).popUntil((route) => route.isFirst);
@@ -175,10 +192,10 @@ class PlaceOverview extends ConsumerWidget {
                 ),
                 TextButton(
                   onPressed: () {
-                    ref.read(tripProvider.notifier).addPlace(place);
+                    ref.read(tripProvider.notifier).addPlace(widget.place);
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        content: Text('${place.name} added to Saves'),
+                        content: Text('${widget.place.name} added to Saves'),
                         duration: const Duration(seconds: 2),
                       ),
                     );
@@ -219,7 +236,7 @@ class PlaceOverview extends ConsumerWidget {
               ),
               const SizedBox(height: 16),
               FutureBuilder<List<Review>>(
-                future: ReviewService().getReviews(place.name),
+                future: _reviewsFuture,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(

@@ -28,6 +28,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   final UserInfo _userInfo = UserInfo();
 
   List<Place> _topDestinations = [];
+  List<Place> _allPlaces = []; // Cache for all places
   bool _isLoadingDestinations = false;
   String? _errorMessage;
 
@@ -50,20 +51,18 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     });
 
     try {
-      final username =
-          _userInfo.username.isNotEmpty ? _userInfo.username : 'guest';
-
       // Use default location (Ho Chi Minh City center) - can be replaced with user's actual location
       const double lat = 10.8231;
       const double lon = 106.6297;
 
-      final locationIds =
-          await _regionService.fetchRecommendations(username, lat, lon);
+      final locationIds = await _regionService.fetchRecommendations(
+          UserInfo().userId, lat, lon);
 
-      final places = await _regionService.getPlace("top destinations", []);
+      // Fetch places once and cache them
+      _allPlaces = await _regionService.getPlace("", []);
 
       setState(() {
-        _topDestinations = places;
+        // _topDestinations = _allPlaces; // Can be filtered based on locationIds if needed
         _isLoadingDestinations = false;
       });
     } catch (e) {
@@ -86,24 +85,24 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       autoPlay: true,
       items: [
         GestureDetector(
-          onTap: () async {
-            final places = await _regionService.getPlace("famous places", []);
+          onTap: () {
+            // Use cached places instead of fetching again
             if (mounted) {
               Navigator.push(
                 context,
                 CupertinoPageRoute(
                   builder: (context) => RegionOverview(
                     region: const Region(
-                      id: "southern",
+                      id: "saigon",
                       name: "Southern Vietnam",
                       description:
                           "Explore the vibrant culture and bustling cities of Southern Vietnam.",
-                      imageUrl: "../assets/images/regions/saigon.jpg",
+                      imageUrl: "../assets/images/regions/Saigon.jpg",
                       //placeholder
                       placesId: ["place1", "place2", "place3"],
                     ),
                     currentFilter: FilterType.regionOverview,
-                    places: places,
+                    places: _allPlaces,
                   ),
                 ),
               );
@@ -111,7 +110,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           },
           child: const Briefing(
             size: BriefingSize.full,
-            title: "Saigon",
+            title: "Ho Chi Minh City",
             category: "Southern",
             imageUrl: "../assets/images/places/Saigon.jpg",
           ),

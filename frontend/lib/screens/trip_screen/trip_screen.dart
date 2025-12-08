@@ -50,7 +50,7 @@ class TripScreen extends ConsumerWidget {
           // Subscribe the user to the event
           final userInfo = UserInfo();
           final username =
-              userInfo.username.isNotEmpty ? userInfo.username : 'guest';
+              userInfo.email.isNotEmpty ? userInfo.email : 'guest';
           await regionService.subscribeToEvent(
               username, apiResult['id'].toString());
 

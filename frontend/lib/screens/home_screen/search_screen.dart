@@ -82,10 +82,21 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   Future<void> _loadRecentPlaces() async {
-    final recent = await _cacheService.getCache();
-    setState(() {
-      _recentPlaces = recent.take(5).toList();
-    });
+    try {
+      final recent = await _cacheService.getCache();
+      if (mounted) {
+        setState(() {
+          _recentPlaces = recent.take(5).toList();
+        });
+      }
+    } catch (e) {
+      print('Error loading recent places: $e');
+      if (mounted) {
+        setState(() {
+          _recentPlaces = [];
+        });
+      }
+    }
   }
 
   void _initializeCategories() {
@@ -125,6 +136,8 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   Future<void> _performSearch() async {
+    if (!mounted) return;
+    
     setState(() {
       _isLoading = true;
       _errorMessage = null;
@@ -146,15 +159,19 @@ class _SearchScreenState extends State<SearchScreen> {
         filtersToUse,
       );
 
-      setState(() {
-        _searchResults = results;
-        _isLoading = false;
-      });
+      if (mounted) {
+        setState(() {
+          _searchResults = results;
+          _isLoading = false;
+        });
+      }
     } catch (e) {
-      setState(() {
-        _errorMessage = e.toString();
-        _isLoading = false;
-      });
+      if (mounted) {
+        setState(() {
+          _errorMessage = e.toString();
+          _isLoading = false;
+        });
+      }
     }
   }
 

@@ -7,6 +7,7 @@ class SignUpForm2 extends StatefulWidget {
   final Function onPrevious;
   final TextEditingController nameController;
   final TextEditingController ageController;
+  final TextEditingController usernameController;
   final UserInfo userInfo;
 
   const SignUpForm2({
@@ -15,6 +16,7 @@ class SignUpForm2 extends StatefulWidget {
     required this.onPrevious,
     required this.nameController,
     required this.ageController,
+    required this.usernameController,
     required this.userInfo,
   });
 
@@ -42,6 +44,12 @@ class _SignUpForm2State extends State<SignUpForm2> {
             ),
           ),
           const SizedBox(height: 24),
+          MyTextField(
+            textEditingController: widget.usernameController,
+            label: "Username",
+            hintText:"Enter your username",
+            ),
+          const SizedBox(height: 48),
           MyTextField(
             textEditingController: widget.nameController,
             label: "Name",

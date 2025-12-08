@@ -62,7 +62,7 @@ class _TripScreenContentState extends ConsumerState<TripScreenContent>
         // Subscribe the user to the event
         final userInfo = UserInfo();
         final username =
-            userInfo.username.isNotEmpty ? userInfo.username : 'guest';
+            userInfo.email.isNotEmpty ? userInfo.email : 'guest';
         await regionService.subscribeToEvent(username, result['id'].toString());
 
         // Refresh participated events and all events
@@ -374,7 +374,7 @@ class _TripScreenContentState extends ConsumerState<TripScreenContent>
                                     direction: DismissDirection.endToStart,
                                     confirmDismiss: (direction) async {
                                       // Call backend to unsubscribe
-                                      final username = UserInfo().username;
+                                      final username = UserInfo().email;
                                       if (username.isEmpty) return false;
 
                                       final regionService = RegionService();

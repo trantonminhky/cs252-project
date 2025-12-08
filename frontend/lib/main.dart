@@ -7,7 +7,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // Restore user info from SharedPreferences
-  final authService = AuthService();
+  final authService = email();
   await authService.restoreUserInfo();
 
   runApp(const ProviderScope(child: MyApp()));

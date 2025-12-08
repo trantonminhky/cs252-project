@@ -286,7 +286,7 @@ class EventDetailScreen extends ConsumerWidget {
               ),
             ),
             onPressed: () async {
-              final username = UserInfo().username;
+              final username = UserInfo().email;
 
               if (username.isEmpty) {
                 Navigator.of(context).pop();
@@ -388,7 +388,7 @@ class EventDetailScreen extends ConsumerWidget {
               ),
             ),
             onPressed: () async {
-              final username = UserInfo().username;
+              final username = UserInfo().email;
 
               if (username.isEmpty) {
                 Navigator.of(context).pop();
