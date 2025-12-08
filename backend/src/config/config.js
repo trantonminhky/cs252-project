@@ -22,8 +22,8 @@ const config = {
 		APIKey: process.env.OPEN_ROUTE_SERVICE_API_KEY
 	},
 
-	pythonBackend: {
-		baseURL: process.env.PYTHON_BACKEND_BASE_URL
+	pythonBackendVan: {
+		baseURL: process.env.PYTHON_BACKEND_BASE_URL_VAN
 	},
 
 	discord: {

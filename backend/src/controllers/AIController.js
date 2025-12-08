@@ -8,18 +8,6 @@ const PROMPT_MAXIMUM_LENGTH = 500;
  * @class
  */
 class AIController {
-	/**
-	 * Controller for <b>/api/ai/send-prompt</b>. Supports <b>POST</b> requests.
-	 * @param {String} prompt - The prompt to be fed to AI
-	 * @param {String} [model] - Gemini model. By default the model is gemini-flash-latest
-	 * @returns {ServiceResponse}
-	 * 
-	 * @example
-	 * curl -X POST \
-	 * --header 'Content-Type:application/json' \
-	 * --data '{"prompt":"who is hatsune miku?"}' \
-	 * http://localhost:3000
-	 */
 	async sendPrompt(req, res, next) {
 		try {
 			const prompt = req.body.prompt;
@@ -50,24 +38,24 @@ class AIController {
 		}
 	}
 
-	async extractTags(req, res, next) {
-		try {
-			const text = req.query.text;
-			if (!text) {
-				const response = new ServiceResponse(
-					false,
-					400,
-					"Text is required"
-				);
-				return void res.status(response.statusCode).json(response.get());
-			}
+	// async extractTags(req, res, next) {
+	// 	try {
+	// 		const text = req.query.text;
+	// 		if (!text) {
+	// 			const response = new ServiceResponse(
+	// 				false,
+	// 				400,
+	// 				"Text is required"
+	// 			);
+	// 			return void res.status(response.statusCode).json(response.get());
+	// 		}
 
-			const response = await AIService.extractTags(text);
-			return void res.status(response.statusCode).json(response.get());
-		} catch (err) {
-			next(err);
-		}
-	}
+	// 		const response = await AIService.extractTags(text);
+	// 		return void res.status(response.statusCode).json(response.get());
+	// 	} catch (err) {
+	// 		next(err);
+	// 	}
+	// }
 
 	async generateReviews(req, res, next) {
 		try {
