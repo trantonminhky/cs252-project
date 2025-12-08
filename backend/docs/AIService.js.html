@@ -29,7 +29,7 @@
 <nav >
     
     
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="AIService.html">AIService</a><ul class='methods'><li data-type='method'><a href="AIService.html#sendPrompt">sendPrompt</a></li></ul></li><li><a href="DBService.html">DBService</a><ul class='methods'><li data-type='method'><a href="DBService.html#clear">clear</a></li><li data-type='method'><a href="DBService.html#clearAll">clearAll</a></li><li data-type='method'><a href="DBService.html#export">export</a></li><li data-type='method'><a href="DBService.html#exportAll">exportAll</a></li></ul></li><li><a href="GeocodeService.html">GeocodeService</a><ul class='methods'><li data-type='method'><a href="GeocodeService.html#geocode">geocode</a></li><li data-type='method'><a href="GeocodeService.html#reverseGeocode">reverseGeocode</a></li></ul></li><li><a href="LocationService.html">LocationService</a><ul class='methods'><li data-type='method'><a href="LocationService.html#importToDB">importToDB</a></li><li data-type='method'><a href="LocationService.html#search">search</a></li></ul></li><li><a href="MapService.html">MapService</a></li><li><a href="ProfileService.html">ProfileService</a><ul class='methods'><li data-type='method'><a href="ProfileService.html#addSavedPlace">addSavedPlace</a></li><li data-type='method'><a href="ProfileService.html#getSavedPlaces">getSavedPlaces</a></li><li data-type='method'><a href="ProfileService.html#login">login</a></li><li data-type='method'><a href="ProfileService.html#register">register</a></li><li data-type='method'><a href="ProfileService.html#removeSavedPlace">removeSavedPlace</a></li><li data-type='method'><a href="ProfileService.html#setPreferences">setPreferences</a></li></ul></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="AIService.html">AIService</a><ul class='methods'><li data-type='method'><a href="AIService.html#generateReviews">generateReviews</a></li><li data-type='method'><a href="AIService.html#sendPrompt">sendPrompt</a></li></ul></li><li><a href="DBService.html">DBService</a><ul class='methods'><li data-type='method'><a href="DBService.html#clear">clear</a></li><li data-type='method'><a href="DBService.html#clearAll">clearAll</a></li><li data-type='method'><a href="DBService.html#export">export</a></li><li data-type='method'><a href="DBService.html#exportAll">exportAll</a></li></ul></li><li><a href="GeocodeService.html">GeocodeService</a><ul class='methods'><li data-type='method'><a href="GeocodeService.html#geocode">geocode</a></li><li data-type='method'><a href="GeocodeService.html#reverseGeocode">reverseGeocode</a></li></ul></li><li><a href="LocationService.html">LocationService</a><ul class='methods'><li data-type='method'><a href="LocationService.html#importToDB">importToDB</a></li><li data-type='method'><a href="LocationService.html#search">search</a></li></ul></li><li><a href="MapService.html">MapService</a></li><li><a href="ProfileService.html">ProfileService</a><ul class='methods'><li data-type='method'><a href="ProfileService.html#addSavedPlace">addSavedPlace</a></li><li data-type='method'><a href="ProfileService.html#getSavedPlaces">getSavedPlaces</a></li><li data-type='method'><a href="ProfileService.html#login">login</a></li><li data-type='method'><a href="ProfileService.html#register">register</a></li><li data-type='method'><a href="ProfileService.html#removeSavedPlace">removeSavedPlace</a></li><li data-type='method'><a href="ProfileService.html#setPreferences">setPreferences</a></li></ul></li></ul>
     
 </nav>
 
@@ -69,22 +69,26 @@ class AIService {
 	 * @example &lt;caption>cURL&lt;/caption>
 	 * curl -X POST \
 	 * --header 'Content-Type:application/json' \
-	 * --data '{"prompt":"who is hatsune miku?"}' \
+	 * --header 'Authorization:MIKU_MIKU_OO_EE_OO' \
+	 * --data '{"prompt":"hello"}' \
 	 * http://localhost:3000/api/ai/send-prompt
 	 * 
-	 * @example &lt;caption>Sample result&lt;/caption>
-	 * 	{
-     * 		"success": true,
-     * 		"statusCode": 200,
-     * 		"payload": {
-     *    			"message": "Success (OK)",
-     *    			"data": "Hatsune Miku is a fascinating and globally recognized..."
-	 * 		}
-	 * 	}
+	 * @example &lt;caption>Response&lt;/caption>
+	 * {
+	 *	"success": true,
+	 *	"statusCode": 200,
+	 *	"payload": {
+	 *		"message": "Success (OK)",
+	 *		"data": "hello to you too! How are you doing today?"
+     *	}
+	 * }
 	 * 
 	 * @property {OK} 200 - Successful request
  	 * @property {BAD_REQUEST} 400 - Missing prompt
+	 * @property {UNAUTHORIZED} 401 - No bearer JWT was specified, or the JWT verification failed (invalid or expired)
+	 * @property {METHOD_NOT_ALLOWED} 405 - The endpoint does not support the HTTP method specified
 	 * @property {CONTENT_TOO_LARGE} 413 - Prompt exceeds 500 characters
+	 * @property {UNSUPPORTED_MEDIA} 415 - Request does not have &lt;code>Content-Type:application/json&lt;/code> header
 	 * @property {UNPROCESSABLE_ENTITY} 422 - The model name does not exist, or the model is internally broken
 	 * @property {INTERNAL_SERVER_ERROR} 500 - Something went wrong with the backend (cooked)
 	 * @property {BAD_GATEWAY} 502 - Something went wrong with the upstream APIs (cooked)
@@ -159,6 +163,56 @@ class AIService {
 	// 	}
 	// }
 
+	/**
+	 * Service function for &lt;b>/api/ai/generate-reviews&lt;/b>. Generate generic reviews for a location (lmao). This method is mainly used in the frontend to generate fake reviews, as the &lt;code>date&lt;/code> field is Flutter formatted. Supports &lt;b>POST&lt;/b> requests.
+	 * @param {String} place - Place name for the AI to generate reviews about
+	 * @param {String} [model='gemini-flash-latest'] - Gemini model
+	 * @returns {Promise&lt;ServiceResponse>}
+	 * 
+	 * @example &lt;caption>cURL&lt;/caption>
+	 * curl -X POST \
+	 * --header 'Content-Type:application/json' \
+	 * --header 'Authorization:MIKU_MIKU_OO_EE_OO' \
+	 * --data '{"place":"Ben Thanh Market"}' \
+	 * http://localhost:3000/api/ai/generate-reviews
+	 * 
+	 * @example &lt;caption>Response&lt;/caption>
+	 * {
+	 *	"success": true,
+	 *	"statusCode": 200,
+	 *	"payload": {
+	 *		"message": "Success (OK)",
+	 *		"data": [
+	 *			{
+	 *				"username": "TravelerGal",
+	 *				"id": "R1001",
+	 *				"content": "A bustling place full of energy and local crafts! You must haggle fiercely though, as prices start very high. The food court 
+	 				in the back is a fantastic spot for authentic Vietnamese street food.",
+	 *				"rating": 4,
+	 *				"date": "2023-11-25T14:30:00.000Z"
+	 *			},
+	 *			{
+	 *				"username": "HoChiMinhLocalGuide",
+	 *				"id": "R1002",
+	 *				"content": "While essential for tourists, this market is now quite expensive compared to smaller, neighborhood markets. Great
+	 				architecture, but be prepared for intense salesmanship. Better for souvenirs than daily shopping.",
+	 *				"rating": 3,
+	 *				"date": "2023-12-01T09:15:00.000Z"
+	 *			}
+	 *		]
+	 *	}
+	 * }
+	 * 
+	 * @property {OK} 200 - Successful request
+	 * @property {BAD_REQUEST} 400 - Missing place
+	 * @property {UNAUTHORIZED} 401 - No bearer JWT was specified, or the JWT verification failed (invalid or expired)
+	 * @property {METHOD_NOT_ALLOWED} 405 - The endpoint does not support the HTTP method specified
+	 * @property {UNSUPPORTED_MEDIA} 415 - Request does not have &lt;code>Content-Type:application/json&lt;/code> header
+	 * @property {UNPROCESSABLE_ENTITY} 422 - The model name does not exist, or the model is internally broken
+	 * @property {INTERNAL_SERVER_ERROR} 500 - Something went wrong with the backend (cooked)
+	 * @property {BAD_GATEWAY} 502 - Something went wrong with the upstream APIs (cooked)
+	 */
+	
 	async generateReviews(place, model = 'gemini-flash-latest') {
 		try {
 			await gemini.models.get({ model: model });
@@ -211,7 +265,7 @@ export default new AIService();</code></pre>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Mon Dec 08 2025 18:10:31 GMT+0700 (Indochina Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Mon Dec 08 2025 19:37:01 GMT+0700 (Indochina Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>

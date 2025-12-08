@@ -22,22 +22,26 @@ class AIService {
 	 * @example <caption>cURL</caption>
 	 * curl -X POST \
 	 * --header 'Content-Type:application/json' \
-	 * --data '{"prompt":"who is hatsune miku?"}' \
+	 * --header 'Authorization:MIKU_MIKU_OO_EE_OO' \
+	 * --data '{"prompt":"hello"}' \
 	 * http://localhost:3000/api/ai/send-prompt
 	 * 
-	 * @example <caption>Sample result</caption>
-	 * 	{
-     * 		"success": true,
-     * 		"statusCode": 200,
-     * 		"payload": {
-     *    			"message": "Success (OK)",
-     *    			"data": "Hatsune Miku is a fascinating and globally recognized..."
-	 * 		}
-	 * 	}
+	 * @example <caption>Response</caption>
+	 * {
+	 *	"success": true,
+	 *	"statusCode": 200,
+	 *	"payload": {
+	 *		"message": "Success (OK)",
+	 *		"data": "hello to you too! How are you doing today?"
+     *	}
+	 * }
 	 * 
 	 * @property {OK} 200 - Successful request
  	 * @property {BAD_REQUEST} 400 - Missing prompt
+	 * @property {UNAUTHORIZED} 401 - No bearer JWT was specified, or the JWT verification failed (invalid or expired)
+	 * @property {METHOD_NOT_ALLOWED} 405 - The endpoint does not support the HTTP method specified
 	 * @property {CONTENT_TOO_LARGE} 413 - Prompt exceeds 500 characters
+	 * @property {UNSUPPORTED_MEDIA} 415 - Request does not have <code>Content-Type:application/json</code> header
 	 * @property {UNPROCESSABLE_ENTITY} 422 - The model name does not exist, or the model is internally broken
 	 * @property {INTERNAL_SERVER_ERROR} 500 - Something went wrong with the backend (cooked)
 	 * @property {BAD_GATEWAY} 502 - Something went wrong with the upstream APIs (cooked)
@@ -112,6 +116,56 @@ class AIService {
 	// 	}
 	// }
 
+	/**
+	 * Service function for <b>/api/ai/generate-reviews</b>. Generate generic reviews for a location (lmao). This method is mainly used in the frontend to generate fake reviews, as the <code>date</code> field is Flutter formatted. Supports <b>POST</b> requests.
+	 * @param {String} place - Place name for the AI to generate reviews about
+	 * @param {String} [model='gemini-flash-latest'] - Gemini model
+	 * @returns {Promise<ServiceResponse>}
+	 * 
+	 * @example <caption>cURL</caption>
+	 * curl -X POST \
+	 * --header 'Content-Type:application/json' \
+	 * --header 'Authorization:MIKU_MIKU_OO_EE_OO' \
+	 * --data '{"place":"Ben Thanh Market"}' \
+	 * http://localhost:3000/api/ai/generate-reviews
+	 * 
+	 * @example <caption>Response</caption>
+	 * {
+	 *	"success": true,
+	 *	"statusCode": 200,
+	 *	"payload": {
+	 *		"message": "Success (OK)",
+	 *		"data": [
+	 *			{
+	 *				"username": "TravelerGal",
+	 *				"id": "R1001",
+	 *				"content": "A bustling place full of energy and local crafts! You must haggle fiercely though, as prices start very high. The food court 
+	 				in the back is a fantastic spot for authentic Vietnamese street food.",
+	 *				"rating": 4,
+	 *				"date": "2023-11-25T14:30:00.000Z"
+	 *			},
+	 *			{
+	 *				"username": "HoChiMinhLocalGuide",
+	 *				"id": "R1002",
+	 *				"content": "While essential for tourists, this market is now quite expensive compared to smaller, neighborhood markets. Great
+	 				architecture, but be prepared for intense salesmanship. Better for souvenirs than daily shopping.",
+	 *				"rating": 3,
+	 *				"date": "2023-12-01T09:15:00.000Z"
+	 *			}
+	 *		]
+	 *	}
+	 * }
+	 * 
+	 * @property {OK} 200 - Successful request
+	 * @property {BAD_REQUEST} 400 - Missing place
+	 * @property {UNAUTHORIZED} 401 - No bearer JWT was specified, or the JWT verification failed (invalid or expired)
+	 * @property {METHOD_NOT_ALLOWED} 405 - The endpoint does not support the HTTP method specified
+	 * @property {UNSUPPORTED_MEDIA} 415 - Request does not have <code>Content-Type:application/json</code> header
+	 * @property {UNPROCESSABLE_ENTITY} 422 - The model name does not exist, or the model is internally broken
+	 * @property {INTERNAL_SERVER_ERROR} 500 - Something went wrong with the backend (cooked)
+	 * @property {BAD_GATEWAY} 502 - Something went wrong with the upstream APIs (cooked)
+	 */
+	
 	async generateReviews(place, model = 'gemini-flash-latest') {
 		try {
 			await gemini.models.get({ model: model });

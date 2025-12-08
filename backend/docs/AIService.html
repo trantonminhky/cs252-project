@@ -29,7 +29,7 @@
 <nav >
     
     
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="AIService.html">AIService</a><ul class='methods'><li data-type='method'><a href="AIService.html#sendPrompt">sendPrompt</a></li></ul></li><li><a href="DBService.html">DBService</a><ul class='methods'><li data-type='method'><a href="DBService.html#clear">clear</a></li><li data-type='method'><a href="DBService.html#clearAll">clearAll</a></li><li data-type='method'><a href="DBService.html#export">export</a></li><li data-type='method'><a href="DBService.html#exportAll">exportAll</a></li></ul></li><li><a href="GeocodeService.html">GeocodeService</a><ul class='methods'><li data-type='method'><a href="GeocodeService.html#geocode">geocode</a></li><li data-type='method'><a href="GeocodeService.html#reverseGeocode">reverseGeocode</a></li></ul></li><li><a href="LocationService.html">LocationService</a><ul class='methods'><li data-type='method'><a href="LocationService.html#importToDB">importToDB</a></li><li data-type='method'><a href="LocationService.html#search">search</a></li></ul></li><li><a href="MapService.html">MapService</a></li><li><a href="ProfileService.html">ProfileService</a><ul class='methods'><li data-type='method'><a href="ProfileService.html#addSavedPlace">addSavedPlace</a></li><li data-type='method'><a href="ProfileService.html#getSavedPlaces">getSavedPlaces</a></li><li data-type='method'><a href="ProfileService.html#login">login</a></li><li data-type='method'><a href="ProfileService.html#register">register</a></li><li data-type='method'><a href="ProfileService.html#removeSavedPlace">removeSavedPlace</a></li><li data-type='method'><a href="ProfileService.html#setPreferences">setPreferences</a></li></ul></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="AIService.html">AIService</a><ul class='methods'><li data-type='method'><a href="AIService.html#generateReviews">generateReviews</a></li><li data-type='method'><a href="AIService.html#sendPrompt">sendPrompt</a></li></ul></li><li><a href="DBService.html">DBService</a><ul class='methods'><li data-type='method'><a href="DBService.html#clear">clear</a></li><li data-type='method'><a href="DBService.html#clearAll">clearAll</a></li><li data-type='method'><a href="DBService.html#export">export</a></li><li data-type='method'><a href="DBService.html#exportAll">exportAll</a></li></ul></li><li><a href="GeocodeService.html">GeocodeService</a><ul class='methods'><li data-type='method'><a href="GeocodeService.html#geocode">geocode</a></li><li data-type='method'><a href="GeocodeService.html#reverseGeocode">reverseGeocode</a></li></ul></li><li><a href="LocationService.html">LocationService</a><ul class='methods'><li data-type='method'><a href="LocationService.html#importToDB">importToDB</a></li><li data-type='method'><a href="LocationService.html#search">search</a></li></ul></li><li><a href="MapService.html">MapService</a></li><li><a href="ProfileService.html">ProfileService</a><ul class='methods'><li data-type='method'><a href="ProfileService.html#addSavedPlace">addSavedPlace</a></li><li data-type='method'><a href="ProfileService.html#getSavedPlaces">getSavedPlaces</a></li><li data-type='method'><a href="ProfileService.html#login">login</a></li><li data-type='method'><a href="ProfileService.html#register">register</a></li><li data-type='method'><a href="ProfileService.html#removeSavedPlace">removeSavedPlace</a></li><li data-type='method'><a href="ProfileService.html#setPreferences">setPreferences</a></li></ul></li></ul>
     
 </nav>
 
@@ -171,6 +171,476 @@
 
     
 
+    <h4 class="name" id="generateReviews"><span class="type-signature type-signature-async">(async) </span>generateReviews<span class="signature">(place, model<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;ServiceResponse>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Service function for <b>/api/ai/generate-reviews</b>. Generate generic reviews for a location (lmao). This method is mainly used in the frontend to generate fake reviews, as the <code>date</code> field is Flutter formatted. Supports <b>POST</b> requests.</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="AIService.js.html">AIService.js</a>, <a href="AIService.js.html#line169">line 169</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>200</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">OK</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Successful request</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>400</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">BAD_REQUEST</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Missing place</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>401</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">UNAUTHORIZED</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">No bearer JWT was specified, or the JWT verification failed (invalid or expired)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>405</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">METHOD_NOT_ALLOWED</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The endpoint does not support the HTTP method specified</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>415</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">UNSUPPORTED_MEDIA</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Request does not have <code>Content-Type:application/json</code> header</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>422</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">UNPROCESSABLE_ENTITY</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The model name does not exist, or the model is internally broken</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>500</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">INTERNAL_SERVER_ERROR</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Something went wrong with the backend (cooked)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>502</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">BAD_GATEWAY</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Something went wrong with the upstream APIs (cooked)</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-examples">Examples</h5>
+    
+        <p class="code-caption">cURL</p>
+    
+    <pre class="prettyprint"><code>curl -X POST \
+--header 'Content-Type:application/json' \
+--header 'Authorization:MIKU_MIKU_OO_EE_OO' \
+--data '{"place":"Ben Thanh Market"}' \
+http://localhost:3000/api/ai/generate-reviews</code></pre>
+
+        <p class="code-caption">Response</p>
+    
+    <pre class="prettyprint"><code>{
+	"success": true,
+	"statusCode": 200,
+	"payload": {
+		"message": "Success (OK)",
+		"data": [
+			{
+				"username": "TravelerGal",
+				"id": "R1001",
+				"content": "A bustling place full of energy and local crafts! You must haggle fiercely though, as prices start very high. The food court 
+	 				in the back is a fantastic spot for authentic Vietnamese street food.",
+				"rating": 4,
+				"date": "2023-11-25T14:30:00.000Z"
+			},
+			{
+				"username": "HoChiMinhLocalGuide",
+				"id": "R1002",
+				"content": "While essential for tourists, this market is now quite expensive compared to smaller, neighborhood markets. Great
+	 				architecture, but be prepared for intense salesmanship. Better for souvenirs than daily shopping.",
+				"rating": 3,
+				"date": "2023-12-01T09:15:00.000Z"
+			}
+		]
+	}
+}</code></pre>
+
+
+
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>place</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">Place name for the AI to generate reviews about</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>model</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>'gemini-flash-latest'</code>
+                
+                </td>
+            
+
+            <td class="description last">Gemini model</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;ServiceResponse></span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
     <h4 class="name" id="sendPrompt"><span class="type-signature type-signature-async">(async) </span>sendPrompt<span class="signature">(prompt, model<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;ServiceResponse>}</span></h4>
 
     
@@ -187,7 +657,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="AIService.js.html">AIService.js</a>, <a href="AIService.js.html#line45">line 45</a>
+        <a href="AIService.js.html">AIService.js</a>, <a href="AIService.js.html#line49">line 49</a>
     </li></ul></dd>
     
 
@@ -298,6 +768,54 @@
 
         <tr>
             
+                <td class="name"><code>401</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">UNAUTHORIZED</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">No bearer JWT was specified, or the JWT verification failed (invalid or expired)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>405</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">METHOD_NOT_ALLOWED</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The endpoint does not support the HTTP method specified</td>
+        </tr>
+
+    
+
+        <tr>
+            
                 <td class="name"><code>413</code></td>
             
 
@@ -316,6 +834,30 @@
             
 
             <td class="description last">Prompt exceeds 500 characters</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>415</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">UNSUPPORTED_MEDIA</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Request does not have <code>Content-Type:application/json</code> header</td>
         </tr>
 
     
@@ -411,19 +953,20 @@
     
     <pre class="prettyprint"><code>curl -X POST \
 --header 'Content-Type:application/json' \
---data '{"prompt":"who is hatsune miku?"}' \
+--header 'Authorization:MIKU_MIKU_OO_EE_OO' \
+--data '{"prompt":"hello"}' \
 http://localhost:3000/api/ai/send-prompt</code></pre>
 
-        <p class="code-caption">Sample result</p>
+        <p class="code-caption">Response</p>
     
-    <pre class="prettyprint"><code>	{
-		"success": true,
-		"statusCode": 200,
-		"payload": {
-   			"message": "Success (OK)",
-   			"data": "Hatsune Miku is a fascinating and globally recognized..."
-		}
-	}</code></pre>
+    <pre class="prettyprint"><code>{
+	"success": true,
+	"statusCode": 200,
+	"payload": {
+		"message": "Success (OK)",
+		"data": "hello to you too! How are you doing today?"
+	}
+}</code></pre>
 
 
 
@@ -590,7 +1133,7 @@ http://localhost:3000/api/ai/send-prompt</code></pre>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Mon Dec 08 2025 18:10:31 GMT+0700 (Indochina Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Mon Dec 08 2025 19:37:01 GMT+0700 (Indochina Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>

@@ -27,8 +27,6 @@ const config = {
 		baseURLAn: process.env.PYTHON_BACKEND_AN_BASE_URL
 	},
 
-
-
 	discord: {
 		webhook: process.env.WEBHOOK_LINK
 	},
