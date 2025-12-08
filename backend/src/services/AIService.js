@@ -79,15 +79,15 @@ class AIService {
 		}
 	}
 
-	/**
-	 * Service function for <b>/api/ai/extract-tags</b>. Extract culture tags a user may be interested at from their query. Supports <b>GET</b> requests.
-	 * @param {String} text - User query
-	 * @returns {Promise<ServiceResponse>}
-	 * 
-	 * @example <caption>cURL</caption>
-	 * curl "http://localhost:3000/api/ai/send-prompt?text=i want to go somewhere sunny"
-	 */
-	
+	// /**
+	//  * Service function for <b>/api/ai/extract-tags</b>. Extract culture tags a user may be interested at from their query. Supports <b>GET</b> requests.
+	//  * @param {String} text - User query
+	//  * @returns {Promise<ServiceResponse>}
+	//  * 
+	//  * @example <caption>cURL</caption>
+	//  * curl "http://localhost:3000/api/ai/send-prompt?text=i want to go somewhere sunny"
+	//  */
+
 	// async extractTags(text) {
 	// 	try {
 	// 		const client = await Client.connect(this.tagsExtractionBaseURL);

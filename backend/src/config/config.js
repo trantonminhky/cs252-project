@@ -22,9 +22,12 @@ const config = {
 		APIKey: process.env.OPEN_ROUTE_SERVICE_API_KEY
 	},
 
-	pythonBackendVan: {
-		baseURL: process.env.PYTHON_BACKEND_BASE_URL_VAN
+	pythonBackend: {
+		baseURLAn: process.env.PYTHON_BACKEND_VAN_BASE_URL,
+		baseURLAn: process.env.PYTHON_BACKEND_AN_BASE_URL
 	},
+
+
 
 	discord: {
 		webhook: process.env.WEBHOOK_LINK
