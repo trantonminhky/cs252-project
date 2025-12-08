@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>DBService.js - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="DBService.html">DBService</a><ul class='methods'><li data-type='method'><a href="DBService.html#clear">clear</a></li><li data-type='method'><a href="DBService.html#clearAll">clearAll</a></li><li data-type='method'><a href="DBService.html#export">export</a></li><li data-type='method'><a href="DBService.html#exportAll">exportAll</a></li></ul></li><li><a href="GeocodeService.html">GeocodeService</a><ul class='methods'><li data-type='method'><a href="GeocodeService.html#geocode">geocode</a></li><li data-type='method'><a href="GeocodeService.html#reverseGeocode">reverseGeocode</a></li></ul></li><li><a href="LocationService.html">LocationService</a><ul class='methods'><li data-type='method'><a href="LocationService.html#importToDB">importToDB</a></li><li data-type='method'><a href="LocationService.html#search">search</a></li></ul></li><li><a href="MapService.html">MapService</a></li><li><a href="ProfileService.html">ProfileService</a><ul class='methods'><li data-type='method'><a href="ProfileService.html#addSavedPlace">addSavedPlace</a></li><li data-type='method'><a href="ProfileService.html#getSavedPlaces">getSavedPlaces</a></li><li data-type='method'><a href="ProfileService.html#login">login</a></li><li data-type='method'><a href="ProfileService.html#register">register</a></li><li data-type='method'><a href="ProfileService.html#removeSavedPlace">removeSavedPlace</a></li><li data-type='method'><a href="ProfileService.html#setPreferences">setPreferences</a></li></ul></li></ul>
+    
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">DBService.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { readdirSync } from 'fs';
+import path from 'path';
+import { fileURLToPath, pathToFileURL } from 'url';
+import ServiceResponse from '../helper/ServiceResponse.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+/**
+ * Representation of databases. Note that THIS OBJECT IS ONLY FOR VIEWING PURPOSE, REFRAIN FROM DIRECTLY MODIFYING VIA THIS INFERFACE.
+ * @class
+ */
+class DBService {
+	constructor() {
+		const dir = path.join(__dirname, '..', "db");
+		this.databases = Promise.all(
+			readdirSync(dir).map(async file => {
+				const filePath = path.join(dir, file);
+				const fileUrl = pathToFileURL(filePath).href;
+				const mod = await import(fileUrl);
+				return mod.default ?? mod;
+			})
+		);
+	}
+
+	/**
+	 * Clear selected database given name. This action is destructive and irreparable.
+	 * @param {name} name - Database name
+	 * @returns {Promise&lt;ServiceResponse>}
+	 */
+	async clear(name) {
+		const databases = await this.databases;
+
+		for (const db of databases) {
+			const _export = db.export();
+
+			if (_export.name === name) {
+				db.clear();
+				return (new ServiceResponse(
+					true,
+					204,
+					"Success"
+				));
+			}
+		}
+
+		return (new ServiceResponse(
+			false,
+			404,
+			"No database with such name is found"
+		));
+	}
+
+	/**
+	 * Clear all databases. This action is destructive and irreparable.
+	 * @returns {Promise&lt;ServiceResponse>}
+	 */
+	async clearAll() {
+		const databases = await this.databases;
+
+		databases.forEach(db => db.clear());
+		return (new ServiceResponse(
+			true,
+			204,
+			"Success"
+		));
+	}
+
+	/**
+	 * Export Enmap database to readable JSON given database name
+	 * @param {String} name - Database name
+	 * @returns {Promise&lt;ServiceResponse>} - Response
+	 */
+	async export(name) {
+		const databases = await this.databases;
+
+		for (const db of databases) {
+			const _export = db.export();
+			
+			if (_export.name === name) {
+				return (new ServiceResponse(
+					true,
+					200,
+					"Success",
+					_export.data
+				));
+			}
+		}
+
+		return (new ServiceResponse(
+			false,
+			404,
+			"No database with such name is found"
+		));
+	}
+
+	/**
+	 * Get the Enmap exported and formatted as a readable JSON
+	 * @returns {Promise&lt;ServiceResponse>} Response
+	 */
+	async exportAll() {
+		const databases = await this.databases;
+
+		const exports = {};
+		for (const db of databases) {
+			const _export = db.export();
+			exports[_export.name] = _export.data;
+		}
+
+		return (new ServiceResponse(
+			true,
+			200,
+			"Success",
+			exports
+		));
+	}
+}
+
+export default new DBService();</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Mon Dec 08 2025 08:15:53 GMT+0700 (Indochina Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+
+
+</body>
+</html>

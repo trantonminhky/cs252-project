@@ -2,6 +2,8 @@ import EventDB from '../db/EventDB.js';
 import ServiceResponse from '../helper/ServiceResponse.js';
 import eventsData from '../../events.json' with { type: "json" };
 
+// TO-DO: ADD LOCATION TO EVENT
+
 class EventService {
 	async importToDB() {
 		for (const entry of eventsData) {

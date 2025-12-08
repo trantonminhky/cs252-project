@@ -5,7 +5,12 @@ const PROMPT_MAXIMUM_LENGTH = 500;
 
 // TO-DO: DOCUMENT CONTROLLER CLASSES
 class AIController {
-	// TO-DO: check prompt length to make it not exceed 2000 characters
+	/**
+	 * @param {import('express').Request} - express request object
+	 * @param {import('express').Response} - express response object
+	 * @param {import('express').NextFunction} - express next() function
+	 * @returns {void}
+	 */
 	async sendPrompt(req, res, next) {
 		try {
 			const prompt = req.body.prompt;

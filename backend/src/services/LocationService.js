@@ -42,7 +42,7 @@ class LocationService {
 	 * Search a point of interest based on name, description, latitudes and longitudes.
 	 * @param {String} query - Query to input
 	 * @param {Object} [options] - Options
-	 * @param {String[]|} [options.include] - Tags to only include in results so that each result has one or more tags included. By default all tags are included
+	 * @param {String[]} [options.include] - Tags to only include in results so that each result has one or more tags included. By default all tags are included
 	 * @return {Promise<ServiceResponse>} Response
 	 */
 	async search(query, options = { include: [] }) {
