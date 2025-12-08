@@ -4,7 +4,7 @@ from chromadb.utils.embedding_functions import SentenceTransformerEmbeddingFunct
 from sentence_transformers import CrossEncoder
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-from typing import Optional, Dict, Any
+from typing import Optional, Dict, Any, Union, List
 import time
 
 # --- 1. CONFIGURATION & MODEL LOADING ---
@@ -40,26 +40,58 @@ app = FastAPI(title="Reranked Search API")
 
 class SearchRequest(BaseModel):
     query: str
-    final_k: int = 3      # How many results to return to the user
-    initial_k: int = 10   # How many candidates to fetch from DB before reranking
-    
-    # NEW: Accepts a dictionary for ChromaDB filtering 
-    # Example: {"building_type": "restaurant"} or {"$and": [...]}
+    final_k: int = 3
+    initial_k: int = 10
     filters: Optional[Dict[str, Any]] = None 
 
-# --- 4. ENDPOINTS ---
+# --- HELPER FUNCTION ---
+def clean_filters_recursive(node: Any) -> Any:
+    """
+    Recursively removes empty strings, empty lists, and empty dicts.
+    Returns None if the resulting structure effectively implies 'no filter'.
+    """
+    if isinstance(node, dict):
+        cleaned_dict = {}
+        for k, v in node.items():
+            cleaned_v = clean_filters_recursive(v)
+            if cleaned_v is not None:
+                cleaned_dict[k] = cleaned_v
+        return cleaned_dict if cleaned_dict else None
+    
+    elif isinstance(node, list):
+        cleaned_list = []
+        for item in node:
+            cleaned_item = clean_filters_recursive(item)
+            if cleaned_item is not None:
+                cleaned_list.append(cleaned_item)
+        return cleaned_list if cleaned_list else None
+    
+    elif isinstance(node, str):
+        # Treat empty strings as 'remove me'
+        return node if node.strip() != "" else None
+    
+    else:
+        # Keep numbers, booleans, etc.
+        return node
 
+# --- 4. ENDPOINTS ---
 @app.post("/search")
 async def search_locations(request: SearchRequest):
     try:
         start_time = time.perf_counter()
 
-        # Step A: Initial Retrieval with Metadata Filtering
-        # We pass 'where=request.filters' directly to ChromaDB
+        # --- NEW LOGIC START ---
+        # Recursively clean the filters. 
+        # If the result is None (e.g. {"$and": [{"a": {"$in": [""]}}]} -> None), 
+        # then ChromaDB will search without filters.
+        target_filters = clean_filters_recursive(request.filters)
+        # --- NEW LOGIC END ---
+
+        # Step A: Initial Retrieval
         results = collection.query(
             query_texts=[request.query],
             n_results=request.initial_k,
-            where=request.filters 
+            where=target_filters  # Pass the cleaned filters (or None)
         )
 
         retrieved_docs = results['documents'][0]
@@ -84,22 +116,18 @@ async def search_locations(request: SearchRequest):
         combined_results = list(zip(scores, retrieved_docs, retrieved_metas))
         combined_results.sort(key=lambda x: x[0], reverse=True)
 
-        # Step C: Formatting (Threshold Removed)
+        # Step C: Formatting
         formatted_results = []
         
         for score, doc, meta in combined_results:
-            # Stop if we have enough results
             if len(formatted_results) >= request.final_k:
                 break
             
-            # (Threshold check deleted here)
-
             item = {
                 "name": meta.get('name', 'Unknown'),
                 "description": doc,
                 "image_link": meta.get('image link', ''),
                 "relevance_score": float(score),
-                # Optional: Return type to verify filtering worked
                 "building_type": meta.get('building_type', 'unknown'), 
                 "arch_style": meta.get('arch_style', 'unknown'),
                 "religion": meta.get('religion', 'unknown'),
@@ -115,7 +143,7 @@ async def search_locations(request: SearchRequest):
                 "query": request.query,
                 "candidates_reranked": len(retrieved_docs),
                 "results_returned": len(formatted_results),
-                "filters_used": request.filters,
+                "filters_used": target_filters, # Return what was actually used
                 "time_taken_seconds": f"{total_time:.4f}"
             }
         }

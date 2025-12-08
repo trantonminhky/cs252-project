@@ -19,12 +19,12 @@ collection.upsert(
     documents=arch_info.documents,
     metadatas=arch_info.metadatas,
 )
-res_info = RestaurantColInfo()
-collection.upsert(
-    ids=res_info.ids,
-    documents=res_info.documents,
-    metadatas=res_info.metadatas,
-)
+# res_info = RestaurantColInfo()
+# collection.upsert(
+#     ids=res_info.ids,
+#     documents=res_info.documents,
+#     metadatas=res_info.metadatas,
+# )
 
 test_query = [
     # 1. Architecture & Style (Tests 'arch_style' and specific descriptive keywords)
