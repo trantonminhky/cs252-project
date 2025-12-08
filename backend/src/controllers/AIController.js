@@ -3,13 +3,22 @@ import AIService from '../services/AIService.js';
 
 const PROMPT_MAXIMUM_LENGTH = 500;
 
-// TO-DO: DOCUMENT CONTROLLER CLASSES
+/**
+ * Controllers for /api/ai/ endpoints family.
+ * @class
+ */
 class AIController {
 	/**
-	 * @param {import('express').Request} - express request object
-	 * @param {import('express').Response} - express response object
-	 * @param {import('express').NextFunction} - express next() function
-	 * @returns {void}
+	 * Controller for <b>/api/ai/send-prompt</b>. Supports <b>POST</b> requests.
+	 * @param {String} prompt - The prompt to be fed to AI
+	 * @param {String} [model] - Gemini model. By default the model is gemini-flash-latest
+	 * @returns {ServiceResponse}
+	 * 
+	 * @example
+	 * curl -X POST \
+	 * --header 'Content-Type:application/json' \
+	 * --data '{"prompt":"who is hatsune miku?"}' \
+	 * http://localhost:3000
 	 */
 	async sendPrompt(req, res, next) {
 		try {

@@ -4,16 +4,43 @@ import { Client } from '@gradio/client';
 import { GoogleGenAI } from '@google/genai';
 const gemini = new GoogleGenAI(config.gemini.APIKey);
 
+/**
+ * AI service provider class.
+ * @class
+ */
 class AIService {
 	constructor() {
 		this.tagsExtractionBaseURL = config.tagsExtraction
 	}
 
 	/**
-	 * Sends prompt to Gemini with model.
-	 * @param {String} prompt - Input prompt
+	 * Service function for <b>/api/ai/send-prompt</b>. Sends prompt to Gemini with model. Supports <b>POST</b> requests.
+	 * @param {String} prompt - Prompt to be fed into AI
 	 * @param {String} [model='gemini-flash-latest'] - Gemini model
 	 * @returns {Promise<ServiceResponse>}
+	 * 
+	 * @example <caption>cURL</caption>
+	 * curl -X POST \
+	 * --header 'Content-Type:application/json' \
+	 * --data '{"prompt":"who is hatsune miku?"}' \
+	 * http://localhost:3000/api/ai/send-prompt
+	 * 
+	 * @example <caption>Sample result</caption>
+	 * 	{
+     * 		"success": true,
+     * 		"statusCode": 200,
+     * 		"payload": {
+     *    			"message": "Success (OK)",
+     *    			"data": "Hatsune Miku is a fascinating and globally recognized..."
+	 * 		}
+	 * 	}
+	 * 
+	 * @property {OK} 200 - Successful request
+ 	 * @property {BAD_REQUEST} 400 - Missing prompt
+	 * @property {CONTENT_TOO_LARGE} 413 - Prompt exceeds 500 characters
+	 * @property {UNPROCESSABLE_ENTITY} 422 - The model name does not exist, or the model is internally broken
+	 * @property {INTERNAL_SERVER_ERROR} 500 - Something went wrong with the backend (cooked)
+	 * @property {BAD_GATEWAY} 502 - Something went wrong with the upstream APIs (cooked)
 	 */
 	async sendPrompt(prompt, model = 'gemini-flash-latest') {
 		try {
