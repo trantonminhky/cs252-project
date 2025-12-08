@@ -84,16 +84,48 @@ class DBService {
 	}
 
 	/**
-	 * Export Enmap database to readable JSON given database name
+	 * Service function for <b>api/db/export</b>. Export Enmap database to readable JSON given database name. Supports <b>GET</b> requests.
 	 * @param {String} name - Database name
-	 * @returns {Promise<ServiceResponse>} - Response
+	 * @returns {Promise<ServiceResponse>}
+	 * 
+	 * @example <caption>cURL</caption>
+	 * curl http://localhost:3000/api/db/export?name=UserDB
+	 * 
+	 * @example <caption>Response</caption>
+	 * {
+	 *	"success": true,
+	 *	"statusCode": 200,
+	 *	"payload": {
+	 *		"message": "Success (OK)",
+	 *		"data": {
+	 *			"d5e098a7-fc92-41c2-916b-f1e0f58bcdf7": {
+	 * 				"username": "aoanoavn",
+	 * 				"discriminant": "4737",
+	 * 				"email": "rete@gmail.com",
+	 * 				"password": "$2b$10$3SGnzOZ9uHwkNkttyBBA6ebQgYtVzY0zv7vvhKBH1Pua3cnwKXM6S",
+	 * 				"name": "1oj2n4o2",
+	 * 				"age": 12,
+	 * 				"preferences": [],
+	 * 				"preferencesVector": null,
+	 * 				"type": "business",
+	 * 				"savePlaces": []
+	 * 			}
+	 * 		}
+	 * 	}
+	 * }
+	 * 
+	 * @property {OK} 200 - Successful request
+	 * @property {BAD_REQUEST} 400 - Missing name
+	 * @property {NOT_FOUND} 404 - Database name is not found
+	 * @property {METHOD_NOT_ALLOWED} 405 - The endpoint does not support the HTTP method specified
+	 * @property {INTERNAL_SERVER_ERROR} 500 - Something went wrong with the backend (cooked)
 	 */
 	async export(name) {
 		const databases = await this.databases;
 
 		for (const db of databases) {
 			const _export = db.export();
-			
+
 			if (_export.name === name) {
 				return (new ServiceResponse(
 					true,
@@ -112,8 +144,30 @@ class DBService {
 	}
 
 	/**
-	 * Get the Enmap exported and formatted as a readable JSON
+	 * Service function for <b>/api/db/export-all</b>. Get the whole Enmap databases exported and formatted as a readable JSON. Supports <b>GET</b> requests.
 	 * @returns {Promise<ServiceResponse>} Response
+	 * 
+	 * @example <caption>cURL</caption>
+	 * curl http://localhost:3000/api/db/export-all
+	 * 
+	 * @example <caption>Response</caption>
+	 * {
+	 * 	"success": true,
+	 * 	"statusCode": 200,
+	 * 	"payload": {
+	 * 		"message": "Success (OK)",
+	 * 		"data": {
+	 * 			"CacheDB": { ... },
+	 * 			"EventDB": { ... },
+	 * 			"LocationDB": { ... },
+	 * 			"UserDB": { ... }
+	 * 		}		
+	 * 	}
+	 * }
+	 * 
+	 * @property {OK} 200 - Successful request
+	 * @property {METHOD_NOT_ALLOWED} 405 - The endpoint does not support the HTTP method specified
+	 * @property {INTERNAL_SERVER_ERROR} 500 - Something went wrong with the backend (cooked)
 	 */
 	async exportAll() {
 		const databases = await this.databases;
