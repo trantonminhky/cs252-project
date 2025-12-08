@@ -78,7 +78,7 @@ class ServiceHelpers {
       } on DioException catch (e) {
         final is401 = e.response?.statusCode == 401;
 
-        if (is401 && retryCount < 3) {
+        if (retryCount < 3) {
           retryCount++;
           try {
             // Refresh token and retry

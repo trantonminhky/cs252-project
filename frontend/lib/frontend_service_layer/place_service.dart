@@ -121,14 +121,14 @@ class RegionService {
     return await ServiceHelpers.retryWithTokenRefresh(
       dio: dio,
       operation: () async {
-        final queryParams = {
+        final data = {
           'userID': userInfo.userId,
           'query': query,
           'include': includeFilter.join(','),
         };
-        final response = await dio.get(
+        final response = await dio.post(
           '/location/search',
-          queryParameters: queryParams,
+          data: data,
           options: Options(
             headers: {
               'Cache-Control': 'no-cache, no-store, must-revalidate',
