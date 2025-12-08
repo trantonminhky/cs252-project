@@ -24,10 +24,20 @@ class DBService {
 	}
 
 	/**
-	 * Clear selected database given name. This action is destructive and irreparable.
-	 * @param {name} name - Database name
+	 * Service function for <b>api/db/clear</b>. Clears a database given the name. <b>This action is irreversible</b>. Supports <b>DELETE</b> requests.
+	 * @param {name} name - Database name to delete
 	 * @returns {Promise<ServiceResponse>}
+	 * 
+	 * @example <caption>cURL</caption>
+	 * curl -X DELETE http://localhost:3000/api/db/clear?name=CacheDB
+	 * 
+	 * @property {NO_CONTENT} 204 - Successful request
+	 * @property {BAD_REQUEST} 400 - Missing name
+	 * @property {NOT_FOUND} 404 - No database with the given name is found
+	 * @property {METHOD_NOT_ALLOWED} 405 - The endpoint does not support the HTTP method specified
+	 * @property {INTERNAL_SERVER_ERROR} 500 - Something went wrong with the backend (cooked)
 	 */
+
 	async clear(name) {
 		const databases = await this.databases;
 
