@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>RecommendationService.js - Documentation</title>
+    <title>EventService.js - Documentation</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -35,7 +35,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">RecommendationService.js</h1>
+    <h1 class="page-title">EventService.js</h1>
     
 
     
@@ -45,77 +45,129 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import axios from 'axios';
+            <pre class="prettyprint source linenums"><code>import EventDB from '../db/EventDB.js';
 import ServiceResponse from '../helper/ServiceResponse.js';
-import UserDB from '../db/UserDB.js';
-import config from '../config/config.js';
+import eventsData from '../../events.json' with { type: "json" };
 
-class RecommendationService {
-	constructor() {
-		this.baseURL = config.pythonBackend.baseURLAn;
-	}
+// TO-DO: ADD LOCATION TO EVENT
+// TO-DO: REST-IFY EVENT AND OVERALL REFACTOR
 
+/**
+ * Event service provider class.
+ * @class
+ */
+class EventService {
 	/**
-	 * Fetch recommendations.
-	 * Passes the existing profile state from Node.js -> Python.
+	 * Service function for &lt;b>/api/event/import&lt;/b>. Import a list of events into database given a JSON. The description is meant to stay vague since this is a developer endpoint. Supports &lt;b>POST&lt;/b> requests.
+	 * @returns {Promise&lt;ServiceResponse>}
+	 * 
+	 * @example &lt;caption>cURL&lt;/caption>
+	 * curl -X POST http://localhost:3000/api/event/import
+	 * 
+	 * @example &lt;caption>Response&lt;/caption>
+	 * {
+	 * 	"success": true,
+	 * 	"statusCode": 200,
+	 * 	"payload": {
+	 * 		"message": "Success (OK)",
+	 * 		"data": null
+	 * 	}
+	 * }
+	 * 
+	 * @property {CREATED} 201 - Successful request
+	 * @property {METHOD_NOT_ALLOWED} 405 - The endpoint does not support the HTTP method specified
+	 * @property {INTERNAL_SERVER_ERROR} 500 - Something went wrong with the backend (cooked)
 	 */
-	async getRecommendations(userID, lat, lon) {
-		// 1. Get existing profile state from DB (or null if new user)
-		// 'rec_profile' is the specific key we use to store the AI data
-		const profileState = UserDB.get(userID, "preferenceVector") || null;
 
-		// 2. Send to Python with the profile_state
-		try {
-			const axiosResponse = await axios.post(`${this.baseURL}/recommend`, {
-				user_id: userID,
-				current_lat: parseFloat(lat),
-				current_lon: parseFloat(lon),
-				profile_state: profileState
+	async importToDB() {
+		for (const entry of eventsData) {
+			const eventID = EventDB.autonum();
+			EventDB.set(eventID, {
+				id: eventID,
+				name: entry.name_translated,
+				description: entry.description_translated,
+				startTime: entry.s_milliseconds,
+				endTime: entry.e_milliseconds,
+				imageLink: entry.image_link,
+				participants: []
 			});
-			return new ServiceResponse(
-				true,
-				200,
-				"Success",
-				axiosResponse.data
-			);
-		} catch (err) {
-			const response = new ServiceResponse(
-				false,
-				502,
-				"Something went wrong",
-				err.toString()
-			);
-			return response;
 		}
+
+		const response = new ServiceResponse(
+			true,
+			201,
+			"Success"
+		);
+		return response;
 	}
 
 	/**
-	 * Send feedback (Like/Visit).
-	 * Passes state Node.js -> Python -> Returns Updated State -> Node.js Saves it.
+	 * Service function for &lt;b>/api/event/create&lt;/b>
 	 */
-	async sendFeedback(userID, itemID, action) {
-		// 1. Get existing profile state
-		const profileState = UserDB.get(userID, "preferenceVector") || null;
-
-		// 2. Send feedback + state to Python
-		const axiosResponse = await axios.post(`${this.baseURL}/feedback`, {
-			user_id: userID,
-			item_id: String(itemID),
-			action: action,
-			profile_state: profileState
-		});
-
-		// 3. IMPORTANT: Update UserDB with the new state returned by Python
-		if (axiosResponse.data.profile_state) {
-			UserDB.set(userID, axiosResponse.data.profile_state, "preferenceVector");
-			return new ServiceResponse(true, 200, "Feedback recorded &amp; updated profile");
+	async createEvent(name, description, imageLink = null, startTime = null, endTime = null) {
+		const eventID = EventDB.autonum();
+		const eventData = {
+			id: eventID,
+			name: name,
+			description: description,
+			startTime: startTime || Date.now(),
+			endTime: endTime,
+			imageLink: imageLink,
+			participants: []
 		}
 
-		return new ServiceResponse(true, 200, "Feedback recorded");
+		EventDB.set(eventID, eventData);
+
+		const response = new ServiceResponse(
+			true,
+			201,
+			"Success",
+			eventData
+		);
+		return response;
+	}
+
+	async subscribe(userID, eventID) {
+		EventDB.push(eventID, userID, "participants");
+		const response = new ServiceResponse(
+			true,
+			200,
+			"Success"
+		);
+		return response;
+	}
+
+	async unsubscribe(userID, eventID) {
+		EventDB.remove(eventID, userID, "participants");
+		const response = new ServiceResponse(
+			true,
+			200,
+			"Success"
+		);
+		return response;
+	}
+
+	async getByUserID(userID) {
+		const _export = EventDB.export();
+
+		const results = [];
+		for (const [key, val] of Object.entries(_export)) {
+			if (val.participants.includes(userID)) {
+				results.push(val);
+			}
+		}
+
+		const response = new ServiceResponse(
+			true,
+			200,
+			"Success",
+			results
+		);
+		return response;
 	}
 }
 
-export default new RecommendationService();</code></pre>
+export default new EventService();</code></pre>
         </article>
     </section>
 

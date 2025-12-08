@@ -3,6 +3,7 @@ import ServiceResponse from '../helper/ServiceResponse.js';
 import eventsData from '../../events.json' with { type: "json" };
 
 // TO-DO: ADD LOCATION TO EVENT
+// TO-DO: REST-IFY EVENT AND OVERALL REFACTOR
 
 /**
  * Event service provider class.
