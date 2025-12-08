@@ -5,8 +5,6 @@ import "package:virtour_frontend/screens/data_factories/place.dart";
 class SearchCacheService {
   final String key = "search_cache";
   final int maxItems = 10;
-  final SharedPreferences _prefs =
-      SharedPreferences.getInstance() as SharedPreferences;
 
   SearchCacheService();
 

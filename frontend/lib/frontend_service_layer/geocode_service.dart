@@ -35,7 +35,7 @@ class GeocodeService {
             '$_baseUrl/api/geocode/geocode',
             queryParameters: {
               'address': address,
-              'credentials': UserInfo().userSessionToken
+              'credentials': UserInfo().accessToken
             },
           );
           final body = response.data as Map<String, dynamic>;
@@ -62,7 +62,7 @@ class GeocodeService {
             queryParameters: {
               'lat': lat,
               'lon': lon,
-              'credentials': UserInfo().userSessionToken,
+              'credentials': UserInfo().accessToken,
             },
           );
           final body = response.data as Map<String, dynamic>;

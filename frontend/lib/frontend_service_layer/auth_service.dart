@@ -3,12 +3,12 @@ import "package:shared_preferences/shared_preferences.dart";
 import "package:virtour_frontend/global/userinfo.dart";
 import "package:virtour_frontend/frontend_service_layer/service_helpers.dart";
 
-class AuthService {
+class email {
   late final Dio _dio;
   final String _baseUrl = UserInfo().tunnelUrl;
   UserInfo userInfo = UserInfo();
 
-  AuthService() {
+  email() {
     _dio = Dio(BaseOptions(
       baseUrl: _baseUrl,
       connectTimeout: const Duration(seconds: 10),
@@ -19,20 +19,20 @@ class AuthService {
     ));
   }
 
-  Future<Map<String, dynamic>> signIn(String userId, String password) async {
+  Future<Map<String, dynamic>> signIn(
+      String email, String password, bool staySignedIn) async {
     try {
-      final response = await _dio.post("$_baseUrl/api/profile/login",
-          data: {"username": userId, "password": password});
+      final response = await _dio.post("$_baseUrl/api/profile/login", data: {
+        "email": email,
+        "password": password,
+        "staySignedIn": staySignedIn,
+      });
 
       final body = response.data as Map<String, dynamic>;
 
-      if (body['success'] == true) {
+      if (body['success'] == true && response.statusCode == 200) {
         final prefs = await SharedPreferences.getInstance();
         final payload = body["payload"];
-
-        if (payload == null) {
-          throw Exception('Payload is null');
-        }
 
         final payloadMap = payload as Map<String, dynamic>;
         final data = payloadMap["data"];
@@ -48,17 +48,14 @@ class AuthService {
           throw Exception('Token is empty');
         }
 
-        await prefs.setString("auth_token", token);
-        await prefs.setString("username", userId);
+        await prefs.setString("token", token);
+        await prefs.setString("email", email);
 
-        UserInfo().userId = userId;
-        UserInfo().userSessionToken = token;
-        UserInfo().userType = (dataMap["isTourist"] ?? true)
-            ? UserType.tourist
-            : UserType.business;
+        // Set token in UserInfo before calling getUserInfo
+        UserInfo().accessToken = token;
 
         // Call getUserInfo to populate all user data
-        await UserInfo().getUserInfo();
+        await UserInfo().getUserInfo(dataMap);
 
         return response.data;
       } else {
@@ -75,23 +72,26 @@ class AuthService {
   }
 
   Future<Map<String, dynamic>> signUp(
-      String username,
+      String email,
       String password,
       String name,
+      String username,
       int age,
       bool isTourist,
       List<String> preferences,
       bool staySignedIn) async {
     try {
       final response = await _dio.post("$_baseUrl/api/profile/register", data: {
-        "username": username,
+        "email": email,
         "password": password,
         "name": name,
+        "username": username,
         "age": age,
-        "isTourist": isTourist,
+        "type": isTourist ? "tourist" : "business",
         "preferences": preferences,
         "staySignedIn": staySignedIn,
       });
+      print(response.data["payload"]["message"]);
       final prefs = await SharedPreferences.getInstance();
       final body = response.data as Map<String, dynamic>;
       switch (response.statusCode) {
@@ -99,7 +99,7 @@ class AuthService {
           final payload = body["payload"] as Map<String, dynamic>;
           final data = payload["data"] as Map<String, dynamic>;
           final token = data["token"] as String;
-          await prefs.setString("auth_token", token);
+          await prefs.setString("token", token);
           return response.data;
         default:
           final success = body["success"] as bool;
@@ -115,12 +115,12 @@ class AuthService {
   // Restore UserInfo from SharedPreferences on app start
   Future<void> restoreUserInfo() async {
     final prefs = await SharedPreferences.getInstance();
-    final token = prefs.getString("auth_token");
-    final username = prefs.getString("username");
+    final token = prefs.getString("token");
+    final email = prefs.getString("email");
 
-    if (token != null && username != null) {
-      UserInfo().userSessionToken = token;
-      UserInfo().username = username;
+    if (token != null && email != null) {
+      UserInfo().accessToken = token;
+      UserInfo().email = email;
     }
   }
 }

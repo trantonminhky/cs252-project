@@ -52,7 +52,7 @@ class RegionService {
               if (data['token'] != null) {
                 final prefs = await SharedPreferences.getInstance();
                 await prefs.setString("auth_token", data['token']);
-                userInfo.userSessionToken = data['token'];
+                userInfo.accessToken = data['token'];
               }
 
               return Region.fromJson(regionData);
@@ -73,6 +73,7 @@ class RegionService {
       dio: dio,
       operation: () async {
         final response = await dio.get('/location/search', queryParameters: {
+          'userID': userInfo.userId,
           'id': placeId,
         });
 
@@ -86,7 +87,7 @@ class RegionService {
               if (data['token'] != null) {
                 final prefs = await SharedPreferences.getInstance();
                 await prefs.setString("auth_token", data['token']);
-                userInfo.userSessionToken = data['token'];
+                userInfo.accessToken = data['token'];
               }
 
               return Place.fromJson(placeData);
@@ -121,6 +122,7 @@ class RegionService {
       dio: dio,
       operation: () async {
         final queryParams = {
+          'userID': userInfo.userId,
           'query': query,
           'include': includeFilter.join(','),
         };
@@ -169,7 +171,7 @@ class RegionService {
               if (data['token'] != null) {
                 final prefs = await SharedPreferences.getInstance();
                 await prefs.setString("auth_token", data['token']);
-                userInfo.userSessionToken = data['token'];
+                userInfo.accessToken = data['token'];
               }
 
               return reviewsData
@@ -329,12 +331,12 @@ class RegionService {
 
   // Fetch ML-based recommendations for a user
   Future<List<String>> fetchRecommendations(
-      String username, double lat, double lon) async {
+      String userId, double lat, double lon) async {
     return await ServiceHelpers.retryWithTokenRefresh(
       dio: dio,
       operation: () async {
         final response = await dio.get('/recommendation', queryParameters: {
-          'username': username,
+          'userID': userId,
           'lat': lat,
           'lon': lon,
         });

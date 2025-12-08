@@ -6,7 +6,7 @@ class ServiceHelpers {
     dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) async {
-          final token = UserInfo().userSessionToken;
+          final token = UserInfo().accessToken;
           if (token.isNotEmpty) {
             options.headers['Authorization'] = 'Bearer $token';
           }
@@ -54,7 +54,7 @@ class ServiceHelpers {
       final body = response.data as Map<String, dynamic>;
       if (response.statusCode == 200) {
         final newToken = body['payload'] as String;
-        UserInfo().userSessionToken = newToken;
+        UserInfo().accessToken = newToken;
         return newToken;
       } else {
         throw Exception(
