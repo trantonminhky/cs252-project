@@ -4,7 +4,33 @@ import eventsData from '../../events.json' with { type: "json" };
 
 // TO-DO: ADD LOCATION TO EVENT
 
+/**
+ * Event service provider class.
+ * @class
+ */
 class EventService {
+	/**
+	 * Service function for <b>/api/event/import</b>. Import a list of events into database given a JSON. The description is meant to stay vague since this is a developer endpoint. Supports <b>POST</b> requests.
+	 * @returns {Promise<ServiceResponse>}
+	 * 
+	 * @example <caption>cURL</caption>
+	 * curl -X POST http://localhost:3000/api/event/import
+	 * 
+	 * @example <caption>Response</caption>
+	 * {
+	 * 	"success": true,
+	 * 	"statusCode": 200,
+	 * 	"payload": {
+	 * 		"message": "Success (OK)",
+	 * 		"data": null
+	 * 	}
+	 * }
+	 * 
+	 * @property {CREATED} 201 - Successful request
+	 * @property {METHOD_NOT_ALLOWED} 405 - The endpoint does not support the HTTP method specified
+	 * @property {INTERNAL_SERVER_ERROR} 500 - Something went wrong with the backend (cooked)
+	 */
+
 	async importToDB() {
 		for (const entry of eventsData) {
 			const eventID = EventDB.autonum();
