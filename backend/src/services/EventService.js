@@ -53,6 +53,9 @@ class EventService {
 		return response;
 	}
 
+	/**
+	 * Service function for <b>/api/event/create</b>
+	 */
 	async createEvent(name, description, imageLink = null, startTime = null, endTime = null) {
 		const eventID = EventDB.autonum();
 		const eventData = {
