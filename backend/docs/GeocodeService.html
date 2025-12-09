@@ -549,13 +549,13 @@ http://localhost:3000/api/geocode/geocode?query=227%20nguyen%20van%20cu</code></
 <dl class="details">
     
     <dt class="tag-description">Description:</dt>
-    <dd class="tag-description"><ul class="dummy"><li><p>Service function for <code>/geocode/reverse-geocode</code>Sends latitude and longitude to OpenMapTiles to get reverse-geocoded address.</p></li></ul></dd>
+    <dd class="tag-description"><ul class="dummy"><li><p>Service function for <code>/geocode/reverse-geocode</code>Sends latitude and longitude to OpenStreetMap to get reverse-geocoded address. Supports <code>GET</code> requests.</p></li></ul></dd>
     
 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="GeocodeService.js.html">GeocodeService.js</a>, <a href="GeocodeService.js.html#line120">line 120</a>
+        <a href="GeocodeService.js.html">GeocodeService.js</a>, <a href="GeocodeService.js.html#line172">line 172</a>
     </li></ul></dd>
     
 
@@ -592,12 +592,234 @@ http://localhost:3000/api/geocode/geocode?query=227%20nguyen%20van%20cu</code></
 
 
 
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>200</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">OK</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Successful request</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>400</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">BAD_REQUEST</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Missing lat or lon</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>401</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">UNAUTHORIZED</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>No bearer JWT was specified, or the JWT verification failed (invalid or expired)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>405</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">METHOD_NOT_ALLOWED</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The endpoint does not support the HTTP method specified</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>500</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">INTERNAL_SERVER_ERROR</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Something went wrong with the backend (cooked)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>502</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">BAD_GATEWAY</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Something went wrong with the upstream APIs (cooked). <b>There is a known bug that if you send too many reverse geocode requests, OSM will block you and throw 502</b></p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
 
 
 
 
 
 
+
+
+
+
+
+
+    <h5 class="h5-examples">Examples</h5>
+    
+        <p class="code-caption">cURL</p>
+    
+    <pre class="prettyprint"><code>curl --header 'Authorization:Bearer MIKU_MIKU_OO_EE_OO' \
+http://localhost:3000/api/geocode/reverse-geocode?lat=10.762047\&amp;lon=106.681832</code></pre>
+
+        <p class="code-caption">Response</p>
+    
+    <pre class="prettyprint"><code>{
+	"success": true,
+	"statusCode": 200,
+	"payload": {
+		"message": "Success (OK)",
+		"data": {
+			"place_id": 237412673,
+			"licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+			"osm_type": "node",
+			"osm_id": 6791076694,
+			"lat": "10.7621817",
+			"lon": "106.6827205",
+			"category": "place",
+			"type": "house",
+			"place_rank": 30,
+			"importance": 0.00006703364614323671,
+			"addresstype": "place",
+			"name": "",
+			"display_name": "221, Đường Nguyễn Văn Cừ, Phường Chợ Quán, Thủ Đức, Thành phố Hồ Chí Minh, 72406, Việt Nam",
+			"address": {
+				"house_number": "221",
+				"road": "Đường Nguyễn Văn Cừ",
+				"suburb": "Phường Chợ Quán",
+				"city": "Thủ Đức",
+				"ISO3166-2-lvl4": "VN-SG",
+				"postcode": "72406",
+				"country": "Việt Nam",
+				"country_code": "vn"
+			},
+			"boundingbox": [
+			"10.7621317",
+			"10.7622317",
+			"106.6826705",
+			"106.6827705"
+			]
+		}
+	}
+}</code></pre>
 
 
 
@@ -693,10 +915,6 @@ http://localhost:3000/api/geocode/geocode?query=227%20nguyen%20van%20cu</code></
 <h5 class="h5-returns">Returns:</h5>
 
         
-<div class="param-desc">
-    <p>Response</p>
-</div>
-
 
 
 <dl class="param-type">
@@ -736,7 +954,7 @@ http://localhost:3000/api/geocode/geocode?query=227%20nguyen%20van%20cu</code></
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Tue Dec 09 2025 09:09:19 GMT+0700 (Indochina Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Tue Dec 09 2025 09:38:46 GMT+0700 (Indochina Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>
