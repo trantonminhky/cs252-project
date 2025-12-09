@@ -3,9 +3,11 @@ import AIService from '../services/AIService.js';
 
 const PROMPT_MAXIMUM_LENGTH = 500;
 
-// TO-DO: DOCUMENT CONTROLLER CLASSES
+/**
+ * Controllers for /api/ai/ endpoints family.
+ * @class
+ */
 class AIController {
-	// TO-DO: check prompt length to make it not exceed 2000 characters
 	async sendPrompt(req, res, next) {
 		try {
 			const prompt = req.body.prompt;
@@ -36,24 +38,24 @@ class AIController {
 		}
 	}
 
-	async extractTags(req, res, next) {
-		try {
-			const text = req.query.text;
-			if (!text) {
-				const response = new ServiceResponse(
-					false,
-					400,
-					"Text is required"
-				);
-				return void res.status(response.statusCode).json(response.get());
-			}
+	// async extractTags(req, res, next) {
+	// 	try {
+	// 		const text = req.query.text;
+	// 		if (!text) {
+	// 			const response = new ServiceResponse(
+	// 				false,
+	// 				400,
+	// 				"Text is required"
+	// 			);
+	// 			return void res.status(response.statusCode).json(response.get());
+	// 		}
 
-			const response = await AIService.extractTags(text);
-			return void res.status(response.statusCode).json(response.get());
-		} catch (err) {
-			next(err);
-		}
-	}
+	// 		const response = await AIService.extractTags(text);
+	// 		return void res.status(response.statusCode).json(response.get());
+	// 	} catch (err) {
+	// 		next(err);
+	// 	}
+	// }
 
 	async generateReviews(req, res, next) {
 		try {

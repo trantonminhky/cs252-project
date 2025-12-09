@@ -1,8 +1,6 @@
 import ServiceResponse from '../helper/ServiceResponse.js';
 import DBService from '../services/DBService.js';
 
-// TO-DO: DOCUMENT CONTROLLER CLASSES
-
 class DBController {
 	async clear(req, res, next) {
 		try {

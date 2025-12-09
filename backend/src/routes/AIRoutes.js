@@ -10,10 +10,10 @@ router.all('/send-prompt',
 	AIController.sendPrompt
 );
 
-router.all('/extract-tags',
-	ValidatorMiddleware.validateMethods(['GET', 'HEAD']),
-	AIController.extractTags
-);
+// router.all('/extract-tags',
+// 	ValidatorMiddleware.validateMethods(['GET', 'HEAD']),
+// 	AIController.extractTags
+// );
 
 router.all('/generate-reviews',
 	ValidatorMiddleware.validateMethods(['POST']),

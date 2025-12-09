@@ -83,7 +83,9 @@ class ProfileController {
 
 			const response = await ProfileService.register(email, username, password, name, age, type);
 
-			return void res.status(response.statusCode).set("Location", `/api/profile/${response.payload.data.userID}`).json(response.get());
+			if (response.success) res.set("Location", `/api/profile/${response.payload.data.userID}`);
+
+			return void res.status(response.statusCode).json(response.get());
 		} catch (error) {
 			next(error);
 		}
@@ -199,6 +201,7 @@ class ProfileController {
 			}
 
 			const response = await ProfileService.setPreferences(userID, preferences);
+
 			return void res.status(response.statusCode).json(response.get());
 		} catch (error) {
 			next(error);

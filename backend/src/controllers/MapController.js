@@ -1,8 +1,6 @@
 import ServiceResponse from '../helper/ServiceResponse.js';
 import mapService from '../services/MapService.js';
 
-// TO-DO: DOCUMENT CONTROLLER CLASSES
-
 class MapController {
 	// Get route between points
 	async getRoute(req, res, next) {

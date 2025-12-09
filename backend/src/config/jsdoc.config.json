@@ -1,0 +1,32 @@
+{
+	"source": {
+		"include": [
+			"src/services",
+			"src/config/docdash-home.md"
+		],
+		"includePattern": ".js$"
+	},
+	"opts": {
+		"destination": "./docs",
+		"recurse": true,
+		"readme": "src/config/docdash-home.md",
+		"template": "node_modules/docdash"
+	},
+	"plugins": [
+		"plugins/markdown"
+	],
+	"templates": {
+		"default": {
+			"staticFiles": {
+				"include": [
+					"src/config/docdash-custom.css"
+				]
+			}
+		}
+	},
+	"docdash": {
+		"scripts": [
+			"docdash-custom.css"
+		]
+	}
+}

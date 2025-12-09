@@ -16,6 +16,7 @@ class EventController {
 	async createEvent(req, res, next) {
 		try {
 			const name = req.body.name;
+			const location = req.body.location;
 			const description = req.body.description;
 			const imageLink = req.body.imageLink;
 			const startTime = req.body.startTime;
@@ -30,11 +31,40 @@ class EventController {
 				return void res.status(response.statusCode).json(response.get());
 			}
 
-			if (!description) {
-				description = "No description.";
+			if (!location) {
+				const response = new ServiceResponse(
+					false,
+					400,
+					'Event location is required'
+				);
+				return void res.status(response.statusCode).json(response.get());
 			}
 
 			const response = await EventService.createEvent(name, description, imageLink, startTime, endTime);
+
+			if (response.success) res.set("Location", `/api/event/${response.payload.data.eventID}`);
+
+			return void res.status(response.statusCode).json(response.get());
+		} catch (err) {
+			next(err);
+		}
+	}
+
+	async getEvent(req, res, next) {
+		try {
+			const eventID = req.params.eventID;
+	
+			if (eventID === ':eventID') {
+				const response = new ServiceResponse(
+					false,
+					404,
+					"Route not found"
+				);
+	
+				return void res.status(response.statusCode).json(response.get());
+			}
+	
+			const response = await EventService.getEvent(eventID);
 			return void res.status(response.statusCode).json(response.get());
 		} catch (err) {
 			next(err);
@@ -43,26 +73,29 @@ class EventController {
 
 	async subscribe(req, res, next) {
 		try {
-			const userID = req.body.userID;
-			const eventID = req.body.eventID;
+			const userID = req.params.userID;
+			const eventID = req.params.eventID;
 
-			if (!userID) {
+			console.log(`userID ${userID}`);
+			console.log(`eventID ${eventID}`);
+
+			if (userID === ':userID') {
 				const response = new ServiceResponse(
 					false,
-					400,
-					"User ID is required"
+					404,
+					"Route not found"
 				);
-				
+
 				return void res.status(response.statusCode).json(response.get());;
 			}
 
-			if (!eventID) {
+			if (eventID === ':eventID') {
 				const response = new ServiceResponse(
 					false,
-					400,
-					"Event ID is required"
+					404,
+					"Route not found"
 				);
-				
+
 				return void res.status(response.statusCode).json(response.get());;
 			}
 
@@ -72,7 +105,7 @@ class EventController {
 					404,
 					"User not found"
 				);
-				
+
 				return void res.status(response.statusCode).json(response.get());;
 			}
 
@@ -82,7 +115,7 @@ class EventController {
 					404,
 					"Event not found"
 				);
-				
+
 				return void res.status(response.statusCode).json(response.get());;
 			}
 
@@ -95,26 +128,26 @@ class EventController {
 
 	async unsubscribe(req, res, next) {
 		try {
-			const userID = req.body.userID;
-			const eventID = req.body.eventID;
+			const userID = req.params.userID;
+			const eventID = req.params.eventID;
 
-			if (!userID) {
+			if (userID === ':userID') {
 				const response = new ServiceResponse(
 					false,
-					400,
-					"User ID is required"
+					404,
+					"Route not found"
 				);
-				
+
 				return void res.status(response.statusCode).json(response.get());;
 			}
 
-			if (!eventID) {
+			if (eventID === ':eventID') {
 				const response = new ServiceResponse(
 					false,
-					400,
-					"Event ID is required"
+					404,
+					"Route not found"
 				);
-				
+
 				return void res.status(response.statusCode).json(response.get());;
 			}
 
@@ -122,9 +155,9 @@ class EventController {
 				const response = new ServiceResponse(
 					false,
 					404,
-					"User ID not found"
+					"User not found"
 				);
-				
+
 				return void res.status(response.statusCode).json(response.get());;
 			}
 
@@ -134,7 +167,7 @@ class EventController {
 					404,
 					"Event not found"
 				);
-				
+
 				return void res.status(response.statusCode).json(response.get());;
 			}
 
@@ -155,7 +188,7 @@ class EventController {
 					400,
 					"User ID is required"
 				);
-				
+
 				return void res.status(response.statusCode).json(response.get());;
 			}
 

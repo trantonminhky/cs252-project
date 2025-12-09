@@ -4,16 +4,47 @@ import { Client } from '@gradio/client';
 import { GoogleGenAI } from '@google/genai';
 const gemini = new GoogleGenAI(config.gemini.APIKey);
 
+/**
+ * AI service provider class.
+ * @class
+ */
 class AIService {
 	constructor() {
 		this.tagsExtractionBaseURL = config.tagsExtraction
 	}
 
 	/**
-	 * Sends prompt to Gemini with model.
-	 * @param {String} prompt - Input prompt
+	 * Service function for <code>/api/ai/send-prompt</code>. Sends prompt to Gemini with model. Supports <code>POST</code> requests.
+	 * @param {String} prompt - Prompt to be fed into AI
 	 * @param {String} [model='gemini-flash-latest'] - Gemini model
 	 * @returns {Promise<ServiceResponse>}
+	 * 
+	 * @example <caption>cURL</caption>
+	 * curl -X POST \
+	 * --header 'Content-Type:application/json' \
+	 * --header 'Authorization:MIKU_MIKU_OO_EE_OO' \
+	 * --data '{"prompt":"hello"}' \
+	 * http://localhost:3000/api/ai/send-prompt
+	 * 
+	 * @example <caption>Response</caption>
+	 * {
+	 *	"success": true,
+	 *	"statusCode": 200,
+	 *	"payload": {
+	 *		"message": "Success (OK)",
+	 *		"data": "hello to you too! How are you doing today?"
+     *	}
+	 * }
+	 * 
+	 * @property {OK} 200 - Successful request
+ 	 * @property {BAD_REQUEST} 400 - Missing prompt
+	 * @property {UNAUTHORIZED} 401 - No bearer JWT was specified, or the JWT verification failed (invalid or expired)
+	 * @property {METHOD_NOT_ALLOWED} 405 - The endpoint does not support the HTTP method specified
+	 * @property {CONTENT_TOO_LARGE} 413 - Prompt exceeds 500 characters
+	 * @property {UNSUPPORTED_MEDIA} 415 - Request does not have <code>Content-Type:application/json</code> header
+	 * @property {UNPROCESSABLE_ENTITY} 422 - The model name does not exist, or the model is internally broken
+	 * @property {INTERNAL_SERVER_ERROR} 500 - Something went wrong with the backend (cooked)
+	 * @property {BAD_GATEWAY} 502 - Something went wrong with the upstream APIs (cooked)
 	 */
 	async sendPrompt(prompt, model = 'gemini-flash-latest') {
 		try {
@@ -52,30 +83,87 @@ class AIService {
 		}
 	}
 
-	async extractTags(text) {
-		try {
-			const client = await Client.connect(this.tagsExtractionBaseURL);
-			const result = await client.predict("/extract_tags", {
-				user_text: text
-			});
-			const response = new ServiceResponse(
-				true,
-				200,
-				"Success",
-				result
-			);
-			return response;
-		} catch (err) {
-			const response = new ServiceResponse(
-				false,
-				502,
-				"Something went wrong",
-				err.toString()
-			);
-			return response;
-		}
-	}
+	// /**
+	//  * Service function for <code>/api/ai/extract-tags</code>. Extract culture tags a user may be interested at from their query. Supports <code>GET</code> requests.
+	//  * @param {String} text - User query
+	//  * @returns {Promise<ServiceResponse>}
+	//  * 
+	//  * @example <caption>cURL</caption>
+	//  * curl "http://localhost:3000/api/ai/send-prompt?text=i want to go somewhere sunny"
+	//  */
 
+	// async extractTags(text) {
+	// 	try {
+	// 		const client = await Client.connect(this.tagsExtractionBaseURL);
+	// 		const result = await client.predict("/extract_tags", {
+	// 			user_text: text
+	// 		});
+	// 		const response = new ServiceResponse(
+	// 			true,
+	// 			200,
+	// 			"Success",
+	// 			result
+	// 		);
+	// 		return response;
+	// 	} catch (err) {
+	// 		const response = new ServiceResponse(
+	// 			false,
+	// 			502,
+	// 			"Something went wrong",
+	// 			err.toString()
+	// 		);
+	// 		return response;
+	// 	}
+	// }
+
+	/**
+	 * Service function for <code>/api/ai/generate-reviews</code>. Generate generic reviews for a location (lmao). This method is mainly used in the frontend to generate fake reviews, as the <code>date</code> field is Flutter formatted. Supports <code>POST</code> requests.
+	 * @param {String} place - Place name for the AI to generate reviews about
+	 * @param {String} [model='gemini-flash-latest'] - Gemini model
+	 * @returns {Promise<ServiceResponse>}
+	 * 
+	 * @example <caption>cURL</caption>
+	 * curl -X POST \
+	 * --header 'Content-Type:application/json' \
+	 * --header 'Authorization:MIKU_MIKU_OO_EE_OO' \
+	 * --data '{"place":"Ben Thanh Market"}' \
+	 * http://localhost:3000/api/ai/generate-reviews
+	 * 
+	 * @example <caption>Response</caption>
+	 * {
+	 *	"success": true,
+	 *	"statusCode": 200,
+	 *	"payload": {
+	 *		"message": "Success (OK)",
+	 *		"data": [
+	 *			{
+	 *				"username": "TravelerGal",
+	 *				"id": "R1001",
+	 *				"content": "A bustling place full of energy and local crafts! You must haggle fiercely though, as prices start very high. The food court in the back is a fantastic spot for authentic Vietnamese street food.",
+	 *				"rating": 4,
+	 *				"date": "2023-11-25T14:30:00.000Z"
+	 *			},
+	 *			{
+	 *				"username": "HoChiMinhLocalGuide",
+	 *				"id": "R1002",
+	 *				"content": "While essential for tourists, this market is now quite expensive compared to smaller, neighborhood markets. Great architecture, but be prepared for intense salesmanship. Better for souvenirs than daily shopping.",
+	 *				"rating": 3,
+	 *				"date": "2023-12-01T09:15:00.000Z"
+	 *			}
+	 *		]
+	 *	}
+	 * }
+	 * 
+	 * @property {OK} 200 - Successful request
+	 * @property {BAD_REQUEST} 400 - Missing place
+	 * @property {UNAUTHORIZED} 401 - No bearer JWT was specified, or the JWT verification failed (invalid or expired)
+	 * @property {METHOD_NOT_ALLOWED} 405 - The endpoint does not support the HTTP method specified
+	 * @property {UNSUPPORTED_MEDIA} 415 - Request does not have <code>Content-Type:application/json</code> header
+	 * @property {UNPROCESSABLE_ENTITY} 422 - The model name does not exist, or the model is internally broken
+	 * @property {INTERNAL_SERVER_ERROR} 500 - Something went wrong with the backend (cooked)
+	 * @property {BAD_GATEWAY} 502 - Something went wrong with the upstream APIs (cooked)
+	 */
+	
 	async generateReviews(place, model = 'gemini-flash-latest') {
 		try {
 			await gemini.models.get({ model: model });
