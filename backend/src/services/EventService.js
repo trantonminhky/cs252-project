@@ -198,9 +198,9 @@ class EventService {
 		const _export = EventDB.export();
 
 		const results = [];
-		for (const [key, val] of Object.entries(_export)) {
+		for (const [key, val] of Object.entries(_export.data)) {
 			if (val.participants.includes(userID)) {
-				results.push(val);
+				results.push(key);
 			}
 		}
 

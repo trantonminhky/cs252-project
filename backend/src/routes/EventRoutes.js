@@ -14,6 +14,11 @@ router.all('/',
 	EventController.createEvent
 );
 
+router.all('/get-by-userid',
+	ValidatorMiddleware.validateMethods(['GET', 'HEAD']),
+	EventController.getByUserID
+);
+
 router.all('/:eventID',
 	ValidatorMiddleware.validateMethods(['GET']),
 	EventController.getEvent
@@ -28,10 +33,5 @@ router.all('/:eventID/participants/:userID',
 		}
 	}
 )
-
-router.all('/get-by-userid',
-	ValidatorMiddleware.validateMethods(['GET', 'HEAD']),
-	EventController.getByUserID
-);
 
 export default router;
