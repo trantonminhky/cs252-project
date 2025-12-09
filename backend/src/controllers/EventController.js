@@ -51,20 +51,24 @@ class EventController {
 	}
 
 	async getEvent(req, res, next) {
-		const eventID = req.params.userID;
-
-		if (!eventID) {
-			const response = new ServiceResponse(
-				false,
-				404,
-				"Route not found"
-			);
-
+		try {
+			const eventID = req.params.eventID;
+	
+			if (!eventID) {
+				const response = new ServiceResponse(
+					false,
+					404,
+					"Route not found"
+				);
+	
+				return void res.status(response.statusCode).json(response.get());
+			}
+	
+			const response = await EventService.getEvent(eventID);
 			return void res.status(response.statusCode).json(response.get());
+		} catch (err) {
+			next(err);
 		}
-
-		const response = await EventService.getEvent(eventID);
-		return void res.status(response.statusCode).json(response.get());
 	}
 
 	async subscribe(req, res, next) {

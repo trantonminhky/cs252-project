@@ -112,7 +112,7 @@ class EventService {
 			return response;
 		}
 
-		const data = EventDB.get(EventDB);
+		const data = EventDB.get(eventID);
 		const response = new ServiceResponse(
 			true,
 			200,

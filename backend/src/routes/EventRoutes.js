@@ -14,6 +14,11 @@ router.all('/',
 	EventController.createEvent
 );
 
+router.all('/:eventID',
+	ValidatorMiddleware.validateMethods(['GET']),
+	EventController.getEvent
+);
+
 router.all('/subscribe',
 	ValidatorMiddleware.validateMethods(['POST']),
 	ValidatorMiddleware.validateContentType, 
