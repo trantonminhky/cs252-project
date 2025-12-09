@@ -22,20 +22,20 @@ class LocationController {
 		}
 	}
 
-	async findByID(req, res, next) {
+	async getLocation(req, res, next) {
 		try {
-			const { id } = req.query;
+			const locationID = req.params.locationID;
 
-			if (id == null) {
+			if (locationID === ':locationID') {
 				const response = new ServiceResponse(
 					false,
-					400,
-					"Location ID is required"
+					404,
+					"Route not found"
 				);
 				return void res.status(response.statusCode).json(response.get());
 			}
 
-			const response = await LocationService.findByID(id);
+			const response = await LocationService.getLocation(locationID);
 			return void res.status(response.statusCode).json(response.get());
 		} catch (err) {
 			next(err);

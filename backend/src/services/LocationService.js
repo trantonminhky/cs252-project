@@ -72,8 +72,8 @@ class LocationService {
 		return response;
 	}
 
-	async findByID(id) {
-		if (!LocationDB.has(id)) {
+	async getLocation(locationID) {
+		if (!LocationDB.has(locationID)) {
 			const response = new ServiceResponse(
 				false,
 				404,
@@ -82,7 +82,7 @@ class LocationService {
 			return response;
 		}
 		
-		const result = LocationDB.get(id);
+		const result = LocationDB.get(locationID);
 		const response = new ServiceResponse(
 			true,
 			200,

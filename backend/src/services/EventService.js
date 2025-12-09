@@ -171,8 +171,7 @@ class EventService {
 	 * }
 	 * 
 	 * @property {OK} 200 - Successful request
-	 * @property {BAD_REQUEST} 400 - Missing user ID or event ID
-	 * @property {NOT_FOUND} 404 - Nonexistent user or event
+	 * @property {NOT_FOUND} 404 - Missing user ID or event ID, or nonexistent user or event
 	 * @property {INTERNAL_SERVER_ERROR} 500 - Something went wrong with the backend (cooked)
 	 */
 

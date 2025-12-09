@@ -13,9 +13,9 @@ router.all('/search',
 	LocationController.search
 );
 
-router.all('/find-by-id',
-	ValidatorMiddleware.validateMethods(['GET', 'HEAD']),
-	LocationController.findByID
+router.all('/:locationID',
+	ValidatorMiddleware.validateMethods(['GET']),
+	LocationController.getLocation
 )
 
 export default router;

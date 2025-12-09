@@ -54,7 +54,7 @@ class EventController {
 		try {
 			const eventID = req.params.eventID;
 	
-			if (!eventID) {
+			if (eventID === ':eventID') {
 				const response = new ServiceResponse(
 					false,
 					404,
@@ -82,8 +82,8 @@ class EventController {
 			if (userID === ':userID') {
 				const response = new ServiceResponse(
 					false,
-					400,
-					"User ID is required"
+					404,
+					"Route not found"
 				);
 
 				return void res.status(response.statusCode).json(response.get());;
@@ -92,8 +92,8 @@ class EventController {
 			if (eventID === ':eventID') {
 				const response = new ServiceResponse(
 					false,
-					400,
-					"Event ID is required"
+					404,
+					"Route not found"
 				);
 
 				return void res.status(response.statusCode).json(response.get());;
