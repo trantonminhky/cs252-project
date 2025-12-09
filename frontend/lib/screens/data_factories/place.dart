@@ -2,7 +2,7 @@ class Place {
   final String id;
   final String name;
   final Map<String, List<String>> tags;
-  final String imageLink;
+  late String imageLink = '../../../assets/images/imagesx/$id.jpg';
   final double lat;
   final double lon;
   final String description;
@@ -15,7 +15,6 @@ class Place {
     required this.id,
     required this.name,
     required this.tags,
-    required this.imageLink,
     required this.description,
     required this.lat,
     required this.lon,
@@ -26,11 +25,14 @@ class Place {
   });
 
   factory Place.fromJson(Map<String, dynamic> json) {
-    return Place(
-      id: json['id']?.toString() ?? '',
+    print('Place.fromJson input: $json');
+    print('JSON keys: ${json.keys.toList()}');
+
+    final place = Place(
+      id: json['image id']?.toString() ?? json['id']?.toString() ?? '',
       name: json['name'] ?? '',
       tags: _parseTags(json['tags']),
-      imageLink: json['imageLink'] ?? json['image_link'] ?? '',
+      //imageLink: json['imageLink'] ?? json['image_link'] ?? '',
       description: json['description'] ?? '',
       lat: (json['lat'] ?? json['latitude'] ?? 0).toDouble(),
       lon: (json['lon'] ?? json['longitude'] ?? 0).toDouble(),
@@ -38,6 +40,10 @@ class Place {
       openHours: _parseOpenHours(json['openHours']),
       dayOff: json['dayOff'],
     );
+
+    print(
+        'Created Place - id: ${place.id}, name: ${place.name}, lat: ${place.lat}, lon: ${place.lon}');
+    return place;
   }
 
   static List<String>? _parseOpenHours(dynamic openHours) {
@@ -74,10 +80,10 @@ class Place {
 
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
+      'image id': id,
       'name': name,
       'tags': tags,
-      'imageLink': imageLink,
+      //'imageLink': imageLink,
       'description': description,
       'lat': lat,
       'lon': lon,

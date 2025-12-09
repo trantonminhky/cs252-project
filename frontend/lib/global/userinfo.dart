@@ -1,3 +1,6 @@
+import "dart:convert";
+import "package:flutter/services.dart" show rootBundle;
+
 enum UserType { business, tourist }
 
 class UserInfo {
@@ -8,9 +11,17 @@ class UserInfo {
   final UserType userType;
   final List<String> preferences;
 
-  static const tunnelUrl =
-      "https://handling-memories-merry-coins.trycloudflare.com";
-  //static const tunnelUrl = "http://localhost:3000";
+  static String tunnelUrl = "http://10.0.2.2:3000";
+
+  static Future<void> initTunnelURL() async {
+    try {
+      final jsonString = await rootBundle.loadString('assets/helper.json');
+      final jsonMap = json.decode(jsonString);
+      tunnelUrl = jsonMap['tunnel'];
+    } catch (e) {
+      throw ("Error loading helper.json: $e");
+    }
+  }
 
   const UserInfo({
     required this.userSessionToken,

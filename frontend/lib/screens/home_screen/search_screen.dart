@@ -2,6 +2,8 @@ import "dart:async";
 import "dart:math" as math;
 import "package:flutter/material.dart";
 import "package:flutter/cupertino.dart";
+import "package:image_picker/image_picker.dart";
+import "package:carousel_slider/carousel_slider.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:virtour_frontend/frontend_service_layer/place_service.dart";
 import "package:virtour_frontend/providers/user_info_provider.dart";
@@ -25,7 +27,7 @@ class SearchScreen extends ConsumerStatefulWidget {
 
 class _SearchScreenState extends ConsumerState<SearchScreen> {
   final TextEditingController _searchController = TextEditingController();
-  final RegionService _regionService = RegionService();
+  final PlaceService _regionService = PlaceService();
   final SearchCacheService _cacheService = SearchCacheService();
   Timer? _debounce;
 
@@ -47,18 +49,26 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
 
     // If an initial category is provided, make sure it's selected
     if (widget.initialSelectedCategory != null) {
-      if (!_availableCategories.contains(widget.initialSelectedCategory)) {
-        // Add to available categories if not present
-        if (_availableCategories.length >= 5) {
-          _availableCategories[4] = widget.initialSelectedCategory!;
-        } else {
-          _availableCategories.add(widget.initialSelectedCategory!);
-        }
+      // Remove if exists to avoid duplicates when inserting at 0
+      _availableCategories.remove(widget.initialSelectedCategory);
+
+      // Insert at 0
+      _availableCategories.insert(0, widget.initialSelectedCategory!);
+
+      // Ensure we don't exceed 5 categories
+      if (_availableCategories.length > 10) {
+        _availableCategories = _availableCategories.take(10).toList();
       }
+
       // Ensure it's in the selected list
       if (!_selectedCategories.contains(widget.initialSelectedCategory)) {
         _selectedCategories.add(widget.initialSelectedCategory!);
       }
+
+      // Trigger search immediately
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _performSearch();
+      });
     }
   }
 
@@ -86,7 +96,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
       final recent = await _cacheService.getCache();
       if (mounted) {
         setState(() {
-          _recentPlaces = recent.take(5).toList();
+          _recentPlaces = recent.take(10).toList();
         });
       }
     } catch (e) {
@@ -117,19 +127,50 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
         .toList();
   }
 
-  String _normalizeCategoryName(String camelCaseCategory) {
-    if (camelCaseCategory.isEmpty) return camelCaseCategory;
+  String _normalizeCategoryName(String categoryName) {
+    if (categoryName.isEmpty) return categoryName;
 
-    // Add space before uppercase letters (except the first one)
-    String normalized = camelCaseCategory
-        .replaceAllMapped(
-          RegExp(r'([A-Z])'),
-          (match) => ' ${match.group(0)}',
-        )
-        .trim();
+    // Replace underscores with spaces
+    String normalized = categoryName.replaceAll('_', ' ');
 
     // Capitalize only the first letter, lowercase the rest
     return normalized[0].toUpperCase() + normalized.substring(1).toLowerCase();
+  }
+
+  Future<void> _pickImage() async {
+    final ImagePicker picker = ImagePicker();
+    try {
+      final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+
+      if (image != null) {
+        setState(() {
+          _isLoading = true;
+          _errorMessage = null;
+          _searchResults = [];
+          _searchController.clear();
+        });
+
+        final bytes = await image.readAsBytes();
+        final results = await _regionService.getPlaceByImage(
+          bytes.toList(),
+          image.name,
+        );
+
+        if (mounted) {
+          setState(() {
+            _searchResults = results;
+            _isLoading = false;
+          });
+        }
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() {
+          _errorMessage = e.toString();
+          _isLoading = false;
+        });
+      }
+    }
   }
 
   Future<void> _performSearch() async {
@@ -149,11 +190,13 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
 
       // Query is now optional - use text if available, otherwise empty string
       final query = _searchController.text.trim();
+      final user = ref.read(userSessionProvider);
 
       // Fetch from API
       final results = await _regionService.getPlace(
-        query,
+        query.isNotEmpty ? query : 'place',
         filtersToUse,
+        user?.userID ?? '',
       );
 
       if (mounted) {
@@ -274,8 +317,11 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                           ),
                           borderRadius: BorderRadius.circular(16),
                         ),
-                        suffixIcon: _searchController.text.isNotEmpty
-                            ? IconButton(
+                        suffixIcon: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            if (_searchController.text.isNotEmpty)
+                              IconButton(
                                 icon: const Icon(Icons.clear),
                                 onPressed: () {
                                   setState(() {
@@ -283,8 +329,13 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                                     _searchResults = [];
                                   });
                                 },
-                              )
-                            : null,
+                              ),
+                            IconButton(
+                              icon: const Icon(CupertinoIcons.camera),
+                              onPressed: _pickImage,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
