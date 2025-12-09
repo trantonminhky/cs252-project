@@ -10,6 +10,7 @@ import "package:virtour_frontend/providers/trip_provider.dart";
 import "package:virtour_frontend/screens/data_factories/review.dart";
 import "package:virtour_frontend/providers/selected_place_provider.dart";
 import "package:virtour_frontend/providers/navigation_provider.dart";
+import 'package:virtour_frontend/global/userinfo.dart';
 
 class PlaceOverview extends ConsumerStatefulWidget {
   final Place place;
@@ -52,13 +53,33 @@ class _PlaceOverviewState extends ConsumerState<PlaceOverview> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Back button
-              Padding(
-                padding: const EdgeInsets.only(left: 10, top: 10),
-                child: IconButton(
-                  icon: const Icon(CupertinoIcons.back, size: 40),
-                  onPressed: () => Navigator.pop(context),
+              Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+                  child: IconButton(
+                    icon: const Icon(CupertinoIcons.back, size: 32),
+                    onPressed: () => Navigator.pop(context),
+                  ),
                 ),
-              ),
+                const SizedBox(width: 78),
+                Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 16, horizontal: 16),
+                    child: IconButton(
+                      icon: const Icon(CupertinoIcons.heart, size: 32),
+                      onPressed: () {
+                        UserInfo().savedPlaces.add(widget.place.id);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content:
+                                Text('${widget.place.name} added to Saved'),
+                            duration: const Duration(seconds: 3),
+                          ),
+                        );
+                      },
+                    ))
+              ]),
               const SizedBox(height: 24),
               // Full briefing with place information
               Padding(

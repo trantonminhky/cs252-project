@@ -55,6 +55,7 @@ class UserInfo {
   String username = 'anon';
   String name = 'anon';
   int age = 0;
+  //store saved places' IDs
   List<String> savedPlaces = [];
 
   //for the sake of convenience
