@@ -50,6 +50,23 @@ class EventController {
 		}
 	}
 
+	async getEvent(req, res, next) {
+		const eventID = req.params.userID;
+
+		if (!eventID) {
+			const response = new ServiceResponse(
+				false,
+				404,
+				"Route not found"
+			);
+
+			return void res.status(response.statusCode).json(response.get());
+		}
+
+		const response = await EventService.getEvent(eventID);
+		return void res.status(response.statusCode).json(response.get());
+	}
+
 	async subscribe(req, res, next) {
 		try {
 			const userID = req.body.userID;
@@ -61,7 +78,7 @@ class EventController {
 					400,
 					"User ID is required"
 				);
-				
+
 				return void res.status(response.statusCode).json(response.get());;
 			}
 
@@ -71,7 +88,7 @@ class EventController {
 					400,
 					"Event ID is required"
 				);
-				
+
 				return void res.status(response.statusCode).json(response.get());;
 			}
 
@@ -81,7 +98,7 @@ class EventController {
 					404,
 					"User not found"
 				);
-				
+
 				return void res.status(response.statusCode).json(response.get());;
 			}
 
@@ -91,7 +108,7 @@ class EventController {
 					404,
 					"Event not found"
 				);
-				
+
 				return void res.status(response.statusCode).json(response.get());;
 			}
 
@@ -113,7 +130,7 @@ class EventController {
 					400,
 					"User ID is required"
 				);
-				
+
 				return void res.status(response.statusCode).json(response.get());;
 			}
 
@@ -123,7 +140,7 @@ class EventController {
 					400,
 					"Event ID is required"
 				);
-				
+
 				return void res.status(response.statusCode).json(response.get());;
 			}
 
@@ -133,7 +150,7 @@ class EventController {
 					404,
 					"User ID not found"
 				);
-				
+
 				return void res.status(response.statusCode).json(response.get());;
 			}
 
@@ -143,7 +160,7 @@ class EventController {
 					404,
 					"Event not found"
 				);
-				
+
 				return void res.status(response.statusCode).json(response.get());;
 			}
 
@@ -164,7 +181,7 @@ class EventController {
 					400,
 					"User ID is required"
 				);
-				
+
 				return void res.status(response.statusCode).json(response.get());;
 			}
 
