@@ -24,7 +24,7 @@ class DBService {
 	}
 
 	/**
-	 * Service function for <b>api/db/clear</b>. Clears a database given the name. <b>This action is irreversible</b>. Supports <b>DELETE</b> requests.
+	 * Service function for <code>api/db/clear</code>. Clears a database given the name. <b>This action is irreversible</b>. Supports <code>DELETE</code> requests.
 	 * @param {name} name - Database name to delete
 	 * @returns {Promise<ServiceResponse>}
 	 * 
@@ -62,7 +62,7 @@ class DBService {
 	}
 
 	/**
-	 * Service function for <b>api/db/clear-all</b>. Clears alls data from all databases. <b>This action is destructive and irreversible</b>. Supports <b>DELETE</b> requests.
+	 * Service function for <code>api/db/clear-all</code>. Clears alls data from all databases. <b>This action is destructive and irreversible</b>. Supports <code>DELETE</code> requests.
 	 * @returns {Promise<ServiceResponse>}
 	 * 
 	 * @example <caption>cURL</caption>
@@ -84,7 +84,7 @@ class DBService {
 	}
 
 	/**
-	 * Service function for <b>api/db/export</b>. Export Enmap database to readable JSON given database name. Supports <b>GET</b> requests.
+	 * Service function for <code>api/db/export</code>. Export Enmap database to readable JSON given database name. Supports <code>GET</code> requests.
 	 * @param {String} name - Database name
 	 * @returns {Promise<ServiceResponse>}
 	 * 
@@ -144,7 +144,7 @@ class DBService {
 	}
 
 	/**
-	 * Service function for <b>/api/db/export-all</b>. Get the whole Enmap databases exported and formatted as a readable JSON. Supports <b>GET</b> requests.
+	 * Service function for <code>/api/db/export-all</code>. Get the whole Enmap databases exported and formatted as a readable JSON. Supports <code>GET</code> requests.
 	 * @returns {Promise<ServiceResponse>} Response
 	 * 
 	 * @example <caption>cURL</caption>

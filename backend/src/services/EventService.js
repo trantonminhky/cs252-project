@@ -11,7 +11,7 @@ import eventsData from '../../events.json' with { type: "json" };
  */
 class EventService {
 	/**
-	 * Service function for <b>/api/event/import</b>. Import a list of events into database given a JSON. The description is meant to stay vague since this is a developer endpoint. Supports <b>POST</b> requests.
+	 * Service function for <code>/api/event/import</code>. Import a list of events into database given a JSON. The description is meant to stay vague since this is a developer endpoint. Supports <code>POST</code> requests.
 	 * @returns {Promise<ServiceResponse>}
 	 * 
 	 * @example <caption>cURL</caption>
@@ -55,7 +55,7 @@ class EventService {
 	}
 
 	/**
-	 * Service function for <b>/api/event/create</b>
+	 * Service function for <code>/api/event/create</code>
 	 */
 	async createEvent(name, description, imageLink = null, startTime = null, endTime = null) {
 		const eventID = EventDB.autonum();

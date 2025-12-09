@@ -14,7 +14,7 @@ class AIService {
 	}
 
 	/**
-	 * Service function for <b>/api/ai/send-prompt</b>. Sends prompt to Gemini with model. Supports <b>POST</b> requests.
+	 * Service function for <code>/api/ai/send-prompt</code>. Sends prompt to Gemini with model. Supports <code>POST</code> requests.
 	 * @param {String} prompt - Prompt to be fed into AI
 	 * @param {String} [model='gemini-flash-latest'] - Gemini model
 	 * @returns {Promise<ServiceResponse>}
@@ -84,7 +84,7 @@ class AIService {
 	}
 
 	// /**
-	//  * Service function for <b>/api/ai/extract-tags</b>. Extract culture tags a user may be interested at from their query. Supports <b>GET</b> requests.
+	//  * Service function for <code>/api/ai/extract-tags</code>. Extract culture tags a user may be interested at from their query. Supports <code>GET</code> requests.
 	//  * @param {String} text - User query
 	//  * @returns {Promise<ServiceResponse>}
 	//  * 
@@ -117,7 +117,7 @@ class AIService {
 	// }
 
 	/**
-	 * Service function for <b>/api/ai/generate-reviews</b>. Generate generic reviews for a location (lmao). This method is mainly used in the frontend to generate fake reviews, as the <code>date</code> field is Flutter formatted. Supports <b>POST</b> requests.
+	 * Service function for <code>/api/ai/generate-reviews</code>. Generate generic reviews for a location (lmao). This method is mainly used in the frontend to generate fake reviews, as the <code>date</code> field is Flutter formatted. Supports <code>POST</code> requests.
 	 * @param {String} place - Place name for the AI to generate reviews about
 	 * @param {String} [model='gemini-flash-latest'] - Gemini model
 	 * @returns {Promise<ServiceResponse>}

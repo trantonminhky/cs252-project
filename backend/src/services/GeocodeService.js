@@ -17,7 +17,7 @@ class GeocodeService {
 	}
 
 	/**
-	 * Service function for <b>/api/geocode/geocode</b>. Sends address to OpenStreetMap to return address' latitude and longitude. Supports <b>GET</b> requests.
+	 * Service function for <code>/api/geocode/geocode</code>. Sends address to OpenStreetMap to return address' latitude and longitude. Supports <code>GET</code> requests.
 	 * @param {string} address - Address to query OpenStreetMap
 	 * @returns {Promise<ServiceResponse>}
 	 * 
@@ -64,7 +64,6 @@ class GeocodeService {
 	 * @property {INTERNAL_SERVER_ERROR} 500 - Something went wrong with the backend (cooked)
 	 * @property {BAD_GATEWAY} 502 - Something went wrong with the upstream APIs (cooked). <b>There is a known bug that if you send too many geocode requests, OSM will block you and throw 502</b>
 	 */
-
 	async geocode(address) {
 		const cache = CacheDB.findGeocode(address);
 
@@ -113,7 +112,7 @@ class GeocodeService {
 	}
 
 	/**
-	 * Sends latitude and longitude to OpenMapTiles to get reverse-geocoded address.
+	 * Service function for <code>/geocode/reverse-geocode</code>Sends latitude and longitude to OpenMapTiles to get reverse-geocoded address.
 	 * @param {Number} lat - Latitude
 	 * @param {Number} lon - Longitude
 	 * @returns {Promise<ServiceResponse>} Response
