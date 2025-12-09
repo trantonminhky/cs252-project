@@ -6,11 +6,14 @@ import "package:virtour_frontend/components/custom_text_field.dart";
 import "package:virtour_frontend/components/events_banner.dart";
 import "package:virtour_frontend/components/briefing_carousel.dart";
 import "package:virtour_frontend/providers/user_info_provider.dart";
+import "package:virtour_frontend/screens/home_screen/region_overview.dart";
 import "package:virtour_frontend/screens/home_screen/place_overview.dart";
 import "package:virtour_frontend/screens/home_screen/search_screen.dart";
 import "package:virtour_frontend/screens/data_factories/place.dart";
 import "package:virtour_frontend/frontend_service_layer/place_service.dart";
 import "package:virtour_frontend/providers/event_provider.dart";
+import "package:virtour_frontend/screens/data_factories/filter_type.dart";
+import "package:virtour_frontend/screens/data_factories/region.dart";
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -24,6 +27,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   final RegionService _regionService = RegionService();
 
   List<Place> _topDestinations = [];
+  List<Place> _allPlaces = []; // Cache for all places
   bool _isLoadingDestinations = false;
   String? _errorMessage;
 
@@ -31,6 +35,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   void initState() {
     super.initState();
     _fetchTopDestinations();
+    print("initing");
   }
 
   @override
@@ -59,21 +64,16 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       const double lat = 10.8231;
       const double lon = 106.6297;
 
-      final locationIds =
+      // Fetch places once and cache them
+      //_allPlaces = await _regionService.getPlace("", []);
+
+      final locationIDs =
           await _regionService.fetchRecommendations(userID, lat, lon);
 
-      final places = <Place>[];
-      for (final id in locationIds) {
-        try {
-          final place = await _regionService.fetchPlacebyId(id);
-          places.add(place);
-        } catch (e) {
-          print('Error fetching place $id: $e');
-        }
-      }
+      _topDestinations = await _regionService.getAllPlaces(locationIDs);
 
       setState(() {
-        _topDestinations = places;
+        // _topDestinations = _allPlaces; // Can be filtered based on locationIds if needed
         _isLoadingDestinations = false;
       });
     } catch (e) {
@@ -88,6 +88,65 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         );
       }
     }
+  }
+
+  Widget _buildTopRegions() {
+    return FullBriefingCarousel(
+      height: 320,
+      autoPlay: true,
+      items: [
+        GestureDetector(
+          onTap: () {
+            // Use cached places instead of fetching again
+            if (mounted) {
+              Navigator.push(
+                context,
+                CupertinoPageRoute(
+                  builder: (context) => RegionOverview(
+                    region: const Region(
+                      id: "saigon",
+                      name: "Southern Vietnam",
+                      description:
+                          "Explore the vibrant culture and bustling cities of Southern Vietnam.",
+                      imageUrl: "../assets/images/regions/Saigon.jpg",
+                      //placeholder
+                      placesId: ["place1", "place2", "place3"],
+                    ),
+                    currentFilter: FilterType.regionOverview,
+                    places: _allPlaces,
+                  ),
+                ),
+              );
+            }
+          },
+          child: const Briefing(
+            size: BriefingSize.full,
+            title: "Ho Chi Minh City",
+            category: "Southern",
+            imageUrl: "../assets/images/places/Saigon.jpg",
+          ),
+        ),
+        //hardcode the remaining places
+        const Briefing(
+          size: BriefingSize.full,
+          title: "Hanoi",
+          category: "Northern",
+          imageUrl: "../assets/images/places/Ha_Noi.jpg",
+        ),
+        const Briefing(
+          size: BriefingSize.full,
+          title: "Hue",
+          category: "Central",
+          imageUrl: "../assets/images/places/Hue.jpg",
+        ),
+        const Briefing(
+          size: BriefingSize.full,
+          title: "Da Nang",
+          category: "Central",
+          imageUrl: "../assets/images/places/Da_Nang.jpg",
+        ),
+      ],
+    );
   }
 
   Widget _buildTopDestinations() {
@@ -128,11 +187,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       autoPlay: true,
       items: _topDestinations.map((place) {
         // Extract first available category from tags
-        String category = 'Destination';
+        List<String> category =
+            ref.read(userSessionProvider)?.preferences ?? [];
         if (place.tags.isNotEmpty) {
-          final firstTagList = place.tags.values.first;
+          final firstTagList = place.tags;
           if (firstTagList.isNotEmpty) {
-            category = firstTagList.first;
+            category = firstTagList.keys.toList();
           }
         }
 
@@ -148,7 +208,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           child: Briefing(
             size: BriefingSize.vert,
             title: place.name,
-            category: category,
+            category: category.first,
             imageUrl: place.imageLink,
           ),
         );
@@ -211,7 +271,22 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       ),
                       error: (_, __) => const SizedBox.shrink(),
                     ),
-
+                    const SizedBox(height: 16),
+                    // Top Regions Section
+                    const Padding(
+                      padding: EdgeInsets.only(left: 20, top: 16),
+                      child: Text(
+                        "Top regions in Vietnam",
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontFamily: "BeVietnamPro",
+                          fontWeight: FontWeight.w700,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    _buildTopRegions(),
                     // Top Destinations Section
                     const Padding(
                       padding: EdgeInsets.only(left: 20, top: 16),
@@ -228,99 +303,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     const SizedBox(height: 16),
                     _buildTopDestinations(),
 
-                    const SizedBox(height: 32),
-
-                    // Previously Viewed Section
-                    const Padding(
-                      padding: EdgeInsets.only(left: 20),
-                      child: Text(
-                        "Previously Viewed",
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontFamily: "BeVietnamPro",
-                          fontWeight: FontWeight.w700,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    const HorizontalBriefingCarousel(
-                      height: 187,
-                      autoPlay: false,
-                      items: [
-                        Briefing(
-                          size: BriefingSize.horiz,
-                          title: "Bà Thiên Hậu Pagoda",
-                          subtitle: "710 Nguyễn Trãi, Quận 5",
-                          imageUrl: "../assets/images/places/Ba_Thien_Hau.jpg",
-                        ),
-                        Briefing(
-                          size: BriefingSize.horiz,
-                          title: "Notre-Dame Cathedral",
-                          subtitle: "Quận 1, TP.HCM",
-                          imageUrl:
-                              "../assets/images/places/Notre_Dame_Cathedral.jpg",
-                        ),
-                        Briefing(
-                          size: BriefingSize.horiz,
-                          title: "Hanoi Railway",
-                          subtitle: "Old Quarter, Hà Nội",
-                          imageUrl: "../assets/images/places/Hanoi_rail.jpg",
-                        ),
-                      ],
-                    ),
-
-                    const SizedBox(height: 32),
-
-                    // Cultour Essentials in Sài Gòn Section
-                    const Padding(
-                      padding: EdgeInsets.only(left: 20),
-                      child: Text(
-                        "Cultour Essentials in Sài Gòn",
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontFamily: "BeVietnamPro",
-                          fontWeight: FontWeight.w700,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    const VerticalBriefingCarousel(
-                      height: 320,
-                      autoPlay: false,
-                      items: [
-                        Briefing(
-                          size: BriefingSize.vert,
-                          title: "Saigon Opera House",
-                          category: "Kiến trúc",
-                          imageUrl:
-                              "../assets/images/places/Saigon_Opera_House.jpg",
-                        ),
-                        Briefing(
-                          size: BriefingSize.vert,
-                          title: "Central Post Office",
-                          category: "Lịch sử",
-                          imageUrl:
-                              "../assets/images/places/Saigon_Central_Post_Office.jpg",
-                        ),
-                        Briefing(
-                          size: BriefingSize.vert,
-                          title: "Việt Nam Quốc Tự",
-                          category: "Di sản",
-                          imageUrl:
-                              "../assets/images/places/Viet_Nam_Quoc_Tu.jpg",
-                        ),
-                        Briefing(
-                          size: BriefingSize.vert,
-                          title: "Bà Thiên Hậu Pagoda",
-                          category: "Tâm linh",
-                          imageUrl: "../assets/images/places/Ba_Thien_Hau.jpg",
-                        ),
-                      ],
-                    ),
-
-                    const SizedBox(height: 20), // Bottom padding
+                    const SizedBox(height: 32), // Bottom padding
                   ],
                 ),
               ),

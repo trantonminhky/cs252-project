@@ -10,5 +10,5 @@ GeocodeService geocodeService(Ref ref) {
 
   final String token = user?.userSessionToken ?? '';
 
-  return GeocodeService(token);
+  return GeocodeService(token: token, ref: ref);
 }

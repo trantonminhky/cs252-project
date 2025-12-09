@@ -1,6 +1,7 @@
 import "package:dio/dio.dart";
-import "package:virtour_frontend/constants/userinfo.dart";
-import "package:virtour_frontend/frontend_service_layer/service_exception_handler.dart";
+import "package:virtour_frontend/global/userinfo.dart";
+import "package:virtour_frontend/frontend_service_layer/service_helpers.dart";
+//import "package:virtour_frontend/frontend_service_layer/service_exception_handler.dart";
 
 class AuthService {
   late final Dio _dio;
@@ -47,7 +48,7 @@ class AuthService {
 
       return UserInfo.fromProfileData(token, userID, profileData);
     } on DioException catch (e) {
-      throw ServiceExceptionHandler.handleDioError(e);
+      throw ServiceHelpers.handleDioError(e);
     } catch (e) {
       rethrow;
     }
@@ -70,7 +71,7 @@ class AuthService {
       }
       return false;
     } on DioException catch (e) {
-      throw ServiceExceptionHandler.handleDioError(e);
+      throw ServiceHelpers.handleDioError(e);
     }
   }
 }

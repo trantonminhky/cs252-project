@@ -1,14 +1,15 @@
 import "package:dio/dio.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:virtour_frontend/constants/userinfo.dart";
 import "package:virtour_frontend/screens/data_factories/place.dart";
-import "package:virtour_frontend/frontend_service_layer/service_exception_handler.dart";
+import "package:virtour_frontend/frontend_service_layer/service_helpers.dart";
 
 class GeocodeService {
   late final Dio dio;
   final String _baseUrl = UserInfo.tunnelUrl;
-  final String _token;
+  final Ref ref;
 
-  GeocodeService(this._token) {
+  GeocodeService({required String token, required this.ref}) {
     dio = Dio(
       BaseOptions(
         baseUrl: _baseUrl,
@@ -16,42 +17,32 @@ class GeocodeService {
         receiveTimeout: const Duration(seconds: 10),
         headers: {
           "Content-Type": "application/json",
-          "Authorization": "Bearer $_token",
+          "Authorization": "Bearer $token",
         },
       ),
     );
-    //_addAuthInterceptor();
   }
-
-  // Future<void> _addAuthInterceptor() async {
-  //   dio.interceptors.add(
-  //     InterceptorsWrapper(
-  //       onRequest: (options, handler) async {
-  //         //final prefs = await SharedPreferences.getInstance();
-  //         final token = UserInfo().userSessionToken;
-  //         options.headers['Authorization'] = 'Bearer $token';
-  //         handler.next(options);
-  //       },
-  //     ),
-  //   );
-  // }
 
   Future<Place?> geocodeAddress(String address) async {
     try {
-      final response = await dio.get(
-        '$_baseUrl/api/geocode/geocode',
-        queryParameters: {
-          'address': address,
+      return await ServiceHelpers.retryWithTokenRefresh(
+        dio: dio,
+        ref: ref,
+        operation: () async {
+          final response = await dio.get(
+            '$_baseUrl/api/geocode/geocode',
+            queryParameters: {
+              'address': address,
+            },
+          );
+          final body = response.data as Map<String, dynamic>;
+          if (response.statusCode == 200 && body['place'] != null) {
+            return Place.fromJson(body['place']);
+          } else {
+            return null;
+          }
         },
       );
-      final body = response.data as Map<String, dynamic>;
-      if (response.statusCode == 200 && body['place'] != null) {
-        return Place.fromJson(body['place']);
-      } else {
-        return null;
-      }
-    } on DioException catch (e) {
-      throw ServiceExceptionHandler.handleDioError(e);
     } catch (e) {
       print('Geocoding error: $e');
       return null;
@@ -60,21 +51,26 @@ class GeocodeService {
 
   Future<String?> reverseGeocode(double lat, double lon) async {
     try {
-      final response = await dio.get(
-        '$_baseUrl/api/geocode/reverse-geocode',
-        queryParameters: {
-          'lat': lat,
-          'lon': lon,
+      return await ServiceHelpers.retryWithTokenRefresh(
+        dio: dio,
+        ref: ref,
+        operation: () async {
+          final response = await dio.get(
+            '$_baseUrl/api/geocode/reverse-geocode',
+            queryParameters: {
+              'lat': lat,
+              'lon': lon,
+            },
+          );
+          final body = response.data as Map<String, dynamic>;
+          if (response.statusCode == 200 &&
+              body['payload']['address'] != null) {
+            return body['payload']['address'] as String;
+          } else {
+            return null;
+          }
         },
       );
-      final body = response.data as Map<String, dynamic>;
-      if (response.statusCode == 200 && body['payload']['address'] != null) {
-        return body['payload']['address'] as String;
-      } else {
-        return null;
-      }
-    } on DioException catch (e) {
-      throw ServiceExceptionHandler.handleDioError(e);
     } catch (e) {
       print('Reverse geocoding error: $e');
       return null;

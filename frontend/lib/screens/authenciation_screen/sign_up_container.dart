@@ -58,6 +58,9 @@ class _SignUpContainerState extends State<SignUpContainer> {
     } else if (ageController.text.isEmpty) {
       _showSnackBar("Age cannot be empty");
       return;
+    } else if (emailController.text.isEmpty) {
+      _showSnackBar("Email cannot be empty");
+      return;
     }
 
     setState(() => _isLoading = true);
@@ -71,6 +74,7 @@ class _SignUpContainerState extends State<SignUpContainer> {
         int.parse(ageController.text),
         userTypeController.text.toLowerCase() == 'tourist',
         _selectedPreferences,
+        //UserInfo().staySignedIn,
       );
 
       if (!mounted) return;
@@ -80,13 +84,7 @@ class _SignUpContainerState extends State<SignUpContainer> {
       if (success) {
         _showSnackBar("Sign up successfully, please sign in.");
         if (mounted) {
-          Navigator.of(context).pushReplacement(
-            CupertinoPageRoute(
-              builder: (context) {
-                return const AuthenciationScreen(initialIndex: 1);
-              },
-            ),
-          );
+          navigateToSignIn();
         }
       } else {
         _showSnackBar("Sign up failed.");
@@ -114,15 +112,15 @@ class _SignUpContainerState extends State<SignUpContainer> {
     setState(() => _index = newIndex);
   }
 
-  // void navigateToHome() {
-  //   Navigator.of(context).pushReplacement(
-  //     CupertinoPageRoute(
-  //       builder: (context) {
-  //         return const BottomNavBar();
-  //       },
-  //     ),
-  //   );
-  // }
+  void navigateToSignIn() {
+    Navigator.of(context).pushReplacement(
+      CupertinoPageRoute(
+        builder: (context) {
+          return const AuthenciationScreen(initialIndex: 1);
+        },
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -147,7 +145,7 @@ class _SignUpContainerState extends State<SignUpContainer> {
                     ScrollViewKeyboardDismissBehavior.manual,
                 child: SignUpForm1(
                   onNext: () => {
-                    if (usernameController.text.isEmpty)
+                    if (emailController.text.isEmpty)
                       {_showSnackBar("Username cannot be empty")}
                     else if (passwordController.text.isEmpty)
                       {_showSnackBar("Password cannot be empty")}
@@ -157,7 +155,6 @@ class _SignUpContainerState extends State<SignUpContainer> {
                       {changeIndex(1)},
                   },
                   emailController: emailController,
-                  usernameController: usernameController,
                   passwordController: passwordController,
                 ),
               ),
@@ -168,12 +165,15 @@ class _SignUpContainerState extends State<SignUpContainer> {
                   onNext: () => {
                     if (nameController.text.isEmpty)
                       {_showSnackBar("Name cannot be empty")}
+                    else if (usernameController.text.isEmpty)
+                      {_showSnackBar("Age cannot be empty")}
                     else if (ageController.text.isEmpty)
                       {_showSnackBar("Age cannot be empty")}
                     else
                       {changeIndex(2)},
                   },
                   onPrevious: () => changeIndex(0),
+                  usernameController: usernameController,
                   nameController: nameController,
                   ageController: ageController,
                   userTypeController: userTypeController,

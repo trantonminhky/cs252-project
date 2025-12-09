@@ -2,10 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:virtour_frontend/components/custom_text_field.dart';
-import 'package:virtour_frontend/constants/colors.dart';
+import 'package:virtour_frontend/global/colors.dart';
 import 'package:virtour_frontend/frontend_service_layer/auth_service.dart';
 import 'package:virtour_frontend/components/bottom_bar.dart';
 import 'package:virtour_frontend/providers/user_info_provider.dart';
+import 'package:virtour_frontend/global/userinfo.dart';
 
 class SignInForm extends ConsumerStatefulWidget {
   const SignInForm({super.key});
@@ -73,8 +74,7 @@ class _SignInFormState extends ConsumerState<SignInForm> {
             CupertinoPageRoute(builder: (context) => const BottomNavBar()),
           );
         }
-      }
-      else {
+      } else {
         _showSnackBar("Sign in failed. An unexpected error occurred");
       }
     } catch (e) {
@@ -116,24 +116,51 @@ class _SignInFormState extends ConsumerState<SignInForm> {
                 obscureText: true,
               ),
               const SizedBox(height: 5),
-              Align(
-                alignment: Alignment.topRight,
-                child: InkWell(
-                  onTap: () {},
-                  child: const Text(
-                    "Forgot password?",
-                    style: TextStyle(
-                      fontFamily: "BeVietnamPro",
-                      fontSize: 16,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w600,
-                      decoration: TextDecoration.underline,
-                      decorationColor: Colors.black,
-                      decorationThickness: 1.8,
-                    ),
-                  ),
-                ),
-              ),
+              const Align(
+                  alignment: Alignment.center,
+                  child: Row(children: [
+                    // Padding(
+                    //     padding: const EdgeInsets.only(top: 12),
+                    //     child: Row(
+                    //       children: [
+                    //         const Text(
+                    //           "Stay signed in",
+                    //           style: TextStyle(
+                    //             color: Colors.black,
+                    //             fontSize: 16,
+                    //             fontFamily: "BeVietnamPro",
+                    //             fontWeight: FontWeight.w400,
+                    //           ),
+                    //         ),
+                    //         const SizedBox(width: 8),
+                    //         Switch(
+                    //           value: UserInfo().staySignedIn,
+                    //           onChanged: (newVal) {
+                    //             setState(() {
+                    //               UserInfo().staySignedIn = newVal;
+                    //             });
+                    //           },
+                    //           activeTrackColor: const Color(0xffd72323),
+                    //           inactiveTrackColor: Colors.grey,
+                    //         ),
+                    //       ],
+                    //     )),
+                    // InkWell(
+                    //   onTap: () {},
+                    //   child: const Text(
+                    //     "Forgot password?",
+                    //     style: TextStyle(
+                    //       fontFamily: "BeVietnamPro",
+                    //       fontSize: 16,
+                    //       color: Colors.black,
+                    //       fontWeight: FontWeight.w600,
+                    //       decoration: TextDecoration.underline,
+                    //       decorationColor: Colors.black,
+                    //       decorationThickness: 1.8,
+                    //     ),
+                    //   ),
+                    // ),
+                  ])),
               const SizedBox(height: 48),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

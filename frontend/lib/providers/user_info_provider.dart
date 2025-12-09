@@ -1,5 +1,5 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:virtour_frontend/constants/userinfo.dart';
+import 'package:virtour_frontend/global/userinfo.dart';
 
 part 'user_info_provider.g.dart';
 

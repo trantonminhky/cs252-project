@@ -10,5 +10,5 @@ ReviewService reviewService(Ref ref) {
 
   final String token = user?.userSessionToken ?? '';
 
-  return ReviewService(token);
+  return ReviewService(token: token, ref: ref);
 }

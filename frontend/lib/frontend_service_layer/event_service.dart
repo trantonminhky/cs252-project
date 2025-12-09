@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:virtour_frontend/constants/userinfo.dart';
-import 'package:virtour_frontend/frontend_service_layer/service_exception_handler.dart';
+import 'package:virtour_frontend/frontend_service_layer/service_helpers.dart';
 import 'package:virtour_frontend/screens/data_factories/event.dart';
 
 class EventService {
@@ -73,7 +73,7 @@ class EventService {
         throw Exception("Failed to fetch events: HTTP ${response.statusCode}");
       }
     } on DioException catch (e) {
-      throw ServiceExceptionHandler.handleDioError(e);
+      throw ServiceHelpers.handleDioError(e);
     } catch (e) {
       print("Failed to fetch events: $e");
       return null;
@@ -129,7 +129,7 @@ class EventService {
         throw Exception("Failed to fetch events: HTTP ${response.statusCode}");
       }
     } on DioException catch (e) {
-      throw ServiceExceptionHandler.handleDioError(e);
+      throw ServiceHelpers.handleDioError(e);
     } catch (e) {
       print("Failed to fetch events: $e");
       return null;
@@ -152,7 +152,7 @@ class EventService {
         return false;
       }
     } on DioException catch (e) {
-      throw ServiceExceptionHandler.handleDioError(e);
+      throw ServiceHelpers.handleDioError(e);
     } catch (e) {
       print("Failed to subscribe to event: $e");
       return false;
@@ -175,7 +175,7 @@ class EventService {
         return false;
       }
     } on DioException catch (e) {
-      throw ServiceExceptionHandler.handleDioError(e);
+      throw ServiceHelpers.handleDioError(e);
     } catch (e) {
       print("Failed to subscribe to event: $e");
       return false;

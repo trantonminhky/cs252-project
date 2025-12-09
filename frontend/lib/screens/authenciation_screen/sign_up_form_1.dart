@@ -2,18 +2,31 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:virtour_frontend/components/custom_text_field.dart';
 
-class SignUpForm1 extends StatelessWidget {
+class SignUpForm1 extends StatefulWidget {
   final Function onNext;
   final TextEditingController emailController;
-  final TextEditingController usernameController;
   final TextEditingController passwordController;
   const SignUpForm1({
     super.key,
     required this.onNext,
     required this.emailController,
-    required this.usernameController,
     required this.passwordController,
   });
+
+  @override
+  State<SignUpForm1> createState() => _SignUpForm1State();
+}
+
+class _SignUpForm1State extends State<SignUpForm1> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,19 +48,13 @@ class SignUpForm1 extends StatelessWidget {
           ),
           const SizedBox(height: 33),
           MyTextField(
-            textEditingController: emailController,
+            textEditingController: widget.emailController,
             label: "Email",
             prefixIcon: CupertinoIcons.mail,
           ),
           const SizedBox(height: 33),
           MyTextField(
-            textEditingController: usernameController,
-            label: "Username",
-            prefixIcon: CupertinoIcons.person,
-          ),
-          const SizedBox(height: 33),
-          MyTextField(
-            textEditingController: passwordController,
+            textEditingController: widget.passwordController,
             label: "Password",
             prefixIcon: CupertinoIcons.lock,
             obscureText: true,
@@ -55,7 +62,7 @@ class SignUpForm1 extends StatelessWidget {
           const SizedBox(height: 75),
           Center(
             child: TextButton(
-              onPressed: () => onNext(),
+              onPressed: () => widget.onNext(),
               style: TextButton.styleFrom(
                 backgroundColor: const Color(0xffd72323),
                 fixedSize: const Size(109, 52),

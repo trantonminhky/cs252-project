@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:virtour_frontend/components/custom_text_field.dart';
 
-class SignUpForm2 extends StatelessWidget {
+class SignUpForm2 extends StatefulWidget {
   final Function onNext;
   final Function onPrevious;
+  final TextEditingController usernameController;
   final TextEditingController nameController;
   final TextEditingController ageController;
   final TextEditingController userTypeController;
@@ -12,11 +13,17 @@ class SignUpForm2 extends StatelessWidget {
     super.key,
     required this.onNext,
     required this.onPrevious,
+    required this.usernameController,
     required this.nameController,
     required this.ageController,
     required this.userTypeController,
   });
 
+  @override
+  State<SignUpForm2> createState() => _SignUpForm2State();
+}
+
+class _SignUpForm2State extends State<SignUpForm2> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -37,13 +44,19 @@ class SignUpForm2 extends StatelessWidget {
           ),
           const SizedBox(height: 24),
           MyTextField(
-            textEditingController: nameController,
+            textEditingController: widget.usernameController,
+            label: "Username",
+            hintText: "Enter your username",
+          ),
+          const SizedBox(height: 48),
+          MyTextField(
+            textEditingController: widget.nameController,
             label: "Name",
             hintText: "First name - Last name",
           ),
           const SizedBox(height: 48),
           MyTextField(
-            textEditingController: ageController,
+            textEditingController: widget.ageController,
             label: "Age",
             digitsOnly: true,
           ),
@@ -52,7 +65,7 @@ class SignUpForm2 extends StatelessWidget {
             "I am signing up as a...",
             style: TextStyle(
               color: Colors.black,
-              fontSize: 16,
+              fontSize: 18,
               fontFamily: "BeVietnamPro",
               fontWeight: FontWeight.w700,
               height: 1.25,
@@ -91,7 +104,7 @@ class SignUpForm2 extends StatelessWidget {
               ),
             ),
             onChanged: (String? value) {
-              userTypeController.text = value ?? "Tourist";
+              widget.userTypeController.text = value ?? "Tourist";
             },
           ),
           const SizedBox(height: 96),
@@ -101,7 +114,7 @@ class SignUpForm2 extends StatelessWidget {
               children: [
                 Expanded(
                   child: GestureDetector(
-                    onTap: () => onPrevious(),
+                    onTap: () => widget.onPrevious(),
                     child: Container(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 32, vertical: 16),
@@ -131,7 +144,7 @@ class SignUpForm2 extends StatelessWidget {
                 const SizedBox(width: 20),
                 Expanded(
                   child: GestureDetector(
-                    onTap: () => onNext(),
+                    onTap: () => widget.onNext(),
                     child: Container(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 32, vertical: 16),

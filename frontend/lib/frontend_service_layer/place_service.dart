@@ -1,9 +1,10 @@
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:virtour_frontend/screens/data_factories/place.dart";
 import "package:virtour_frontend/screens/data_factories/region.dart";
 import "package:virtour_frontend/screens/data_factories/review.dart";
 import "package:dio/dio.dart";
 import "package:virtour_frontend/constants/userinfo.dart";
-import "package:virtour_frontend/frontend_service_layer/service_exception_handler.dart";
+import "package:virtour_frontend/frontend_service_layer/service_helpers.dart";
 
 //this is an interface for fetching region data from database
 class RegionService {
@@ -34,56 +35,44 @@ class RegionService {
   2. fetch place by id (place will be numbered with an id)
   */
   Future<Region> getRegionbyId(String regionId) async {
-    try {
-      final response = await dio.get('/regions/$regionId');
+    final response = await dio.get('/regions/$regionId');
 
-      switch (response.statusCode) {
-        case 200:
-          final data = response.data;
-          if (data['success']) {
-            final regionData = data['data'] ?? data['payload']?['data'];
+    switch (response.statusCode) {
+      case 200:
+        final data = response.data;
+        if (data['success']) {
+          final regionData = data['data'] ?? data['payload']?['data'];
 
-            return Region.fromJson(regionData);
-          } else {
-            throw Exception(data['message'] ?? 'Failed to load region');
-          }
-        case 404:
-          throw Exception('Region not found');
-        default:
-          throw Exception('Unexpected response: ${response.statusCode}');
-      }
-    } on DioException catch (e) {
-      throw ServiceExceptionHandler.handleDioError(e);
-    } catch (e) {
-      throw Exception('Failed to load region: $e');
+          return Region.fromJson(regionData);
+        } else {
+          throw Exception(data['message'] ?? 'Failed to load region');
+        }
+      case 404:
+        throw Exception('Region not found');
+      default:
+        throw Exception('Unexpected response: ${response.statusCode}');
     }
   }
 
   Future<Place> fetchPlacebyId(String placeId) async {
-    try {
-      final response = await dio.get('/location/find-by-id', queryParameters: {
-        'id': placeId,
-      });
+    final response = await dio.get('/location/find-by-id', queryParameters: {
+      'id': placeId,
+    });
 
-      switch (response.statusCode) {
-        case 200:
-          final data = response.data;
-          if (data['success']) {
-            final placeData = data['payload']['data'];
+    switch (response.statusCode) {
+      case 200:
+        final data = response.data;
+        if (data['success']) {
+          final placeData = data['payload']['data'];
 
-            return Place.fromJson(placeData);
-          } else {
-            throw Exception(data['message'] ?? 'Failed to load place');
-          }
-        case 404:
-          throw Exception('Place not found');
-        default:
-          throw Exception('Unexpected response: ${response.statusCode}');
-      }
-    } on DioException catch (e) {
-      throw ServiceExceptionHandler.handleDioError(e);
-    } catch (e) {
-      throw Exception('Failed to load place: $e');
+          return Place.fromJson(placeData);
+        } else {
+          throw Exception(data['message'] ?? 'Failed to load place');
+        }
+      case 404:
+        throw Exception('Place not found');
+      default:
+        throw Exception('Unexpected response: ${response.statusCode}');
     }
   }
 
@@ -134,38 +123,37 @@ class RegionService {
           throw Exception('Failed to load filtered places: $message');
       }
     } on DioException catch (e) {
-      throw ServiceExceptionHandler.handleDioError(e);
+      throw ServiceHelpers.handleDioError(e);
     } catch (e) {
       throw Exception('Failed to load filtered places: $e');
     }
   }
 
-  Future<List<Review>> getReviewsForPlace(String placeId) async {
-    try {
-      final response = await dio.get('/places/reviews/$placeId');
+  Future<List<Review>> getReviewsForPlace(String placeId, Ref ref) async {
+    return await ServiceHelpers.retryWithTokenRefresh(
+        dio: dio,
+        ref: ref,
+        operation: () async {
+          final response = await dio.get('/places/reviews/$placeId');
 
-      switch (response.statusCode) {
-        case 200:
-          final data = response.data;
-          if (data['success']) {
-            final reviewsData = data['reviews'] ?? [];
+          switch (response.statusCode) {
+            case 200:
+              final data = response.data;
+              if (data['success']) {
+                final reviewsData = data['reviews'] ?? [];
 
-            return reviewsData
-                .map<Review>((json) => Review.fromJson(json))
-                .toList();
-          } else {
-            throw Exception(data['message'] ?? 'Failed to load reviews');
+                return reviewsData
+                    .map<Review>((json) => Review.fromJson(json))
+                    .toList();
+              } else {
+                throw Exception(data['message'] ?? 'Failed to load reviews');
+              }
+            case 404:
+              throw Exception('Reviews not found');
+            default:
+              throw Exception('Unexpected response: ${response.statusCode}');
           }
-        case 404:
-          throw Exception('Reviews not found');
-        default:
-          throw Exception('Unexpected response: ${response.statusCode}');
-      }
-    } on DioException catch (e) {
-      throw ServiceExceptionHandler.handleDioError(e);
-    } catch (e) {
-      throw Exception('Failed to load reviews: $e');
-    }
+        });
   }
 
   // Saved Places Methods
@@ -186,7 +174,7 @@ class RegionService {
       }
       return [];
     } on DioException catch (e) {
-      throw ServiceExceptionHandler.handleDioError(e);
+      throw ServiceHelpers.handleDioError(e);
     } catch (e) {
       throw Exception('Failed to fetch saved places: $e');
     }
@@ -253,10 +241,11 @@ class RegionService {
                 .toList();
           }
         }
+        return [];
+      } else {
+        return [];
       }
-      return [];
-    } on DioException catch (e) {
-      print('Error fetching recommendations: ${e.message}');
+    } catch (e) {
       return [];
     }
   }
