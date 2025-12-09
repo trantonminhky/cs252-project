@@ -265,9 +265,15 @@ class MapService {
 		}
 	}
 
-	// Search for places near a location
-	// params - lat, lon, rad, category
-	// return - places data
+	/**
+	 * Service function for <code>/api/map/nearby</code>. Returns a list of nearby points of interest (POIs) from a coordinate. <b>This method is temporarily disabled because ORS is retarded</b>. Supports <code>POST</code> requests.
+	 * @param {Number} lat - Latitude
+	 * @param {Number} lon - Longitude
+	 * @param {Number} [radius=1000] - Maximum distance to look for. Note that radius must be between 0 and 2000
+	 * @param {Array<Number>} [category_ids=[]] - IDs of POIs to filter. By default none is excluded. Refer to <a href="https://github.com/GIScience/openpoiservice/blob/main/openpoiservice/server/categories/categories.yml" target="_blank">this</a> for which ID corresponds to which types of POIs
+	 * 
+	 * @property {SERVICE_UNAVAILABLE} 503 - Can you read?
+	 */
 	async nearby(lat, lon, radius = 1000, category_ids = []) {
 		let filters = {};
 
