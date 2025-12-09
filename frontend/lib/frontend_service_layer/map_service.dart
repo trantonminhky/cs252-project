@@ -1,6 +1,6 @@
 import "package:dio/dio.dart";
 import "package:latlong2/latlong.dart";
-import "package:virtour_frontend/constants/userinfo.dart";
+import "package:virtour_frontend/global/userinfo.dart";
 
 class MapService {
   static final MapService _instance = MapService._internal();

@@ -27,7 +27,7 @@ class _SignUpForm2State extends State<SignUpForm2> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 16, left: 32, right: 32),
+      padding: const EdgeInsets.only(top: 5, left: 32, right: 32),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -48,19 +48,19 @@ class _SignUpForm2State extends State<SignUpForm2> {
             label: "Username",
             hintText: "Enter your username",
           ),
-          const SizedBox(height: 48),
+          const SizedBox(height: 30),
           MyTextField(
             textEditingController: widget.nameController,
             label: "Name",
             hintText: "First name - Last name",
           ),
-          const SizedBox(height: 48),
+          const SizedBox(height: 30),
           MyTextField(
             textEditingController: widget.ageController,
             label: "Age",
             digitsOnly: true,
           ),
-          const SizedBox(height: 48),
+          const SizedBox(height: 30),
           const Text(
             "I am signing up as a...",
             style: TextStyle(
@@ -107,7 +107,7 @@ class _SignUpForm2State extends State<SignUpForm2> {
               widget.userTypeController.text = value ?? "Tourist";
             },
           ),
-          const SizedBox(height: 96),
+          const SizedBox(height: 30),
           Padding(
             padding: EdgeInsets.zero,
             child: Row(
