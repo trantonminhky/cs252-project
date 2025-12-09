@@ -218,19 +218,14 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // Calculate dynamic height constraints to prevent overflow when keyboard is up
     final mediaQuery = MediaQuery.of(context);
-    final isKeyboardOpen = mediaQuery.viewInsets.bottom > 0;
     final screenHeight = mediaQuery.size.height;
 
-    // Calculate available height: Screen - Keyboard - Top Padding - Approx SearchBar Height (80) - Bottom buffer (50)
     final double availableHeight = screenHeight -
         mediaQuery.viewInsets.bottom -
         mediaQuery.padding.top -
         300.0;
 
-    // Use the smaller of: 40% of screen OR available height
-    // This ensures we never push content off-screen when keyboard is up
     final double maxDropdownHeight = math.max(
         0.0, // Minimum usable height
         math.min(screenHeight * 0.4, availableHeight));

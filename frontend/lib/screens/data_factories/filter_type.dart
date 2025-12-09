@@ -8,7 +8,6 @@ enum FilterType {
 enum CategoryType {
   // Building Types
   marketplace,
-  communityCentre,
   courthouse,
   hospital,
   mortuary,
@@ -102,7 +101,6 @@ Map<FilterType, List<CategoryType>> filterCategoryMapping = {
   ],
   FilterType.buildingType: [
     CategoryType.marketplace,
-    CategoryType.communityCentre,
     CategoryType.courthouse,
     CategoryType.hospital,
     CategoryType.mortuary,
