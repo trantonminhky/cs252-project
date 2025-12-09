@@ -5,6 +5,7 @@ import architecturesData from '../../architecture.json' with { type: "json" };
 import ServiceResponse from '../helper/ServiceResponse.js';
 import config from '../config/config.js';
 import axios from 'axios';
+import FormData from 'form-data';
 
 /**
  * Location service provider class.
@@ -12,7 +13,9 @@ import axios from 'axios';
  */
 class LocationService {
 	constructor() {
-		this.baseURL = config.pythonBackend.baseURLAn
+		this.baseURLAn = config.pythonBackend.baseURLAn
+		this.baseURLVan = config.pythonBackend.baseURLVan
+		this.baseURLImageVan = config.pythonBackend.baseURLImageVan
 	}
 
 	/**
@@ -54,14 +57,16 @@ class LocationService {
 	 * @return {Promise<ServiceResponse>} Response
 	 */
 	async search(query, filters, initialK = 10, finalK = 3) {
-		const axiosResponse = await axios.post(`${this.baseURL}/search`, {
+		const axiosResponse = await axios.post(`${this.baseURLAn}/search`, {
 			query: query,
 			filters: filters,
 			initial_k: initialK,
 			final_k: finalK
-		}, { headers: {
-			'Content-Type': 'application/json'
-		}});
+		}, {
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		});
 
 		const response = new ServiceResponse(
 			true,
@@ -69,6 +74,29 @@ class LocationService {
 			"Success",
 			axiosResponse.data.data
 		);
+		return response;
+	}
+
+	async searchByImage(fileBuffer, filename = "image.jpg") {
+		const form = new FormData();
+		form.append("file", fileBuffer, filename);
+		form.append("limit", "5");
+
+		const headers = form.getHeaders();
+
+		const axiosResponse = await axios.post(
+			`${this.baseURLImageVan}/search`,
+			form,
+			{ headers }
+		);
+
+		const response = new ServiceResponse(
+			true,
+			200,
+			"Success",
+			axiosResponse.data
+		);
+
 		return response;
 	}
 
@@ -81,7 +109,7 @@ class LocationService {
 			);
 			return response;
 		}
-		
+
 		const result = LocationDB.get(locationID);
 		const response = new ServiceResponse(
 			true,

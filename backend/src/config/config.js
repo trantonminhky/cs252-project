@@ -24,6 +24,7 @@ const config = {
 
 	pythonBackend: {
 		baseURLVan: process.env.PYTHON_BACKEND_VAN_BASE_URL,
+		baseURLImageVan: process.env.PYTHON_BACKEND_IMAGE_VAN_BASE_URL,
 		baseURLAn: process.env.PYTHON_BACKEND_AN_BASE_URL
 	},
 
