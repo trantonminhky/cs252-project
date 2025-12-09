@@ -14,8 +14,38 @@ class Events extends _$Events {
   }
 
   Future<void> addEvent(Event event) async {
-    final currentState = await future;
-    state = AsyncValue.data([...currentState, event]);
+    // Call backend API to create event
+    final result = await EventService().createEvent(
+      name: event.name,
+      location: event.location,
+      description: event.description,
+      imageLink: event.imageUrl,
+      startTime: event.startTime.millisecondsSinceEpoch,
+      endTime: event.endTime.millisecondsSinceEpoch,
+    );
+
+    if (result != null) {
+      // Update local state with the event from backend (which has the server-generated ID)
+      final serverEvent = Event(
+        id: result['id']?.toString() ?? event.id,
+        name: result['name'] ?? event.name,
+        location: result['location'] ?? event.location,
+        description: result['description'] ?? event.description,
+        startTime: result['startTime'] != null
+            ? DateTime.fromMillisecondsSinceEpoch(result['startTime'])
+            : event.startTime,
+        endTime: result['endTime'] != null
+            ? DateTime.fromMillisecondsSinceEpoch(result['endTime'])
+            : event.endTime,
+        imageUrl: result['imageLink'] ?? event.imageUrl,
+        numberOfPeople: (result['participants'] as List?)?.length ?? 0,
+      );
+
+      final currentState = await future;
+      state = AsyncValue.data([...currentState, serverEvent]);
+    } else {
+      throw Exception('Failed to create event on server');
+    }
   }
 
   Future<void> removeEvent(Event event) async {

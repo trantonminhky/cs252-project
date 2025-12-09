@@ -200,10 +200,10 @@ class EventService {
   }) async {
     try {
       final response = await _dio.post(
-        '/event/create',
+        '/event/',
         data: {
           "name": name,
-          //"location": location
+          "location": location,
           "description": description,
           "imageLink": imageLink,
           "startTime": startTime,

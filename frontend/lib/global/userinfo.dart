@@ -4,6 +4,7 @@ class UserInfo {
   final String userSessionToken;
   final String userID;
   final String username;
+  final String discriminant;
   final UserType userType;
   final List<String> preferences;
 
@@ -15,6 +16,7 @@ class UserInfo {
     required this.userSessionToken,
     required this.userID,
     required this.username,
+    required this.discriminant,
     required this.userType,
     required this.preferences,
   });
@@ -34,6 +36,7 @@ class UserInfo {
       userSessionToken: token,
       userID: userID,
       username: profileData["username"] ?? "",
+      discriminant: profileData["discriminant"] ?? "",
       userType: profileData["type"] == "tourist"
           ? UserType.tourist
           : UserType.business,
@@ -45,6 +48,7 @@ class UserInfo {
     String? userSessionToken,
     String? userID,
     String? username,
+    String? discriminant, 
     UserType? userType,
     List<String>? preferences,
   }) {
@@ -52,6 +56,7 @@ class UserInfo {
       userSessionToken: userSessionToken ?? this.userSessionToken,
       userID: userID ?? this.userID,
       username: username ?? this.username,
+      discriminant: discriminant ?? this.discriminant,
       userType: userType ?? this.userType,
       preferences: preferences ?? this.preferences,
     );
