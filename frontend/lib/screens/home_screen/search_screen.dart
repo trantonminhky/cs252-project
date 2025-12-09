@@ -1,7 +1,7 @@
 import "dart:async";
+import "dart:math" as math;
 import "package:flutter/material.dart";
 import "package:flutter/cupertino.dart";
-import "package:carousel_slider/carousel_slider.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:virtour_frontend/frontend_service_layer/place_service.dart";
 import "package:virtour_frontend/providers/user_info_provider.dart";
@@ -108,12 +108,8 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
     List<String> allCategories =
         CategoryType.values.map((e) => e.name).toList();
 
-    // Set available categories (5 categories to display)
-    if (allCategories.length >= 5) {
-      _availableCategories = allCategories.take(5).toList();
-    } else {
-      _availableCategories = List.from(allCategories);
-    }
+    // Set available categories
+    _availableCategories = List.from(allCategories);
 
     // Initialize selected categories from user preferences
     _selectedCategories = userPreferences
@@ -138,7 +134,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
 
   Future<void> _performSearch() async {
     if (!mounted) return;
-    
+
     setState(() {
       _isLoading = true;
       _errorMessage = null;
@@ -222,6 +218,23 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // Calculate dynamic height constraints to prevent overflow when keyboard is up
+    final mediaQuery = MediaQuery.of(context);
+    final isKeyboardOpen = mediaQuery.viewInsets.bottom > 0;
+    final screenHeight = mediaQuery.size.height;
+
+    // Calculate available height: Screen - Keyboard - Top Padding - Approx SearchBar Height (80) - Bottom buffer (50)
+    final double availableHeight = screenHeight -
+        mediaQuery.viewInsets.bottom -
+        mediaQuery.padding.top -
+        300.0;
+
+    // Use the smaller of: 40% of screen OR available height
+    // This ensures we never push content off-screen when keyboard is up
+    final double maxDropdownHeight = math.max(
+        0.0, // Minimum usable height
+        math.min(screenHeight * 0.4, availableHeight));
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -284,129 +297,98 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
               ),
             ),
 
-            const SizedBox(height: 16),
-
-            // Two rows of category chips
-            Column(
-              children: [
-                // First row
-                SizedBox(
-                  height: 50,
-                  child: CarouselSlider(
-                    options: CarouselOptions(
-                      height: 50,
-                      viewportFraction: 0.32,
-                      enlargeCenterPage: false,
-                      enableInfiniteScroll: false,
-                      padEnds: false,
+            // Dropdown / Accordion for Categories
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey.shade300),
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Theme(
+                  data: Theme.of(context).copyWith(
+                    dividerColor: Colors.transparent,
+                  ),
+                  child: ExpansionTile(
+                    tilePadding: const EdgeInsets.symmetric(horizontal: 16),
+                    iconColor: const Color(0xFFD72323),
+                    textColor: const Color(0xFFD72323),
+                    title: Text(
+                      _selectedCategories.isEmpty
+                          ? "Filter by Category"
+                          : "${_selectedCategories.length} filters selected",
+                      style: const TextStyle(
+                        fontFamily: "BeVietnamPro",
+                        fontWeight: FontWeight.w600,
+                        fontSize: 14,
+                      ),
                     ),
-                    items: _availableCategories
-                        .take(6)
-                        .toList()
-                        .asMap()
-                        .entries
-                        .map((entry) {
-                      final index = entry.key;
-                      final category = entry.value;
-                      final isSelected = _selectedCategories.contains(category);
-                      final chipColor = _getCategoryColor(category, index);
+                    children: [
+                      Container(
+                        constraints: BoxConstraints(
+                          maxHeight: maxDropdownHeight,
+                        ),
+                        child: SingleChildScrollView(
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(12, 0, 12, 12),
+                            child: SizedBox(
+                              width: double.infinity,
+                              child: Wrap(
+                                spacing: 8.0,
+                                runSpacing: 8.0,
+                                children: _availableCategories
+                                    .asMap()
+                                    .entries
+                                    .map((entry) {
+                                  final index = entry.key;
+                                  final category = entry.value;
+                                  final isSelected =
+                                      _selectedCategories.contains(category);
+                                  final chipColor =
+                                      _getCategoryColor(category, index);
 
-                      return Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 4),
-                        child: TextButton(
-                          onPressed: () => _toggleCategory(category),
-                          style: TextButton.styleFrom(
-                            backgroundColor:
-                                isSelected ? chipColor : Colors.transparent,
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 8,
-                              vertical: 5,
-                            ),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(24),
-                              side: BorderSide(
-                                color: chipColor,
-                                width: 1.5,
+                                  return FilterChip(
+                                    label: Text(
+                                      _normalizeCategoryName(category),
+                                      style: TextStyle(
+                                        color: isSelected
+                                            ? Colors.white
+                                            : Colors.black87,
+                                        fontFamily: "BeVietnamPro",
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 13,
+                                      ),
+                                    ),
+                                    selected: isSelected,
+                                    onSelected: (_) =>
+                                        _toggleCategory(category),
+                                    backgroundColor: Colors.white,
+                                    selectedColor: chipColor,
+                                    checkmarkColor: Colors.white,
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 8, vertical: 8),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                      side: BorderSide(
+                                        color: isSelected
+                                            ? Colors.transparent
+                                            : Colors.grey.shade300,
+                                      ),
+                                    ),
+                                  );
+                                }).toList(),
                               ),
                             ),
                           ),
-                          child: Text(
-                            _normalizeCategoryName(category),
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: isSelected ? Colors.white : chipColor,
-                              fontSize: 14,
-                              fontFamily: "BeVietnamPro",
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
                         ),
-                      );
-                    }).toList(),
+                      ),
+                    ],
                   ),
                 ),
-                const SizedBox(height: 12),
-                // Second row
-                SizedBox(
-                  height: 50,
-                  child: CarouselSlider(
-                    options: CarouselOptions(
-                      height: 50,
-                      viewportFraction: 0.32,
-                      enlargeCenterPage: false,
-                      enableInfiniteScroll: false,
-                      padEnds: false,
-                    ),
-                    items: _availableCategories
-                        .skip(6)
-                        .toList()
-                        .asMap()
-                        .entries
-                        .map((entry) {
-                      final index = entry.key + 6;
-                      final category = entry.value;
-                      final isSelected = _selectedCategories.contains(category);
-                      final chipColor = _getCategoryColor(category, index);
-
-                      return Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 4),
-                        child: TextButton(
-                          onPressed: () => _toggleCategory(category),
-                          style: TextButton.styleFrom(
-                            backgroundColor:
-                                isSelected ? chipColor : Colors.transparent,
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 8,
-                              vertical: 5,
-                            ),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(24),
-                              side: BorderSide(
-                                color: chipColor,
-                                width: 1.5,
-                              ),
-                            ),
-                          ),
-                          child: Text(
-                            _normalizeCategoryName(category),
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: isSelected ? Colors.white : chipColor,
-                              fontSize: 14,
-                              fontFamily: "BeVietnamPro",
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
-                      );
-                    }).toList(),
-                  ),
-                ),
-              ],
+              ),
             ),
 
-            // SizedBox with height 48
-            const SizedBox(height: 48),
+            const SizedBox(height: 16),
 
             // Search results list
             Expanded(
