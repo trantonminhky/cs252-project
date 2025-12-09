@@ -1,12 +1,30 @@
 {
-  "source": {
-    "include": ["src/services"],
-    "includePattern": ".js$"
-  },
-  "opts": {
-    "destination": "./docs",
-    "recurse": true,
-    "template": "node_modules/docdash"
-  },
-  "plugins": []
+	"source": {
+		"include": [
+			"src/services"
+		],
+		"includePattern": ".js$"
+	},
+	"opts": {
+		"destination": "./docs",
+		"recurse": true,
+		"template": "node_modules/docdash"
+	},
+	"plugins": [
+		"plugins/markdown"
+	],
+	"templates": {
+		"default": {
+			"staticFiles": {
+				"include": [
+					"src/config/docdash-custom.css"
+				]
+			}
+		}
+	},
+	"docdash": {
+		"scripts": [
+			"docdash-custom.css"
+		]
+	}
 }

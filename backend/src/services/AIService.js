@@ -139,16 +139,14 @@ class AIService {
 	 *			{
 	 *				"username": "TravelerGal",
 	 *				"id": "R1001",
-	 *				"content": "A bustling place full of energy and local crafts! You must haggle fiercely though, as prices start very high. The food court 
-	 				in the back is a fantastic spot for authentic Vietnamese street food.",
+	 *				"content": "A bustling place full of energy and local crafts! You must haggle fiercely though, as prices start very high. The food court in the back is a fantastic spot for authentic Vietnamese street food.",
 	 *				"rating": 4,
 	 *				"date": "2023-11-25T14:30:00.000Z"
 	 *			},
 	 *			{
 	 *				"username": "HoChiMinhLocalGuide",
 	 *				"id": "R1002",
-	 *				"content": "While essential for tourists, this market is now quite expensive compared to smaller, neighborhood markets. Great
-	 				architecture, but be prepared for intense salesmanship. Better for souvenirs than daily shopping.",
+	 *				"content": "While essential for tourists, this market is now quite expensive compared to smaller, neighborhood markets. Great architecture, but be prepared for intense salesmanship. Better for souvenirs than daily shopping.",
 	 *				"rating": 3,
 	 *				"date": "2023-12-01T09:15:00.000Z"
 	 *			}

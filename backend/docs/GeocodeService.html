@@ -53,7 +53,7 @@
         
         </h2>
         
-            <div class="class-description usertext">Geocode service provider class.</div>
+            <div class="class-description usertext"><p>Geocode service provider class.</p></div>
         
     
 </header>
@@ -171,7 +171,7 @@
 
     
 
-    <h4 class="name" id="geocode"><span class="type-signature type-signature-async">(async) </span>geocode<span class="signature">(query, limit<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;ServiceResponse>}</span></h4>
+    <h4 class="name" id="geocode"><span class="type-signature type-signature-async">(async) </span>geocode<span class="signature">(address)</span><span class="type-signature"> &rarr; {Promise.&lt;ServiceResponse>}</span></h4>
 
     
 
@@ -181,13 +181,13 @@
 <dl class="details">
     
     <dt class="tag-description">Description:</dt>
-    <dd class="tag-description"><ul class="dummy"><li>Sends query to OpenMapTiles to return geocoded address.</li></ul></dd>
+    <dd class="tag-description"><ul class="dummy"><li><p>Service function for <b>/api/geocode/geocode</b>. Sends address to OpenStreetMap to return address' latitude and longitude. Supports <b>GET</b> requests.</p></li></ul></dd>
     
 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="GeocodeService.js.html">GeocodeService.js</a>, <a href="GeocodeService.js.html#line25">line 25</a>
+        <a href="GeocodeService.js.html">GeocodeService.js</a>, <a href="GeocodeService.js.html#line68">line 68</a>
     </li></ul></dd>
     
 
@@ -224,12 +224,226 @@
 
 
 
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>200</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">OK</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Successful request</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>400</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">BAD_REQUEST</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Missing address</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>401</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">UNAUTHORIZED</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>No bearer JWT was specified, or the JWT verification failed (invalid or expired)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>405</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">METHOD_NOT_ALLOWED</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The endpoint does not support the HTTP method specified</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>500</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">INTERNAL_SERVER_ERROR</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Something went wrong with the backend (cooked)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>502</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">BAD_GATEWAY</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Something went wrong with the upstream APIs (cooked). <b>There is a known bug that if you send too many geocode requests, OSM will block you and throw 502</b></p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
 
 
 
 
 
 
+
+
+
+
+
+
+    <h5 class="h5-examples">Examples</h5>
+    
+        <p class="code-caption">cURL</p>
+    
+    <pre class="prettyprint"><code>curl --header 'Authorization:Bearer MIKU_MIKU_OO_EE_OO' \
+http://localhost:3000/api/geocode/geocode?query=227%20nguyen%20van%20cu</code></pre>
+
+        <p class="code-caption">Response</p>
+    
+    <pre class="prettyprint"><code>{
+	"success": true,
+	"statusCode": 200,
+	"payload": {
+		"message": "Success (OK)",
+		"data": [
+			{
+				"place_id": 239503968,
+				"licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+				"osm_type": "way",
+				"osm_id": 140703186,
+				"lat": "10.7625844",
+				"lon": "106.6816948",
+				"category": "amenity",
+				"type": "university",
+				"place_rank": 30,
+				"importance": 0.30544692142489355,
+				"addresstype": "amenity",
+				"name": "Trường Đại học Khoa học Tự nhiên - ĐHQG Thành phố Hồ Chí Minh - Cơ sở 1",
+				"display_name": "Trường Đại học Khoa học Tự nhiên - ĐHQG Thành phố Hồ Chí Minh - Cơ sở 1, 227, Nguyễn Văn Cừ, Khu phố 5, Phường Cầu Ông Lãnh, Thủ Đức, Thành phố Hồ Chí Minh, 70000, Việt Nam",
+				"boundingbox": [
+					"10.7615770",
+					"10.7632125",
+					"106.6806370",
+					"106.6827575"
+				]
+			}
+		]
+	}
+}</code></pre>
 
 
 
@@ -247,11 +461,7 @@
         <th>Type</th>
 
         
-        <th>Attributes</th>
-        
 
-        
-        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -263,7 +473,7 @@
 
         <tr>
             
-                <td class="name"><code>query</code></td>
+                <td class="name"><code>address</code></td>
             
 
             <td class="type">
@@ -277,62 +487,10 @@
             </td>
 
             
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
 
             
-                <td class="default">
-                
-                </td>
-            
 
-            <td class="description last">Address to query OpenMapTiles</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>limit</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                    <code>5</code>
-                
-                </td>
-            
-
-            <td class="description last">Maximum number of results returned. Default is 5</td>
+            <td class="description last"><p>Address to query OpenStreetMap</p></td>
         </tr>
 
     
@@ -357,10 +515,6 @@
 <h5 class="h5-returns">Returns:</h5>
 
         
-<div class="param-desc">
-    Response
-</div>
-
 
 
 <dl class="param-type">
@@ -395,13 +549,13 @@
 <dl class="details">
     
     <dt class="tag-description">Description:</dt>
-    <dd class="tag-description"><ul class="dummy"><li>Sends latitude and longitude to OpenMapTiles to get reverse-geocoded address.</li></ul></dd>
+    <dd class="tag-description"><ul class="dummy"><li><p>Sends latitude and longitude to OpenMapTiles to get reverse-geocoded address.</p></li></ul></dd>
     
 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="GeocodeService.js.html">GeocodeService.js</a>, <a href="GeocodeService.js.html#line78">line 78</a>
+        <a href="GeocodeService.js.html">GeocodeService.js</a>, <a href="GeocodeService.js.html#line121">line 121</a>
     </li></ul></dd>
     
 
@@ -490,7 +644,7 @@
 
             
 
-            <td class="description last">Latitude</td>
+            <td class="description last"><p>Latitude</p></td>
         </tr>
 
     
@@ -514,7 +668,7 @@
 
             
 
-            <td class="description last">Longitude</td>
+            <td class="description last"><p>Longitude</p></td>
         </tr>
 
     
@@ -540,7 +694,7 @@
 
         
 <div class="param-desc">
-    Response
+    <p>Response</p>
 </div>
 
 
@@ -582,7 +736,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Mon Dec 08 2025 23:45:14 GMT+0700 (Indochina Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Tue Dec 09 2025 09:03:01 GMT+0700 (Indochina Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>
@@ -591,5 +745,7 @@
 
 
 
+    <link type="text/css" rel="stylesheet" href="docdash-custom.css">
+    
 </body>
 </html>
