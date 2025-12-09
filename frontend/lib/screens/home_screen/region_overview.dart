@@ -54,12 +54,22 @@ class _RegionOverviewState extends ConsumerState<RegionOverview> {
       List<Place> places;
       if (_currentFilter == FilterType.region_overview) {
         places = await Future.wait(
-          region.placesId.map((id) => _regionService.getPlaceByID(id)),
+          region.placesId.map((id) async {
+            if (mounted) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('Loading place ID: $id'),
+                  duration: const Duration(seconds: 1),
+                ),
+              );
+            }
+            return _regionService.getPlaceByID(id);
+          }),
         );
       } else {
         final user = ref.read(userSessionProvider);
         places = await _regionService.getPlace(
-          "",
+          "place",
           [_currentFilter.name],
           user?.userID ?? "",
         );
@@ -298,7 +308,7 @@ class _RegionOverviewState extends ConsumerState<RegionOverview> {
 
   // Helper method to build filter chips
   Widget _buildFilterChip(FilterType filterType, String label, IconData icon) {
-    final bool isSelected = widget.currentFilter == filterType;
+    final bool isSelected = _currentFilter == filterType;
     return FilterChip(
       avatar: CircleAvatar(
         foregroundColor: isSelected ? Colors.white : Colors.grey,

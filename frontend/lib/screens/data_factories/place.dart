@@ -25,8 +25,11 @@ class Place {
   });
 
   factory Place.fromJson(Map<String, dynamic> json) {
-    return Place(
-      id: json['image id']?.toString() ?? '',
+    print('Place.fromJson input: $json');
+    print('JSON keys: ${json.keys.toList()}');
+
+    final place = Place(
+      id: json['image id']?.toString() ?? json['id']?.toString() ?? '',
       name: json['name'] ?? '',
       tags: _parseTags(json['tags']),
       //imageLink: json['imageLink'] ?? json['image_link'] ?? '',
@@ -37,6 +40,10 @@ class Place {
       openHours: _parseOpenHours(json['openHours']),
       dayOff: json['dayOff'],
     );
+
+    print(
+        'Created Place - id: ${place.id}, name: ${place.name}, lat: ${place.lat}, lon: ${place.lon}');
+    return place;
   }
 
   static List<String>? _parseOpenHours(dynamic openHours) {

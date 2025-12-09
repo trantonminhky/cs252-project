@@ -56,8 +56,8 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
       _availableCategories.insert(0, widget.initialSelectedCategory!);
 
       // Ensure we don't exceed 5 categories
-      if (_availableCategories.length > 5) {
-        _availableCategories = _availableCategories.take(5).toList();
+      if (_availableCategories.length > 10) {
+        _availableCategories = _availableCategories.take(10).toList();
       }
 
       // Ensure it's in the selected list
@@ -96,7 +96,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
       final recent = await _cacheService.getCache();
       if (mounted) {
         setState(() {
-          _recentPlaces = recent.take(5).toList();
+          _recentPlaces = recent.take(10).toList();
         });
       }
     } catch (e) {
@@ -194,7 +194,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
 
       // Fetch from API
       final results = await _regionService.getPlace(
-        query,
+        query.isNotEmpty ? query : 'place',
         filtersToUse,
         user?.userID ?? '',
       );

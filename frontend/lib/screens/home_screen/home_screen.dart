@@ -65,7 +65,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
       // Fetch places once and cache them with timeout
       _allPlaces = await _regionService
-          .getPlace("famous places", user.preferences, userID)
+          .getPlace("place", user.preferences, userID)
           .timeout(
         const Duration(seconds: 15),
         onTimeout: () {
@@ -197,15 +197,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
         return GestureDetector(
           onTap: () {
-            // Debug: Print place ID
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(
-                    'Place ID: ${place.id}, ImageLink: ${place.imageLink}'),
-                duration: const Duration(seconds: 2),
-              ),
-            );
-
             Navigator.push(
               context,
               CupertinoPageRoute(

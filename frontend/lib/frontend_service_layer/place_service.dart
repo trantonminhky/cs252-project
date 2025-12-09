@@ -52,7 +52,7 @@ class PlaceService {
 
   Future<Place> getPlaceByID(String placeId) async {
     final response = await dio.get('/location/$placeId');
-
+    print(placeId);
     switch (response.statusCode) {
       case 200:
         final data = response.data;
@@ -104,15 +104,88 @@ class PlaceService {
         ),
       );
 
-      final body = response.data as Map<String, dynamic>;
-      switch (response.statusCode) {
-        case 200:
-          final locations = body['payload']?['data'] as List? ?? [];
-          return locations.map((placeData) {
-            return Place.fromJson(placeData as Map<String, dynamic>);
-          }).toList();
-        default:
-          throw Exception(body['message'] ?? 'Failed to search by image');
+      final body = response.data;
+      //print('Search by image response body: $body');
+
+      if (response.statusCode == 200) {
+        // Validate response structure
+        if (body is! Map<String, dynamic>) {
+          throw Exception('Invalid response format');
+        }
+
+        final payload = body['payload'];
+        // print('Payload: $payload');
+        // print('Payload type: ${payload.runtimeType}');
+
+        if (payload == null || payload is! Map) {
+          throw Exception('Missing or invalid payload');
+        }
+
+        final data = payload['data'];
+        // print('Data: $data');
+        // print('Data type: ${data.runtimeType}');
+
+        if (data == null) {
+          return [];
+        }
+
+        // Handle the results structure from search-by-image
+        if (data is Map && data.containsKey('results')) {
+          final results = data['results'];
+          print('Found results array with ${results.length} items');
+
+          if (results is! List) {
+            throw Exception('Results is not a list');
+          }
+
+          // Extract IDs and fetch full place details
+          final List<Place> places = [];
+          for (var result in results) {
+            if (result is Map) {
+              final id = result['id']?.toString();
+              if (id != null && id.isNotEmpty) {
+                try {
+                  final place = await getPlaceByID(id);
+                  places.add(place);
+                } catch (e) {
+                  print('Error fetching place $id: $e');
+                }
+              }
+            }
+          }
+          return places;
+        }
+
+        if (data is! List) {
+          // Data might be a single object or wrapped differently
+          // Try to handle it as a single place or check the structure
+          if (data is Map) {
+            print('Single place data keys: ${data.keys.toList()}');
+            print('Single place data values: ${data.values.toList()}');
+            // If it's a single place object
+            return [Place.fromJson(data as Map<String, dynamic>)];
+          }
+          throw Exception(
+              'Data is not a list or map. Type: ${data.runtimeType}, Value: $data');
+        }
+
+        print('List data length: ${data.length}');
+        if (data.isNotEmpty) {
+          print('First item keys: ${(data[0] as Map).keys.toList()}');
+          print('First item: ${data[0]}');
+        }
+
+        return data.map((placeData) {
+          if (placeData is! Map<String, dynamic>) {
+            throw Exception('Invalid place data format');
+          }
+          return Place.fromJson(placeData);
+        }).toList();
+      } else {
+        final message = (body is Map && body['payload'] is Map)
+            ? body['payload']['message'] ?? 'Unknown error'
+            : 'Request failed with status ${response.statusCode}';
+        throw Exception('Failed to search by image: $message');
       }
     } on DioException catch (e) {
       throw ServiceHelpers.handleDioError(e);

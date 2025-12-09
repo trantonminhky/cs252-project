@@ -27,6 +27,7 @@ class PlaceOverview extends ConsumerStatefulWidget {
 
 class _PlaceOverviewState extends ConsumerState<PlaceOverview> {
   //late Future<List<Review>> _reviewsFuture;
+  bool _isSaved = false;
 
   @override
   void initState() {
@@ -66,11 +67,21 @@ class _PlaceOverviewState extends ConsumerState<PlaceOverview> {
                     padding: const EdgeInsets.symmetric(
                         vertical: 16, horizontal: 16),
                     child: IconButton(
-                      icon: const Icon(CupertinoIcons.heart, size: 32),
+                      icon: Icon(
+                        _isSaved
+                            ? CupertinoIcons.heart_fill
+                            : CupertinoIcons.heart,
+                        size: 32,
+                        color:
+                            _isSaved ? const Color(0xffd72323) : Colors.black,
+                      ),
                       onPressed: () async {
                         final user = ref.read(userSessionProvider);
                         if (await PlaceService()
                             .addSavedPlace(user!.userID, widget.place.id)) {
+                          setState(() {
+                            _isSaved = true;
+                          });
                           if (context.mounted) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
