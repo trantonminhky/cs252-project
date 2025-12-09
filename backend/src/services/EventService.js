@@ -58,15 +58,31 @@ class EventService {
 	}
 
 	/**
-	 * Service function for <code>/api/event/create</code>
+	 * Service function for <code>/api/event/create</code>. Creates an event whose data is indicated by the URI located in the <code>Location</code> header. Supports <code>POST</code> requests.
+	 * @param {String} name - Event's name
+	 * @param {String} locationID - Event's location (TO-DO: VERIFY LOCATION UUID)
+	 * @param {String} [description='No description.'] - Event's description
+	 * @param {String} [imageLink] - Event's image
+	 * @param {Number} [startTime=Date.now()] - Event's start date. The input should be the number of milliseconds elapsed from the Unix epoch (00:00:00 UTC January 1st 1970)
+	 * @param {Number} [endTime=Infinity] - Event's end date. The input should be the number of milliseconds elapsed from the Unix epoch (00:00:00 UTC January 1st 1970).
+	 * @returns {Promise<ServiceResponse>}
+	 * 
+	 * @example <caption>cURL</caption>
+	 * curl -X POST \
+	 * --header 'Content-Type:application/json' \
+	 * --data '{"name":"Hatsune Miku Concert","location":"a-really-cool-uuid", "description":"insanely greate!!!!!11111!!11one"}' \
+	 * http://localhost:3000/api/event
+	 * 
+	 * @property {CREATED} 201 - Successful request
+	 * @property {BAD_REQUEST} 400 - Missing name or location ID
 	 */
-	async createEvent(name, description, location, imageLink = null, startTime = null, endTime = null) {
+	async createEvent(name, description = 'No description.', locationID, imageLink = null, startTime = Date.now(), endTime = Infinity) {
 		const eventID = randomUUID();
 		const eventData = {
 			name: name,
-			location: location,
+			location: locationID,
 			description: description,
-			startTime: startTime || Date.now(),
+			startTime: startTime,
 			endTime: endTime,
 			imageLink: imageLink,
 			participants: []

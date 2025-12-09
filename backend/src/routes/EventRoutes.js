@@ -8,7 +8,7 @@ router.all('/import',
 	EventController.importToDB
 );
 
-router.all('/create',
+router.all('/',
 	ValidatorMiddleware.validateMethods(['POST']),
 	ValidatorMiddleware.validateContentType, 
 	EventController.createEvent

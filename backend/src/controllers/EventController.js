@@ -16,6 +16,7 @@ class EventController {
 	async createEvent(req, res, next) {
 		try {
 			const name = req.body.name;
+			const location = req.body.location;
 			const description = req.body.description;
 			const imageLink = req.body.imageLink;
 			const startTime = req.body.startTime;
@@ -30,11 +31,19 @@ class EventController {
 				return void res.status(response.statusCode).json(response.get());
 			}
 
-			if (!description) {
-				description = "No description.";
+			if (!location) {
+				const response = new ServiceResponse(
+					false,
+					400,
+					'Event location is required'
+				);
+				return void res.status(response.statusCode).json(response.get());
 			}
 
 			const response = await EventService.createEvent(name, description, imageLink, startTime, endTime);
+
+			if (response.success) res.set("Location", `/api/event/${response.payload.data.eventID}`);
+
 			return void res.status(response.statusCode).json(response.get());
 		} catch (err) {
 			next(err);

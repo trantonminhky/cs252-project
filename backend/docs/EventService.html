@@ -81,7 +81,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="EventService.js.html">EventService.js</a>, <a href="EventService.js.html#line12">line 12</a>
+        <a href="EventService.js.html">EventService.js</a>, <a href="EventService.js.html#line14">line 14</a>
     </li></ul></dd>
     
 
@@ -171,7 +171,7 @@
 
     
 
-    <h4 class="name" id="createEvent"><span class="type-signature type-signature-async">(async) </span>createEvent<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="createEvent"><span class="type-signature type-signature-async">(async) </span>createEvent<span class="signature">(name, locationID, description<span class="signature-attributes">opt</span>, imageLink<span class="signature-attributes">opt</span>, startTime<span class="signature-attributes">opt</span>, endTime<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;ServiceResponse>}</span></h4>
 
     
 
@@ -181,13 +181,13 @@
 <dl class="details">
     
     <dt class="tag-description">Description:</dt>
-    <dd class="tag-description"><ul class="dummy"><li><p>Service function for <code>/api/event/create</code></p></li></ul></dd>
+    <dd class="tag-description"><ul class="dummy"><li><p>Service function for <code>/api/event/create</code>. Creates an event whose data is indicated by the URI located in the <code>Location</code> header. Supports <code>POST</code> requests.</p></li></ul></dd>
     
 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="EventService.js.html">EventService.js</a>, <a href="EventService.js.html#line60">line 60</a>
+        <a href="EventService.js.html">EventService.js</a>, <a href="EventService.js.html#line79">line 79</a>
     </li></ul></dd>
     
 
@@ -224,6 +224,361 @@
 
 
 
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>201</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">CREATED</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Successful request</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>400</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">BAD_REQUEST</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Missing name or location ID</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-examples">Example</h5>
+    
+        <p class="code-caption">cURL</p>
+    
+    <pre class="prettyprint"><code>curl -X POST \
+--header 'Content-Type:application/json' \
+--data '{"name":"Hatsune Miku Concert","location":"a-really-cool-uuid", "description":"insanely greate!!!!!11111!!11one"}' \
+http://localhost:3000/api/event</code></pre>
+
+
+
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>Event's name</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>locationID</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>Event's location (TO-DO: VERIFY LOCATION UUID)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>description</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>'No description.'</code>
+                
+                </td>
+            
+
+            <td class="description last"><p>Event's description</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>imageLink</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>Event's image</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>startTime</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>Date.now()</code>
+                
+                </td>
+            
+
+            <td class="description last"><p>Event's start date. The input should be the number of milliseconds elapsed from the Unix epoch (00:00:00 UTC January 1st 1970)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>endTime</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>Infinity</code>
+                
+                </td>
+            
+
+            <td class="description last"><p>Event's end date. The input should be the number of milliseconds elapsed from the Unix epoch (00:00:00 UTC January 1st 1970).</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
 
 
 
@@ -240,14 +595,25 @@
 
 
 
+<h5 class="h5-returns">Returns:</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;ServiceResponse></span>
 
 
 
+    </dd>
+</dl>
 
-
-
-
-
+    
 
 
 
@@ -272,7 +638,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="EventService.js.html">EventService.js</a>, <a href="EventService.js.html#line35">line 35</a>
+        <a href="EventService.js.html">EventService.js</a>, <a href="EventService.js.html#line37">line 37</a>
     </li></ul></dd>
     
 
@@ -494,7 +860,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Tue Dec 09 2025 13:48:59 GMT+0700 (Indochina Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Tue Dec 09 2025 14:24:47 GMT+0700 (Indochina Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>
