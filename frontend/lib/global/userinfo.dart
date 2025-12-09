@@ -7,7 +7,8 @@ class UserInfo {
   final UserType userType;
   final List<String> preferences;
 
-  static const tunnelUrl = "http://10.0.2.2:3000";
+  static const tunnelUrl =
+      "https://handling-memories-merry-coins.trycloudflare.com";
   //static const tunnelUrl = "http://localhost:3000";
 
   const UserInfo({

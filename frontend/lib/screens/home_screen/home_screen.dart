@@ -123,7 +123,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             size: BriefingSize.full,
             title: "Ho Chi Minh City",
             category: "Southern",
-            imageUrl: "../assets/images/places/Saigon.jpg",
+            imageUrl: "../assets/images/places/Saigon.png",
           ),
         ),
         //hardcode the remaining places

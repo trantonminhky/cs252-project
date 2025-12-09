@@ -138,12 +138,8 @@ class EventService {
 
   Future<bool> subscribeToEvent(String userID, String eventID) async {
     try {
-      final response = await _dio.post(
-        "/event/subscribe",
-        data: {
-          "userID": userID,
-          "eventID": eventID,
-        },
+      final response = await _dio.put(
+        "/event/$eventID/participants/$userID",
       );
 
       if (response.statusCode == 200) {
@@ -161,12 +157,8 @@ class EventService {
 
   Future<bool> unsubscribeFromEvent(String userID, String eventID) async {
     try {
-      final response = await _dio.post(
-        "/event/unsubscribe",
-        data: {
-          "userID": userID,
-          "eventID": eventID,
-        },
+      final response = await _dio.delete(
+        "/event/$eventID/participants/$userID",
       );
 
       if (response.statusCode == 200) {
