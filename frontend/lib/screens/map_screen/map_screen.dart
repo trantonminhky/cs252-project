@@ -1,3 +1,4 @@
+import "dart:async";
 import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:flutter_map/flutter_map.dart";
@@ -21,11 +22,14 @@ class MapScreen extends ConsumerStatefulWidget {
 
 class _MapScreenState extends ConsumerState<MapScreen> {
   final MapController _mapController = MapController();
+  final LocationService _locationService = LocationService();
 
   // User location state
   LatLng? _userLocation;
   bool _isLoadingLocation = true;
   String? _locationError;
+  StreamSubscription<LatLng>? _locationSubscription;
+  LatLng? _lastRouteUpdateLocation;
 
   // Default fallback location (District 1, HCMC)
   final LatLng _defaultLocation = const LatLng(10.7629, 106.6820);
@@ -39,10 +43,12 @@ class _MapScreenState extends ConsumerState<MapScreen> {
   String? _routeDistance;
   String? _routeDuration;
 
+  static const double _rerouteThreshold = 30.0;
+
   @override
   void initState() {
     super.initState();
-    _getCurrentLocation();
+    _startLocationTracking();
 
     final initialPlace = ref.read(selectedPlaceProvider);
     if (initialPlace != null) {
@@ -50,29 +56,56 @@ class _MapScreenState extends ConsumerState<MapScreen> {
     }
   }
 
-  Future<void> _getCurrentLocation() async {
+  @override
+  void dispose() {
+    _locationSubscription?.cancel();
+    super.dispose();
+  }
+
+  void _startLocationTracking() async {
     setState(() {
       _isLoadingLocation = true;
       _locationError = null;
     });
 
     try {
-      final locationService = LocationService();
-      final location = await locationService.getCurrentLocation();
+      // First get current location immediately
+      final initialLocation = await _locationService.getCurrentLocation();
 
       if (!mounted) return;
 
-      if (location != null) {
+      if (initialLocation != null) {
         setState(() {
-          _userLocation = location;
+          _userLocation = initialLocation;
           _isLoadingLocation = false;
         });
 
         // Center map on user location if no place is selected
         final selectedPlace = ref.read(selectedPlaceProvider);
         if (selectedPlace == null) {
-          _safeMapMove(location, 15.0);
+          _safeMapMove(initialLocation, 15.0);
         }
+
+        // Start listening to location updates
+        _locationSubscription = _locationService.getLocationStream().listen(
+          (location) {
+            if (mounted) {
+              setState(() {
+                _userLocation = location;
+              });
+
+              _checkAndRefreshRoute(location);
+            }
+          },
+          onError: (error) {
+            print('Location stream error: $error');
+            if (mounted) {
+              setState(() {
+                _locationError = 'Location tracking error: ${error.toString()}';
+              });
+            }
+          },
+        );
       } else {
         setState(() {
           _userLocation = _defaultLocation;
@@ -90,6 +123,37 @@ class _MapScreenState extends ConsumerState<MapScreen> {
         });
       }
     }
+  }
+
+  void _checkAndRefreshRoute(LatLng currentLocation) {
+    if (_routePoints.isEmpty || _isLoadingRoute) return;
+
+    if (_lastRouteUpdateLocation == null) {
+      _lastRouteUpdateLocation = currentLocation;
+      return;
+    }
+
+    final distance = _locationService.calculateDistance(
+      _lastRouteUpdateLocation!,
+      currentLocation,
+    );
+
+    if (distance > _rerouteThreshold) {
+      final selectedPlace = ref.read(selectedPlaceProvider);
+      final userSession = ref.read(userSessionProvider);
+
+      if (selectedPlace != null && userSession != null) {
+        // We do NOT await here to avoid blocking the stream listener
+        _fetchRoute(selectedPlace, userSession.userSessionToken,
+            isAutoRefresh: true);
+      }
+    }
+  }
+
+  Future<void> _getCurrentLocation() async {
+    // Re-initialize location tracking (for refresh button)
+    _locationSubscription?.cancel();
+    _startLocationTracking();
   }
 
   Future<void> _fetchAddress(double lat, double lon) async {
@@ -124,6 +188,7 @@ class _MapScreenState extends ConsumerState<MapScreen> {
         _routePoints = [];
         _routeDistance = null;
         _routeDuration = null;
+        _lastRouteUpdateLocation = null;
       });
       return;
     }
@@ -156,16 +221,26 @@ class _MapScreenState extends ConsumerState<MapScreen> {
       return;
     }
 
+    await _fetchRoute(place, userInfo.userSessionToken);
+  }
+
+  Future<void> _fetchRoute(Place place, String token,
+      {bool isAutoRefresh = false}) async {
+    if (_userLocation == null) return;
+
     setState(() {
       _isLoadingRoute = true;
     });
 
     try {
       final mapService = MapService();
+
+      final requestLocation = _userLocation!;
+
       final routeResult = await mapService.getRoute(
         from: _userLocation!,
         to: LatLng(place.lat, place.lon),
-        token: userInfo.userSessionToken,
+        token: token,
         profile: 'driving-car',
       );
 
@@ -175,21 +250,18 @@ class _MapScreenState extends ConsumerState<MapScreen> {
         _routePoints = routeResult.points;
         _routeDistance = routeResult.formattedDistance;
         _routeDuration = routeResult.formattedDuration;
+        _lastRouteUpdateLocation = requestLocation;
         _isLoadingRoute = false;
       });
 
-      // Adjust map bounds to show the entire route
-      if (_routePoints.isNotEmpty) {
+      // Only fit camera on initial manual route request, not on auto-refresh
+      if (!isAutoRefresh && _routePoints.isNotEmpty) {
         final bounds = LatLngBounds.fromPoints(_routePoints);
         _mapController.fitCamera(
           CameraFit.bounds(
             bounds: bounds,
             padding: const EdgeInsets.only(
-                top: 50, 
-                left: 50, 
-                right: 50, 
-                bottom: 320 // Large bottom padding to clear the overlay
-            ),
+                top: 50, left: 50, right: 50, bottom: 320),
           ),
         );
       }
@@ -199,38 +271,38 @@ class _MapScreenState extends ConsumerState<MapScreen> {
           _isLoadingRoute = false;
         });
 
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Failed to get route: ${e.toString()}'),
-            duration: const Duration(seconds: 3),
-            backgroundColor: Colors.red,
-          ),
-        );
+        if (!isAutoRefresh) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Failed to get route: ${e.toString()}'),
+              duration: const Duration(seconds: 3),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
       }
     }
   }
 
   void _safeMapMove(LatLng dest, double zoom, {double bottomPadding = 0}) {
     try {
-      // fitCamera is more powerful than move(). 
-      // It allows us to define "padding" which shifts the center.
       _mapController.fitCamera(
         CameraFit.coordinates(
-          coordinates: [dest], 
+          coordinates: [dest],
           padding: EdgeInsets.only(
-            bottom: bottomPadding, // This pushes the center point UP
-            top: 50,               // Slight top buffer
-            left: 50, 
-            right: 50
+            bottom: bottomPadding,
+            top: 50,
+            left: 50,
+            right: 50,
           ),
-          maxZoom: zoom, // Force the camera to this zoom level
-          minZoom: zoom, // Lock it so it doesn't zoom out too far
+          maxZoom: zoom,
+          minZoom: zoom,
         ),
       );
     } catch (e) {
       // Fallback if map isn't ready, though fitCamera is usually robust
       try {
-         _mapController.move(dest, zoom);
+        _mapController.move(dest, zoom);
       } catch (_) {}
     }
   }
@@ -239,9 +311,8 @@ class _MapScreenState extends ConsumerState<MapScreen> {
   Widget build(BuildContext context) {
     ref.listen<Place?>(selectedPlaceProvider, (previous, next) {
       if (next != null) {
-        // 1. Move map to new place with OFFSET (300px bottom padding)
         _safeMapMove(LatLng(next.lat, next.lon), 15.0, bottomPadding: 300);
-        
+
         _fetchAddress(next.lat, next.lon);
 
         if (previous?.id != next.id) {
@@ -249,6 +320,7 @@ class _MapScreenState extends ConsumerState<MapScreen> {
             _routePoints = [];
             _routeDistance = null;
             _routeDuration = null;
+            _lastRouteUpdateLocation = null;
           });
         }
       } else if (_userLocation != null) {

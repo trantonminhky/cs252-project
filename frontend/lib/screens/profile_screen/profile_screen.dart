@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:virtour_frontend/providers/user_info_provider.dart';
+import 'package:virtour_frontend/screens/introduction_screen/introduction_screen.dart';
 import 'package:virtour_frontend/screens/profile_screen/region_progress_page.dart';
 
 class ProfileScreen extends ConsumerWidget {
@@ -139,7 +140,16 @@ class ProfileScreen extends ConsumerWidget {
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      ref.read(userSessionProvider.notifier).logout();
+                      Navigator.of(context, rootNavigator: true)
+                          .pushAndRemoveUntil(
+                        CupertinoPageRoute(
+                          builder: (context) => const IntroductionScreen(),
+                        ),
+                        (route) => false,
+                      );
+                    },
                     child: const Text(
                       'Sign out',
                       textAlign: TextAlign.center,
