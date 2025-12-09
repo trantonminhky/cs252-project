@@ -1,7 +1,6 @@
 import "package:dio/dio.dart";
 import "package:latlong2/latlong.dart";
 import "package:virtour_frontend/constants/userinfo.dart";
-import "package:virtour_frontend/frontend_service_layer/service_exception_handler.dart";
 
 class MapService {
   static final MapService _instance = MapService._internal();
@@ -50,47 +49,108 @@ class MapService {
         ),
       );
 
+      // 1. Validate Status Code
       if (response.statusCode != 200) {
-        throw Exception('Failed to get route');
+        throw Exception('Failed to get route: Status ${response.statusCode}');
       }
 
       final data = response.data;
-      if (!data['success']) {
-        throw Exception(data['payload']['message'] ?? 'Failed to get route');
+
+      // 2. SAFETY CHECK: Ensure data is a Map
+      // If the server returns a List (e.g. valid JSON array), accessing ['success'] crashes.
+      if (data is List) {
+        print("DEBUG: API returned a List: $data");
+        throw Exception('Unexpected API response format (List)');
+      }
+      if (data is! Map) {
+         throw Exception('Unexpected API response format (Not a Map)');
       }
 
-      final routeData = data['payload']['data'];
+      // 3. Handle Backend Error Response
+      // Backend MapService.js returns success: false on error.
+      if (data['success'] != true) {
+        final payload = data['payload'];
+        
+        // Backend MapService.js line 70 sends err.toString() as payload.
+        // We must handle String payloads specifically.
+        if (payload is String) {
+          throw Exception(payload);
+        }
+        
+        // Handle Map payloads
+        if (payload is Map && payload.containsKey('message')) {
+          throw Exception(payload['message']);
+        }
 
-      // Parse the route coordinates from the response
-      // OpenRouteService returns features with geometry.coordinates
-      final features = routeData['features'] as List;
-      if (features.isEmpty) {
-        throw Exception('No route found');
+        throw Exception('Failed to get route (Unknown Error)');
+      }
+
+      // 4. Locate Route Data
+      // Backend sends `axiosResponse.data` as payload.
+      // Depending on ServiceResponse implementation, it might be in `payload` OR `payload['data']`.
+      Map<String, dynamic> routeData;
+      
+      if (data['payload'] is Map && data['payload'].containsKey('features')) {
+        // Case A: Payload IS the route data (Matches MapService.js logic)
+        routeData = data['payload'];
+      } else if (data['payload'] is Map && 
+                 data['payload']['data'] is Map && 
+                 data['payload']['data'].containsKey('features')) {
+        // Case B: Payload contains a 'data' key with route data
+        routeData = data['payload']['data'];
+      } else {
+         throw Exception('Route data (features) is missing from response');
+      }
+
+      // 5. Parse Features
+      final features = routeData['features'];
+      if (features is! List || features.isEmpty) {
+        throw Exception('No route found (Empty features)');
       }
 
       final geometry = features[0]['geometry'];
+      if (geometry == null || geometry['coordinates'] == null) {
+        throw Exception('Invalid route geometry');
+      }
+
       final coordinates = geometry['coordinates'] as List;
 
-      // Convert to LatLng list
+      // 6. Safe Coordinate Parsing (Handle Int vs Double)
       final routePoints = coordinates.map((coord) {
-        return LatLng(coord[1] as double, coord[0] as double);
+        final List point = coord as List;
+        return LatLng(
+          (point[1] as num).toDouble(), // Latitude
+          (point[0] as num).toDouble(), // Longitude
+        );
       }).toList();
 
-      // Extract distance and duration from properties
+      // 7. Safe Summary Parsing
       final properties = features[0]['properties'];
       final summary = properties['summary'];
-      final distance = summary['distance'] as double; // in meters
-      final duration = summary['duration'] as double; // in seconds
+      
+      final distance = (summary['distance'] as num).toDouble(); 
+      final duration = (summary['duration'] as num).toDouble(); 
 
       return RouteResult(
         points: routePoints,
         distance: distance,
         duration: duration,
       );
+
     } on DioException catch (e) {
-      throw ServiceExceptionHandler.handleDioError(e);
+      // Handle Dio errors specifically
+      String errorMsg = e.message ?? "Network error";
+      if (e.response?.data is Map) {
+         final errData = e.response?.data;
+         if (errData['payload'] is String) {
+           errorMsg = errData['payload'];
+         } else if (errData['payload'] is Map && errData['payload']['message'] != null) {
+           errorMsg = errData['payload']['message'];
+         }
+      }
+      throw Exception(errorMsg);
     } catch (e) {
-      throw Exception('Error getting route: $e');
+      throw Exception(e.toString().replaceAll("Exception: ", ""));
     }
   }
 }
@@ -107,13 +167,9 @@ class RouteResult {
     required this.duration,
   });
 
-  /// Get distance in kilometers
   double get distanceKm => distance / 1000;
-
-  /// Get duration in minutes
   double get durationMinutes => duration / 60;
 
-  /// Get formatted distance string
   String get formattedDistance {
     if (distanceKm < 1) {
       return '${distance.toStringAsFixed(0)} m';
@@ -121,7 +177,6 @@ class RouteResult {
     return '${distanceKm.toStringAsFixed(1)} km';
   }
 
-  /// Get formatted duration string
   String get formattedDuration {
     final minutes = durationMinutes.round();
     if (minutes < 60) {
