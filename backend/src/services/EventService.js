@@ -101,6 +101,27 @@ class EventService {
 		return response;
 	}
 
+	async getEvent(eventID) {
+		if (!EventDB.has(eventID)) {
+			const response = new ServiceResponse(
+				false,
+				404,
+				"Event not found"
+			);
+			
+			return response;
+		}
+
+		const data = EventDB.get(EventDB);
+		const response = new ServiceResponse(
+			true,
+			200,
+			"Success",
+			data
+		);
+		return response;
+	}
+
 	async subscribe(userID, eventID) {
 		EventDB.push(eventID, userID, "participants");
 		const response = new ServiceResponse(
