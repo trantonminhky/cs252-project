@@ -24,6 +24,10 @@ class RecommendationService {
 				current_lat: parseFloat(lat),
 				current_lon: parseFloat(lon),
 				profile_state: profileState
+			}, {
+				headers: {
+					"Content-Type": "application/json"
+				}
 			});
 			return new ServiceResponse(
 				true,
