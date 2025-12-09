@@ -248,6 +248,33 @@ class ProfileService {
 		return response;
 	}
 
+	/**
+	 * Service function for <code>/api/profile/:userID</code>. Get user's info given user ID. Supports <code>GET</code> requests.
+	 * @param {String} userID - User's UUID
+	 * @returns {Promise<ServiceResponse>}
+	 * 
+	 * @example <caption>cURL</caption>
+	 * curl http://localhost:3000/api/profile/167612d0-8bf1-4b64-95ee-23887bb8d026
+	 * 
+	 * @example <caption>Response</caption>
+	 * {
+	 * 	"success": true,
+	 * 	"statusCode": 200,
+	 * 	"payload": {
+	 * 		"message": "Success (OK)",
+	 * 		"data": {
+	 * 			"username": "therealmiku",
+	 * 			"discriminant": "2516",
+	 * 			"email": "therealmiku39@gmail.com",
+	 * 			"name": "Hatsune Miku",
+	 * 			"age": 18,
+	 * 			"preferences": [],
+	 * 			"type": "tourist",
+	 * 			"savePlaces": []
+	 * 		}
+	 * 	}
+	 * }
+	 */
 	async getUser(userID) {
 		if (!UserDB.has(userID)) {
 			const response = new ServiceResponse(
