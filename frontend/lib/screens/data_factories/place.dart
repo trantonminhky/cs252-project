@@ -35,11 +35,26 @@ class Place {
       lat: (json['lat'] ?? json['latitude'] ?? 0).toDouble(),
       lon: (json['lon'] ?? json['longitude'] ?? 0).toDouble(),
       age: json['age'] ?? 0,
-      openHours: json['openHours'] != null
-          ? List<String>.from(json['openHours'])
-          : null,
+      openHours: _parseOpenHours(json['openHours']),
       dayOff: json['dayOff'],
     );
+  }
+
+  static List<String>? _parseOpenHours(dynamic openHours) {
+    if (openHours == null) return null;
+
+    if (openHours is List) {
+      return openHours.map((item) => item.toString()).toList();
+    } else if (openHours is String) {
+      // If it's a string, try to parse it as JSON
+      try {
+        return [openHours]; // Or parse if it's a JSON string
+      } catch (e) {
+        return null;
+      }
+    }
+
+    return null;
   }
 
   static Map<String, List<String>> _parseTags(dynamic tags) {

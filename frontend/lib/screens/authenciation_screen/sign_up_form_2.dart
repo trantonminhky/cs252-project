@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:virtour_frontend/components/custom_text_field.dart';
-import 'package:virtour_frontend/constants/userinfo.dart';
 
 class SignUpForm2 extends StatelessWidget {
   final Function onNext;

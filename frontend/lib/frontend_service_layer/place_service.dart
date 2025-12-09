@@ -249,7 +249,7 @@ class RegionService {
           if (recommendations is List) {
             // Extract the 'id' field from each recommendation object
             return recommendations
-                .map((item) => item['id'].toString())
+                .map((item) => int.parse(item['id']).toString())
                 .toList();
           }
         }

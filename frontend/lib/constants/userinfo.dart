@@ -20,14 +20,23 @@ class UserInfo {
 
   factory UserInfo.fromProfileData(
       String token, String userID, Map<String, dynamic> profileData) {
+    // Safely parse preferences
+    List<String> parsePreferences(dynamic prefs) {
+      if (prefs == null) return [];
+      if (prefs is List) {
+        return prefs.map((e) => e.toString()).toList();
+      }
+      return [];
+    }
+
     return UserInfo(
       userSessionToken: token,
       userID: userID,
-      username: profileData["username"],
+      username: profileData["username"] ?? "",
       userType: profileData["type"] == "tourist"
           ? UserType.tourist
           : UserType.business,
-      preferences: List<String>.from(profileData["preferences"] ?? []),
+      preferences: parsePreferences(profileData["preferences"]),
     );
   }
 
