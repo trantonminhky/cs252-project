@@ -55,9 +55,7 @@ class RegionService {
   }
 
   Future<Place> fetchPlacebyId(String placeId) async {
-    final response = await dio.get('/location/find-by-id', queryParameters: {
-      'id': placeId,
-    });
+    final response = await dio.get('/location/$placeId');
 
     switch (response.statusCode) {
       case 200:

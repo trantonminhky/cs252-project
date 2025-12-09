@@ -44,19 +44,35 @@ class EventService {
             List<Event> eventsList = [];
 
             eventsData.forEach((key, value) {
+              // Parse timestamps - handle both int and String types
+              DateTime parseTimestamp(dynamic timestamp) {
+                if (timestamp == null) return DateTime.now();
+                if (timestamp is int) {
+                  return DateTime.fromMillisecondsSinceEpoch(timestamp);
+                }
+                if (timestamp is String) {
+                  // Try parsing as int first (milliseconds)
+                  final intValue = int.tryParse(timestamp);
+                  if (intValue != null) {
+                    return DateTime.fromMillisecondsSinceEpoch(intValue);
+                  }
+                  // Try parsing as ISO 8601 date string
+                  try {
+                    return DateTime.parse(timestamp);
+                  } catch (_) {
+                    return DateTime.now();
+                  }
+                }
+                return DateTime.now();
+              }
+
               eventsList.add(Event(
                 id: key,
                 name: value["name"] ?? 'Unnamed Event',
                 location: value["location"] ?? "TBD",
                 description: value["description"] ?? '',
-                startTime: value["startTime"] != null
-                    ? DateTime.fromMillisecondsSinceEpoch(
-                        value["startTime"] as int)
-                    : DateTime.now(),
-                endTime: value["endTime"] != null
-                    ? DateTime.fromMillisecondsSinceEpoch(
-                        value["endTime"] as int)
-                    : DateTime.now(),
+                startTime: parseTimestamp(value["startTime"]),
+                endTime: parseTimestamp(value["endTime"]),
                 imageUrl: value["imageLink"] ?? '',
                 numberOfPeople: (value["participants"] as List?)?.length ?? 0,
               ));

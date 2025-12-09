@@ -255,10 +255,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Events Banner Section
+                    // Events Banner Section - Now first
                     eventsAsync.when(
                       data: (events) => events.isNotEmpty
                           ? Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 EventsBanner(events: events),
                                 const SizedBox(height: 32),
@@ -267,11 +268,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                           : const SizedBox.shrink(),
                       loading: () => const Padding(
                         padding: EdgeInsets.symmetric(vertical: 20),
-                        child: CircularProgressIndicator(),
+                        child: Center(child: CircularProgressIndicator()),
                       ),
                       error: (_, __) => const SizedBox.shrink(),
                     ),
-                    const SizedBox(height: 16),
+
                     // Top Regions Section
                     const Padding(
                       padding: EdgeInsets.only(left: 20, top: 16),
@@ -287,6 +288,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     ),
                     const SizedBox(height: 16),
                     _buildTopRegions(),
+
                     // Top Destinations Section
                     const Padding(
                       padding: EdgeInsets.only(left: 20, top: 16),
