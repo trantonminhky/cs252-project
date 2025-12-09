@@ -8,27 +8,30 @@ router.all('/import',
 	EventController.importToDB
 );
 
-router.all('/create',
+router.all('/',
 	ValidatorMiddleware.validateMethods(['POST']),
-	ValidatorMiddleware.validateContentType, 
+	ValidatorMiddleware.validateContentType,
 	EventController.createEvent
-);
-
-router.all('/subscribe',
-	ValidatorMiddleware.validateMethods(['POST']),
-	ValidatorMiddleware.validateContentType, 
-	EventController.subscribe
-);
-
-router.all('/unsubscribe',
-	ValidatorMiddleware.validateMethods(['POST']),
-	ValidatorMiddleware.validateContentType, 
-	EventController.unsubscribe
 );
 
 router.all('/get-by-userid',
 	ValidatorMiddleware.validateMethods(['GET', 'HEAD']),
 	EventController.getByUserID
 );
+
+router.all('/:eventID',
+	ValidatorMiddleware.validateMethods(['GET']),
+	EventController.getEvent
+);
+
+router.all('/:eventID/participants/:userID',
+	ValidatorMiddleware.validateMethods(['PUT', 'DELETE']), async (req, res, next) => {
+		if (req.method === 'PUT') {
+			await EventController.subscribe(req, res, next);
+		} else if (req.method === 'DELETE') {
+			await EventController.unsubscribe(req, res, next);
+		}
+	}
+)
 
 export default router;

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>DBService.js - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="AIService.html">AIService</a><ul class='methods'><li data-type='method'><a href="AIService.html#generateReviews">generateReviews</a></li><li data-type='method'><a href="AIService.html#sendPrompt">sendPrompt</a></li></ul></li><li><a href="DBService.html">DBService</a><ul class='methods'><li data-type='method'><a href="DBService.html#clear">clear</a></li><li data-type='method'><a href="DBService.html#clearAll">clearAll</a></li><li data-type='method'><a href="DBService.html#export">export</a></li><li data-type='method'><a href="DBService.html#exportAll">exportAll</a></li></ul></li><li><a href="EventService.html">EventService</a><ul class='methods'><li data-type='method'><a href="EventService.html#createEvent">createEvent</a></li><li data-type='method'><a href="EventService.html#getEvent">getEvent</a></li><li data-type='method'><a href="EventService.html#importToDB">importToDB</a></li></ul></li><li><a href="GeocodeService.html">GeocodeService</a><ul class='methods'><li data-type='method'><a href="GeocodeService.html#geocode">geocode</a></li><li data-type='method'><a href="GeocodeService.html#reverseGeocode">reverseGeocode</a></li></ul></li><li><a href="LocationService.html">LocationService</a><ul class='methods'><li data-type='method'><a href="LocationService.html#importToDB">importToDB</a></li><li data-type='method'><a href="LocationService.html#search">search</a></li></ul></li><li><a href="MapService.html">MapService</a><ul class='methods'><li data-type='method'><a href="MapService.html#getRoute">getRoute</a></li><li data-type='method'><a href="MapService.html#nearby">nearby</a></li></ul></li><li><a href="ProfileService.html">ProfileService</a><ul class='methods'><li data-type='method'><a href="ProfileService.html#addSavedPlace">addSavedPlace</a></li><li data-type='method'><a href="ProfileService.html#getSavedPlaces">getSavedPlaces</a></li><li data-type='method'><a href="ProfileService.html#getUser">getUser</a></li><li data-type='method'><a href="ProfileService.html#login">login</a></li><li data-type='method'><a href="ProfileService.html#refresh">refresh</a></li><li data-type='method'><a href="ProfileService.html#register">register</a></li><li data-type='method'><a href="ProfileService.html#removeSavedPlace">removeSavedPlace</a></li><li data-type='method'><a href="ProfileService.html#setPreferences">setPreferences</a></li></ul></li></ul>
+    
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">DBService.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { readdirSync } from 'fs';
+import path from 'path';
+import { fileURLToPath, pathToFileURL } from 'url';
+import ServiceResponse from '../helper/ServiceResponse.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+/**
+ * Representation of databases. Note that THIS OBJECT IS ONLY FOR VIEWING PURPOSE, REFRAIN FROM DIRECTLY MODIFYING VIA THIS INFERFACE.
+ * @class
+ */
+class DBService {
+	constructor() {
+		const dir = path.join(__dirname, '..', "db");
+		this.databases = Promise.all(
+			readdirSync(dir).map(async file => {
+				const filePath = path.join(dir, file);
+				const fileUrl = pathToFileURL(filePath).href;
+				const mod = await import(fileUrl);
+				return mod.default ?? mod;
+			})
+		);
+	}
+
+	/**
+	 * Service function for &lt;code>api/db/clear&lt;/code>. Clears a database given the name. &lt;b>This action is irreversible&lt;/b>. Supports &lt;code>DELETE&lt;/code> requests.
+	 * @param {name} name - Database name to delete
+	 * @returns {Promise&lt;ServiceResponse>}
+	 * 
+	 * @example &lt;caption>cURL&lt;/caption>
+	 * curl -X DELETE http://localhost:3000/api/db/clear?name=CacheDB
+	 * 
+	 * @property {NO_CONTENT} 204 - Successful request
+	 * @property {BAD_REQUEST} 400 - Missing name
+	 * @property {NOT_FOUND} 404 - No database with the given name is found
+	 * @property {METHOD_NOT_ALLOWED} 405 - The endpoint does not support the HTTP method specified
+	 * @property {INTERNAL_SERVER_ERROR} 500 - Something went wrong with the backend (cooked)
+	 */
+
+	async clear(name) {
+		const databases = await this.databases;
+
+		for (const db of databases) {
+			const _export = db.export();
+
+			if (_export.name === name) {
+				db.clear();
+				return (new ServiceResponse(
+					true,
+					204,
+					"Success"
+				));
+			}
+		}
+
+		return (new ServiceResponse(
+			false,
+			404,
+			"No database with such name is found"
+		));
+	}
+
+	/**
+	 * Service function for &lt;code>api/db/clear-all&lt;/code>. Clears alls data from all databases. &lt;b>This action is destructive and irreversible&lt;/b>. Supports &lt;code>DELETE&lt;/code> requests.
+	 * @returns {Promise&lt;ServiceResponse>}
+	 * 
+	 * @example &lt;caption>cURL&lt;/caption>
+	 * curl -X DELETE http://localhost:3000/api/db/clear-all
+	 * 
+	 * @property {NO_CONTENT} 204 - Successful request
+	 * @property {METHOD_NOT_ALLOWED} 405 - The endpoint does not support the HTTP method specified
+	 * @property {INTERNAL_SERVER_ERROR} 500 - Something went wrong with the backend (cooked)
+	 */
+	async clearAll() {
+		const databases = await this.databases;
+
+		databases.forEach(db => db.clear());
+		return (new ServiceResponse(
+			true,
+			204,
+			"Success"
+		));
+	}
+
+	/**
+	 * Service function for &lt;code>api/db/export&lt;/code>. Export Enmap database to readable JSON given database name. Supports &lt;code>GET&lt;/code> requests.
+	 * @param {String} name - Database name
+	 * @returns {Promise&lt;ServiceResponse>}
+	 * 
+	 * @example &lt;caption>cURL&lt;/caption>
+	 * curl http://localhost:3000/api/db/export?name=UserDB
+	 * 
+	 * @example &lt;caption>Response&lt;/caption>
+	 * {
+	 *	"success": true,
+	 *	"statusCode": 200,
+	 *	"payload": {
+	 *		"message": "Success (OK)",
+	 *		"data": {
+	 *			"d5e098a7-fc92-41c2-916b-f1e0f58bcdf7": {
+	 * 				"username": "aoanoavn",
+	 * 				"discriminant": "4737",
+	 * 				"email": "rete@gmail.com",
+	 * 				"password": "$2b$10$3SGnzOZ9uHwkNkttyBBA6ebQgYtVzY0zv7vvhKBH1Pua3cnwKXM6S",
+	 * 				"name": "1oj2n4o2",
+	 * 				"age": 12,
+	 * 				"preferences": [],
+	 * 				"preferencesVector": null,
+	 * 				"type": "business",
+	 * 				"savePlaces": []
+	 * 			}
+	 * 		}
+	 * 	}
+	 * }
+	 * 
+	 * @property {OK} 200 - Successful request
+	 * @property {BAD_REQUEST} 400 - Missing name
+	 * @property {NOT_FOUND} 404 - Database name is not found
+	 * @property {METHOD_NOT_ALLOWED} 405 - The endpoint does not support the HTTP method specified
+	 * @property {INTERNAL_SERVER_ERROR} 500 - Something went wrong with the backend (cooked)
+	 */
+	async export(name) {
+		const databases = await this.databases;
+
+		for (const db of databases) {
+			const _export = db.export();
+
+			if (_export.name === name) {
+				return (new ServiceResponse(
+					true,
+					200,
+					"Success",
+					_export.data
+				));
+			}
+		}
+
+		return (new ServiceResponse(
+			false,
+			404,
+			"No database with such name is found"
+		));
+	}
+
+	/**
+	 * Service function for &lt;code>/api/db/export-all&lt;/code>. Get the whole Enmap databases exported and formatted as a readable JSON. Supports &lt;code>GET&lt;/code> requests.
+	 * @returns {Promise&lt;ServiceResponse>} Response
+	 * 
+	 * @example &lt;caption>cURL&lt;/caption>
+	 * curl http://localhost:3000/api/db/export-all
+	 * 
+	 * @example &lt;caption>Response&lt;/caption>
+	 * {
+	 * 	"success": true,
+	 * 	"statusCode": 200,
+	 * 	"payload": {
+	 * 		"message": "Success (OK)",
+	 * 		"data": {
+	 * 			"CacheDB": { ... },
+	 * 			"EventDB": { ... },
+	 * 			"LocationDB": { ... },
+	 * 			"UserDB": { ... }
+	 * 		}		
+	 * 	}
+	 * }
+	 * 
+	 * @property {OK} 200 - Successful request
+	 * @property {METHOD_NOT_ALLOWED} 405 - The endpoint does not support the HTTP method specified
+	 * @property {INTERNAL_SERVER_ERROR} 500 - Something went wrong with the backend (cooked)
+	 */
+	async exportAll() {
+		const databases = await this.databases;
+
+		const exports = {};
+		for (const db of databases) {
+			const _export = db.export();
+			exports[_export.name] = _export.data;
+		}
+
+		return (new ServiceResponse(
+			true,
+			200,
+			"Success",
+			exports
+		));
+	}
+}
+
+export default new DBService();</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Tue Dec 09 2025 14:48:31 GMT+0700 (Indochina Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+
+
+    <link type="text/css" rel="stylesheet" href="docdash-custom.css">
+    
+</body>
+</html>

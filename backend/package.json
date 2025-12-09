@@ -38,6 +38,8 @@
     "uuid": "^13.0.0"
   },
   "devDependencies": {
+    "docdash": "^2.0.2",
+    "jsdoc": "^4.0.5",
     "nodemon": "^3.1.11"
   }
 }

@@ -28,7 +28,10 @@ class GeocodeController {
 	// Reverse geocode coordinates
 	async reverseGeocode(req, res, next) {
 		try {
-			const { lat, lon } = req.query;
+			const lat = req.query.lat;
+			const lon = req.query.lon;
+			console.log(lat);
+			console.log(lon);
 			if (lat == null || lon == null) {
 				const response = new ServiceResponse(
 					false,

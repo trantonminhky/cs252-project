@@ -15,9 +15,205 @@ class MapService {
 		this.baseURL = config.openRouteService.baseURL;
 	}
 
-	// Get route between two points
-	// param - array of [lon,lat] pairs
-	// return - route data
+	/**
+	 * Service function for <code>/api/map/route</code>. Get the fastest path between two points and their geometries. Supports <codes>POST</code> requests.
+	 * @param {Array<Array<Number>>} coordinates - Precisely two pairs of coordinates indicating the start coordinates and the end coordinates
+	 * @param {String} [profile='driving-car'] - Traveling method
+	 * @returns {Promise<ServiceResponse>}
+	 * 
+	 * @example <caption>cURL</caption>
+	 * curl -X POST \
+	 * --header 'Content-Type:application/json' \
+	 * --header 'Authorization:Bearer MIKU_MIKU_OO_EE_OO' \
+	 * --data '{"coordinates":[[106.682383,10.762601],[106.680562,10.760286]],"profile":"foot-walking"}' \
+	 * http://localhost:3000/api/map/route
+	 * 
+	 * @example <caption>Response</caption>
+	 * {
+	 *	"success": true,
+	 *	"statusCode": 200,
+	 *	"payload": {
+	 * 		"message": "Success (OK)",
+	 * 		"data": {
+	 *			"type": "FeatureCollection",
+	 *			"bbox": [
+	 *				106.680631,
+	 *				10.760119,
+	 *				106.683203,
+	 *				10.762839
+	 *			],
+	 *			"features": [
+	 *				{
+	 *					"bbox": [
+	 *						106.680631,
+	 *						10.760119,
+	 *						106.683203,
+	 *						10.762839
+	 *					],
+	 *					"type": "Feature",
+	 *					"properties": {
+	 *						"segments": [
+	 *							{
+	 *								"distance": 526.2,
+	 *								"duration": 378.9,
+	 *								"steps": [
+	 *									{
+	 *										"distance": 23.3,
+	 *										"duration": 16.8,
+	 *										"type": 11,
+	 *										"instruction": "Head east",
+	 *										"name": "-",
+	 *										"way_points": [
+	 *											0,
+	 *											1
+	 *										]
+	 *									},
+	 *									{
+	 *										"distance": 196.2,
+	 *										"duration": 141.2,
+	 *										"type": 1,
+	 *										"instruction": "Turn right onto Đường Nguyễn Văn Cừ",
+	 *										"name": "Đường Nguyễn Văn Cừ",
+	 *										"way_points": [
+	 *											1,
+	 *											5
+	 *										]
+	 *									},
+	 *									{
+	 *										"distance": 306.8,
+	 *										"duration": 220.9,
+	 *										"type": 1,
+	 *										"instruction": "Turn right onto An Dương Vương",
+	 *										"name": "An Dương Vương",
+	 *										"way_points": [
+	 *											5,
+	 *											13
+	 *										]
+	 *									},
+	 *									{
+	 *										"distance": 0,
+	 *										"duration": 0,
+	 *										"type": 10,
+	 *										"instruction": "Arrive at An Dương Vương, on the right",
+	 *										"name": "-",
+	 *										"way_points": [
+	 *											13,
+	 *											13
+	 *										]
+	 *									}
+	 *								]
+	 *							}
+	 *						],
+	 *						"way_points": [
+	 *							0,
+	 *							13
+	 *						],
+	 *						"summary": {
+	 *							"distance": 526.2,
+	 *							"duration": 378.9
+	 *						}
+	 *					},
+	 *					"geometry": {
+	 *						"coordinates": [
+	 *							[
+	 *								106.682322,
+	 *								10.76277
+	 *							],
+	 *							[
+	 *								106.682523,
+	 *								10.762839
+	 *							],
+	 *							[
+	 *								106.682795,
+	 *								10.762162
+	 *							],
+	 *							[
+	 *								106.682917,
+	 *								10.761877
+	 *							],
+	 *							[
+	 *								106.68319,
+	 *								10.761243
+	 *							],
+	 *							[
+	 *								106.683203,
+	 *								10.761207
+	 *							],
+	 *							[
+	 *								106.683096,
+	 *								10.76111
+	 *							],
+	 *							[
+	 *								106.682416,
+	 *								10.760836
+	 *							],
+	 *							[
+	 *								106.682327,
+	 *								10.760801
+	 *							],
+	 *							[
+	 *								106.681916,
+	 *								10.760636
+	 *							],
+	 *							[
+	 *								106.681812,
+	 *								10.760594
+	 *							],
+	 *							[
+	 *								106.68177,
+	 *								10.760577
+	 *							],
+	 *							[
+	 *								106.681406,
+	 *								10.760431
+	 *							],
+	 *							[
+	 *								106.680631,
+	 *								10.760119
+	 *							]
+	 *						],
+	 *						"type": "LineString"
+	 *					}
+	 *				}
+	 *			],
+	 *			"metadata": {
+	 *				"attribution": "openrouteservice.org | OpenStreetMap contributors",
+	 *				"service": "routing",
+	 *				"timestamp": 1765249137165,
+	 *				"query": {
+	 *					"coordinates": [
+	 *						[
+	 *							106.682383,
+	 *							10.762601
+	 *						],
+	 *						[
+	 *							106.680562,
+	 *							10.760286
+	 *						]
+	 *					],
+	 *					"profile": "foot-walking",
+	 *					"profileName": "foot-walking",
+	 *					"format": "json"
+	 *				},
+	 *				"engine": {
+	 *					"version": "9.5.0",
+	 *					"build_date": "2025-10-31T12:33:09Z",
+	 *					"graph_date": "2025-12-01T15:08:08Z",
+	 *					"osm_date": "2025-11-24T00:59:59Z"
+	 *				}
+	 *			}
+	 *		}
+	 *	}
+	 * }
+	 * 
+	 * @property {OK} 200 - Successful request
+	 * @property {BAD_REQUEST} 400 - Missing coordinates, the given coordinates is not an array, or there aren't precisely two coordinates pairs in the array
+	 * @property {UNAUTHORIZED} 401 - No bearer JWT was specified, or the JWT verification failed (invalid or expired)
+	 * @property {METHOD_NOT_ALLOWED} 405 - The endpoint does not support the HTTP method specified
+	 * @property {UNSUPPORTED_MEDIA} 415 - Request does not have <code>Content-Type:application/json</code> header
+	 * @property {INTERNAL_SERVER_ERROR} 500 - Something went wrong with the backend (cooked)
+	 * @property {BAD_GATEWAY} 502 - The given coordinates do not exist on the map, or something went wrong with the upstream APIs (cooked)
+	 */
 	async getRoute(coordinates, profile = 'driving-car') {
 		const cache = CacheDB.findRoute(coordinates, profile);
 
@@ -69,9 +265,15 @@ class MapService {
 		}
 	}
 
-	// Search for places near a location
-	// params - lat, lon, rad, category
-	// return - places data
+	/**
+	 * Service function for <code>/api/map/nearby</code>. Returns a list of nearby points of interest (POIs) from a coordinate. <b>This method is temporarily disabled because ORS is retarded</b>. Supports <code>POST</code> requests.
+	 * @param {Number} lat - Latitude
+	 * @param {Number} lon - Longitude
+	 * @param {Number} [radius=1000] - Maximum distance to look for. Note that radius must be between 0 and 2000
+	 * @param {Array<Number>} [category_ids=[]] - IDs of POIs to filter. By default none is excluded. Refer to <a href="https://github.com/GIScience/openpoiservice/blob/main/openpoiservice/server/categories/categories.yml" target="_blank">this</a> for which ID corresponds to which types of POIs
+	 * 
+	 * @property {SERVICE_UNAVAILABLE} 503 - Can you read?
+	 */
 	async nearby(lat, lon, radius = 1000, category_ids = []) {
 		let filters = {};
 
