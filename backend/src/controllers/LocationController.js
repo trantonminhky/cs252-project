@@ -22,6 +22,17 @@ class LocationController {
 		}
 	}
 
+	async searchByImage(req, res, next) {
+		try {
+			const buffer = req.file.buffer;
+
+			const response = await LocationService.searchByImage(buffer);
+			return void res.status(response.statusCode).json(response.get());
+		} catch (err) {
+			next(err);
+		}
+	}
+
 	async getLocation(req, res, next) {
 		try {
 			const locationID = req.params.locationID;

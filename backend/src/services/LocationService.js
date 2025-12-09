@@ -5,6 +5,7 @@ import architecturesData from '../../architecture.json' with { type: "json" };
 import ServiceResponse from '../helper/ServiceResponse.js';
 import config from '../config/config.js';
 import axios from 'axios';
+import FormData from 'form-data';
 
 /**
  * Location service provider class.
@@ -76,21 +77,26 @@ class LocationService {
 		return response;
 	}
 
-	async searchByImage(fileStream) {
-		const axiosResponse = await axios.post(`${this.baseURLImageVan}/search`, {
-			file: fileStream
-		}, {
-			headers: {
-				'Content-Type': 'multipart/form-data'
-			}
-		});
+	async searchByImage(fileBuffer, filename = "image.jpg") {
+		const form = new FormData();
+		form.append("file", fileBuffer, filename);
+		form.append("limit", "5");
+
+		const headers = form.getHeaders();
+
+		const axiosResponse = await axios.post(
+			`${this.baseURLImageVan}/search`,
+			form,
+			{ headers }
+		);
 
 		const response = new ServiceResponse(
 			true,
 			200,
 			"Success",
-			axiosResponse.data.data
+			axiosResponse.data
 		);
+
 		return response;
 	}
 
