@@ -185,6 +185,36 @@ class ProfileService {
 		}
 	}
 
+	/**
+	 * Service function for <code>/api/profile/refresh</code>. Refreshes the user's access token. Will always fail if <code>staySignedIn</code> was not checked during the login phase. The frontend is thus expected to then prompts the user to login again. Supports <code>POST</code> requests.
+	 * @param {String} sessionToken - Bundled session token ID with the raw token. <b>The client need not tamper with this, as it is automatically stored in the cookies</b>
+	 * @returns {Promise<ServiceResponse>}
+	 * 
+	 * @example <caption>cURL</caption>
+	 * curl -X POST \
+	 * --header 'Content-Type:application/json' \
+	 * --cookie 'sessionToken=1b3523fa-e122-4510-84dd-2fa6c5155a99%3A52ad70f4-d0d6-4d2c-80a3-73c72389d76a' \
+	 * http://localhost:3000/api/profile/refresh
+	 * 
+	 * @example <caption>Response</caption>
+	 * {
+	 *	"success": true,
+	 *	"statusCode": 200,
+	 *	"payload": {
+	 *		"message": "Success (OK)",
+	 *		"data": {
+	 *			"sessionToken": "1b3523fa-e122-4510-84dd-2fa6c5155a99:52ad70f4-d0d6-4d2c-80a3-73c72389d76a",
+	 *			"accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNjc2MTJkMC04YmYxLTRiNjQtOTVlZS0yMzg4N2JiOGQwMjYiLCJuYW1lIjoiSGF0c3VuZSBNaWt1IiwiaWF0IjoxNzY1MjU0NDQ2LCJleHAiOjE3NjUyNTgwNDZ9.KSfNWbQPvn8YL08LdKjSYB5qjm-0z0IX5LXtRwGIcAE"
+	 *		}
+	 *	}
+	 * }
+	 * 
+	 * @property {OK} 200 - Successful request
+	 * @property {UNAUTHORIZED} 401 - The user did not enabled <code>staySignedIn</code> or the token was tampered with
+	 * @property {METHOD_NOT_ALLOWED} 405 - The endpoint does not support the HTTP method specified
+	 * @property {UNSUPPORTED_MEDIA} 415 - Request does not have <code>Content-Type:application/json</code> header
+	 * @property {INTERNAL_SERVER_ERROR} 500 - Something went wrong with the backend (cooked)
+	 */
 	async refresh(sessionToken) {
 		const validated = await validateSessionToken(sessionToken);
 		if (!validated) {
