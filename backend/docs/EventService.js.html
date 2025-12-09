@@ -29,7 +29,7 @@
 <nav >
     
     
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="AIService.html">AIService</a><ul class='methods'><li data-type='method'><a href="AIService.html#generateReviews">generateReviews</a></li><li data-type='method'><a href="AIService.html#sendPrompt">sendPrompt</a></li></ul></li><li><a href="DBService.html">DBService</a><ul class='methods'><li data-type='method'><a href="DBService.html#clear">clear</a></li><li data-type='method'><a href="DBService.html#clearAll">clearAll</a></li><li data-type='method'><a href="DBService.html#export">export</a></li><li data-type='method'><a href="DBService.html#exportAll">exportAll</a></li></ul></li><li><a href="EventService.html">EventService</a><ul class='methods'><li data-type='method'><a href="EventService.html#createEvent">createEvent</a></li><li data-type='method'><a href="EventService.html#importToDB">importToDB</a></li></ul></li><li><a href="GeocodeService.html">GeocodeService</a><ul class='methods'><li data-type='method'><a href="GeocodeService.html#geocode">geocode</a></li><li data-type='method'><a href="GeocodeService.html#reverseGeocode">reverseGeocode</a></li></ul></li><li><a href="LocationService.html">LocationService</a><ul class='methods'><li data-type='method'><a href="LocationService.html#importToDB">importToDB</a></li><li data-type='method'><a href="LocationService.html#search">search</a></li></ul></li><li><a href="MapService.html">MapService</a><ul class='methods'><li data-type='method'><a href="MapService.html#getRoute">getRoute</a></li><li data-type='method'><a href="MapService.html#nearby">nearby</a></li></ul></li><li><a href="ProfileService.html">ProfileService</a><ul class='methods'><li data-type='method'><a href="ProfileService.html#addSavedPlace">addSavedPlace</a></li><li data-type='method'><a href="ProfileService.html#getSavedPlaces">getSavedPlaces</a></li><li data-type='method'><a href="ProfileService.html#getUser">getUser</a></li><li data-type='method'><a href="ProfileService.html#login">login</a></li><li data-type='method'><a href="ProfileService.html#refresh">refresh</a></li><li data-type='method'><a href="ProfileService.html#register">register</a></li><li data-type='method'><a href="ProfileService.html#removeSavedPlace">removeSavedPlace</a></li><li data-type='method'><a href="ProfileService.html#setPreferences">setPreferences</a></li></ul></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="AIService.html">AIService</a><ul class='methods'><li data-type='method'><a href="AIService.html#generateReviews">generateReviews</a></li><li data-type='method'><a href="AIService.html#sendPrompt">sendPrompt</a></li></ul></li><li><a href="DBService.html">DBService</a><ul class='methods'><li data-type='method'><a href="DBService.html#clear">clear</a></li><li data-type='method'><a href="DBService.html#clearAll">clearAll</a></li><li data-type='method'><a href="DBService.html#export">export</a></li><li data-type='method'><a href="DBService.html#exportAll">exportAll</a></li></ul></li><li><a href="EventService.html">EventService</a><ul class='methods'><li data-type='method'><a href="EventService.html#createEvent">createEvent</a></li><li data-type='method'><a href="EventService.html#getEvent">getEvent</a></li><li data-type='method'><a href="EventService.html#importToDB">importToDB</a></li></ul></li><li><a href="GeocodeService.html">GeocodeService</a><ul class='methods'><li data-type='method'><a href="GeocodeService.html#geocode">geocode</a></li><li data-type='method'><a href="GeocodeService.html#reverseGeocode">reverseGeocode</a></li></ul></li><li><a href="LocationService.html">LocationService</a><ul class='methods'><li data-type='method'><a href="LocationService.html#importToDB">importToDB</a></li><li data-type='method'><a href="LocationService.html#search">search</a></li></ul></li><li><a href="MapService.html">MapService</a><ul class='methods'><li data-type='method'><a href="MapService.html#getRoute">getRoute</a></li><li data-type='method'><a href="MapService.html#nearby">nearby</a></li></ul></li><li><a href="ProfileService.html">ProfileService</a><ul class='methods'><li data-type='method'><a href="ProfileService.html#addSavedPlace">addSavedPlace</a></li><li data-type='method'><a href="ProfileService.html#getSavedPlaces">getSavedPlaces</a></li><li data-type='method'><a href="ProfileService.html#getUser">getUser</a></li><li data-type='method'><a href="ProfileService.html#login">login</a></li><li data-type='method'><a href="ProfileService.html#refresh">refresh</a></li><li data-type='method'><a href="ProfileService.html#register">register</a></li><li data-type='method'><a href="ProfileService.html#removeSavedPlace">removeSavedPlace</a></li><li data-type='method'><a href="ProfileService.html#setPreferences">setPreferences</a></li></ul></li></ul>
     
 </nav>
 
@@ -148,6 +148,57 @@ class EventService {
 		return response;
 	}
 
+	/**
+	 * Service function for &lt;code>/api/event/:eventID&lt;/code>. Gets event's data given its UUID. Supports &lt;code>GET&lt;/code> requests.
+	 * @param {String} eventID - Event's ID
+	 * @returns {Promise&lt;ServiceResponse>}
+	 * 
+	 * @example &lt;caption>cURL&lt;/caption>
+	 * curl http://localhost:3000/api/event/3378ce57-2118-471a-8ebf-85c29fb06ca7
+	 * 
+	 * @example &lt;caption>Response&lt;/caption>
+	 * {
+	 * 	"success": true,
+	 * 	"statusCode": 200,
+	 * 	"payload": {
+	 * 		"message": "Success (OK)",
+	 * 		"data": {
+	 * 			"name": "Hatsune Miku Concert",
+	 * 			"description": "insanely greate!!!!!11111!!11one",
+	 * 			"startTime": 1765264904268,
+	 * 			"endTime": null,
+	 * 			"imageLink": null,
+	 * 			"participants": []
+	 * 		}
+	 * 	}
+	 * }
+	 * 
+	 * @property {OK} 200 - Successful request
+	 * @property {NOT_FOUND} 404 - Event ID was not specified, or event does not exist
+	 * @property {METHOD_NOT_ALLOWED} 405 - The endpoint does not support the HTTP method specified
+	 * @property {INTERNAL_SERVER_ERROR} 500 - Something went wrong with the backend (cooked)
+	 */
+	async getEvent(eventID) {
+		if (!EventDB.has(eventID)) {
+			const response = new ServiceResponse(
+				false,
+				404,
+				"Event not found"
+			);
+			
+			return response;
+		}
+
+		const data = EventDB.get(eventID);
+		const response = new ServiceResponse(
+			true,
+			200,
+			"Success",
+			data
+		);
+		return response;
+	}
+
 	async subscribe(userID, eventID) {
 		EventDB.push(eventID, userID, "participants");
 		const response = new ServiceResponse(
@@ -202,7 +253,7 @@ export default new EventService();</code></pre>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Tue Dec 09 2025 14:24:47 GMT+0700 (Indochina Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Tue Dec 09 2025 14:48:31 GMT+0700 (Indochina Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>

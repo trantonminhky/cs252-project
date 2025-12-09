@@ -101,6 +101,36 @@ class EventService {
 		return response;
 	}
 
+	/**
+	 * Service function for <code>/api/event/:eventID</code>. Gets event's data given its UUID. Supports <code>GET</code> requests.
+	 * @param {String} eventID - Event's ID
+	 * @returns {Promise<ServiceResponse>}
+	 * 
+	 * @example <caption>cURL</caption>
+	 * curl http://localhost:3000/api/event/3378ce57-2118-471a-8ebf-85c29fb06ca7
+	 * 
+	 * @example <caption>Response</caption>
+	 * {
+	 * 	"success": true,
+	 * 	"statusCode": 200,
+	 * 	"payload": {
+	 * 		"message": "Success (OK)",
+	 * 		"data": {
+	 * 			"name": "Hatsune Miku Concert",
+	 * 			"description": "insanely greate!!!!!11111!!11one",
+	 * 			"startTime": 1765264904268,
+	 * 			"endTime": null,
+	 * 			"imageLink": null,
+	 * 			"participants": []
+	 * 		}
+	 * 	}
+	 * }
+	 * 
+	 * @property {OK} 200 - Successful request
+	 * @property {NOT_FOUND} 404 - Event ID was not specified, or event does not exist
+	 * @property {METHOD_NOT_ALLOWED} 405 - The endpoint does not support the HTTP method specified
+	 * @property {INTERNAL_SERVER_ERROR} 500 - Something went wrong with the backend (cooked)
+	 */
 	async getEvent(eventID) {
 		if (!EventDB.has(eventID)) {
 			const response = new ServiceResponse(
