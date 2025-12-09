@@ -2,6 +2,8 @@ import EventDB from '../db/EventDB.js';
 import ServiceResponse from '../helper/ServiceResponse.js';
 import eventsData from '../../events.json' with { type: "json" };
 
+import { randomUUID } from "crypto";
+
 // TO-DO: ADD LOCATION TO EVENT
 // TO-DO: REST-IFY EVENT AND OVERALL REFACTOR
 
@@ -34,11 +36,12 @@ class EventService {
 
 	async importToDB() {
 		for (const entry of eventsData) {
-			const eventID = EventDB.autonum();
+			const eventID = randomUUID();
 			EventDB.set(eventID, {
 				id: eventID,
 				name: entry.name_translated,
 				description: entry.description_translated,
+				location: entry.location,
 				startTime: entry.s_milliseconds,
 				endTime: entry.e_milliseconds,
 				imageLink: entry.image_link,
@@ -57,11 +60,11 @@ class EventService {
 	/**
 	 * Service function for <code>/api/event/create</code>
 	 */
-	async createEvent(name, description, imageLink = null, startTime = null, endTime = null) {
-		const eventID = EventDB.autonum();
+	async createEvent(name, description, location, imageLink = null, startTime = null, endTime = null) {
+		const eventID = randomUUID();
 		const eventData = {
-			id: eventID,
 			name: name,
+			location: location,
 			description: description,
 			startTime: startTime || Date.now(),
 			endTime: endTime,
@@ -75,7 +78,9 @@ class EventService {
 			true,
 			201,
 			"Success",
-			eventData
+			{
+				eventID: eventID
+			}
 		);
 		return response;
 	}
