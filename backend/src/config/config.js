@@ -23,7 +23,7 @@ const config = {
 	},
 
 	pythonBackend: {
-		baseURLAn: process.env.PYTHON_BACKEND_VAN_BASE_URL,
+		baseURLVan: process.env.PYTHON_BACKEND_VAN_BASE_URL,
 		baseURLAn: process.env.PYTHON_BACKEND_AN_BASE_URL
 	},
 

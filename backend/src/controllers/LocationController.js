@@ -14,10 +14,8 @@ class LocationController {
 
 	async search(req, res, next) {
 		try {
-			const { query, include } = req.body;
-			const response = await LocationService.search(query, {
-				include: include
-			});
+			const { query, filters, initialK, finalK } = req.body;
+			const response = await LocationService.search(query, filters, initialK, finalK);
 			return void res.status(response.statusCode).json(response.get());
 		} catch (err) {
 			next(err);

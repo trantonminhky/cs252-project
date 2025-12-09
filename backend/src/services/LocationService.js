@@ -3,12 +3,18 @@ import FuzzySearch from 'fuzzy-search';
 import LocationDB from '../db/LocationDB.js';
 import architecturesData from '../../architecture.json' with { type: "json" };
 import ServiceResponse from '../helper/ServiceResponse.js';
+import config from '../config/config.js';
+import axios from 'axios';
 
 /**
  * Location service provider class.
  * @class
  */
 class LocationService {
+	constructor() {
+		this.baseURL = config.pythonBackend.baseURLAn
+	}
+
 	/**
 	 * Developer's function import to DB. No endpoint of this will be made.
 	 */
@@ -41,42 +47,27 @@ class LocationService {
 	/**
 	 * Search a point of interest based on name, description, latitudes and longitudes.
 	 * @param {String} query - Query to input
-	 * @param {Object} [options] - Options
-	 * @param {String[]} [options.include] - Tags to only include in results so that each result has one or more tags included. By default all tags are included
+	 * @param {Object} [filters] - Filters
+	 * @param {Number} [initialK=10] - Number of results returned in the first round
+	 * @param {Number} [finalK=3] - Number of results returned in the second round
+	 * 
 	 * @return {Promise<ServiceResponse>} Response
 	 */
-	async search(query, options = { include: [] }) {
-		const searchAllResults = query === "" || query == null;
-		const searchAllTags = options.include == null || !options.include.length; // if no include option is specified, or the include option array is empty
+	async search(query, filters, initialK = 10, finalK = 3) {
+		const axiosResponse = await axios.post(`${this.baseURL}/search`, {
+			query: query,
+			filters: filters,
+			initial_k: initialK,
+			final_k: finalK
+		}, { headers: {
+			'Content-Type': 'application/json'
+		}});
 
-		const _export = LocationDB.export();
-
-		const haystack = Object.entries(_export.data).map(([key, value]) => ({
-			key,
-			value
-		}));
-
-		let results;
-		if (searchAllResults) {
-			results = haystack;
-		} else {
-			const locationSearcher = new FuzzySearch(haystack, ['value.lat', 'value.lon', 'value.name', 'value.description']);
-			results = locationSearcher.search(query);
-		}
-
-		results = results.filter(entry => {
-			if (searchAllTags) return true;
-			const tagsList = entry.value.tags.buildingType
-				.concat(entry.value.tags.archStyle)
-				.concat(entry.value.tags.religion);
-
-			return tagsList.some(tag => options.include.includes(tag));
-		});
 		const response = new ServiceResponse(
 			true,
 			200,
 			"Success",
-			results
+			axiosResponse.data.data
 		);
 		return response;
 	}

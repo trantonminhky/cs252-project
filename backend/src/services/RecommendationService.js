@@ -5,7 +5,7 @@ import config from '../config/config.js';
 
 class RecommendationService {
 	constructor() {
-		this.baseURL = config.pythonBackend.baseURLAn;
+		this.baseURL = config.pythonBackend.baseURLVan;
 	}
 
 	/**
