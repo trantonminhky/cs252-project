@@ -20,7 +20,7 @@ router.all('/:eventID',
 );
 
 router.all('/subscribe',
-	ValidatorMiddleware.validateMethods(['POST']),
+	ValidatorMiddleware.validateMethods(['PUT']),
 	ValidatorMiddleware.validateContentType, 
 	EventController.subscribe
 );

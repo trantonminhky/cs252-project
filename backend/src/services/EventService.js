@@ -33,7 +33,6 @@ class EventService {
 	 * @property {METHOD_NOT_ALLOWED} 405 - The endpoint does not support the HTTP method specified
 	 * @property {INTERNAL_SERVER_ERROR} 500 - Something went wrong with the backend (cooked)
 	 */
-
 	async importToDB() {
 		for (const entry of eventsData) {
 			const eventID = randomUUID();
