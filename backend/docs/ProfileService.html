@@ -187,7 +187,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ProfileService.js.html">ProfileService.js</a>, <a href="ProfileService.js.html#line242">line 242</a>
+        <a href="ProfileService.js.html">ProfileService.js</a>, <a href="ProfileService.js.html#line271">line 271</a>
     </li></ul></dd>
     
 
@@ -368,7 +368,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ProfileService.js.html">ProfileService.js</a>, <a href="ProfileService.js.html#line306">line 306</a>
+        <a href="ProfileService.js.html">ProfileService.js</a>, <a href="ProfileService.js.html#line335">line 335</a>
     </li></ul></dd>
     
 
@@ -506,7 +506,7 @@
 
     
 
-    <h4 class="name" id="login"><span class="type-signature type-signature-async">(async) </span>login<span class="signature">(username, password)</span><span class="type-signature"> &rarr; {Promise.&lt;ServiceResponse>}</span></h4>
+    <h4 class="name" id="login"><span class="type-signature type-signature-async">(async) </span>login<span class="signature">(email, password, staySignedIn)</span><span class="type-signature"> &rarr; {Promise.&lt;ServiceResponse>}</span></h4>
 
     
 
@@ -516,13 +516,13 @@
 <dl class="details">
     
     <dt class="tag-description">Description:</dt>
-    <dd class="tag-description"><ul class="dummy"><li><p>Logins a user.</p></li></ul></dd>
+    <dd class="tag-description"><ul class="dummy"><li><p>Service function for <code>/api/profile/login</code>. Returns an access token for a user (and set persistent session token for the user if opted). Supports <code>POST</code> request.</p></li></ul></dd>
     
 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ProfileService.js.html">ProfileService.js</a>, <a href="ProfileService.js.html#line110">line 110</a>
+        <a href="ProfileService.js.html">ProfileService.js</a>, <a href="ProfileService.js.html#line139">line 139</a>
     </li></ul></dd>
     
 
@@ -559,12 +559,233 @@
 
 
 
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>200</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">OK</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Successful request</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>400</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">BAD_REQUEST</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Missing email or password</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>401</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">UNAUTHORIZED</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Wrong password</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>404</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">NOT_FOUND</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>No user associated with this email is found</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>405</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">METHOD_NOT_ALLOWED</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The endpoint does not support the HTTP method specified</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>415</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">UNSUPPORTED_MEDIA</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Request does not have <code>Content-Type:application/json</code> header</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>500</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">INTERNAL_SERVER_ERROR</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Something went wrong with the backend (cooked)</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
 
 
 
 
 
 
+
+
+
+
+
+
+    <h5 class="h5-examples">Examples</h5>
+    
+        <p class="code-caption">cURL</p>
+    
+    <pre class="prettyprint"><code>curl -X POST \
+--header 'Content-Type:application/json' \
+--data '{"email":"therealmiku39@gmail.com","password":"m3g4-S3CU12E-p455VV012d"}' \
+http://localhost:3000/api/profile/login</code></pre>
+
+        <p class="code-caption">Response</p>
+    
+    <pre class="prettyprint"><code>{
+	"success": true,
+	"statusCode": 200,
+	"payload": {
+		"message": "Success (OK)",
+		"data": {
+			"userID": "167612d0-8bf1-4b64-95ee-23887bb8d026",
+			"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNjc2MTJkMC04YmYxLTRiNjQtOTVlZS0yMzg4N2JiOGQwMjYiLCJuYW1lIjoiSGF0c3VuZSBNaWt1IiwiaWF0IjoxNzY1MjUzMTMyLCJleHAiOjE3NjUyNTY3MzJ9.8LSD9w9Wr5lhDc7TQLWmVaKeNljx1fjtvhOoFvr9q4s"
+		}
+	}
+}</code></pre>
 
 
 
@@ -594,7 +815,7 @@
 
         <tr>
             
-                <td class="name"><code>username</code></td>
+                <td class="name"><code>email</code></td>
             
 
             <td class="type">
@@ -611,7 +832,7 @@
 
             
 
-            <td class="description last"><p>Username</p></td>
+            <td class="description last"><p>User's email</p></td>
         </tr>
 
     
@@ -635,7 +856,31 @@
 
             
 
-            <td class="description last"><p>Password</p></td>
+            <td class="description last"><p>User's password</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>staySignedIn</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Whether the user wants to keep their profile logged in persistently. If enabled, a cookie with the user session token is set</p></td>
         </tr>
 
     
@@ -660,10 +905,6 @@
 <h5 class="h5-returns">Returns:</h5>
 
         
-<div class="param-desc">
-    <p>Response</p>
-</div>
-
 
 
 <dl class="param-type">
@@ -1178,7 +1419,7 @@ http://localhost:3000/api/profile/register</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ProfileService.js.html">ProfileService.js</a>, <a href="ProfileService.js.html#line273">line 273</a>
+        <a href="ProfileService.js.html">ProfileService.js</a>, <a href="ProfileService.js.html#line302">line 302</a>
     </li></ul></dd>
     
 
@@ -1359,7 +1600,7 @@ http://localhost:3000/api/profile/register</code></pre>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ProfileService.js.html">ProfileService.js</a>, <a href="ProfileService.js.html#line221">line 221</a>
+        <a href="ProfileService.js.html">ProfileService.js</a>, <a href="ProfileService.js.html#line250">line 250</a>
     </li></ul></dd>
     
 
@@ -1543,7 +1784,7 @@ http://localhost:3000/api/profile/register</code></pre>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Tue Dec 09 2025 11:00:04 GMT+0700 (Indochina Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Tue Dec 09 2025 11:13:25 GMT+0700 (Indochina Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>

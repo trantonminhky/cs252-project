@@ -102,12 +102,41 @@ class ProfileService {
 	}
 
 	/**
-	 * Logins a user.
-	 * @param {String} username - Username
-	 * @param {String} password - Password
-	 * @returns {Promise<ServiceResponse>} Response
+	 * Service function for <code>/api/profile/login</code>. Returns an access token for a user (and set persistent session token for the user if opted). Supports <code>POST</code> request.
+	 * @param {String} email - User's email
+	 * @param {String} password - User's password
+	 * @param {Boolean} staySignedIn - Whether the user wants to keep their profile logged in persistently. If enabled, a cookie with the user session token is set
+	 * @returns {Promise<ServiceResponse>}
+	 * 
+	 * @example <caption>cURL</caption>
+	 * curl -X POST \
+	 * --header 'Content-Type:application/json' \
+	 * --data '{"email":"therealmiku39@gmail.com","password":"m3g4-S3CU12E-p455VV012d"}' \
+	 * http://localhost:3000/api/profile/login
+	 * 
+	 * @example <caption>Response</caption>
+	 * {
+	 *	"success": true,
+	 *	"statusCode": 200,
+	 *	"payload": {
+	 *		"message": "Success (OK)",
+	 *		"data": {
+	 *			"userID": "167612d0-8bf1-4b64-95ee-23887bb8d026",
+	 *			"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNjc2MTJkMC04YmYxLTRiNjQtOTVlZS0yMzg4N2JiOGQwMjYiLCJuYW1lIjoiSGF0c3VuZSBNaWt1IiwiaWF0IjoxNzY1MjUzMTMyLCJleHAiOjE3NjUyNTY3MzJ9.8LSD9w9Wr5lhDc7TQLWmVaKeNljx1fjtvhOoFvr9q4s"
+	 *		}
+	 *	}
+	 * }
+	 * 
+	 * @property {OK} 200 - Successful request
+	 * @property {BAD_REQUEST} 400 - Missing email or password
+	 * @property {UNAUTHORIZED} 401 - Wrong password
+	 * @property {NOT_FOUND} 404 - No user associated with this email is found
+	 * @property {METHOD_NOT_ALLOWED} 405 - The endpoint does not support the HTTP method specified
+	 * @property {UNSUPPORTED_MEDIA} 415 - Request does not have <code>Content-Type:application/json</code> header
+	 * @property {INTERNAL_SERVER_ERROR} 500 - Something went wrong with the backend (cooked)
 	 */
-	async login(email, password) {
+
+	async login(email, password, staySignedIn) {
 		// if this user does not exist
 		const userID = UserDB.findIndex(user => user.email === email);
 		if (!userID) {
