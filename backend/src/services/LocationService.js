@@ -12,7 +12,9 @@ import axios from 'axios';
  */
 class LocationService {
 	constructor() {
-		this.baseURL = config.pythonBackend.baseURLAn
+		this.baseURLAn = config.pythonBackend.baseURLAn
+		this.baseURLVan = config.pythonBackend.baseURLVan
+		this.baseURLImageVan = config.pythonBackend.baseURLImageVan
 	}
 
 	/**
@@ -54,14 +56,34 @@ class LocationService {
 	 * @return {Promise<ServiceResponse>} Response
 	 */
 	async search(query, filters, initialK = 10, finalK = 3) {
-		const axiosResponse = await axios.post(`${this.baseURL}/search`, {
+		const axiosResponse = await axios.post(`${this.baseURLAn}/search`, {
 			query: query,
 			filters: filters,
 			initial_k: initialK,
 			final_k: finalK
-		}, { headers: {
-			'Content-Type': 'application/json'
-		}});
+		}, {
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		});
+
+		const response = new ServiceResponse(
+			true,
+			200,
+			"Success",
+			axiosResponse.data.data
+		);
+		return response;
+	}
+
+	async searchByImage(fileStream) {
+		const axiosResponse = await axios.post(`${this.baseURLImageVan}/search`, {
+			file: fileStream
+		}, {
+			headers: {
+				'Content-Type': 'multipart/form-data'
+			}
+		});
 
 		const response = new ServiceResponse(
 			true,
@@ -81,7 +103,7 @@ class LocationService {
 			);
 			return response;
 		}
-		
+
 		const result = LocationDB.get(locationID);
 		const response = new ServiceResponse(
 			true,
