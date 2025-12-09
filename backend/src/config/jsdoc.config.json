@@ -1,13 +1,15 @@
 {
 	"source": {
 		"include": [
-			"src/services"
+			"src/services",
+			"src/config/docdash-home.md"
 		],
 		"includePattern": ".js$"
 	},
 	"opts": {
 		"destination": "./docs",
 		"recurse": true,
+		"readme": "src/config/docdash-home.md",
 		"template": "node_modules/docdash"
 	},
 	"plugins": [

@@ -16,7 +16,7 @@ const SALT_ROUNDS = 10;
  */
 class ProfileService {
 	/**
-	 * Registers a user to a new profile given username and password.
+	 * Service function for <code>/api/profile/register</code>. Creates a new user. The <code>Location</code> header contains 
 	 * @param {String} username - Username
 	 * @param {String} password - Password
 	 * @returns {Promise<ServiceResponse>} Response
