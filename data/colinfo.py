@@ -48,7 +48,7 @@ class BaseColInfo:
         cols_to_keep = ["name"]
         
         # Add common useful columns if they exist
-        possible_meta_cols = ["building_type", "arch_style", "religion", "food_type"]
+        possible_meta_cols = ["building_type", "arch_style", "religion", "food_type","image link"]
         for col in possible_meta_cols:
             if col in self.df.columns:
                 cols_to_keep.append(col)
@@ -59,7 +59,7 @@ class BaseColInfo:
 
 # --- 2. Architecture Child Class ---
 class ArchColInfo(BaseColInfo):
-    def __init__(self, csv_file="CT_Data - Architecture.csv"):
+    def __init__(self, csv_file="E:/CT_Data - Architecture.csv"):
         # Initialize the parent class
         super().__init__(csv_file)
 
@@ -69,14 +69,14 @@ class ArchColInfo(BaseColInfo):
             style = row['arch_style'] if pd.notnull(row['arch_style']) else "unknown style"
             b_type = row['building_type'] if pd.notnull(row['building_type']) else "building"
             desc = row['description'] if pd.notnull(row['description']) else ""
-            
-            rich_text = f"{row['name']} is a {style} {b_type} built in {age}. {desc}"
+            ref_desc = row['refined_description'] if pd.notnull(row['refined_description']) else ""
+            rich_text = f"{row['name']} is a {style} {b_type} built in {age}. {desc}. {ref_desc}"
             self.documents.append(rich_text)
 
 
 # --- 3. Restaurant Child Class ---
 class RestaurantColInfo(BaseColInfo):
-    def __init__(self, csv_file="CT_Data - Restaurant.csv"):
+    def __init__(self, csv_file="E:/CT_Data - Restaurant.csv"):
         # Initialize the parent class
         super().__init__(csv_file)
 
