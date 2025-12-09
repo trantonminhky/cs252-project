@@ -29,7 +29,7 @@
 <nav >
     
     
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="AIService.html">AIService</a><ul class='methods'><li data-type='method'><a href="AIService.html#generateReviews">generateReviews</a></li><li data-type='method'><a href="AIService.html#sendPrompt">sendPrompt</a></li></ul></li><li><a href="DBService.html">DBService</a><ul class='methods'><li data-type='method'><a href="DBService.html#clear">clear</a></li><li data-type='method'><a href="DBService.html#clearAll">clearAll</a></li><li data-type='method'><a href="DBService.html#export">export</a></li><li data-type='method'><a href="DBService.html#exportAll">exportAll</a></li></ul></li><li><a href="EventService.html">EventService</a><ul class='methods'><li data-type='method'><a href="EventService.html#createEvent">createEvent</a></li><li data-type='method'><a href="EventService.html#importToDB">importToDB</a></li></ul></li><li><a href="GeocodeService.html">GeocodeService</a><ul class='methods'><li data-type='method'><a href="GeocodeService.html#geocode">geocode</a></li><li data-type='method'><a href="GeocodeService.html#reverseGeocode">reverseGeocode</a></li></ul></li><li><a href="LocationService.html">LocationService</a><ul class='methods'><li data-type='method'><a href="LocationService.html#importToDB">importToDB</a></li><li data-type='method'><a href="LocationService.html#search">search</a></li></ul></li><li><a href="MapService.html">MapService</a></li><li><a href="ProfileService.html">ProfileService</a><ul class='methods'><li data-type='method'><a href="ProfileService.html#addSavedPlace">addSavedPlace</a></li><li data-type='method'><a href="ProfileService.html#getSavedPlaces">getSavedPlaces</a></li><li data-type='method'><a href="ProfileService.html#login">login</a></li><li data-type='method'><a href="ProfileService.html#register">register</a></li><li data-type='method'><a href="ProfileService.html#removeSavedPlace">removeSavedPlace</a></li><li data-type='method'><a href="ProfileService.html#setPreferences">setPreferences</a></li></ul></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="AIService.html">AIService</a><ul class='methods'><li data-type='method'><a href="AIService.html#generateReviews">generateReviews</a></li><li data-type='method'><a href="AIService.html#sendPrompt">sendPrompt</a></li></ul></li><li><a href="DBService.html">DBService</a><ul class='methods'><li data-type='method'><a href="DBService.html#clear">clear</a></li><li data-type='method'><a href="DBService.html#clearAll">clearAll</a></li><li data-type='method'><a href="DBService.html#export">export</a></li><li data-type='method'><a href="DBService.html#exportAll">exportAll</a></li></ul></li><li><a href="EventService.html">EventService</a><ul class='methods'><li data-type='method'><a href="EventService.html#createEvent">createEvent</a></li><li data-type='method'><a href="EventService.html#importToDB">importToDB</a></li></ul></li><li><a href="GeocodeService.html">GeocodeService</a><ul class='methods'><li data-type='method'><a href="GeocodeService.html#geocode">geocode</a></li><li data-type='method'><a href="GeocodeService.html#reverseGeocode">reverseGeocode</a></li></ul></li><li><a href="LocationService.html">LocationService</a><ul class='methods'><li data-type='method'><a href="LocationService.html#importToDB">importToDB</a></li><li data-type='method'><a href="LocationService.html#search">search</a></li></ul></li><li><a href="MapService.html">MapService</a><ul class='methods'><li data-type='method'><a href="MapService.html#getRoute">getRoute</a></li></ul></li><li><a href="ProfileService.html">ProfileService</a><ul class='methods'><li data-type='method'><a href="ProfileService.html#addSavedPlace">addSavedPlace</a></li><li data-type='method'><a href="ProfileService.html#getSavedPlaces">getSavedPlaces</a></li><li data-type='method'><a href="ProfileService.html#login">login</a></li><li data-type='method'><a href="ProfileService.html#register">register</a></li><li data-type='method'><a href="ProfileService.html#removeSavedPlace">removeSavedPlace</a></li><li data-type='method'><a href="ProfileService.html#setPreferences">setPreferences</a></li></ul></li></ul>
     
 </nav>
 
@@ -62,9 +62,197 @@ class MapService {
 		this.baseURL = config.openRouteService.baseURL;
 	}
 
-	// Get route between two points
-	// param - array of [lon,lat] pairs
-	// return - route data
+	/**
+	 * Service function for &lt;code>/api/map/route&lt;/code>. Get the fastest path between two points and their geometries. Supports &lt;codes>POST&lt;/code> requests.
+	 * @param {Array&lt;Array&lt;Number>>} coordinates - Precisely two pairs of coordinates indicating the start coordinates and the end coordinates
+	 * @param {String} [profile='driving-car'] - Traveling method
+	 * @returns {Promise&lt;ServiceResponse>}
+	 * 
+	 * @example &lt;caption>cURL&lt;/caption>
+	 * curl -X POST \
+	 * --header 'Content-Type:application/json' \
+	 * --header 'Authorization:Bearer MIKU_MIKU_OO_EE_OO' \
+	 * --data '{"coordinates":[[106.682383,10.762601],[106.680562,10.760286]],"profile":"foot-walking"}' \
+	 * http://localhost:3000/api/map/route
+	 * 
+	 * @example &lt;caption>Response&lt;/caption>
+	 * {
+	 *	"success": true,
+	 *	"statusCode": 200,
+	 *	"payload": {
+	 * 		"message": "Success (OK)",
+	 * 		"data": {
+	 *			"type": "FeatureCollection",
+	 *			"bbox": [
+	 *				106.680631,
+	 *				10.760119,
+	 *				106.683203,
+	 *				10.762839
+	 *			],
+	 *			"features": [
+	 *				{
+	 *					"bbox": [
+	 *						106.680631,
+	 *						10.760119,
+	 *						106.683203,
+	 *						10.762839
+	 *					],
+	 *					"type": "Feature",
+	 *					"properties": {
+	 *						"segments": [
+	 *							{
+	 *								"distance": 526.2,
+	 *								"duration": 378.9,
+	 *								"steps": [
+	 *									{
+	 *										"distance": 23.3,
+	 *										"duration": 16.8,
+	 *										"type": 11,
+	 *										"instruction": "Head east",
+	 *										"name": "-",
+	 *										"way_points": [
+	 *											0,
+	 *											1
+	 *										]
+	 *									},
+	 *									{
+	 *										"distance": 196.2,
+	 *										"duration": 141.2,
+	 *										"type": 1,
+	 *										"instruction": "Turn right onto Đường Nguyễn Văn Cừ",
+	 *										"name": "Đường Nguyễn Văn Cừ",
+	 *										"way_points": [
+	 *											1,
+	 *											5
+	 *										]
+	 *									},
+	 *									{
+	 *										"distance": 306.8,
+	 *										"duration": 220.9,
+	 *										"type": 1,
+	 *										"instruction": "Turn right onto An Dương Vương",
+	 *										"name": "An Dương Vương",
+	 *										"way_points": [
+	 *											5,
+	 *											13
+	 *										]
+	 *									},
+	 *									{
+	 *										"distance": 0,
+	 *										"duration": 0,
+	 *										"type": 10,
+	 *										"instruction": "Arrive at An Dương Vương, on the right",
+	 *										"name": "-",
+	 *										"way_points": [
+	 *											13,
+	 *											13
+	 *										]
+	 *									}
+	 *								]
+	 *							}
+	 *						],
+	 *						"way_points": [
+	 *							0,
+	 *							13
+	 *						],
+	 *						"summary": {
+	 *							"distance": 526.2,
+	 *							"duration": 378.9
+	 *						}
+	 *					},
+	 *					"geometry": {
+	 *						"coordinates": [
+	 *							[
+	 *								106.682322,
+	 *								10.76277
+	 *							],
+	 *							[
+	 *								106.682523,
+	 *								10.762839
+	 *							],
+	 *							[
+	 *								106.682795,
+	 *								10.762162
+	 *							],
+	 *							[
+	 *								106.682917,
+	 *								10.761877
+	 *							],
+	 *							[
+	 *								106.68319,
+	 *								10.761243
+	 *							],
+	 *							[
+	 *								106.683203,
+	 *								10.761207
+	 *							],
+	 *							[
+	 *								106.683096,
+	 *								10.76111
+	 *							],
+	 *							[
+	 *								106.682416,
+	 *								10.760836
+	 *							],
+	 *							[
+	 *								106.682327,
+	 *								10.760801
+	 *							],
+	 *							[
+	 *								106.681916,
+	 *								10.760636
+	 *							],
+	 *							[
+	 *								106.681812,
+	 *								10.760594
+	 *							],
+	 *							[
+	 *								106.68177,
+	 *								10.760577
+	 *							],
+	 *							[
+	 *								106.681406,
+	 *								10.760431
+	 *							],
+	 *							[
+	 *								106.680631,
+	 *								10.760119
+	 *							]
+	 *						],
+	 *						"type": "LineString"
+	 *					}
+	 *				}
+	 *			],
+	 *			"metadata": {
+	 *				"attribution": "openrouteservice.org | OpenStreetMap contributors",
+	 *				"service": "routing",
+	 *				"timestamp": 1765249137165,
+	 *				"query": {
+	 *					"coordinates": [
+	 *						[
+	 *							106.682383,
+	 *							10.762601
+	 *						],
+	 *						[
+	 *							106.680562,
+	 *							10.760286
+	 *						]
+	 *					],
+	 *					"profile": "foot-walking",
+	 *					"profileName": "foot-walking",
+	 *					"format": "json"
+	 *				},
+	 *				"engine": {
+	 *					"version": "9.5.0",
+	 *					"build_date": "2025-10-31T12:33:09Z",
+	 *					"graph_date": "2025-12-01T15:08:08Z",
+	 *					"osm_date": "2025-11-24T00:59:59Z"
+	 *				}
+	 *			}
+	 *		}
+	 *	}
+	 * }
+	 */
 	async getRoute(coordinates, profile = 'driving-car') {
 		const cache = CacheDB.findRoute(coordinates, profile);
 
@@ -184,7 +372,7 @@ export default new MapService();</code></pre>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Tue Dec 09 2025 09:38:46 GMT+0700 (Indochina Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Tue Dec 09 2025 10:09:10 GMT+0700 (Indochina Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>
