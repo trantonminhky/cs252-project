@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:flutter/cupertino.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:virtour_frontend/components/briefings.dart";
 import "package:virtour_frontend/components/cards.dart";
 import "package:virtour_frontend/screens/home_screen/place_overview.dart";
@@ -8,8 +9,9 @@ import "package:virtour_frontend/screens/data_factories/filter_type.dart";
 import "package:virtour_frontend/screens/data_factories/region.dart";
 import "package:virtour_frontend/screens/data_factories/place.dart";
 import "package:virtour_frontend/frontend_service_layer/place_service.dart";
+import "package:virtour_frontend/providers/user_info_provider.dart";
 
-class RegionOverview extends StatefulWidget {
+class RegionOverview extends ConsumerStatefulWidget {
   final Region region;
   final List<Place> places;
   final FilterType currentFilter;
@@ -21,42 +23,47 @@ class RegionOverview extends StatefulWidget {
   });
 
   @override
-  State<RegionOverview> createState() => _RegionOverviewState();
+  ConsumerState<RegionOverview> createState() => _RegionOverviewState();
 }
 
-class _RegionOverviewState extends State<RegionOverview> {
+class _RegionOverviewState extends ConsumerState<RegionOverview> {
   bool _isExpanded = false; // Track "Read More" state
 
   // Data state
   List<Place>? _filteredPlaces;
   bool _isLoading = false;
   String? _errorMessage;
-  FilterType _currentFilter = FilterType.regionOverview;
+  FilterType _currentFilter = FilterType.region_overview;
 
-  final RegionService _regionService = RegionService();
+  final PlaceService _regionService = PlaceService();
 
   @override
   void initState() {
     super.initState();
     _currentFilter = widget.currentFilter;
-    // Removed automatic data loading on navigation
-    // Call _loadPlaces() manually when needed (e.g., filter selection)
+    _loadPlaces(widget.region);
   }
 
-  Future<void> _loadPlaces() async {
+  Future<void> _loadPlaces(Region region) async {
     setState(() {
       _isLoading = true;
       _errorMessage = null;
     });
 
     try {
-      // Use getPlace to fetch places for this region
-      final places = await _regionService.getPlace(
-        widget.region.name,
-        _currentFilter == FilterType.regionOverview
-            ? []
-            : [_currentFilter.name],
-      );
+      List<Place> places;
+      if (_currentFilter == FilterType.region_overview) {
+        places = await Future.wait(
+          region.placesId.map((id) => _regionService.getPlaceByID(id)),
+        );
+      } else {
+        final user = ref.read(userSessionProvider);
+        places = await _regionService.getPlace(
+          "",
+          [_currentFilter.name],
+          user?.userID ?? "",
+        );
+      }
 
       setState(() {
         _filteredPlaces = places;
@@ -109,7 +116,7 @@ class _RegionOverviewState extends State<RegionOverview> {
                         ),
                         const SizedBox(height: 16),
                         ElevatedButton(
-                          onPressed: _loadPlaces,
+                          onPressed: () => _loadPlaces(widget.region),
                           child: const Text('Retry'),
                         ),
                       ],
@@ -136,7 +143,7 @@ class _RegionOverviewState extends State<RegionOverview> {
                             padding: const EdgeInsets.symmetric(horizontal: 20),
                             children: [
                               _buildFilterChip(
-                                FilterType.regionOverview,
+                                FilterType.region_overview,
                                 "Region overview",
                                 CupertinoIcons.book,
                               ),
@@ -148,7 +155,7 @@ class _RegionOverviewState extends State<RegionOverview> {
                               ),
                               const SizedBox(width: 8),
                               _buildFilterChip(
-                                FilterType.buildingType,
+                                FilterType.building_type,
                                 "Building Type",
                                 Icons.apartment,
                               ),
@@ -311,7 +318,7 @@ class _RegionOverviewState extends State<RegionOverview> {
           setState(() {
             _currentFilter = filterType;
           });
-          _loadPlaces();
+          _loadPlaces(widget.region);
         }
       },
     );

@@ -14,39 +14,30 @@ class LocationController {
 
 	async search(req, res, next) {
 		try {
-			const { query, filters, initialK, finalK } = req.body;
-			const response = await LocationService.search(query, filters, initialK, finalK);
+			const { query, include } = req.body;
+			const response = await LocationService.search(query, {
+				include: include
+			});
 			return void res.status(response.statusCode).json(response.get());
 		} catch (err) {
 			next(err);
 		}
 	}
 
-	async searchByImage(req, res, next) {
+	async findByID(req, res, next) {
 		try {
-			const buffer = req.file.buffer;
+			const { id } = req.query;
 
-			const response = await LocationService.searchByImage(buffer);
-			return void res.status(response.statusCode).json(response.get());
-		} catch (err) {
-			next(err);
-		}
-	}
-
-	async getLocation(req, res, next) {
-		try {
-			const locationID = req.params.locationID;
-
-			if (locationID === ':locationID') {
+			if (id == null) {
 				const response = new ServiceResponse(
 					false,
-					404,
-					"Route not found"
+					400,
+					"Location ID is required"
 				);
 				return void res.status(response.statusCode).json(response.get());
 			}
 
-			const response = await LocationService.getLocation(locationID);
+			const response = await LocationService.findByID(id);
 			return void res.status(response.statusCode).json(response.get());
 		} catch (err) {
 			next(err);

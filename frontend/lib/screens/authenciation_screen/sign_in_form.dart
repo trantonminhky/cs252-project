@@ -19,6 +19,7 @@ class _SignInFormState extends ConsumerState<SignInForm> {
   late final TextEditingController _passwordController;
   static final AuthService _authService = AuthService();
   bool _isLoading = false;
+  bool _staySignedIn = false;
 
   @override
   void initState() {
@@ -115,35 +116,35 @@ class _SignInFormState extends ConsumerState<SignInForm> {
                 obscureText: true,
               ),
               const SizedBox(height: 5),
-              const Align(
+              Align(
                   alignment: Alignment.center,
                   child: Row(children: [
-                    // Padding(
-                    //     padding: const EdgeInsets.only(top: 12),
-                    //     child: Row(
-                    //       children: [
-                    //         const Text(
-                    //           "Stay signed in",
-                    //           style: TextStyle(
-                    //             color: Colors.black,
-                    //             fontSize: 16,
-                    //             fontFamily: "BeVietnamPro",
-                    //             fontWeight: FontWeight.w400,
-                    //           ),
-                    //         ),
-                    //         const SizedBox(width: 8),
-                    //         Switch(
-                    //           value: UserInfo().staySignedIn,
-                    //           onChanged: (newVal) {
-                    //             setState(() {
-                    //               UserInfo().staySignedIn = newVal;
-                    //             });
-                    //           },
-                    //           activeTrackColor: const Color(0xffd72323),
-                    //           inactiveTrackColor: Colors.grey,
-                    //         ),
-                    //       ],
-                    //     )),
+                    Padding(
+                        padding: const EdgeInsets.only(top: 12),
+                        child: Row(
+                          children: [
+                            const Text(
+                              "Stay signed in",
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontFamily: "BeVietnamPro",
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            Switch(
+                              value: _staySignedIn,
+                              onChanged: (newVal) {
+                                setState(() {
+                                  _staySignedIn = newVal;
+                                });
+                              },
+                              activeTrackColor: const Color(0xffd72323),
+                              inactiveTrackColor: Colors.grey,
+                            ),
+                          ],
+                        )),
                   ])),
               const SizedBox(height: 48),
               Row(

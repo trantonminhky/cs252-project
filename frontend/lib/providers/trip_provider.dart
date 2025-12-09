@@ -8,7 +8,7 @@ part 'trip_provider.g.dart';
 
 @Riverpod(keepAlive: true)
 class Trip extends _$Trip {
-  final RegionService _regionService = RegionService();
+  final PlaceService _regionService = PlaceService();
 
   final Map<String, Place> _placeCache = {};
 
@@ -34,7 +34,7 @@ class Trip extends _$Trip {
           if (_placeCache.containsKey(placeId)) {
             places.add(_placeCache[placeId]!);
           } else {
-            final place = await _regionService.fetchPlacebyId(placeId);
+            final place = await _regionService.getPlaceByID(placeId);
             _placeCache[placeId] = place;
             places.add(place);
           }

@@ -24,7 +24,7 @@ class HomeScreen extends ConsumerStatefulWidget {
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   final TextEditingController _searchController = TextEditingController();
-  final RegionService _regionService = RegionService();
+  final PlaceService _regionService = PlaceService();
 
   List<Place> _topDestinations = [];
   List<Place> _allPlaces = []; // Cache for all places
@@ -51,29 +51,34 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     });
 
     final user = ref.read(userSessionProvider);
+
     if (user == null || user.userID.isEmpty) {
-      _topDestinations = [];
-      _isLoadingDestinations = false;
+      setState(() {
+        _topDestinations = [];
+        _isLoadingDestinations = false;
+      });
       return;
     }
 
     try {
       final userID = user.userID;
 
-      // Use default location (Ho Chi Minh City center) - can be replaced with user's actual location
-      const double lat = 10.8231;
-      const double lon = 106.6297;
+      // Fetch places once and cache them with timeout
+      _allPlaces = await _regionService
+          .getPlace("famous places", user.preferences, userID)
+          .timeout(
+        const Duration(seconds: 15),
+        onTimeout: () {
+          throw Exception('Request timed out. Please try again.');
+        },
+      );
 
-      // Fetch places once and cache them
-      //_allPlaces = await _regionService.getPlace("", []);
-
-      final locationIDs =
-          await _regionService.fetchRecommendations(userID, lat, lon);
-
-      _topDestinations = await _regionService.getAllPlaces(locationIDs);
+      //final locationIDs =
+      //    await _regionService.fetchRecommendations(userID, lat, lon);
 
       setState(() {
-        // _topDestinations = _allPlaces; // Can be filtered based on locationIds if needed
+        _topDestinations =
+            _allPlaces; // Can be filtered based on locationIds if needed
         _isLoadingDestinations = false;
       });
     } catch (e) {
@@ -81,12 +86,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         _errorMessage = 'Failed to load recommendations: $e';
         _isLoadingDestinations = false;
       });
-
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to load recommendations: $e')),
-        );
-      }
     }
   }
 
@@ -105,14 +104,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   builder: (context) => RegionOverview(
                     region: const Region(
                       id: "saigon",
-                      name: "Southern Vietnam",
+                      name: "Saigon",
                       description:
                           "Explore the vibrant culture and bustling cities of Southern Vietnam.",
-                      imageUrl: "../assets/images/regions/Saigon.jpg",
-                      //placeholder
-                      placesId: ["place1", "place2", "place3"],
+                      imageUrl: "../assets/images/places/Saigon.png",
+                      //67
+                      placesId: ["1", "70", "36", "2"],
                     ),
-                    currentFilter: FilterType.regionOverview,
+                    currentFilter: FilterType.region_overview,
                     places: _allPlaces,
                   ),
                 ),
@@ -198,6 +197,15 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
         return GestureDetector(
           onTap: () {
+            // Debug: Print place ID
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(
+                    'Place ID: ${place.id}, ImageLink: ${place.imageLink}'),
+                duration: const Duration(seconds: 2),
+              ),
+            );
+
             Navigator.push(
               context,
               CupertinoPageRoute(
@@ -208,7 +216,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           child: Briefing(
             size: BriefingSize.vert,
             title: place.name,
-            category: category.first,
+            category: category.isNotEmpty ? category.first : 'Place',
             imageUrl: place.imageLink,
           ),
         );

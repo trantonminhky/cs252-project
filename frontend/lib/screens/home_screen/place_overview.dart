@@ -69,17 +69,18 @@ class _PlaceOverviewState extends ConsumerState<PlaceOverview> {
                       icon: const Icon(CupertinoIcons.heart, size: 32),
                       onPressed: () async {
                         final user = ref.read(userSessionProvider);
-                        if (await RegionService().addSavedPlace(user!.userID, widget.place.id)) {
-                            if (context.mounted) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content:
-                                Text('${widget.place.name} added to Saved'),
-                            duration: const Duration(seconds: 3),
-                          ),
-                        );
-                            }
-                        }                       
+                        if (await PlaceService()
+                            .addSavedPlace(user!.userID, widget.place.id)) {
+                          if (context.mounted) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content:
+                                    Text('${widget.place.name} added to Saved'),
+                                duration: const Duration(seconds: 3),
+                              ),
+                            );
+                          }
+                        }
                       },
                     ))
               ]),
@@ -260,7 +261,9 @@ class _PlaceOverviewState extends ConsumerState<PlaceOverview> {
               ),
               const SizedBox(height: 16),
               FutureBuilder<List<Review>>(
-                future: ref.watch(reviewServiceProvider).getReviews(widget.place.name),
+                future: ref
+                    .watch(reviewServiceProvider)
+                    .getReviews(widget.place.name),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(
