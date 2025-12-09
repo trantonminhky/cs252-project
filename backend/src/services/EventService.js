@@ -151,6 +151,31 @@ class EventService {
 		return response;
 	}
 
+	/**
+	 * Service function for <code>/api/event/:eventID/participants/:userID</code>. Subscribes a user to an event. Supports <code>PUT</code> requests.
+	 * @param {String} userID - User's UUID
+	 * @param {String} eventID - Event's UUID
+	 * @returns {Promise<ServiceResponse>}
+	 * 
+	 * @example <caption>cURL</caption>
+	 * curl -X PUT http://localhost:3000/api/event/3378ce57-2118-471a-8ebf-85c29fb06ca7/participants/167612d0-8bf1-4b64-95ee-23887bb8d026
+	 * 
+	 * @example <caption>Response</caption>
+	 * {
+	 * 	"success": true,
+	 * 	"statusCode": 200,
+	 * 	"payload": {
+	 * 		"message": "Success (OK)",
+	 * 		"data": null
+	 * 	}
+	 * }
+	 * 
+	 * @property {OK} 200 - Successful request
+	 * @property {BAD_REQUEST} 400 - Missing user ID or event ID
+	 * @property {NOT_FOUND} 404 - Nonexistent user or event
+	 * @property {INTERNAL_SERVER_ERROR} 500 - Something went wrong with the backend (cooked)
+	 */
+
 	async subscribe(userID, eventID) {
 		EventDB.push(eventID, userID, "participants");
 		const response = new ServiceResponse(

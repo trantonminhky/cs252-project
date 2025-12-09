@@ -73,10 +73,13 @@ class EventController {
 
 	async subscribe(req, res, next) {
 		try {
-			const userID = req.body.userID;
-			const eventID = req.body.eventID;
+			const userID = req.params.userID;
+			const eventID = req.params.eventID;
 
-			if (!userID) {
+			console.log(`userID ${userID}`);
+			console.log(`eventID ${eventID}`);
+
+			if (userID === ':userID') {
 				const response = new ServiceResponse(
 					false,
 					400,
@@ -86,7 +89,7 @@ class EventController {
 				return void res.status(response.statusCode).json(response.get());;
 			}
 
-			if (!eventID) {
+			if (eventID === ':eventID') {
 				const response = new ServiceResponse(
 					false,
 					400,

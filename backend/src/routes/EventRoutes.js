@@ -19,11 +19,10 @@ router.all('/:eventID',
 	EventController.getEvent
 );
 
-router.all('/subscribe',
+router.all('/:eventID/participants/:userID',
 	ValidatorMiddleware.validateMethods(['PUT']),
-	ValidatorMiddleware.validateContentType, 
 	EventController.subscribe
-);
+)
 
 router.all('/unsubscribe',
 	ValidatorMiddleware.validateMethods(['POST']),
