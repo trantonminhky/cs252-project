@@ -16,10 +16,39 @@ const SALT_ROUNDS = 10;
  */
 class ProfileService {
 	/**
-	 * Service function for <code>/api/profile/register</code>. Creates a new user. The <code>Location</code> header contains 
-	 * @param {String} username - Username
-	 * @param {String} password - Password
+	 * Service function for <code>/api/profile/register</code>. Creates a new user. On success, the <code>Location</code> header in the response contains a URI to the user data. Supports <code>POST</code> requests.
+	 * @param {String} email - User's email. One email can only one correspond to one account
+	 * @param {String} password - User's password. The password will be stored as a one-way bcrypt hash
+	 * @param {String} name - User's personal name
+	 * @param {String} age - User's age
+	 * @param {String} type - What the user is registering as (tourist, business, etc.)
+	 * @param {String} username - User's username. Note that username is not unique
 	 * @returns {Promise<ServiceResponse>} Response
+	 * 
+	 * @example <caption>cURL</caption>
+	 * curl -X POST \
+	 * --header 'Content-Type: application/json' \
+	 * --data '{"email":"therealmiku39@gmail.com","username":"therealmiku","password":"m3g4-S3CU12E-p455VV012d","name":"Hatsune Miku","age":18,"type":"tourist"}' \
+	 * http://localhost:3000/api/profile/register
+	 * 
+	 * @example <caption>Response</caption>
+	 * {
+	 *	"success": true,
+	 *	"statusCode": 201,
+	 *	"payload": {
+	 *		"message": "Success (CREATED)",
+	 *		"data": {
+	 *			"userID": "167612d0-8bf1-4b64-95ee-23887bb8d026"
+	 *		}
+	 *	}
+	 * }
+	 * 
+	 * @property {CREATED} 201 - Successful request 
+	 * @property {BAD_REQUEST} 400 - Missing any of the required parameters, email is not an invalid email, username is not alphanumeric (must only contains a-z, A-Z, 0-9), or password is not valid (must only contains a-z, A-Z, 0-9, !@#$%^&*()_-+={}[]|\\:;"'<>,.?/~`)
+	 * @property {METHOD_NOT_ALLOWED} 405 - The endpoint does not support the HTTP method specified
+	 * @property {CONFLICT} 409 - An account already exists with the given email
+	 * @property {UNSUPPORTED_MEDIA} 415 - Request does not have <code>Content-Type:application/json</code> header
+	 * @property {INTERNAL_SERVER_ERROR} 500 - Something went wrong with the backend (cooked)
 	 */
 	async register(email, username, password, name, age, type) {
 		if (UserDB.findIndex(user => user.email === email)) {

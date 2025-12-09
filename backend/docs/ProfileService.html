@@ -187,7 +187,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ProfileService.js.html">ProfileService.js</a>, <a href="ProfileService.js.html#line213">line 213</a>
+        <a href="ProfileService.js.html">ProfileService.js</a>, <a href="ProfileService.js.html#line242">line 242</a>
     </li></ul></dd>
     
 
@@ -368,7 +368,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ProfileService.js.html">ProfileService.js</a>, <a href="ProfileService.js.html#line277">line 277</a>
+        <a href="ProfileService.js.html">ProfileService.js</a>, <a href="ProfileService.js.html#line306">line 306</a>
     </li></ul></dd>
     
 
@@ -522,7 +522,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ProfileService.js.html">ProfileService.js</a>, <a href="ProfileService.js.html#line81">line 81</a>
+        <a href="ProfileService.js.html">ProfileService.js</a>, <a href="ProfileService.js.html#line110">line 110</a>
     </li></ul></dd>
     
 
@@ -688,7 +688,7 @@
 
     
 
-    <h4 class="name" id="register"><span class="type-signature type-signature-async">(async) </span>register<span class="signature">(username, password)</span><span class="type-signature"> &rarr; {Promise.&lt;ServiceResponse>}</span></h4>
+    <h4 class="name" id="register"><span class="type-signature type-signature-async">(async) </span>register<span class="signature">(email, password, name, age, type, username)</span><span class="type-signature"> &rarr; {Promise.&lt;ServiceResponse>}</span></h4>
 
     
 
@@ -698,13 +698,13 @@
 <dl class="details">
     
     <dt class="tag-description">Description:</dt>
-    <dd class="tag-description"><ul class="dummy"><li><p>Service function for <code>/api/profile/register</code>. Creates a new user. The <code>Location</code> header contains</p></li></ul></dd>
+    <dd class="tag-description"><ul class="dummy"><li><p>Service function for <code>/api/profile/register</code>. Creates a new user. On success, the <code>Location</code> header in the response contains a URI to the user data. Supports <code>POST</code> requests.</p></li></ul></dd>
     
 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ProfileService.js.html">ProfileService.js</a>, <a href="ProfileService.js.html#line24">line 24</a>
+        <a href="ProfileService.js.html">ProfileService.js</a>, <a href="ProfileService.js.html#line53">line 53</a>
     </li></ul></dd>
     
 
@@ -741,12 +741,208 @@
 
 
 
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>201</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">CREATED</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Successful request</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>400</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">BAD_REQUEST</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Missing any of the required parameters, email is not an invalid email, username is not alphanumeric (must only contains a-z, A-Z, 0-9), or password is not valid (must only contains a-z, A-Z, 0-9, !@#$%^&amp;*()_-+={}[]|\:;&quot;'&lt;&gt;,.?/~`)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>405</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">METHOD_NOT_ALLOWED</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The endpoint does not support the HTTP method specified</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>409</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">CONFLICT</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>An account already exists with the given email</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>415</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">UNSUPPORTED_MEDIA</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Request does not have <code>Content-Type:application/json</code> header</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>500</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">INTERNAL_SERVER_ERROR</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Something went wrong with the backend (cooked)</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
 
 
 
 
 
 
+
+
+
+
+
+
+    <h5 class="h5-examples">Examples</h5>
+    
+        <p class="code-caption">cURL</p>
+    
+    <pre class="prettyprint"><code>curl -X POST \
+--header 'Content-Type: application/json' \
+--data '{"email":"therealmiku39@gmail.com","username":"therealmiku","password":"m3g4-S3CU12E-p455VV012d","name":"Hatsune Miku","age":18,"type":"tourist"}' \
+http://localhost:3000/api/profile/register</code></pre>
+
+        <p class="code-caption">Response</p>
+    
+    <pre class="prettyprint"><code>{
+	"success": true,
+	"statusCode": 201,
+	"payload": {
+		"message": "Success (CREATED)",
+		"data": {
+			"userID": "167612d0-8bf1-4b64-95ee-23887bb8d026"
+		}
+	}
+}</code></pre>
 
 
 
@@ -776,7 +972,7 @@
 
         <tr>
             
-                <td class="name"><code>username</code></td>
+                <td class="name"><code>email</code></td>
             
 
             <td class="type">
@@ -793,7 +989,7 @@
 
             
 
-            <td class="description last"><p>Username</p></td>
+            <td class="description last"><p>User's email. One email can only one correspond to one account</p></td>
         </tr>
 
     
@@ -817,7 +1013,103 @@
 
             
 
-            <td class="description last"><p>Password</p></td>
+            <td class="description last"><p>User's password. The password will be stored as a one-way bcrypt hash</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>User's personal name</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>age</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>User's age</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>What the user is registering as (tourist, business, etc.)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>username</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>User's username. Note that username is not unique</p></td>
         </tr>
 
     
@@ -886,7 +1178,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ProfileService.js.html">ProfileService.js</a>, <a href="ProfileService.js.html#line244">line 244</a>
+        <a href="ProfileService.js.html">ProfileService.js</a>, <a href="ProfileService.js.html#line273">line 273</a>
     </li></ul></dd>
     
 
@@ -1067,7 +1359,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ProfileService.js.html">ProfileService.js</a>, <a href="ProfileService.js.html#line192">line 192</a>
+        <a href="ProfileService.js.html">ProfileService.js</a>, <a href="ProfileService.js.html#line221">line 221</a>
     </li></ul></dd>
     
 
@@ -1251,7 +1543,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Tue Dec 09 2025 10:38:50 GMT+0700 (Indochina Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Tue Dec 09 2025 11:00:04 GMT+0700 (Indochina Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>
