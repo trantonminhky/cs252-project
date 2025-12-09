@@ -6,7 +6,6 @@ import 'package:virtour_frontend/global/colors.dart';
 import 'package:virtour_frontend/frontend_service_layer/auth_service.dart';
 import 'package:virtour_frontend/components/bottom_bar.dart';
 import 'package:virtour_frontend/providers/user_info_provider.dart';
-import 'package:virtour_frontend/global/userinfo.dart';
 
 class SignInForm extends ConsumerStatefulWidget {
   const SignInForm({super.key});
@@ -145,21 +144,6 @@ class _SignInFormState extends ConsumerState<SignInForm> {
                     //         ),
                     //       ],
                     //     )),
-                    // InkWell(
-                    //   onTap: () {},
-                    //   child: const Text(
-                    //     "Forgot password?",
-                    //     style: TextStyle(
-                    //       fontFamily: "BeVietnamPro",
-                    //       fontSize: 16,
-                    //       color: Colors.black,
-                    //       fontWeight: FontWeight.w600,
-                    //       decoration: TextDecoration.underline,
-                    //       decorationColor: Colors.black,
-                    //       decorationThickness: 1.8,
-                    //     ),
-                    //   ),
-                    // ),
                   ])),
               const SizedBox(height: 48),
               Row(
