@@ -13,19 +13,18 @@ collection = client.get_or_create_collection(
     name='ct_data',
     embedding_function=ef
 )
-# if (collection.count()==0):
 arch_info = ArchColInfo()
 collection.upsert(
     ids=arch_info.ids,
     documents=arch_info.documents,
     metadatas=arch_info.metadatas,
 )
-res_info = RestaurantColInfo()
-collection.upsert(
-    ids=res_info.ids,
-    documents=res_info.documents,
-    metadatas=res_info.metadatas,
-)
+# res_info = RestaurantColInfo()
+# collection.upsert(
+#     ids=res_info.ids,
+#     documents=res_info.documents,
+#     metadatas=res_info.metadatas,
+# )
 
 test_query = [
     # 1. Architecture & Style (Tests 'arch_style' and specific descriptive keywords)

@@ -1,14 +1,17 @@
+import "dart:async";
 import "package:flutter/material.dart";
 import "package:flutter/cupertino.dart";
 import "package:carousel_slider/carousel_slider.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:virtour_frontend/frontend_service_layer/place_service.dart";
+import "package:virtour_frontend/providers/user_info_provider.dart";
 import "package:virtour_frontend/screens/data_factories/place.dart";
 import "package:virtour_frontend/screens/data_factories/filter_type.dart";
 import "package:virtour_frontend/components/cards.dart";
-import "package:virtour_frontend/constants/userinfo.dart";
 import "package:virtour_frontend/screens/home_screen/place_overview.dart";
+import "package:virtour_frontend/frontend_service_layer/search_cache_service.dart";
 
-class SearchScreen extends StatefulWidget {
+class SearchScreen extends ConsumerStatefulWidget {
   final String? initialSelectedCategory;
 
   const SearchScreen({
@@ -17,17 +20,19 @@ class SearchScreen extends StatefulWidget {
   });
 
   @override
-  State<SearchScreen> createState() => _SearchScreenState();
+  ConsumerState<SearchScreen> createState() => _SearchScreenState();
 }
 
-class _SearchScreenState extends State<SearchScreen> {
+class _SearchScreenState extends ConsumerState<SearchScreen> {
   final TextEditingController _searchController = TextEditingController();
   final RegionService _regionService = RegionService();
-  final UserInfo _userInfo = UserInfo();
+  final SearchCacheService _cacheService = SearchCacheService();
+  Timer? _debounce;
 
   List<String> _availableCategories = [];
   List<String> _selectedCategories = [];
   List<Place> _searchResults = [];
+  List<Place> _recentPlaces = [];
   bool _isLoading = false;
   String? _errorMessage;
 
@@ -35,6 +40,10 @@ class _SearchScreenState extends State<SearchScreen> {
   void initState() {
     super.initState();
     _initializeCategories();
+    _loadRecentPlaces();
+
+    // Add listener to search controller for real-time search
+    _searchController.addListener(_onSearchChanged);
 
     // If an initial category is provided, make sure it's selected
     if (widget.initialSelectedCategory != null) {
@@ -53,9 +62,47 @@ class _SearchScreenState extends State<SearchScreen> {
     }
   }
 
+  void _onSearchChanged() {
+    // Cancel previous timer if it exists
+    if (_debounce?.isActive ?? false) _debounce!.cancel();
+
+    // Set a new timer for debouncing (500ms delay)
+    _debounce = Timer(const Duration(milliseconds: 500), () {
+      if (_searchController.text.isNotEmpty) {
+        _performSearch();
+      } else {
+        // Clear results when search is empty to show cache again
+        setState(() {
+          _searchResults = [];
+        });
+        // Reload recent places to ensure cache is fresh
+        _loadRecentPlaces();
+      }
+    });
+  }
+
+  Future<void> _loadRecentPlaces() async {
+    try {
+      final recent = await _cacheService.getCache();
+      if (mounted) {
+        setState(() {
+          _recentPlaces = recent.take(5).toList();
+        });
+      }
+    } catch (e) {
+      print('Error loading recent places: $e');
+      if (mounted) {
+        setState(() {
+          _recentPlaces = [];
+        });
+      }
+    }
+  }
+
   void _initializeCategories() {
     // Get user preferences
-    List<String> userPreferences = _userInfo.preferences;
+    final user = ref.read(userSessionProvider);
+    List<String> userPreferences = user?.preferences ?? [];
 
     // Get all available categories
     List<String> allCategories =
@@ -90,9 +137,12 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   Future<void> _performSearch() async {
+    if (!mounted) return;
+    
     setState(() {
       _isLoading = true;
       _errorMessage = null;
+      _searchResults = []; // Clear previous results immediately
     });
 
     try {
@@ -104,20 +154,35 @@ class _SearchScreenState extends State<SearchScreen> {
       // Query is now optional - use text if available, otherwise empty string
       final query = _searchController.text.trim();
 
+      // Fetch from API
       final results = await _regionService.getPlace(
         query,
         filtersToUse,
       );
-      setState(() {
-        _searchResults = results;
-        _isLoading = false;
-      });
+
+      if (mounted) {
+        setState(() {
+          _searchResults = results;
+          _isLoading = false;
+        });
+      }
     } catch (e) {
-      setState(() {
-        _errorMessage = e.toString();
-        _isLoading = false;
-      });
+      if (mounted) {
+        setState(() {
+          _errorMessage = e.toString();
+          _isLoading = false;
+        });
+      }
     }
+  }
+
+  void _navigateToRecentPlace(Place place) {
+    Navigator.push(
+      context,
+      CupertinoPageRoute(
+        builder: (context) => PlaceOverview(place: place),
+      ),
+    );
   }
 
   void _toggleCategory(String category) {
@@ -150,6 +215,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   void dispose() {
+    _debounce?.cancel();
     _searchController.dispose();
     super.dispose();
   }
@@ -184,6 +250,7 @@ class _SearchScreenState extends State<SearchScreen> {
                         hintStyle: TextStyle(
                           color: Colors.grey[400],
                           fontFamily: "BeVietnamPro",
+                          fontWeight: FontWeight.w400,
                         ),
                         prefixIcon: const Icon(CupertinoIcons.search),
                         filled: true,
@@ -217,7 +284,6 @@ class _SearchScreenState extends State<SearchScreen> {
               ),
             ),
 
-            // SizedBox with height 48
             const SizedBox(height: 16),
 
             // Two rows of category chips
@@ -266,6 +332,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           ),
                           child: Text(
                             _normalizeCategoryName(category),
+                            textAlign: TextAlign.center,
                             style: TextStyle(
                               color: isSelected ? Colors.white : chipColor,
                               fontSize: 14,
@@ -322,6 +389,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           ),
                           child: Text(
                             _normalizeCategoryName(category),
+                            textAlign: TextAlign.center,
                             style: TextStyle(
                               color: isSelected ? Colors.white : chipColor,
                               fontSize: 14,
@@ -356,17 +424,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           ),
                         )
                       : _searchResults.isEmpty
-                          ? Center(
-                              child: Text(
-                                _searchController.text.isEmpty
-                                    ? "Start typing to search..."
-                                    : "No places found",
-                                style: TextStyle(
-                                  color: Colors.grey[600],
-                                  fontFamily: "BeVietnamPro",
-                                ),
-                              ),
-                            )
+                          ? _buildEmptyState()
                           : ListView.builder(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 16),
@@ -392,6 +450,8 @@ class _SearchScreenState extends State<SearchScreen> {
                                         )
                                         .toList(),
                                     onTap: () {
+                                      // Add to cache when viewing
+                                      _cacheService.addCache(place);
                                       Navigator.push(
                                         context,
                                         CupertinoPageRoute(
@@ -407,6 +467,100 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildEmptyState() {
+    if (_searchController.text.isNotEmpty) {
+      return Center(
+        child: Text(
+          "No places found",
+          style: TextStyle(
+            color: Colors.grey[600],
+            fontFamily: "BeVietnamPro",
+          ),
+        ),
+      );
+    }
+
+    // Show recent places if available
+    if (_recentPlaces.isEmpty) {
+      return Center(
+        child: Text(
+          "Start typing to search...",
+          style: TextStyle(
+            color: Colors.grey[600],
+            fontFamily: "BeVietnamPro",
+          ),
+        ),
+      );
+    }
+
+    // Display recent places
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Recently Viewed",
+                style: TextStyle(
+                  color: Colors.grey[800],
+                  fontSize: 18,
+                  fontFamily: "BeVietnamPro",
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              TextButton(
+                onPressed: () async {
+                  await _cacheService.writeCache([]);
+                  await _loadRecentPlaces();
+                },
+                child: const Text(
+                  "Clear",
+                  style: TextStyle(
+                    color: Color(0xFFD72323),
+                    fontFamily: "BeVietnamPro",
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          Expanded(
+            child: ListView.builder(
+              itemCount: _recentPlaces.length,
+              itemBuilder: (context, index) {
+                final place = _recentPlaces[index];
+
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 12),
+                  child: Cards(
+                    size: CardSize.horiz,
+                    imageUrl: place.imageLink,
+                    title: place.name,
+                    subtitle: '${place.lat}, ${place.lon}',
+                    chips: place.tags.values
+                        .expand((list) => list)
+                        .take(2)
+                        .map(
+                          (cat) => (
+                            label: cat,
+                            backgroundColor: const Color(0xFFD72323)
+                          ),
+                        )
+                        .toList(),
+                    onTap: () => _navigateToRecentPlace(place),
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }

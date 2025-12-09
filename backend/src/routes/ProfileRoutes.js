@@ -20,11 +20,6 @@ router.all('/refresh',
 	profileController.refresh
 );
 
-router.all('/:userID',
-	ValidatorMiddleware.validateMethods(['GET', 'HEAD']),
-	profileController.getUser	
-);
-
 router.all('/preferences',
 	ValidatorMiddleware.validateMethods(['POST']),
 	ValidatorMiddleware.validateContentType,
@@ -33,8 +28,19 @@ router.all('/preferences',
 
 router.all('/saved-places',
 	ValidatorMiddleware.validateMethods(['GET', 'POST', 'DELETE', 'HEAD']),
-	ValidatorMiddleware.validateContentType,
+	(req, res, next) => {
+		// Only validate Content-Type for POST and DELETE
+		if (req.method === 'POST' || req.method === 'DELETE') {
+			return ValidatorMiddleware.validateContentType(req, res, next);
+		}
+		next();
+	},
 	profileController.savedPlacesController
+);
+
+router.all('/:userID',
+	ValidatorMiddleware.validateMethods(['GET', 'HEAD']),
+	profileController.getUser	
 );
 
 export default router;

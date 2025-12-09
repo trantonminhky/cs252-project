@@ -11,13 +11,13 @@ import "package:virtour_frontend/frontend_service_layer/place_service.dart";
 
 class RegionOverview extends StatefulWidget {
   final Region region;
-  late final List<Place> places;
+  final List<Place> places;
   final FilterType currentFilter;
-  RegionOverview({
+  const RegionOverview({
     super.key,
     required this.region,
     required this.currentFilter,
-    places = const [],
+    required this.places,
   });
 
   @override

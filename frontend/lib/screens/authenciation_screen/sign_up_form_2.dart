@@ -1,27 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:virtour_frontend/constants/userinfo.dart';
 import 'package:virtour_frontend/components/custom_text_field.dart';
 
-class SignUpForm2 extends StatelessWidget {
+class SignUpForm2 extends StatefulWidget {
   final Function onNext;
   final Function onPrevious;
+  final TextEditingController usernameController;
   final TextEditingController nameController;
   final TextEditingController ageController;
-  final UserInfo userInfo;
+  final TextEditingController userTypeController;
 
   const SignUpForm2({
     super.key,
     required this.onNext,
     required this.onPrevious,
+    required this.usernameController,
     required this.nameController,
     required this.ageController,
-    required this.userInfo,
+    required this.userTypeController,
   });
 
   @override
+  State<SignUpForm2> createState() => _SignUpForm2State();
+}
+
+class _SignUpForm2State extends State<SignUpForm2> {
+  @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 16, left: 32, right: 32),
+      padding: const EdgeInsets.only(top: 5, left: 32, right: 32),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -38,22 +44,28 @@ class SignUpForm2 extends StatelessWidget {
           ),
           const SizedBox(height: 24),
           MyTextField(
-            textEditingController: nameController,
+            textEditingController: widget.usernameController,
+            label: "Username",
+            hintText: "Enter your username",
+          ),
+          const SizedBox(height: 30),
+          MyTextField(
+            textEditingController: widget.nameController,
             label: "Name",
             hintText: "First name - Last name",
           ),
-          const SizedBox(height: 48),
+          const SizedBox(height: 30),
           MyTextField(
-            textEditingController: ageController,
+            textEditingController: widget.ageController,
             label: "Age",
             digitsOnly: true,
           ),
-          const SizedBox(height: 48),
+          const SizedBox(height: 30),
           const Text(
             "I am signing up as a...",
             style: TextStyle(
               color: Colors.black,
-              fontSize: 16,
+              fontSize: 18,
               fontFamily: "BeVietnamPro",
               fontWeight: FontWeight.w700,
               height: 1.25,
@@ -92,18 +104,17 @@ class SignUpForm2 extends StatelessWidget {
               ),
             ),
             onChanged: (String? value) {
-              UserInfo().userType =
-                  (value == 'Tourist') ? UserType.tourist : UserType.business;
+              widget.userTypeController.text = value ?? "Tourist";
             },
           ),
-          const SizedBox(height: 96),
+          const SizedBox(height: 30),
           Padding(
             padding: EdgeInsets.zero,
             child: Row(
               children: [
                 Expanded(
                   child: GestureDetector(
-                    onTap: () => onPrevious(),
+                    onTap: () => widget.onPrevious(),
                     child: Container(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 32, vertical: 16),
@@ -133,7 +144,7 @@ class SignUpForm2 extends StatelessWidget {
                 const SizedBox(width: 20),
                 Expanded(
                   child: GestureDetector(
-                    onTap: () => onNext(),
+                    onTap: () => widget.onNext(),
                     child: Container(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 32, vertical: 16),

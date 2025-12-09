@@ -1,5 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:virtour_frontend/frontend_service_layer/event_service.dart';
+import 'package:virtour_frontend/providers/user_info_provider.dart';
 import 'package:virtour_frontend/screens/data_factories/event.dart';
 
 part 'event_provider.g.dart';
@@ -8,6 +9,7 @@ part 'event_provider.g.dart';
 class Events extends _$Events {
   @override
   FutureOr<List<Event>> build() async {
+    ref.watch(userSessionProvider);
     return await EventService().fetchEvents() ?? List<Event>.empty();
   }
 
@@ -33,8 +35,7 @@ class Events extends _$Events {
   }
 
   Future<void> refresh() async {
-    state = const AsyncValue.loading();
-    state =
-        await AsyncValue.guard(() async => await EventService().fetchEvents() ?? List<Event>.empty());
+    ref.invalidateSelf();
+    await future;
   }
 }

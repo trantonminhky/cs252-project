@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:cached_network_image/cached_network_image.dart";
 
 enum BriefingSize { full, vert, horiz }
 
@@ -18,6 +19,21 @@ class Briefing extends StatelessWidget {
   final String category;
   final String? imageUrl;
 
+  ImageProvider _getImageProvider(String defaultPlaceholder) {
+    final bool isAssetImage = imageUrl?.startsWith('../assets/') == true ||
+        imageUrl?.startsWith('assets/') == true;
+    
+    if (isAssetImage) {
+      final String cleanedImageUrl = imageUrl!.replaceFirst('../', '');
+      return AssetImage(cleanedImageUrl);
+    } else {
+      // Use CachedNetworkImageProvider instead of NetworkImage
+      return CachedNetworkImageProvider(
+        imageUrl ?? defaultPlaceholder,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     switch (size) {
@@ -31,13 +47,8 @@ class Briefing extends StatelessWidget {
   }
 
   Widget _buildHorizontalBriefing() {
-    final bool isAssetImage = imageUrl?.startsWith('../assets/') == true ||
-        imageUrl?.startsWith('assets/') == true;
-    final String? cleanedImageUrl = imageUrl?.replaceFirst('../', '');
-    final ImageProvider imageProvider = isAssetImage
-        ? AssetImage(cleanedImageUrl!)
-        : NetworkImage(imageUrl ?? "https://via.placeholder.com/372x167")
-            as ImageProvider;
+    final ImageProvider imageProvider = 
+        _getImageProvider("https://via.placeholder.com/372x167");
 
     return Container(
       width: 372,
@@ -142,13 +153,8 @@ class Briefing extends StatelessWidget {
   }
 
   Widget _buildVerticalBriefing() {
-    final bool isAssetImage = imageUrl?.startsWith('../assets/') == true ||
-        imageUrl?.startsWith('assets/') == true;
-    final String? cleanedImageUrl = imageUrl?.replaceFirst('../', '');
-    final ImageProvider imageProvider = isAssetImage
-        ? AssetImage(cleanedImageUrl!)
-        : NetworkImage(imageUrl ?? "https://via.placeholder.com/176x300")
-            as ImageProvider;
+    final ImageProvider imageProvider = 
+        _getImageProvider("https://via.placeholder.com/176x300");
 
     return Container(
       width: 176,
@@ -228,13 +234,8 @@ class Briefing extends StatelessWidget {
   }
 
   Widget _buildFullBriefing() {
-    final bool isAssetImage = imageUrl?.startsWith('../assets/') == true ||
-        imageUrl?.startsWith('assets/') == true;
-    final String? cleanedImageUrl = imageUrl?.replaceFirst('../', '');
-    final ImageProvider imageProvider = isAssetImage
-        ? AssetImage(cleanedImageUrl!)
-        : NetworkImage(imageUrl ?? "https://via.placeholder.com/372x300")
-            as ImageProvider;
+    final ImageProvider imageProvider = 
+        _getImageProvider("https://via.placeholder.com/372x300");
 
     return Container(
       width: 372,

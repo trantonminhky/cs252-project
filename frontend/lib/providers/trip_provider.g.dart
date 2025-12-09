@@ -32,7 +32,7 @@ final class TripProvider extends $AsyncNotifierProvider<Trip, Set<Place>> {
   Trip create() => Trip();
 }
 
-String _$tripHash() => r'94ce0e4e34a67bef90728e5e61a239d7935dba4c';
+String _$tripHash() => r'2b4579c6161147f2b33406000b244e2c83ce9d10';
 
 abstract class _$Trip extends $AsyncNotifier<Set<Place>> {
   FutureOr<Set<Place>> build();

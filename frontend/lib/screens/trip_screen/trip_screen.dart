@@ -3,6 +3,7 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:virtour_frontend/frontend_service_layer/event_service.dart";
 import "package:virtour_frontend/providers/event_provider.dart";
 import "package:virtour_frontend/providers/participated_events_provider.dart";
+import "package:virtour_frontend/providers/user_info_provider.dart";
 import "package:virtour_frontend/screens/trip_screen/trip_screen_content.dart";
 import "package:virtour_frontend/screens/trip_screen/create_options_dialog.dart";
 import "package:virtour_frontend/screens/trip_screen/create_event_form.dart";
@@ -43,7 +44,12 @@ class TripScreen extends ConsumerWidget {
             ),
           );
 
-          await EventService().subscribeToEvent(apiResult["id"]);
+          final user = ref.read(userSessionProvider);
+          if (user == null || user.userID.isEmpty) {
+            print("User is null or userID is empty");
+            return;
+          }
+          await EventService().subscribeToEvent(user.userID, apiResult["id"]);
 
           // Refresh participated events and all events
           ref.read(participatedEventsProvider.notifier).refresh();

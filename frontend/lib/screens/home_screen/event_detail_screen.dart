@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:virtour_frontend/frontend_service_layer/event_service.dart';
+import 'package:virtour_frontend/providers/user_info_provider.dart';
 import 'package:virtour_frontend/screens/data_factories/event.dart';
 import 'package:virtour_frontend/providers/participated_events_provider.dart';
 
@@ -285,7 +286,10 @@ class EventDetailScreen extends ConsumerWidget {
               ),
             ),
             onPressed: () async {
-              final success = await EventService().subscribeToEvent(event.id);
+              final user = ref.read(userSessionProvider);
+              if (user == null || user.userID.isEmpty) return;
+              final success =
+                  await EventService().subscribeToEvent(user.userID, event.id);
 
               if (!success && context.mounted) {
                 Navigator.of(context).pop();
@@ -371,8 +375,10 @@ class EventDetailScreen extends ConsumerWidget {
               ),
             ),
             onPressed: () async {
-              final success =
-                  await EventService().unsubscribeFromEvent(event.id);
+              final user = ref.read(userSessionProvider);
+              if (user == null || user.userID.isEmpty) return;
+              final success = await EventService()
+                  .unsubscribeFromEvent(user.userID, event.id);
 
               if (!success && context.mounted) {
                 Navigator.of(context).pop();
