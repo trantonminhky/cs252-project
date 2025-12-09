@@ -67,13 +67,13 @@ class EventService {
               }
 
               eventsList.add(Event(
-                id: key,
-                name: value["name"] ?? 'Unnamed Event',
-                location: value["location"] ?? "TBD",
-                description: value["description"] ?? '',
+                id: key.toString(), // Convert key to String
+                name: value["name"]?.toString() ?? 'Unnamed Event',
+                location: value["location"]?.toString() ?? "TBD",
+                description: value["description"]?.toString() ?? '',
                 startTime: parseTimestamp(value["startTime"]),
                 endTime: parseTimestamp(value["endTime"]),
-                imageUrl: value["imageLink"] ?? '',
+                imageUrl: value["imageLink"]?.toString() ?? '',
                 numberOfPeople: (value["participants"] as List?)?.length ?? 0,
               ));
             });
