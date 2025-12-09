@@ -128,24 +128,24 @@ class EventController {
 
 	async unsubscribe(req, res, next) {
 		try {
-			const userID = req.body.userID;
-			const eventID = req.body.eventID;
+			const userID = req.params.userID;
+			const eventID = req.params.eventID;
 
-			if (!userID) {
+			if (userID === ':userID') {
 				const response = new ServiceResponse(
 					false,
-					400,
-					"User ID is required"
+					404,
+					"Route not found"
 				);
 
 				return void res.status(response.statusCode).json(response.get());;
 			}
 
-			if (!eventID) {
+			if (eventID === ':eventID') {
 				const response = new ServiceResponse(
 					false,
-					400,
-					"Event ID is required"
+					404,
+					"Route not found"
 				);
 
 				return void res.status(response.statusCode).json(response.get());;
@@ -155,7 +155,7 @@ class EventController {
 				const response = new ServiceResponse(
 					false,
 					404,
-					"User ID not found"
+					"User not found"
 				);
 
 				return void res.status(response.statusCode).json(response.get());;

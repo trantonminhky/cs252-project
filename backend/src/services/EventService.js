@@ -174,7 +174,6 @@ class EventService {
 	 * @property {NOT_FOUND} 404 - Missing user ID or event ID, or nonexistent user or event
 	 * @property {INTERNAL_SERVER_ERROR} 500 - Something went wrong with the backend (cooked)
 	 */
-
 	async subscribe(userID, eventID) {
 		EventDB.push(eventID, userID, "participants");
 		const response = new ServiceResponse(

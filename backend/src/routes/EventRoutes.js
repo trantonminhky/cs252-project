@@ -10,7 +10,7 @@ router.all('/import',
 
 router.all('/',
 	ValidatorMiddleware.validateMethods(['POST']),
-	ValidatorMiddleware.validateContentType, 
+	ValidatorMiddleware.validateContentType,
 	EventController.createEvent
 );
 
@@ -20,15 +20,14 @@ router.all('/:eventID',
 );
 
 router.all('/:eventID/participants/:userID',
-	ValidatorMiddleware.validateMethods(['PUT']),
-	EventController.subscribe
+	ValidatorMiddleware.validateMethods(['PUT', 'DELETE']), async (req, res, next) => {
+		if (req.method === 'PUT') {
+			await EventController.subscribe(req, res, next);
+		} else if (req.method === 'DELETE') {
+			await EventController.unsubscribe(req, res, next);
+		}
+	}
 )
-
-router.all('/unsubscribe',
-	ValidatorMiddleware.validateMethods(['POST']),
-	ValidatorMiddleware.validateContentType, 
-	EventController.unsubscribe
-);
 
 router.all('/get-by-userid',
 	ValidatorMiddleware.validateMethods(['GET', 'HEAD']),
