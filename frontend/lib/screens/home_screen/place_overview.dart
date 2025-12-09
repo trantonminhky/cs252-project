@@ -53,7 +53,7 @@ class _PlaceOverviewState extends ConsumerState<PlaceOverview> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Back button
-              Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
@@ -62,7 +62,6 @@ class _PlaceOverviewState extends ConsumerState<PlaceOverview> {
                     onPressed: () => Navigator.pop(context),
                   ),
                 ),
-                const SizedBox(width: 78),
                 Padding(
                     padding: const EdgeInsets.symmetric(
                         vertical: 16, horizontal: 16),
