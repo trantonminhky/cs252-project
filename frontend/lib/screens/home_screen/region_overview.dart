@@ -41,7 +41,11 @@ class _RegionOverviewState extends ConsumerState<RegionOverview> {
   void initState() {
     super.initState();
     _currentFilter = widget.currentFilter;
-    _loadPlaces(widget.region);
+
+    // Defer loading until after first frame to ensure context is ready
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _loadPlaces(widget.region);
+    });
   }
 
   Future<void> _loadPlaces(Region region) async {
@@ -55,14 +59,7 @@ class _RegionOverviewState extends ConsumerState<RegionOverview> {
       if (_currentFilter == FilterType.region_overview) {
         places = await Future.wait(
           region.placesId.map((id) async {
-            if (mounted) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text('Loading place ID: $id'),
-                  duration: const Duration(seconds: 1),
-                ),
-              );
-            }
+            print('Loading place ID: $id');
             return _regionService.getPlaceByID(id);
           }),
         );

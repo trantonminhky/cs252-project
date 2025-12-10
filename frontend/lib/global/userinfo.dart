@@ -1,6 +1,3 @@
-import "dart:convert";
-import "package:flutter/services.dart" show rootBundle;
-
 enum UserType { business, tourist }
 
 class UserInfo {
@@ -11,17 +8,8 @@ class UserInfo {
   final UserType userType;
   final List<String> preferences;
 
-  static String tunnelUrl = "http://10.0.2.2:3000";
-
-  static Future<void> initTunnelURL() async {
-    try {
-      final jsonString = await rootBundle.loadString('assets/helper.json');
-      final jsonMap = json.decode(jsonString);
-      tunnelUrl = jsonMap['tunnel'];
-    } catch (e) {
-      throw ("Error loading helper.json: $e");
-    }
-  }
+  static String tunnelUrl =
+      "https://gap-lodging-transparency-increase.trycloudflare.com";
 
   const UserInfo({
     required this.userSessionToken,
@@ -59,7 +47,7 @@ class UserInfo {
     String? userSessionToken,
     String? userID,
     String? username,
-    String? discriminant, 
+    String? discriminant,
     UserType? userType,
     List<String>? preferences,
   }) {

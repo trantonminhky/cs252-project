@@ -41,6 +41,10 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
   @override
   void initState() {
     super.initState();
+
+    // Fetch and update user preferences
+    ref.read(userSessionProvider.notifier).fetchAndUpdatePreferences();
+
     _initializeCategories();
     _loadRecentPlaces();
 

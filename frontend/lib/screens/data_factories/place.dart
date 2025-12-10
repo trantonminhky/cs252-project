@@ -25,13 +25,13 @@ class Place {
   });
 
   factory Place.fromJson(Map<String, dynamic> json) {
-    print('Place.fromJson input: $json');
-    print('JSON keys: ${json.keys.toList()}');
-
     final place = Place(
       id: json['image id']?.toString() ?? json['id']?.toString() ?? '',
       name: json['name'] ?? '',
-      tags: _parseTags(json['tags']),
+      tags: _parseTags(json['tags'] ??
+          json['tag'] ??
+          json['categories'] ??
+          json['category']),
       //imageLink: json['imageLink'] ?? json['image_link'] ?? '',
       description: json['description'] ?? '',
       lat: (json['lat'] ?? json['latitude'] ?? 0).toDouble(),
@@ -42,7 +42,7 @@ class Place {
     );
 
     print(
-        'Created Place - id: ${place.id}, name: ${place.name}, lat: ${place.lat}, lon: ${place.lon}');
+        'Created Place - id: ${place.id}, name: ${place.name}, tags: ${place.tags}, lat: ${place.lat}, lon: ${place.lon}');
     return place;
   }
 
@@ -64,17 +64,26 @@ class Place {
   }
 
   static Map<String, List<String>> _parseTags(dynamic tags) {
+    print('_parseTags input: $tags');
+    print('_parseTags type: ${tags.runtimeType}');
+
     final parsedTags = <String, List<String>>{};
 
     if (tags != null && tags is Map) {
       tags.forEach((key, value) {
+        print('Tag key: $key, value: $value, value type: ${value.runtimeType}');
         if (value is List) {
           parsedTags[key.toString()] =
               value.map((item) => item.toString()).toList();
         }
       });
+    } else if (tags != null && tags is List) {
+      // Handle if tags is a flat list instead of a map
+      print('Tags is a List, not a Map');
+      parsedTags['general'] = tags.map((item) => item.toString()).toList();
     }
 
+    print('Parsed tags result: $parsedTags');
     return parsedTags;
   }
 

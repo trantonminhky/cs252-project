@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:virtour_frontend/global/userinfo.dart';
 import 'package:virtour_frontend/screens/introduction_screen/introduction_screen.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await UserInfo.initTunnelURL();
-
+void main() {
   runApp(const ProviderScope(child: MyApp()));
 }
 

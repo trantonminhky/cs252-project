@@ -65,7 +65,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
       // Fetch places once and cache them with timeout
       _allPlaces = await _regionService
-          .getPlace("place", user.preferences, userID)
+          .getPlace("place", ["marketplace", "modernism"], userID)
           .timeout(
         const Duration(seconds: 15),
         onTimeout: () {
@@ -186,12 +186,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       autoPlay: true,
       items: _topDestinations.map((place) {
         // Extract first available category from tags
-        List<String> category =
-            ref.read(userSessionProvider)?.preferences ?? [];
+        String category = 'Place of Worship';
         if (place.tags.isNotEmpty) {
-          final firstTagList = place.tags;
+          // Get the first value list from tags
+          final firstTagList = place.tags.values.first;
           if (firstTagList.isNotEmpty) {
-            category = firstTagList.keys.toList();
+            category = firstTagList.first;
           }
         }
 
@@ -207,7 +207,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           child: Briefing(
             size: BriefingSize.vert,
             title: place.name,
-            category: category.isNotEmpty ? category.first : 'Place',
+            category: category,
             imageUrl: place.imageLink,
           ),
         );

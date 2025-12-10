@@ -53,6 +53,14 @@ class _MapScreenState extends ConsumerState<MapScreen> {
     final initialPlace = ref.read(selectedPlaceProvider);
     if (initialPlace != null) {
       _fetchAddress(initialPlace.lat, initialPlace.lon);
+
+      // Schedule map move after first frame when place is already selected
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) {
+          _safeMapMove(LatLng(initialPlace.lat, initialPlace.lon), 15.0,
+              bottomPadding: 300);
+        }
+      });
     }
   }
 
@@ -81,9 +89,14 @@ class _MapScreenState extends ConsumerState<MapScreen> {
         });
 
         // Center map on user location if no place is selected
+        // Defer until after the map widget is built
         final selectedPlace = ref.read(selectedPlaceProvider);
         if (selectedPlace == null) {
-          _safeMapMove(initialLocation, 15.0);
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (mounted) {
+              _safeMapMove(initialLocation, 15.0);
+            }
+          });
         }
 
         // Start listening to location updates
