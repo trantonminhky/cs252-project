@@ -1,0 +1,6 @@
+pandas
+sentence_transformers
+chromadb
+fastapi
+uvicorn
+rank_bm25

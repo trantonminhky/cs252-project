@@ -1,7 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:virtour_frontend/constants/userinfo.dart';
-import 'package:virtour_frontend/components/custom_text_field.dart';
 import 'package:virtour_frontend/screens/data_factories/filter_type.dart';
 
 class SignUpForm3 extends StatefulWidget {
@@ -34,7 +31,7 @@ class _SignUpForm3State extends State<SignUpForm3> {
     super.initState();
     // Initialize all categories as collapsed
     for (var category in FilterType.values) {
-      if (category != FilterType.regionOverview) {
+      if (category != FilterType.region_overview) {
         _expandedCategories[category] = false;
       }
     }
@@ -90,15 +87,11 @@ class _SignUpForm3State extends State<SignUpForm3> {
   }
 
   String _formatCategoryName(String name) {
-    // Convert camelCase to Title Case with spaces
+    // Convert snake_case to Title Case with spaces
     return name
-        .replaceAllMapped(
-          RegExp(r'([A-Z])'),
-          (match) => ' ${match.group(0)}',
-        )
-        .trim()
-        .split(' ')
-        .map((word) => word[0].toUpperCase() + word.substring(1))
+        .split('_')
+        .map((word) =>
+            word.isNotEmpty ? word[0].toUpperCase() + word.substring(1) : '')
         .join(' ');
   }
 
@@ -140,7 +133,7 @@ class _SignUpForm3State extends State<SignUpForm3> {
     final List<Widget> rows = [];
 
     for (var mainCategory in FilterType.values) {
-      if (mainCategory == FilterType.regionOverview) continue;
+      if (mainCategory == FilterType.region_overview) continue;
 
       final isMainSelected = _selectedMainCategories.contains(mainCategory);
       final isExpanded = _expandedCategories[mainCategory] ?? false;

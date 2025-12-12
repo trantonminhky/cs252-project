@@ -1,33 +1,36 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:virtour_frontend/components/custom_text_field.dart';
-import 'package:virtour_frontend/constants/colors.dart';
+import 'package:virtour_frontend/global/colors.dart';
 import 'package:virtour_frontend/frontend_service_layer/auth_service.dart';
 import 'package:virtour_frontend/components/bottom_bar.dart';
+import 'package:virtour_frontend/providers/user_info_provider.dart';
 
-class SignInForm extends StatefulWidget {
+class SignInForm extends ConsumerStatefulWidget {
   const SignInForm({super.key});
 
   @override
-  State<SignInForm> createState() => _SignInFormState();
+  ConsumerState<SignInForm> createState() => _SignInFormState();
 }
 
-class _SignInFormState extends State<SignInForm> {
-  late final TextEditingController _usernameController;
+class _SignInFormState extends ConsumerState<SignInForm> {
+  late final TextEditingController _emailController;
   late final TextEditingController _passwordController;
   static final AuthService _authService = AuthService();
   bool _isLoading = false;
+  bool _staySignedIn = false;
 
   @override
   void initState() {
     super.initState();
-    _usernameController = TextEditingController();
+    _emailController = TextEditingController();
     _passwordController = TextEditingController();
   }
 
   @override
   void dispose() {
-    _usernameController.dispose();
+    _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
   }
@@ -42,7 +45,7 @@ class _SignInFormState extends State<SignInForm> {
   }
 
   Future<void> _handleSignIn() async {
-    if (_usernameController.text.isEmpty) {
+    if (_emailController.text.isEmpty) {
       _showSnackBar("Please enter your username.");
       return;
     }
@@ -54,27 +57,25 @@ class _SignInFormState extends State<SignInForm> {
     setState(() => _isLoading = true);
 
     try {
-      final result = await _authService.signIn(
-          _usernameController.text, _passwordController.text);
+      final userInfo = await _authService.signIn(
+          _emailController.text, _passwordController.text);
 
       if (!mounted) return;
 
       setState(() => _isLoading = false);
 
-      switch (result['success']) {
-        case true:
-          _showSnackBar("Sign in successful! Navigating to home...");
-          if (mounted) {
-            await Navigator.of(context).pushReplacement(
-              CupertinoPageRoute(builder: (context) => const BottomNavBar()),
-            );
-          }
-          break;
-        case false:
-          _showSnackBar("Sign in failed. Reason: ${result['message']}");
-          break;
-        default:
-          _showSnackBar("An unexpected error occurred.");
+      if (userInfo != null) {
+        ref.read(userSessionProvider.notifier).setUser(userInfo);
+
+        _showSnackBar("Sign in successful! Navigating to home...");
+
+        if (mounted) {
+          await Navigator.of(context).pushReplacement(
+            CupertinoPageRoute(builder: (context) => const BottomNavBar()),
+          );
+        }
+      } else {
+        _showSnackBar("Sign in failed. An unexpected error occurred");
       }
     } catch (e) {
       if (!mounted) return;
@@ -103,9 +104,9 @@ class _SignInFormState extends State<SignInForm> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               MyTextField(
-                textEditingController: _usernameController,
-                label: "Username",
-                prefixIcon: CupertinoIcons.person,
+                textEditingController: _emailController,
+                label: "Email",
+                prefixIcon: CupertinoIcons.mail,
               ),
               const SizedBox(height: 30),
               MyTextField(
@@ -116,23 +117,35 @@ class _SignInFormState extends State<SignInForm> {
               ),
               const SizedBox(height: 5),
               Align(
-                alignment: Alignment.topRight,
-                child: InkWell(
-                  onTap: () {},
-                  child: const Text(
-                    "Forgot password?",
-                    style: TextStyle(
-                      fontFamily: "BeVietnamPro",
-                      fontSize: 16,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w600,
-                      decoration: TextDecoration.underline,
-                      decorationColor: Colors.black,
-                      decorationThickness: 1.8,
-                    ),
-                  ),
-                ),
-              ),
+                  alignment: Alignment.center,
+                  child: Row(children: [
+                    Padding(
+                        padding: const EdgeInsets.only(top: 12),
+                        child: Row(
+                          children: [
+                            const Text(
+                              "Stay signed in",
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontFamily: "BeVietnamPro",
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            Switch(
+                              value: _staySignedIn,
+                              onChanged: (newVal) {
+                                setState(() {
+                                  _staySignedIn = newVal;
+                                });
+                              },
+                              activeTrackColor: const Color(0xffd72323),
+                              inactiveTrackColor: Colors.grey,
+                            ),
+                          ],
+                        )),
+                  ])),
               const SizedBox(height: 48),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

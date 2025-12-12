@@ -1,8 +1,6 @@
 import ServiceResponse from '../helper/ServiceResponse.js';
 import DBService from '../services/DBService.js';
 
-// TO-DO: DOCUMENT CONTROLLER CLASSES
-
 class DBController {
 	async clear(req, res, next) {
 		try {
@@ -15,11 +13,11 @@ class DBController {
 					`Database name is required`
 				);
 
-				return res.status(response.statusCode).json(response.get());
+				return void res.status(response.statusCode).json(response.get());
 			}
 
 			const response = await DBService.clear(name);
-			res.status(response.statusCode).json(response.get());
+			return void res.status(response.statusCode).json(response.get());
 		} catch (err) {
 			next(err);
 		}
@@ -28,7 +26,7 @@ class DBController {
 	async clearAll(req, res, next) {
 		try {
 			const response = await DBService.clearAll();
-			res.status(response.statusCode).json(response.get());
+			return void res.status(response.statusCode).json(response.get());
 		} catch (err) {
 			next(err);
 		}
@@ -45,11 +43,11 @@ class DBController {
 					`Database name is required`
 				);
 
-				return res.status(response.statusCode).json(response.get());
+				return void res.status(response.statusCode).json(response.get());
 			}
 
 			const response = await DBService.export(name);
-			res.status(response.statusCode).json(response.get());
+			return void res.status(response.statusCode).json(response.get());
 		} catch (err) {
 			next(err);
 		}
@@ -58,7 +56,7 @@ class DBController {
 	async exportAll(req, res, next) {
 		try {
 			const response = await DBService.exportAll();
-			res.status(response.statusCode).json(response.get());
+			return void res.status(response.statusCode).json(response.get());
 		} catch (err) {
 			next(err);
 		}

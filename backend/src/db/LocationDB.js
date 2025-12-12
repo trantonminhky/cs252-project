@@ -20,17 +20,18 @@
 	}, ...
 */
 
+import Enmap from 'enmap';
+import unwrapTyped from '../helper/unwrapTyped.js';
+
 class LocationDB {
 	constructor() {
-		import('enmap').then(async ({ default: Enmap }) => {
-			this.db = new Enmap({ name: 'LocationDB' });
-		});
+		this.db = new Enmap({ name: 'LocationDB' });
+
 	}
 
 	set(key, val, path) {
 		try {
 			this.db.set(key, val, path);
-			// console.log(`SessionTokensDB set key=${key} val=${JSON.stringify(val)} success at path ${path}`);
 		} catch (err) {
 			console.error(err);
 		}
@@ -39,7 +40,6 @@ class LocationDB {
 	get(key, path) {
 		try {
 			const value = this.db.get(key, path);
-			// console.log(`SessionTokensDB get key=${key} returns ${value}`)
 			return value;
 		} catch (err) {
 			console.error(err);
@@ -49,7 +49,6 @@ class LocationDB {
 	delete(key, path) {
 		try {
 			this.db.delete(key, path);
-			// console.log(`SessionTokensDB delete key=${key}`);
 		} catch (err) {
 			console.error(err);
 		}
@@ -72,12 +71,16 @@ class LocationDB {
 	}
 
 	export() {
-		try {
-			const exp = this.db.export();
-			return exp;
-		} catch (err) {
-			console.error(err);
+		const data = {};
+		const parse = JSON.parse(this.db.export());
+		const name = parse.v.name.v;
+		for (const entry of parse.v.keys.v) {
+			data[entry.v.key.v] = unwrapTyped(JSON.parse(entry.v.value.v));
 		}
+		return {
+			name: name,
+			data: data
+		};
 	}
 }
 

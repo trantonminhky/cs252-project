@@ -1,12 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:virtour_frontend/providers/user_info_provider.dart';
+import 'package:virtour_frontend/screens/introduction_screen/introduction_screen.dart';
 import 'package:virtour_frontend/screens/profile_screen/region_progress_page.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final user = ref.read(userSessionProvider);
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -17,14 +21,14 @@ class ProfileScreen extends StatelessWidget {
               Row(
                 children: [
                   RichText(
-                    text: const TextSpan(
-                      style: TextStyle(
+                    text: TextSpan(
+                      style: const TextStyle(
                         fontFamily: "BeVietnamPro",
                         fontWeight: FontWeight.w700,
                         letterSpacing: -1,
                       ),
                       children: [
-                        TextSpan(
+                        const TextSpan(
                           text: "Welcome back,\n",
                           style: TextStyle(
                             color: Colors.black,
@@ -32,10 +36,17 @@ class ProfileScreen extends StatelessWidget {
                           ),
                         ),
                         TextSpan(
-                          text: "User",
-                          style: TextStyle(
+                          text: user!.username,
+                          style: const TextStyle(
                             color: Color(0xffd72323),
-                            fontSize: 36,
+                            fontSize: 46,
+                          ),
+                        ),
+                        TextSpan(
+                          text: "#${user.discriminant}",
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 26,
                           ),
                         ),
                       ],
@@ -129,7 +140,16 @@ class ProfileScreen extends StatelessWidget {
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      ref.read(userSessionProvider.notifier).logout();
+                      Navigator.of(context, rootNavigator: true)
+                          .pushAndRemoveUntil(
+                        CupertinoPageRoute(
+                          builder: (context) => const IntroductionScreen(),
+                        ),
+                        (route) => false,
+                      );
+                    },
                     child: const Text(
                       'Sign out',
                       textAlign: TextAlign.center,

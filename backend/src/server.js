@@ -6,6 +6,7 @@ import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import morgan from 'morgan';
 import { exec } from 'child_process';
+import cookies from 'cookie-parser';
 
 // local imports
 import config from './config/config.js';
@@ -14,14 +15,6 @@ import errorHandler from './middleware/errorHandler.js';
 
 // route imports
 
-import MapRoutes from './routes/MapRoutes.js';
-import AIRoutes from './routes/AIRoutes.js';
-import GeocodeRoutes from './routes/GeocodeRoutes.js';
-import ProfileRoutes from './routes/ProfileRoutes.js';
-import DBRoutes from './routes/DBRoutes.js';
-import LocationRoutes from './routes/LocationRoutes.js';
-import RecommendationRoutes from './routes/RecommendationRoutes.js';
-import EventRoutes from './routes/EventRoutes.js';
 
 const app = express();
 const customStream = {
@@ -34,7 +27,18 @@ const customStream = {
 };
 
 // Security middleware
-app.use(helmet())
+app.use(helmet());
+app.use(cookies());
+
+import MapRoutes from './routes/MapRoutes.js';
+import AIRoutes from './routes/AIRoutes.js';
+import GeocodeRoutes from './routes/GeocodeRoutes.js';
+import ProfileRoutes from './routes/ProfileRoutes.js';
+import DBRoutes from './routes/DBRoutes.js';
+import LocationRoutes from './routes/LocationRoutes.js';
+import RecommendationRoutes from './routes/RecommendationRoutes.js';
+import EventRoutes from './routes/EventRoutes.js';
+import ServiceResponse from './helper/ServiceResponse.js';
 
 // Rate limiting
 const limiter = rateLimit({
@@ -80,40 +84,23 @@ app.use('/api/location', LocationRoutes);
 app.use('/api/event', EventRoutes);
 
 // Root endpoint
-app.get('/', (req, res) => {
-	res.json({
-		success: true,
-		message: 'Welcome to Smart Tourism API',
-		version: '1.0.0',
-		endpoints: {
-			health: '/health',
-
-			geocode: '/api/geocode/geocode?address=<address>',
-			reverseGeocode: '/api/geocode/reverse-geocode?lat=<lat>&lon=<lon>',
-
-			mapConfig: '/api/map/config',
-			route: '/api/map/route (POST)',
-			searchNearby: '/api/map/search/nearby?lat=<lat>&lon=<lon>&radius=<radius>',
-			tourismSpots: '/api/map/tourism-spots',
-			tourismSpotsNearby: '/api/map/tourism-spots/nearby?lat=<lat>&lon=<lon>&radius=<radius>',
-			staticMap: '/api/map/static-map?lat=<lat>&lon=<lon>',
-
-			register: '/api/profile/register (POST) body: { "username": "<user>", "password": "<pass>" }',
-			login: '/api/profile/test-get?username=<user>&password=<pass>',
-
-			ask: '/api/ai/ask?prompt=<prompt>',
-
-			db: '/api/db/dangerous/get'
-		}
-	});
+app.get('/', (req, res, next) => {
+	const response = new ServiceResponse(
+		true,
+		200,
+		"Welcome to Smart Tourism API"
+	);
+	return void res.status(response.statusCode).json(response.get());
 });
 
 // 404 handler
-app.use((req, res) => {
-	res.status(404).json({
-		success: false,
-		error: { message: 'Route not found' }
-	});
+app.use((req, res, next) => {
+	const response = new ServiceResponse(
+		false,
+		404,
+		"Route not found"
+	);
+	return void res.status(response.statusCode).json(response.get());
 });
 
 // Error handling middleware

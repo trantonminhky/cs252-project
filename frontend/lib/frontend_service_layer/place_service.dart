@@ -1,22 +1,21 @@
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:virtour_frontend/screens/data_factories/place.dart";
 import "package:virtour_frontend/screens/data_factories/region.dart";
 import "package:virtour_frontend/screens/data_factories/review.dart";
 import "package:dio/dio.dart";
-import "package:shared_preferences/shared_preferences.dart";
-import "package:virtour_frontend/constants/userinfo.dart";
-import "package:virtour_frontend/frontend_service_layer/service_exception_handler.dart";
+import "package:virtour_frontend/global/userinfo.dart";
+import "package:virtour_frontend/frontend_service_layer/service_helpers.dart";
 
 //this is an interface for fetching region data from database
-class RegionService {
-  static final RegionService _instance = RegionService._internal();
+class PlaceService {
+  static final PlaceService _instance = PlaceService._internal();
   late final Dio dio;
-  final String _baseUrl = UserInfo().tunnelUrl;
-  late final UserInfo userInfo;
+  final String _baseUrl = UserInfo.tunnelUrl;
 
-  factory RegionService() {
+  factory PlaceService() {
     return _instance;
   }
-  RegionService._internal() {
+  PlaceService._internal() {
     dio = Dio(
       BaseOptions(
         baseUrl: '$_baseUrl/api',
@@ -25,198 +24,286 @@ class RegionService {
         headers: {
           "Content-Type": "application/json",
           'Cache-Control': 'no-cache',
+          'Access-Control-Allow-Origin': '*',
         },
       ),
     );
-    userInfo = UserInfo();
   }
 
-  /* 
-  need functions to:
-  1. fetch region by id (for now only id is 'sg')
-  2. fetch place by id (place will be numbered with an id)
-  */
-  Future<Region> getRegionbyId(String regionId) async {
-    try {
-      final response = await dio.get('/regions/$regionId');
+  // Future<Region> getRegionbyId(String regionId) async {
+  //   final response = await dio.get('/api/regions/$regionId');
 
-      switch (response.statusCode) {
-        case 200:
-          final data = response.data;
-          if (data['success']) {
-            final regionData = data['data'] ?? data['payload']?['data'];
+  //   switch (response.statusCode) {
+  //     case 200:
+  //       final data = response.data;
+  //       if (data['success']) {
+  //         final regionData = data['data'] ?? data['payload']?['data'];
 
-            // Update token if provided
-            if (data['token'] != null) {
-              final prefs = await SharedPreferences.getInstance();
-              await prefs.setString("auth_token", data['token']);
-              userInfo.userSessionToken = data['token'];
-            }
+  //         return Region.fromJson(regionData);
+  //       } else {
+  //         throw Exception(data['message'] ?? 'Failed to load region');
+  //       }
+  //     case 404:
+  //       throw Exception('Region not found');
+  //     default:
+  //       throw Exception('Unexpected response: ${response.statusCode}');
+  //   }
+  // }
 
-            return Region.fromJson(regionData);
-          } else {
-            throw Exception(data['message'] ?? 'Failed to load region');
-          }
-        case 404:
-          throw Exception('Region not found');
-        default:
-          throw Exception('Unexpected response: ${response.statusCode}');
-      }
-    } on DioException catch (e) {
-      throw ServiceExceptionHandler.handleDioError(e);
-    } catch (e) {
-      throw Exception('Failed to load region: $e');
-    }
-  }
+  Future<Place> getPlaceByID(String placeId) async {
+    final response = await dio.get('/location/$placeId');
+    print(placeId);
+    switch (response.statusCode) {
+      case 200:
+        final data = response.data;
+        if (data['success']) {
+          final placeData = data['payload']['data'];
 
-  Future<Place> fetchPlacebyId(String placeId) async {
-    try {
-      final response = await dio.get('/location/find-by-id', queryParameters: {
-        'id': placeId,
-      });
-
-      switch (response.statusCode) {
-        case 200:
-          final data = response.data;
-          if (data['success']) {
-            final placeData = data['payload']['data'];
-
-            // Update token if provided
-            if (data['token'] != null) {
-              final prefs = await SharedPreferences.getInstance();
-              await prefs.setString("auth_token", data['token']);
-              userInfo.userSessionToken = data['token'];
-            }
-
-            return Place.fromJson(placeData);
-          } else {
-            throw Exception(data['message'] ?? 'Failed to load place');
-          }
-        case 404:
-          throw Exception('Place not found');
-        default:
-          throw Exception('Unexpected response: ${response.statusCode}');
-      }
-    } on DioException catch (e) {
-      throw ServiceExceptionHandler.handleDioError(e);
-    } catch (e) {
-      throw Exception('Failed to load place: $e');
+          return Place.fromJson(placeData);
+        } else {
+          throw Exception(data['message'] ?? 'Failed to load place');
+        }
+      case 404:
+        throw Exception('Place not found');
+      default:
+        throw Exception('Unexpected response: ${response.statusCode}');
     }
   }
 
   //legacy function; kept in case we need to use it
-  Future<List<Place>> getAllPlaces(List<String> placesId) async {
-    List<Place> places = [];
-    for (String placeId in placesId) {
-      try {
-        Place place = await fetchPlacebyId(placeId);
-        places.add(place);
-      } catch (e) {
-        print('Error fetching place $placeId: $e');
-      }
-    }
-    return places;
-  }
+  // Future<List<Place>> getAllPlaces(List<String> placesId) async {
+  //   List<Place> places = [];
+  //   for (String placeId in placesId) {
+  //     try {
+  //       Place place = await fetchPlacebyId(placeId);
+  //       places.add(place);
+  //     } catch (e) {
+  //       print('Error fetching place $placeId: $e');
+  //     }
+  //   }
+  //   return places;
+  // }
 
-  Future<List<Place>> getPlace(String query, List<String> includeFilter) async {
+  Future<List<Place>> getPlaceByImage(
+      List<int> imageBytes, String filename) async {
     try {
-      final queryParams = {
-        'query': query,
-        'include': includeFilter.join(','),
-      };
-      final response = await dio.get(
-        '/location/search',
-        queryParameters: queryParams,
+      FormData formData = FormData.fromMap({
+        "file": MultipartFile.fromBytes(
+          imageBytes,
+          filename: filename,
+        ),
+      });
+
+      final response = await dio.post(
+        '/location/search-by-image',
+        data: formData,
         options: Options(
           headers: {
-            'Cache-Control': 'no-cache, no-store, must-revalidate',
-            'Pragma': 'no-cache',
-            'Expires': '0',
+            "Content-Type": "multipart/form-data",
           },
         ),
       );
-      final body = response.data as Map<String, dynamic>;
-      switch (response.statusCode) {
-        case 200:
-          // Extract the locations array from payload.data
-          final locations = body['payload']?['data'] as List? ?? [];
-          final placesList = locations
-              .map((location) => Place.fromJson(
-                  Map<String, dynamic>.from(location['value'] as Map)))
-              .toList();
-          return placesList;
-        default:
-          final message = body["payload"]["message"] as String;
-          throw Exception('Failed to load filtered places: $message');
+
+      final body = response.data;
+      //print('Search by image response body: $body');
+
+      if (response.statusCode == 200) {
+        // Validate response structure
+        if (body is! Map<String, dynamic>) {
+          throw Exception('Invalid response format');
+        }
+
+        final payload = body['payload'];
+        // print('Payload: $payload');
+        // print('Payload type: ${payload.runtimeType}');
+
+        if (payload == null || payload is! Map) {
+          throw Exception('Missing or invalid payload');
+        }
+
+        final data = payload['data'];
+        // print('Data: $data');
+        // print('Data type: ${data.runtimeType}');
+
+        if (data == null) {
+          return [];
+        }
+
+        // Handle the results structure from search-by-image
+        if (data is Map && data.containsKey('results')) {
+          final results = data['results'];
+          print('Found results array with ${results.length} items');
+
+          if (results is! List) {
+            throw Exception('Results is not a list');
+          }
+
+          // Extract IDs and fetch full place details
+          final List<Place> places = [];
+          for (var result in results) {
+            if (result is Map) {
+              final id = result['id']?.toString();
+              if (id != null && id.isNotEmpty) {
+                try {
+                  final place = await getPlaceByID(id);
+                  places.add(place);
+                } catch (e) {
+                  print('Error fetching place $id: $e');
+                }
+              }
+            }
+          }
+          return places;
+        }
+
+        if (data is! List) {
+          // Data might be a single object or wrapped differently
+          // Try to handle it as a single place or check the structure
+          if (data is Map) {
+            print('Single place data keys: ${data.keys.toList()}');
+            print('Single place data values: ${data.values.toList()}');
+            // If it's a single place object
+            return [Place.fromJson(data as Map<String, dynamic>)];
+          }
+          throw Exception(
+              'Data is not a list or map. Type: ${data.runtimeType}, Value: $data');
+        }
+
+        print('List data length: ${data.length}');
+        if (data.isNotEmpty) {
+          print('First item keys: ${(data[0] as Map).keys.toList()}');
+          print('First item: ${data[0]}');
+        }
+
+        return data.map((placeData) {
+          if (placeData is! Map<String, dynamic>) {
+            throw Exception('Invalid place data format');
+          }
+          return Place.fromJson(placeData);
+        }).toList();
+      } else {
+        final message = (body is Map && body['payload'] is Map)
+            ? body['payload']['message'] ?? 'Unknown error'
+            : 'Request failed with status ${response.statusCode}';
+        throw Exception('Failed to search by image: $message');
       }
     } on DioException catch (e) {
-      throw ServiceExceptionHandler.handleDioError(e);
+      throw ServiceHelpers.handleDioError(e);
+    } catch (e) {
+      throw Exception('Failed to search by image: $e');
+    }
+  }
+
+  Future<List<Place>> getPlace(
+      String query, List<String> options, String userID) async {
+    try {
+      final response = await dio.post(
+        '/location/search',
+        data: {
+          'query': query,
+          'options': options.join(','),
+        },
+      );
+      final body = response.data;
+      if (response.statusCode == 200) {
+        // Validate response structure
+        if (body is! Map<String, dynamic>) {
+          throw Exception('Invalid response format');
+        }
+
+        final payload = body['payload'];
+        if (payload == null || payload is! Map) {
+          throw Exception('Missing or invalid payload');
+        }
+
+        final places = payload['data'];
+        if (places == null) {
+          return [];
+        }
+
+        if (places is! List) {
+          throw Exception('Data is not a list');
+        }
+
+        final placesList = places.map((placeData) {
+          if (placeData is! Map<String, dynamic>) {
+            throw Exception('Invalid place data format');
+          }
+          return Place.fromJson(placeData);
+        }).toList();
+
+        return placesList;
+      } else {
+        final message = (body is Map && body['payload'] is Map)
+            ? body['payload']['message'] ?? 'Unknown error'
+            : 'Request failed with status ${response.statusCode}';
+        throw Exception('Failed to load places: $message');
+      }
+    } on DioException catch (e) {
+      throw ServiceHelpers.handleDioError(e);
     } catch (e) {
       throw Exception('Failed to load filtered places: $e');
     }
   }
 
-  Future<List<Review>> getReviewsForPlace(String placeId) async {
-    try {
-      final response = await dio.get('/places/reviews/$placeId');
+  Future<List<Review>> getReviewsForPlace(String placeName, Ref ref) async {
+    return await ServiceHelpers.retryWithTokenRefresh(
+        dio: dio,
+        ref: ref,
+        operation: () async {
+          final response = await dio.post('/api/ai/generate-reviews', data: {
+            'place': placeName,
+          });
 
-      switch (response.statusCode) {
-        case 200:
-          final data = response.data;
-          if (data['success']) {
-            final reviewsData = data['reviews'] ?? [];
+          switch (response.statusCode) {
+            case 200:
+              final data = response.data;
+              if (data['success']) {
+                final reviewsData = data['reviews'] ?? [];
 
-            // Update token if provided
-            if (data['token'] != null) {
-              final prefs = await SharedPreferences.getInstance();
-              await prefs.setString("auth_token", data['token']);
-              userInfo.userSessionToken = data['token'];
-            }
-
-            return reviewsData
-                .map<Review>((json) => Review.fromJson(json))
-                .toList();
-          } else {
-            throw Exception(data['message'] ?? 'Failed to load reviews');
+                return reviewsData
+                    .map<Review>((json) => Review.fromJson(json))
+                    .toList();
+              } else {
+                throw Exception(data['message'] ?? 'Failed to load reviews');
+              }
+            case 404:
+              throw Exception('Reviews not found');
+            default:
+              throw Exception('Unexpected response: ${response.statusCode}');
           }
-        case 404:
-          throw Exception('Reviews not found');
-        default:
-          throw Exception('Unexpected response: ${response.statusCode}');
-      }
-    } on DioException catch (e) {
-      throw ServiceExceptionHandler.handleDioError(e);
-    } catch (e) {
-      throw Exception('Failed to load reviews: $e');
-    }
+        });
   }
 
   // Saved Places Methods
-  Future<List<String>> getSavedPlaces(String username) async {
+  Future<List<String>> getSavedPlaces(String userID) async {
     try {
       final response = await dio.get('/profile/saved-places', queryParameters: {
-        'username': username,
+        'userID': userID,
       });
 
       if (response.statusCode == 200) {
         final data = response.data;
         if (data['success']) {
-          final places = data['data'] ?? data['payload']?['data'] ?? [];
-          return List<String>.from(places);
+          final placesData = data['payload']?['data'];
+          if (placesData is List) {
+            return List<String>.from(placesData);
+          }
         }
       }
       return [];
     } on DioException catch (e) {
-      print('Error fetching saved places: ${e.message}');
-      return [];
+      throw ServiceHelpers.handleDioError(e);
+    } catch (e) {
+      throw Exception('Failed to fetch saved places: $e');
     }
   }
 
-  Future<bool> addSavedPlace(String username, String placeId) async {
+  Future<bool> addSavedPlace(String userID, String placeID) async {
     try {
       final response = await dio.post('/profile/saved-places', data: {
-        'username': username,
-        'placeId': placeId,
+        'userID': userID,
+        'placeID': placeID,
       });
 
       if (response.statusCode == 201 || response.statusCode == 200) {
@@ -234,11 +321,11 @@ class RegionService {
     }
   }
 
-  Future<bool> removeSavedPlace(String username, String placeId) async {
+  Future<bool> removeSavedPlace(String userID, String placeID) async {
     try {
       final response = await dio.delete('/profile/saved-places', data: {
-        'username': username,
-        'placeId': placeId,
+        'userID': userID,
+        'placeID': placeID,
       });
 
       if (response.statusCode == 200) {
@@ -252,91 +339,12 @@ class RegionService {
     }
   }
 
-  // Event subscription
-  Future<bool> subscribeToEvent(String username, String eventId) async {
-    try {
-      final response = await dio.post('/event/subscribe', data: {
-        'username': username,
-        'eventID': eventId,
-      });
-
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        final data = response.data;
-        return data['success'] ?? false;
-      }
-      return false;
-    } on DioException catch (e) {
-      print('Error subscribing to event: ${e.message}');
-      return false;
-    }
-  }
-
-  Future<bool> unsubscribeFromEvent(String username, String eventId) async {
-    try {
-      final response = await dio.post('/event/unsubscribe', data: {
-        'username': username,
-        'eventID': eventId,
-      });
-
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        final data = response.data;
-        return data['success'] ?? false;
-      }
-      return false;
-    } on DioException catch (e) {
-      print('Error unsubscribing from event: ${e.message}');
-      return false;
-    }
-  }
-
-  // Fetch events from database
-  Future<Map<String, dynamic>> fetchEvents() async {
-    try {
-      final response = await dio.get('/db/export', queryParameters: {
-        'name': 'EventDB',
-      });
-
-      if (response.statusCode == 200) {
-        final data = response.data;
-        if (data['success'] == true) {
-          return data['payload']['data'] as Map<String, dynamic>;
-        }
-      }
-      return {};
-    } on DioException catch (e) {
-      print('Error fetching events: ${e.message}');
-      return {};
-    }
-  }
-
-  // Fetch subscribed events for a user
-  Future<List<Map<String, dynamic>>> fetchSubscribedEvents(
-      String username) async {
-    try {
-      final response =
-          await dio.get('/event/get-by-username', queryParameters: {
-        'username': username,
-      });
-
-      if (response.statusCode == 200) {
-        final data = response.data;
-        if (data['success'] == true) {
-          return List<Map<String, dynamic>>.from(data['payload']['data']);
-        }
-      }
-      return [];
-    } on DioException catch (e) {
-      print('Error fetching subscribed events: ${e.message}');
-      return [];
-    }
-  }
-
   // Fetch ML-based recommendations for a user
   Future<List<String>> fetchRecommendations(
-      String username, double lat, double lon) async {
+      String userID, double lat, double lon) async {
     try {
       final response = await dio.get('/recommendation', queryParameters: {
-        'username': username,
+        'userID': userID,
         'lat': lat,
         'lon': lon,
       });
@@ -352,41 +360,12 @@ class RegionService {
                 .toList();
           }
         }
+        return [];
+      } else {
+        return [];
       }
+    } catch (e) {
       return [];
-    } on DioException catch (e) {
-      print('Error fetching recommendations: ${e.message}');
-      return [];
-    }
-  }
-
-  // Create a new event
-  Future<Map<String, dynamic>?> createEvent({
-    required String name,
-    required String description,
-    String? imageLink,
-    int? startTime,
-    int? endTime,
-  }) async {
-    try {
-      final response = await dio.post('/event/create', data: {
-        'name': name,
-        'description': description,
-        'imageLink': imageLink,
-        'startTime': startTime,
-        'endTime': endTime,
-      });
-
-      if (response.statusCode == 201) {
-        final data = response.data;
-        if (data['success'] == true) {
-          return data['payload']['data'];
-        }
-      }
-      return null;
-    } on DioException catch (e) {
-      print('Error creating event: ${e.message}');
-      return null;
     }
   }
 }

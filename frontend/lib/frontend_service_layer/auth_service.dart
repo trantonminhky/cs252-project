@@ -1,138 +1,77 @@
 import "package:dio/dio.dart";
-import "package:shared_preferences/shared_preferences.dart";
-import "package:virtour_frontend/constants/userinfo.dart";
-import "package:virtour_frontend/frontend_service_layer/service_exception_handler.dart";
+import "package:virtour_frontend/global/userinfo.dart";
+import "package:virtour_frontend/frontend_service_layer/service_helpers.dart";
+//import "package:virtour_frontend/frontend_service_layer/service_exception_handler.dart";
 
 class AuthService {
   late final Dio _dio;
-  final String _baseUrl = UserInfo().tunnelUrl;
-  UserInfo userInfo = UserInfo();
+  final String _baseUrl = UserInfo.tunnelUrl;
 
   AuthService() {
-    _dio = Dio(BaseOptions(
-      baseUrl: _baseUrl,
-      connectTimeout: const Duration(seconds: 10),
-      receiveTimeout: const Duration(seconds: 10),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    ));
-    // _dio.interceptors.add(InterceptorsWrapper(
-    //   onRequest: (options, handler) async {
-    //     final prefs = await SharedPreferences.getInstance();
-    //     final token = prefs.getString("auth_token");
-    //     if (token != null) {
-    //       options.headers["Authorization"] = "Bearer $token";
-    //     }
-    //     return handler.next(options);
-    //   },
-    // ));
+    _dio = Dio(
+      BaseOptions(
+        baseUrl: _baseUrl,
+        connectTimeout: const Duration(seconds: 10),
+        receiveTimeout: const Duration(seconds: 10),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      ),
+    );
   }
 
-  Future<Map<String, dynamic>> signIn(String username, String password) async {
+  Future<UserInfo?> signIn(String email, String password) async {
     try {
-      final response = await _dio.post("$_baseUrl/api/profile/login",
-          data: {"username": username, "password": password});
+      final loginResponse = await _dio.post(
+        "$_baseUrl/api/profile/login",
+        data: {"email": email, "password": password},
+      );
 
-      final body = response.data as Map<String, dynamic>;
+      if (loginResponse.statusCode != 200) return null;
 
-      if (body['success'] == true) {
-        final prefs = await SharedPreferences.getInstance();
-        final payload = body["payload"];
+      final loginBody = loginResponse.data;
+      if (!loginBody['success']) return null;
 
-        if (payload == null) {
-          throw Exception('Payload is null');
-        }
+      final loginData = loginBody["payload"]["data"];
+      final String token = loginData["token"];
+      final String userID = loginData["userID"];
 
-        final payloadMap = payload as Map<String, dynamic>;
-        final data = payloadMap["data"];
+      final profileResponse = await _dio.get("$_baseUrl/api/profile/$userID");
 
-        if (data == null) {
-          throw Exception('Data is null');
-        }
+      if (profileResponse.statusCode != 200) return null;
 
-        final dataMap = data as Map<String, dynamic>;
-        final token = dataMap["token"]?.toString() ?? '';
+      final profileBody = profileResponse.data;
+      if (!profileBody["success"]) return null;
 
-        if (token.isEmpty) {
-          throw Exception('Token is empty');
-        }
+      final profileData =
+          profileBody["payload"]["data"] as Map<String, dynamic>;
 
-        await prefs.setString("auth_token", token);
-        await prefs.setString("username", username);
-
-        UserInfo().username = username;
-        UserInfo().userSessionToken = token;
-        UserInfo().userType = (dataMap["isTourist"] ?? true)
-            ? UserType.tourist
-            : UserType.business;
-
-        // Safely handle preferences - it might be a Map, List, or null
-        final prefsData = dataMap["preferences"];
-
-        if (prefsData is List) {
-          UserInfo().preferences = prefsData.map((e) => e.toString()).toList();
-        } else if (prefsData is Map) {
-          UserInfo().preferences =
-              prefsData.values.map((e) => e.toString()).toList();
-        } else {
-          UserInfo().preferences = [];
-        }
-
-        return response.data;
-      } else {
-        final success = body["success"] as bool;
-        final payload = body["payload"] as Map<String, dynamic>;
-        final message = payload["message"] as String;
-        return {'success': success, 'message': message};
-      }
+      return UserInfo.fromProfileData(token, userID, profileData);
     } on DioException catch (e) {
-      throw ServiceExceptionHandler.handleDioError(e);
+      throw ServiceHelpers.handleDioError(e);
     } catch (e) {
       rethrow;
     }
   }
 
-  Future<Map<String, dynamic>> signUp(String username, String password,
+  Future<bool> signUp(String email, String username, String password,
       String name, int age, bool isTourist, List<String> preferences) async {
     try {
       final response = await _dio.post("$_baseUrl/api/profile/register", data: {
+        "email": email,
         "username": username,
         "password": password,
         "name": name,
         "age": age,
-        "isTourist": isTourist,
+        "type": isTourist ? "tourist" : "organizer",
         "preferences": preferences,
       });
-      final prefs = await SharedPreferences.getInstance();
-      final body = response.data as Map<String, dynamic>;
-      switch (response.statusCode) {
-        case 200:
-          final payload = body["payload"] as Map<String, dynamic>;
-          final data = payload["data"] as Map<String, dynamic>;
-          final token = data["token"] as String;
-          await prefs.setString("auth_token", token);
-          return response.data;
-        default:
-          final success = body["success"] as bool;
-          final payload = body["payload"] as Map<String, dynamic>;
-          final message = payload["message"] as String;
-          return {'success': success, 'message': message};
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return response.data["success"];
       }
+      return false;
     } on DioException catch (e) {
-      throw ServiceExceptionHandler.handleDioError(e);
-    }
-  }
-
-  // Restore UserInfo from SharedPreferences on app start
-  Future<void> restoreUserInfo() async {
-    final prefs = await SharedPreferences.getInstance();
-    final token = prefs.getString("auth_token");
-    final username = prefs.getString("username");
-
-    if (token != null && username != null) {
-      UserInfo().userSessionToken = token;
-      UserInfo().username = username;
+      throw ServiceHelpers.handleDioError(e);
     }
   }
 }

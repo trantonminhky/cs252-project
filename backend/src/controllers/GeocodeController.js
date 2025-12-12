@@ -1,5 +1,4 @@
 import geocodeService from '../services/GeocodeService.js';
-import SessionTokensDB from '../db/SessionTokensDB.js';
 import ServiceResponse from '../helper/ServiceResponse.js';
 
 // TO-DO: DOCUMENT CONTROLLER CLASSES
@@ -7,31 +6,7 @@ class GeocodeController {
 	// Geocode an address
 	async geocode(req, res, next) {
 		try {
-			const { address, credentials } = req.query;
-
-			// if no credentials are specified
-			if (!credentials) {
-				const response = new ServiceResponse(
-					false,
-					401,
-					"Access denied, no credentials"
-				);
-
-				return res.status(response.statusCode).json(response.get());
-			}
-
-			// if the credentials are invalid
-			let authorizationStatus = SessionTokensDB.check(credentials);
-			if (authorizationStatus !== "valid") {
-				const response = new ServiceResponse(
-					false,
-					401,
-					`Access denied, ${authorizationStatus}`
-				);
-
-				return res.status(response.statusCode).json(response.get());
-			}
-
+			const { address } = req.query;
 			// if no address is specified
 			if (!address) {
 				const response = new ServiceResponse(
@@ -40,12 +15,11 @@ class GeocodeController {
 					"Address parameter is required"
 				);
 
-				return res.status(response.statusCode).json(response.get());
+				return void res.status(response.statusCode).json(response.get());
 			}
 
 			const response = await geocodeService.geocode(address);
-
-			res.status(response.statusCode).json(response.get());
+			return void res.status(response.statusCode).json(response.get());
 		} catch (error) {
 			next(error);
 		}
@@ -54,42 +28,23 @@ class GeocodeController {
 	// Reverse geocode coordinates
 	async reverseGeocode(req, res, next) {
 		try {
-			const { lat, lon, credentials } = req.query;
-
-			if (!credentials) {
-				const response = new ServiceResponse(
-					false,
-					401,
-					"Access denied, no credentials"
-				);
-
-				return res.status(response.statusCode).json(response.get());
-			}
-
-			let authorizationStatus = SessionTokensDB.check(credentials);
-			if (authorizationStatus !== "valid") {
-				const response = new ServiceResponse(
-					false,
-					401,
-					`Access denied, ${authorizationStatus}`
-				);
-
-				return res.status(response.statusCode).json(response.get());
-			}
-
-			if (!lat || !lon) {
+			const lat = req.query.lat;
+			const lon = req.query.lon;
+			console.log(lat);
+			console.log(lon);
+			if (lat == null || lon == null) {
 				const response = new ServiceResponse(
 					false,
 					400,
 					`Latitude and longitude parameters are required`
 				);
 
-				return res.status(response.statusCode).json(response.get());
+				return void res.status(response.statusCode).json(response.get());
 			}
 
 			const response = await geocodeService.reverseGeocode(parseFloat(lat), parseFloat(lon));
 
-			res.status(response.statusCode).json(response.get());
+			return void res.status(response.statusCode).json(response.get());
 		} catch (error) {
 			next(error);
 		}
