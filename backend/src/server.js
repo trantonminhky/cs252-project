@@ -41,12 +41,12 @@ import EventRoutes from './routes/EventRoutes.js';
 import ServiceResponse from './helper/ServiceResponse.js';
 
 // Rate limiting
-const limiter = rateLimit({
-	windowMs: config.rateLimit.windowMs,
-	max: config.rateLimit.max,
-	message: 'Too many requests from this IP, please try again later.'
-});
-app.use('/api/', limiter);
+// const limiter = rateLimit({
+// 	windowMs: config.rateLimit.windowMs,
+// 	max: config.rateLimit.max,
+// 	message: 'Too many requests from this IP, please try again later.'
+// });
+// app.use('/api/', limiter);
 
 // CORS
 app.use(corsMiddleware);

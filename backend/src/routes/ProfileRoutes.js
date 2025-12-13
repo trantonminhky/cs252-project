@@ -27,15 +27,22 @@ router.all('/preferences',
 );
 
 router.all('/saved-places',
-	ValidatorMiddleware.validateMethods(['GET', 'POST', 'DELETE', 'HEAD']),
+	ValidatorMiddleware.validateMethods(['GET', 'POST', 'DELETE']),
 	(req, res, next) => {
 		// Only validate Content-Type for POST and DELETE
 		if (req.method === 'POST' || req.method === 'DELETE') {
 			return ValidatorMiddleware.validateContentType(req, res, next);
 		}
 		next();
-	},
-	profileController.savedPlacesController
+	}, async (req, res, next) => {
+		if (req.method === 'GET') {
+			await profileController.getSavedPlaces(req, res, next);
+		} else if (req.method === 'POST') {
+			await profileController.addSavedPlace(req, res, next);
+		} else if (req.method === 'DELETE') {
+			await profileController.removeSavedPlace(req, res, next);
+		}
+	}
 );
 
 router.all('/:userID',
