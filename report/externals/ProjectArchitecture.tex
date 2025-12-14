@@ -5,3 +5,7 @@ The project, in its core, is a Flutter mobile application that utilizes a NodeJS
 \paragraph{Client architecture.} The frontend is primarily developed vertically via a feature-first architecture. The codebase can be grouped by separate features (including but not limited to login, map screen, trips, saved place, location searching), each has its own logic and UI implementation. We choose this architecture because it is a simple and intuitive architecture primarily derived from the user flow. This ensures ease of development and understanding from the team.
 
 \paragraph{Backend architecture.} The backend is a NodeJS express app comprising of multiple endpoints grouped into categories callable from the frontend via dio. In its core, it is an MVC architecture. An endpoint is structured by the core logic's within its service function, express handling and parameters fetching within its controller functions, and routing via an express's Router object. Middlewares for authorization checking are also included, allowing decoupling and reducing code duplication. Other minor backend servers are also made for training AIs and AI-based searching, and the main backend calls these servers via Cloudflare tunnels. This allows for separation of duties and dependency decoupling.
+
+\begin{figure}[!h]
+	\includegraphics[width=\linewidth]{externals/uml/projectModules.png}
+\end{figure}

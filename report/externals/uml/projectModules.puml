@@ -1,0 +1,64 @@
+@startuml projectModules
+' prettier PlantUML for project modules
+' Layout
+left to right direction
+skinparam backgroundColor #F6F9FF
+skinparam shadowing true
+skinparam componentStyle rectangle
+
+' Component styles by stereotype
+skinparam component<<UI>> {
+  BackgroundColor #DFF3FF
+  BorderColor #7FBFEF
+  FontColor #02457A
+}
+skinparam component<<Core>> {
+  BackgroundColor #FFF7D9
+  BorderColor #FFCC33
+  FontColor #7A5A00
+}
+skinparam component<<Security>> {
+  BackgroundColor #FFEFEF
+  BorderColor #FF6B6B
+  FontColor #7A0000
+}
+skinparam component<<External>> {
+  BackgroundColor #EFEFFF
+  BorderColor #7A7AFF
+  FontColor #1A1A7A
+}
+
+' Components (use shapes for symbols like database/cloud)
+component "UI / UX\n(Frontend)" <<UI>> as cmp_uiux
+component "Core\n(Services & Logic)" <<Core>> as cmp_core
+component "Auth\n(Authentication)" <<Security>> as cmp_auth
+component "Integration\n(External APIs)" <<External>> as cmp_integration
+
+database "Database" as cmp_db
+cloud "Cache" as cmp_cache
+
+' Positioning hints
+cmp_uiux -[hidden]-> cmp_core
+cmp_core -[hidden]-> cmp_db
+
+' Relationships (labeled for clarity)
+cmp_uiux --> cmp_core : "user actions / requests"
+cmp_core --> cmp_auth : "auth checks / tokens"
+cmp_auth --> cmp_db : "store/validate creds"
+cmp_core --> cmp_db : "read/write data"
+cmp_core --> cmp_integration : "call external service(s)"
+cmp_integration --> cmp_cache : "cache responses (optional)"
+
+' Notes and legend
+legend right
+|= Color |= Meaning |
+| #DFF3FF | UI / Frontend |
+| #FFF7D9 | Core / Business Logic |
+| #FFEFEF | Security / Auth |
+| #EFEFFF | External Integrations |
+endlegend
+
+' Title and metadata
+title Project Modules
+
+@enduml
