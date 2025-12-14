@@ -1,0 +1,56 @@
+@startuml
+!theme plain
+skinparam dpi 300
+skinparam shadowing false
+skinparam ActivityBackgroundColor white
+skinparam ActivityBorderColor black
+skinparam ArrowColor black
+
+title Granular Search Pipeline Architecture
+
+|#F5F5F5|Client & Gateway|
+start
+:User Query (Flutter);
+:API Gateway (NodeJS);
+note right: Routing via Cloudflare Tunnel
+
+|#E3F2FD|Granular Search Service (Python)|
+:Receive Query;
+
+partition "Hybrid Retrieval Strategy" {
+    fork
+        :<b>Semantic Path</b>;
+        :Generate Query Embeddings;
+        note right: Model: BAAI/bge-m3
+        :Vector Search (ChromaDB);
+        note left
+            Data Sources:
+            - CT_Data - Architecture.csv
+            - CT_Data - Restaurant.csv
+            (Refined Descriptions)
+        end note
+        :Retrieve Top 10 (Cosine Similarity);
+    fork again
+        :<b>Lexical Path</b>;
+        :Tokenize Query;
+        :BM25 Keyword Search;
+        :Retrieve Top 10 (Exact Match);
+    end fork
+}
+
+:<b>Weighted Fusion</b>;
+note right
+    Alpha Ratio = 0.65
+    (Leans towards Semantic)
+end note
+
+:<b>Reranking</b>;
+note right: Model: BAAI/bge-reranker-v2-m3
+
+:Select Final Top 3 Results;
+
+|Client & Gateway|
+:Return Response to Frontend;
+stop
+
+@enduml

@@ -48,7 +48,7 @@ class BaseColInfo:
         cols_to_keep = ["name"]
         
         # Add common useful columns if they exist
-        possible_meta_cols = ["building_type", "arch_style", "religion", "food_type","image link"]
+        possible_meta_cols = ["building_type", "arch_style", "religion", "food_type","image link","image id"]
         for col in possible_meta_cols:
             if col in self.df.columns:
                 cols_to_keep.append(col)
@@ -68,9 +68,8 @@ class ArchColInfo(BaseColInfo):
             age = str(int(row['age'])) if pd.notnull(row['age']) else "unknown date"
             style = row['arch_style'] if pd.notnull(row['arch_style']) else "unknown style"
             b_type = row['building_type'] if pd.notnull(row['building_type']) else "building"
-            desc = row['description'] if pd.notnull(row['description']) else ""
             ref_desc = row['refined_description'] if pd.notnull(row['refined_description']) else ""
-            rich_text = f"{row['name']} is a {style} {b_type} built in {age}. {desc}. {ref_desc}"
+            rich_text = f"{row['name']} is a {style} {b_type} built in {age}. {ref_desc}"
             self.documents.append(rich_text)
 
 

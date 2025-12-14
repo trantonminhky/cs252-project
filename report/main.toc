@@ -1,0 +1,13 @@
+\babel@toc {english}{}\relax 
+\contentsline {section}{\numberline {1}Group Information}{2}{section.1}%
+\contentsline {section}{\numberline {2}Introduction}{2}{section.2}%
+\contentsline {section}{\numberline {3}Data Storage}{3}{section.3}%
+\contentsline {section}{\numberline {4}Project Architecture}{3}{section.4}%
+\contentsline {paragraph}{System level architecture.}{3}{section*.2}%
+\contentsline {paragraph}{Client architecture.}{4}{section*.3}%
+\contentsline {paragraph}{Backend architecture.}{4}{section*.4}%
+\contentsline {section}{\numberline {5}Frontend}{4}{section.5}%
+\contentsline {section}{\numberline {6}Backend}{5}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Granular Search Service}{5}{subsection.6.1}%
+\contentsline {section}{\numberline {7}Feature Demonstration}{6}{section.7}%
+\contentsline {section}{\numberline {8}Conclusion}{6}{section.8}%

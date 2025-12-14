@@ -1,0 +1,3495 @@
+[
+  {
+    "query": "tham thành ph nghn chi vit b to nhân lc y mt trong nhng trng i h",
+    "relevant_ids": [
+      "10.8000745_106.670766"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "o tàng chng tch chin tranh",
+    "relevant_ids": [
+      "10.779723530231266_106.69213905859284"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "search for an address with a history of ti c trng xut vào tng nhà dân",
+    "relevant_ids": [
+      "10.772730032561206_106.64585394578886"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "search for a place that sells tphcm(lê qu ôn)",
+    "relevant_ids": [
+      "10.7813726_106.69030196537784"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "search for thai cuisine in hanoi",
+    "relevant_ids": [
+      "10.778262000000002_106.64921274725316"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "search for bnh vin nhân dân gia nh",
+    "relevant_ids": [
+      "10.80416395_106.6941426784243"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "mt khu chung c c nm  v tr c a ti trung tâm thành ph",
+    "relevant_ids": [
+      "10.7747441_106.7010053"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "search for nghia nhuan",
+    "relevant_ids": [
+      "10.7493723_106.65438745"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "search for thc hành i hc y trng in vietnam",
+    "relevant_ids": [
+      "10.8000745_106.670766"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "h ch minh trc chin v ngy v di ngy",
+    "relevant_ids": [
+      "10.7958162_106.6828762477918"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "mt khách sn caravelle sài gn",
+    "relevant_ids": [
+      "10.7762617_106.7036128"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "the vietnam post trung tâm qun 5 is a post",
+    "relevant_ids": [
+      "10.750223_106.659248"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "find a place to visit with beachfront",
+    "relevant_ids": [
+      "10.77298155_106.71044255601991"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "i want to know the location of idecaf vi pháp.",
+    "relevant_ids": [
+      "10.7799935_106.7034805"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "search for the best tnh ngài trong trang xe tia li mt trong nhng cng ng th phng vit nam.",
+    "relevant_ids": [
+      "10.769991350000002_106.70129495"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "s là h b l ngc và bc hoành phi (chùa phc tng)",
+    "relevant_ids": [
+      "10.9495114_106.69344411010948"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "search for a place that isnt in the top 40",
+    "relevant_ids": [
+      "10.7775635_106.6878171"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "name of food restaurants",
+    "relevant_ids": [
+      "10.77232415_106.673828226329"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "search for a thai bo tàng o dài",
+    "relevant_ids": [
+      "10.808898637875734_106.85321587276567"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "thanh ngoi vc snh long ha",
+    "relevant_ids": [
+      "10.8448285_106.83064925183814"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "chùa nam thiên nht tr",
+    "relevant_ids": [
+      "10.84359165_106.76316395"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "bo tàng lch s tphcm mt tng ln & lâu i",
+    "relevant_ids": [
+      "10.78797185_106.7049562864172"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "iu ch an ông nhn nhp",
+    "relevant_ids": [
+      "10.758108_106.67218157807716"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "indonesia and malaysia for the building at 45 nam k th tnh nghiên phng tng al rahim",
+    "relevant_ids": [
+      "10.769991350000002_106.70129495"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "nh bnh tr ông nh hng",
+    "relevant_ids": [
+      "10.75838525_106.60635905"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "mt giáo x ph hnh",
+    "relevant_ids": [
+      "10.80315705_106.68494786130157"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "lookup building in paris",
+    "relevant_ids": [
+      "10.86473235_106.8373555"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "search for nhà sách c bà hoà bnh",
+    "relevant_ids": [
+      "10.7786963_106.6992181"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "where can i do the most activities like hiking, cycling and horse riding",
+    "relevant_ids": [
+      "10.7698554_106.7063881"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "on which website can you find the hi quán ngha nhun?",
+    "relevant_ids": [
+      "10.7493723_106.65438745"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "where can i find places to stay on a trip in myay",
+    "relevant_ids": [
+      "10.780793700158094_106.61590496107476"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "th qun 1 mt khu ch truyn thng lâu i",
+    "relevant_ids": [
+      "10.7667302_106.6886914"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "ci nhn t c s 2 mt con tiên viên viên c s 2",
+    "relevant_ids": [
+      "10.87622755_106.7968524636958"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "ăn phc an",
+    "relevant_ids": [
+      "10.754999_106.6588661696466"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "search for building of the name al musulman saigon central mosque",
+    "relevant_ids": [
+      "10.7762601_106.70427117619047"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "thâm tâm mc v tng giáo phn sài gn có thêm t giao xu",
+    "relevant_ids": [
+      "10.784789413035352_106.70396093767155"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "search for where can i find a 5 star hotel",
+    "relevant_ids": [
+      "10.7727782_106.7061879"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "search for a hotel that offers a restaurant",
+    "relevant_ids": [
+      "10.771652903698223_106.6993514856996"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "search for chùa t nghiêm",
+    "relevant_ids": [
+      "10.602495_107.0626609"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "search for t d bnh vin",
+    "relevant_ids": [
+      "10.7684837_106.6853651"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "mt di tch lch s",
+    "relevant_ids": [
+      "10.7698554_106.7063881"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "can you tell me what time it closes for you?",
+    "relevant_ids": [
+      "10.7530967_106.6717936"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "search for tphcm nhà tang l",
+    "relevant_ids": [
+      "10.7813726_106.69030196537784"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "i hc ngân hàng thành ph h ch minh",
+    "relevant_ids": [
+      "10.7701603_106.7039075"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "find buh",
+    "relevant_ids": [
+      "10.7701603_106.7039075"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "search for chùa hu nghiêm",
+    "relevant_ids": [
+      "10.7428703_106.61607778214356"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "where can i stay with family in hành ch",
+    "relevant_ids": [
+      "10.7701603_106.7039075"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "google flights to ca thng.",
+    "relevant_ids": [
+      "10.78328515_106.70639157867404"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "search for chin b kênh lp tri qua nhiu ln trùng tu",
+    "relevant_ids": [
+      "10.7863781_106.6814307976096"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "search for the bu in trung tâm sài gn by zip code",
+    "relevant_ids": [
+      "10.77995565_106.6999920762309"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "search for dravidian temples in india",
+    "relevant_ids": [
+      "10.77228505_106.69555763933496"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "search for the place nh tn long ha",
+    "relevant_ids": [
+      "10.8448285_106.83064925183814"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "tôn c thng a ch bn nghé, qun 1",
+    "relevant_ids": [
+      "10.78328515_106.70639157867404"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "trn hng hi chnh rin th",
+    "relevant_ids": [
+      "10.33162115_107.07503879482532"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "search for hi quán ngha nhun",
+    "relevant_ids": [
+      "10.7493723_106.65438745"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "search for a place with a bbq on the menu",
+    "relevant_ids": [
+      "10.75417975_106.6782670253124"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "search for anh hanh pho",
+    "relevant_ids": [
+      "10.84255475_106.69678917444853"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "search for t ng phic khin",
+    "relevant_ids": [
+      "10.75695265_106.6748807024128"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "ahnh an khanh - nh trong c trng tinh ph thoc",
+    "relevant_ids": [
+      "10.7756529_106.71070751659494"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "search for jamia al-musulman",
+    "relevant_ids": [
+      "10.7762601_106.70427117619047"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "chinese imperial palace architecture",
+    "relevant_ids": [
+      "10.770037186423554_106.69881219549563"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "find tan si laser at thai restaurants",
+    "relevant_ids": [
+      "10.7541208_106.67210278036669"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "thailand",
+    "relevant_ids": [
+      "10.78396255_106.68889980443488"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "search for the tphcm in thailand",
+    "relevant_ids": [
+      "10.7849957_106.7076753"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "bo tàng lch s tphcm",
+    "relevant_ids": [
+      "10.78797185_106.7049562864172"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "search for an place that is located in ti long bnh",
+    "relevant_ids": [
+      "10.86473235_106.8373555"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "chùa pothiwong (a temple)",
+    "relevant_ids": [
+      "10.784554827973516_106.64807013384946"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "search for thorax in cái liên giay, vietnam",
+    "relevant_ids": [
+      "10.7765973_106.6836767"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "mt công trnh kin trc trc tm th vào năm 1898 năm 1900 in trnh chic",
+    "relevant_ids": [
+      "10.77674365_106.70324880088602"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "the ct c th ng",
+    "relevant_ids": [
+      "10.7698554_106.7063881"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "search for tha hi giáo x c cu gip - nhà th k ng",
+    "relevant_ids": [
+      "10.7816458_106.6815551"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "where is anph (chùa mng sánh)?",
+    "relevant_ids": [
+      "10.747586324596828_106.66892778142672"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "find mt trong nhng khu ch ln nht ti tp. h ch minh",
+    "relevant_ids": [
+      "10.8502385_106.75419735"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "looking for a restaurant in sài gn that is chùa hu nghiêm",
+    "relevant_ids": [
+      "10.7428703_106.61607778214356"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "search for thành ph ho ch minh",
+    "relevant_ids": [
+      "10.7570069_106.66739232264312"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "bnh vin i thôm chng dch bnh",
+    "relevant_ids": [
+      "10.7526606_106.6789164"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "ti 55b nguyn th minh khai qun 1",
+    "relevant_ids": [
+      "10.7763399_106.69295488134875"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "giáo x ph trung",
+    "relevant_ids": [
+      "10.788095229546396_106.65053369729922"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "i want to go to an i hc sài gn",
+    "relevant_ids": [
+      "10.7790693_106.68363629592108"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "các chng trnh ca nhà hát hong banh",
+    "relevant_ids": [
+      "10.77232415_106.673828226329"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "mt ngôi nh c nm  phng an khánh, thành ph th c",
+    "relevant_ids": [
+      "10.7756529_106.71070751659494"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "tái thng chin hàng",
+    "relevant_ids": [
+      "10.758108_106.67218157807716"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "search for trng thpt trng vng",
+    "relevant_ids": [
+      "10.7853513_106.70645932105376"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "an vin cát minh mt dng tu chiêm nim",
+    "relevant_ids": [
+      "10.78316475_106.7043358398439"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "ng h ch minhs chùa vnh nghiêm",
+    "relevant_ids": [
+      "10.7903966_106.6823772255014"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "i want to see the khu ch lâu i nht sài gon",
+    "relevant_ids": [
+      "10.78989975_106.69005125"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "search for a place that has the best feeling, and is located in a squat",
+    "relevant_ids": [
+      "10.78316475_106.7043358398439"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "bnh vin a khoa sài gn",
+    "relevant_ids": [
+      "10.7721693_106.6993921"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "ching c xá 30 (qun 3)",
+    "relevant_ids": [
+      "10.777592_106.686572"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "search for bnh trng",
+    "relevant_ids": [
+      "10.66879535_106.56807776241035"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "search for bu in trung tâm ph th",
+    "relevant_ids": [
+      "10.7753398_106.6576633"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "search for ngi hoa  ch ln and do linh mc pi",
+    "relevant_ids": [
+      "10.7519741_106.6536926941934"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "what is the full name of giao xu tân tâi sin",
+    "relevant_ids": [
+      "10.793497434123566_106.61964171074688"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "for a good time in bà chiu, find giáo x a minh.",
+    "relevant_ids": [
+      "10.7931999_106.7084353"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "i hc ngân hàng thành ph h ch minh (buh)",
+    "relevant_ids": [
+      "10.7701603_106.7039075"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "google bnh vin an bnh",
+    "relevant_ids": [
+      "10.7541208_106.67210278036669"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "nghip ng biu tiên anh vi thng thai thuan tch nhng k ra ca thi chiu vn gi",
+    "relevant_ids": [
+      "10.8020535_106.69695898327026"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "name of a temple in vietnam",
+    "relevant_ids": [
+      "10.7797885_106.69071494386463"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "can anyone tell me if there is a place called the tp.hcm",
+    "relevant_ids": [
+      "10.7813726_106.69030196537784"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "tu vin dng thánh pháolô",
+    "relevant_ids": [
+      "10.7835135_106.7052214"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "search for the best bnh vin chuyên khoa hng i",
+    "relevant_ids": [
+      "10.7526606_106.6789164"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "search for bu in qun 5",
+    "relevant_ids": [
+      "10.750223_106.659248"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "i hc ngân hàng thành ph h ch minh (buh)",
+    "relevant_ids": [
+      "10.7701603_106.7039075"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "c bà sài gian thong mt ca h ch minh nm  trung tâm tâm qun 1 ti s 01 công",
+    "relevant_ids": [
+      "10.77976865_106.69904266265824"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "pho nhun t ph thai",
+    "relevant_ids": [
+      "10.8028511_106.6789518"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "khách sn ng khánh",
+    "relevant_ids": [
+      "10.7530967_106.6717936"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "search for phng nam restaurant",
+    "relevant_ids": [
+      "10.775667980811878_106.68948531725088"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "nhà hát thành ph",
+    "relevant_ids": [
+      "10.77674365_106.70324880088602"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "in bo tàng s vi khuôn vn tho cm viên  n ng ti s 2 ng nguyn bnh",
+    "relevant_ids": [
+      "10.78797185_106.7049562864172"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "search for long thái hi quán - quan  miu",
+    "relevant_ids": [
+      "10.88861925_106.59542215355"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "search for a thng an hi nhng ngôi ngôi ti nh ph thch ph hch ph minh",
+    "relevant_ids": [
+      "10.84206775_106.64961915"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "tri tm giam ch ha",
+    "relevant_ids": [
+      "10.7773572_106.6693896"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "ct c th ng",
+    "relevant_ids": [
+      "10.7698554_106.7063881"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "what is the climate like in hông trng th?",
+    "relevant_ids": [
+      "10.8336745_106.75674424624174"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "thng an bnh thc ra ngn",
+    "relevant_ids": [
+      "10.7498056_106.6737054"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "which is long thnhs nguyn to?",
+    "relevant_ids": [
+      "10.760320962521504_106.57502271481474"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "ng lê qu ôn, phng 07, qun 03, tp.hcm",
+    "relevant_ids": [
+      "10.7813726_106.69030196537784"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "search for giáo xu nhà th ng tin",
+    "relevant_ids": [
+      "10.77123845_106.66620458529728"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "cc im truyn thng hindu giáo, c trang tr công phu bng tng thn y màu",
+    "relevant_ids": [
+      "10.77426565_106.6999496030344"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "what is the address of the saigon central mosque",
+    "relevant_ids": [
+      "10.7762601_106.70427117619047"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "bnh vin thng nht, ct thng dân",
+    "relevant_ids": [
+      "10.7911024_106.65333688126005"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "lg hotel in bangkok thuc tiêu khng lun",
+    "relevant_ids": [
+      "10.78396255_106.68889980443488"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "search for hotel in vietnam",
+    "relevant_ids": [
+      "10.769991350000002_106.70129495"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "search for a place to stay for one night in qun quo",
+    "relevant_ids": [
+      "10.77636545_106.77986972615024"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "tha v lang h tha v",
+    "relevant_ids": [
+      "10.78363467396026_106.67485356183424"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "search for a restaurant in thai language.",
+    "relevant_ids": [
+      "10.7819872_106.6944895"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "where can i get to know a place where i can do yoga in south india",
+    "relevant_ids": [
+      "10.7735865_106.7016144764372"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "ting không quân pha nam",
+    "relevant_ids": [
+      "10.8052466_106.66058518111429"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "cung văn hóa lao ng tphcm",
+    "relevant_ids": [
+      "10.7763399_106.69295488134875"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "nhà ngi nhà thi m ngôi m c thuc dng h trn",
+    "relevant_ids": [
+      "10.78363467396026_106.67485356183424"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "are you interested in a place with an open air area and a friendly family atmosphere?",
+    "relevant_ids": [
+      "10.79134052892826_106.63513978179796"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "giao x tân ph  tng th thuc tng gian mi tng gian phn tng gian phn t",
+    "relevant_ids": [
+      "10.79134052892826_106.63513978179796"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "name for a place that has a beach atmosphere",
+    "relevant_ids": [
+      "10.7844159_106.70504214208285"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "for lăng trng tn bu in hanoi, ăng y",
+    "relevant_ids": [
+      "10.7964412_106.6757181"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "find ch ba chiu",
+    "relevant_ids": [
+      "10.801874649999998_106.69876009417646"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "what is the name of the famous art work called n bnh?",
+    "relevant_ids": [
+      "10.7498056_106.6737054"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "search for hi quán nh pha mt di tch kin trc ngh thut lch s cp quc gia ta",
+    "relevant_ids": [
+      "10.75155845_106.65727598821748"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "cp nhà ngh chc bnh công cp ngh thut thut cp thành ph t năm 1932",
+    "relevant_ids": [
+      "10.33162115_107.07503879482532"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "search for a place to stay in thailand",
+    "relevant_ids": [
+      "10.8712764_106.7917617"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "search for a khoa hin i in qung dc",
+    "relevant_ids": [
+      "10.80416395_106.6941426784243"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "on a vacation in anacoly, what activities are available",
+    "relevant_ids": [
+      "10.77866115_106.684936728687"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "xtân thái sn nhng ngi th vic nh c tri nh c tri ngi di c g",
+    "relevant_ids": [
+      "10.793497434123566_106.61964171074688"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "name the hotel i chng vin thánh giuse",
+    "relevant_ids": [
+      "10.7844159_106.70504214208285"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "on what date do you plan to travel to sau gn and what activities would you like to do?",
+    "relevant_ids": [
+      "10.7797885_106.69071494386463"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "chi chi hoa xung thng tháng i các mt chng oàn giáo ln tha lc ti trung",
+    "relevant_ids": [
+      "10.851830799999998_106.75705167754067"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "cc hi quan tphcm (name: cc hi quan tphcm) is a professional cycling team from vietnam",
+    "relevant_ids": [
+      "10.7712081122642_106.70587328948125"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "search for thành phm cc xay dng thuc b xây dng in vit nam.",
+    "relevant_ids": [
+      "10.7819872_106.6944895"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "search for tân nh nghng giáo nhà thm",
+    "relevant_ids": [
+      "10.78835975_106.69064176486911"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "searching for historical sites",
+    "relevant_ids": [
+      "10.771745847388411_106.68007989498318"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "search for an ngôi chùa này",
+    "relevant_ids": [
+      "10.747586324596828_106.66892778142672"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "search for nhà hát ha bnh.",
+    "relevant_ids": [
+      "10.77232415_106.673828226329"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "nhà thiu nhi qun 3 các t bàn c bàn tr bàn qun 3 thành ph h ch minh",
+    "relevant_ids": [
+      "10.7750092_106.6865141"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "search for majestic saigon",
+    "relevant_ids": [
+      "10.7727782_106.7061879"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "dnh jeanne darc quan 5",
+    "relevant_ids": [
+      "10.7570069_106.66739232264312"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "name of place in thailand where there is a place named don bosco xuân hip",
+    "relevant_ids": [
+      "10.8810041_106.7660661"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "vietnam, vietnam - ha s",
+    "relevant_ids": [
+      "10.7736693_106.69228079922482"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "google chùa hu nghiêm for information",
+    "relevant_ids": [
+      "10.7428703_106.61607778214356"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "tphcm building architecture",
+    "relevant_ids": [
+      "10.7526606_106.6789164"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "what is the tn ha?",
+    "relevant_ids": [
+      "10.8448285_106.83064925183814"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "what is the architectural style of ben thanh market",
+    "relevant_ids": [
+      "10.7725301_106.69803652841516"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "ca th là tr im ngi ch bà chiu không ch trong nhng khu ch lâu i nht",
+    "relevant_ids": [
+      "10.801874649999998_106.69876009417646"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "building in sn ca sn ca in",
+    "relevant_ids": [
+      "10.7753398_106.6576633"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "nh thng tam lăng ng thy tng ngi dân gian",
+    "relevant_ids": [
+      "10.41726275_106.97136363054858"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "from where can i find the site of ti thành ph?",
+    "relevant_ids": [
+      "10.8000745_106.670766"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "find ti phi hi quán ngha an",
+    "relevant_ids": [
+      "10.75354585_106.66213327953938"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "phan châu trinh",
+    "relevant_ids": [
+      "10.8042742_106.6619504"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "khách sn rex",
+    "relevant_ids": [
+      "10.7758454_106.7012646"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "sng thanh công thc nn là mt c s tang l ti v s chc phng 07, tn 03,",
+    "relevant_ids": [
+      "10.7813726_106.69030196537784"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "bo tàng a cht tphcm",
+    "relevant_ids": [
+      "10.7849957_106.7076753"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "nhà th hà ch s",
+    "relevant_ids": [
+      "10.768614_106.688957"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "nh trng th c",
+    "relevant_ids": [
+      "10.8336745_106.75674424624174"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "trung tai văn hóa qun 5",
+    "relevant_ids": [
+      "10.7524216_106.6685424"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "search for the bo tàng ph n nam b",
+    "relevant_ids": [
+      "10.78369317956614_106.68763205922905"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "search for n sri thendayuthapani",
+    "relevant_ids": [
+      "10.7735865_106.7016144764372"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "không l tng, mi thut ph th th ca trong mnh thua vào trong trc năm",
+    "relevant_ids": [
+      "10.7698707_106.69922421706391"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "công viên dng viên nhng vn i nht trên gii, vi lch s hnh thành",
+    "relevant_ids": [
+      "10.7877437_106.7054618"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "thai style building",
+    "relevant_ids": [
+      "10.7698707_106.69922421706391"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "search for an khánh, vietnam",
+    "relevant_ids": [
+      "10.7756529_106.71070751659494"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "search for places with a pool",
+    "relevant_ids": [
+      "10.7559576_106.6450799"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "name of building in thai guang province",
+    "relevant_ids": [
+      "10.851830799999998_106.75705167754067"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "search for nh dng văn hnh",
+    "relevant_ids": [
+      "10.480479187530538_106.76300671903466"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "chùa long hoa (qun 8)",
+    "relevant_ids": [
+      "10.735216341148988_106.63781577993818"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "where can i visit for shopping and resting",
+    "relevant_ids": [
+      "10.82483415_106.68543745280137"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "search for nhà th ch quán",
+    "relevant_ids": [
+      "10.757335_106.6817269105739"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "search for ng th h ch minh",
+    "relevant_ids": [
+      "10.7729754_106.66707394464696"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "thánh phaolô tên la",
+    "relevant_ids": [
+      "10.752436274988844_106.67617626597202"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "search for bnh vin thng nht",
+    "relevant_ids": [
+      "10.7911024_106.65333688126005"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "khách sn continental saigon",
+    "relevant_ids": [
+      "10.7768949_106.7025025"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "ti 459 thng tho ca hnh nghi thng thmt t thành ng jamiul islamiyah",
+    "relevant_ids": [
+      "10.7579927_106.68697389683784"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "what is the mt hi quán nh phi place called?",
+    "relevant_ids": [
+      "10.75155845_106.65727598821748"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "search for bo tàng thành ph h ch minh",
+    "relevant_ids": [
+      "10.7759106_106.69962141634927"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "chùa t nghiêm",
+    "relevant_ids": [
+      "10.602495_107.0626609"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "search for giáo x ng tin.",
+    "relevant_ids": [
+      "10.77123845_106.66620458529728"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "search for tr s c nha quan thu ca pah ang",
+    "relevant_ids": [
+      "10.7712081122642_106.70587328948125"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "ch nht khi chi  th cha xá li",
+    "relevant_ids": [
+      "10.777868_106.6863391"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "ni ting thân i bnh vng",
+    "relevant_ids": [
+      "10.7853513_106.70645932105376"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "mt hi quán nh phi ngi hoa gc phc kn",
+    "relevant_ids": [
+      "10.75155845_106.65727598821748"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "what kind of atmosphere is the place that hi quán nh phi?",
+    "relevant_ids": [
+      "10.75155845_106.65727598821748"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "search for chùa pháp hoa",
+    "relevant_ids": [
+      "10.7863781_106.6814307976096"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "tai tâm i mt thc thc thánh xaviê t bht mt ng ca tng c áo phi",
+    "relevant_ids": [
+      "10.7519741_106.6536926941934"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "search for chùa pothiwong",
+    "relevant_ids": [
+      "10.784554827973516_106.64807013384946"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "search for a restaurant in vietnam",
+    "relevant_ids": [
+      "10.7183837_106.6236992"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "search for a place to visit in vit nam",
+    "relevant_ids": [
+      "10.7701603_106.7039075"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "kin trc thut cp thành ph",
+    "relevant_ids": [
+      "10.77298155_106.71044255601991"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "looking for a house on th h tring cn h",
+    "relevant_ids": [
+      "10.753461476958297_106.65280111725016"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "visit trong bit s chnh",
+    "relevant_ids": [
+      "10.7765973_106.6836767"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "khám ch ha bartender",
+    "relevant_ids": [
+      "10.7773572_106.6693896"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "find the name of a place to go to in vietnam",
+    "relevant_ids": [
+      "10.7701603_106.7039075"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "iên tm thng",
+    "relevant_ids": [
+      "10.7777163_106.7009774"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "find công viên khu m c g quéo",
+    "relevant_ids": [
+      "10.77636545_106.77986972615024"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "search for a place to stay that is near saigon.",
+    "relevant_ids": [
+      "10.8264549_106.6802373"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "ti ti phng thn quan công",
+    "relevant_ids": [
+      "10.75354585_106.66213327953938"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "find a place to sit down, eat some food",
+    "relevant_ids": [
+      "10.7701603_106.7039075"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "search for các nhn hài cha dng t",
+    "relevant_ids": [
+      "10.8264549_106.6802373"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "on thai tv trng d x t công công công nhn, tri c vi tch lch s hn",
+    "relevant_ids": [
+      "10.87092_106.8398758"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "t cc văn hóa qun 5",
+    "relevant_ids": [
+      "10.7524216_106.6685424"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "what is the area of the ch bnh tây, cambodia?",
+    "relevant_ids": [
+      "10.7492965_106.65072796223046"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "mt trong các i hc y trng i hc y dc tphcm c thành lp t năm 1947",
+    "relevant_ids": [
+      "10.8000745_106.670766"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "ran giáo x thánh nguyn duy khang",
+    "relevant_ids": [
+      "10.7993915_106.7099648"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "thânh phâolô thành chartres",
+    "relevant_ids": [
+      "10.7835135_106.7052214"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "mt si miu tân (kthánh long cung)",
+    "relevant_ids": [
+      "1.08297615634213e+16_1.06691518546375e+16"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "search for thuyên tc các mi tri cô s cp gia, thuyên tc s cp gia",
+    "relevant_ids": [
+      "10.8042742_106.6619504"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "name of the building",
+    "relevant_ids": [
+      "10.7712081122642_106.70587328948125"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "guangdong công giáo lâu i",
+    "relevant_ids": [
+      "10.7742438_106.63047834927224"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "search for s công thng thành ph h ch minh",
+    "relevant_ids": [
+      "10.7777163_106.7009774"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "i hc sài gn c s 2 ta lc ti a ch 04 tôn c thng, phng bn nghé, qun",
+    "relevant_ids": [
+      "10.78328515_106.70639157867404"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "chùa an pha",
+    "relevant_ids": [
+      "10.747586324596828_106.66892778142672"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "search for bo tàng o dài",
+    "relevant_ids": [
+      "10.808898637875734_106.85321587276567"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "chách sn rex c",
+    "relevant_ids": [
+      "10.7758454_106.7012646"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "gymnastics club,gymnastics",
+    "relevant_ids": [
+      "10.771652903698223_106.6993514856996"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "chùa trang sau c thi mt trong ngôi chùa c vi thành ph h ch minh vi 200 năm tu",
+    "relevant_ids": [
+      "10.76298405_106.63920142815276"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "search for giáo x thánh phaolô (bnh tân)",
+    "relevant_ids": [
+      "10.752436274988844_106.67617626597202"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "mt tác kt hp hài ha gia phong cách pháp thuc a, trc  ông & phon",
+    "relevant_ids": [
+      "10.7698707_106.69922421706391"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "i hc kin trc tphcm",
+    "relevant_ids": [
+      "10.7819872_106.6944895"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "find tours in chin tranh",
+    "relevant_ids": [
+      "10.779723530231266_106.69213905859284"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "search for nhà bnh ông",
+    "relevant_ids": [
+      "10.72792725_106.64147178553551"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "search for houses in bi thc",
+    "relevant_ids": [
+      "10.7712081122642_106.70587328948125"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "máy con ng i b rp bóng cây xanh, nm thch ca qun 1. ây ni mt không",
+    "relevant_ids": [
+      "10.7805644_106.6998246"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "search for the place where the natives lived, where they ate, what time of year it was",
+    "relevant_ids": [
+      "10.7877437_106.7054618"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "bnh vin mt thành ph ch minh",
+    "relevant_ids": [
+      "10.77866115_106.684936728687"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "công giáo lâu i",
+    "relevant_ids": [
+      "10.7622813_106.69839646791394"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "search for tng long bnh",
+    "relevant_ids": [
+      "10.86473235_106.8373555"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "show me the location of the tp.hcm campus in hng cong",
+    "relevant_ids": [
+      "10.8448285_106.83064925183814"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "search for bnh bnh ông",
+    "relevant_ids": [
+      "10.72792725_106.64147178553551"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "n tng nim các vua hùng ti công viên lch s - văn hóa dân tc",
+    "relevant_ids": [
+      "10.7736693_106.69228079922482"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "mt d tch lch s",
+    "relevant_ids": [
+      "10.72792725_106.64147178553551"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "find out what activities are offered at the thy ài museum in saigon",
+    "relevant_ids": [
+      "10.781371037231107_106.69576868976723"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "find the tphcm at 55b nguyn th minh khai, qun 1",
+    "relevant_ids": [
+      "10.7763399_106.69295488134875"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "name of the building",
+    "relevant_ids": [
+      "10.7768949_106.7025025"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "the best mt di tch lch s on google maps",
+    "relevant_ids": [
+      "10.72792725_106.64147178553551"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "visit ch an dong nhn nhp",
+    "relevant_ids": [
+      "10.758108_106.67218157807716"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "search for thành ph th c",
+    "relevant_ids": [
+      "10.86473235_106.8373555"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "thai sn",
+    "relevant_ids": [
+      "10.7684837_106.6853651"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "search for a place with friendly people and an interesting background",
+    "relevant_ids": [
+      "10.78316475_106.7043358398439"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "thánh ng hi giáo chin",
+    "relevant_ids": [
+      "10.7532405_106.6632902"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "search for bnh vin phm ngc thch",
+    "relevant_ids": [
+      "10.7570129_106.6659704"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "can you give me the location of a h ch minh place?",
+    "relevant_ids": [
+      "10.7777163_106.7009774"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "i ti nhà trên th nguyn trong mt con bnh tri trên, c bit",
+    "relevant_ids": [
+      "10.77636545_106.77986972615024"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "saigons main tourist attractions",
+    "relevant_ids": [
+      "10.7994694_106.7417616"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "find place where you can watch tv",
+    "relevant_ids": [
+      "10.77330565_106.6493865"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "nh thn long bnh nhng ngôi nh c gii vng t",
+    "relevant_ids": [
+      "10.86473235_106.8373555"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "how many days are left in vietnam war?",
+    "relevant_ids": [
+      "10.78797185_106.7049562864172"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "chùa an ph (chùa ming sành)",
+    "relevant_ids": [
+      "10.747586324596828_106.66892778142672"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "search for bu in trung tâm ph th ng công ty bu in vit nam ng công ty",
+    "relevant_ids": [
+      "10.7753398_106.6576633"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "search for giao x thánh phaolô (bnh tân)",
+    "relevant_ids": [
+      "10.752436274988844_106.67617626597202"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "find giao ht gianh duy kang",
+    "relevant_ids": [
+      "10.7993915_106.7099648"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "thânh tân giáo x thanh tân tp.hcm tng li trc hin i",
+    "relevant_ids": [
+      "10.752436274988844_106.67617626597202"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "search for htec hài ha gia ch ngha hin i",
+    "relevant_ids": [
+      "10.77513495_106.6989279073037"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "find bn dng thnh",
+    "relevant_ids": [
+      "10.775212998341653_106.6852851760254"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "what year was the idecaf built?",
+    "relevant_ids": [
+      "10.7799935_106.7034805"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "thy ài (quan 3)",
+    "relevant_ids": [
+      "10.781371037231107_106.69576868976723"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "search for lăng trng tn bu",
+    "relevant_ids": [
+      "10.7964412_106.6757181"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "go to mt di tch ngh thut in vietnam",
+    "relevant_ids": [
+      "10.71074245_106.6536273"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "các ho  li t c ây dng gia thành lp i vi ti chy ti qua cô",
+    "relevant_ids": [
+      "10.80315705_106.68494786130157"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "search for long thái hi quán - quan  miu.",
+    "relevant_ids": [
+      "10.88861925_106.59542215355"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "vietnamese state building of architecture",
+    "relevant_ids": [
+      "10.79004245_106.7014178486308"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "cái hi sn cái hi sn ca nhng ca nhn kt mt tn ngh",
+    "relevant_ids": [
+      "10.87092_106.8398758"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "ng cái, hào s phng",
+    "relevant_ids": [
+      "10.753006055647186_106.6662493838506"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "search for nhà thiu nhi qun 3",
+    "relevant_ids": [
+      "10.7750092_106.6865141"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "bo tàng không quân pha nam",
+    "relevant_ids": [
+      "10.8052466_106.66058518111429"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "search for a restaurant in ho chi minh city",
+    "relevant_ids": [
+      "10.64766615_106.78680995288772"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "c in pháp c in thut (benh vin nhi ng 2)",
+    "relevant_ids": [
+      "10.78149175_106.70283245524486"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "i hc nông lâm tphcm (nlu)",
+    "relevant_ids": [
+      "10.8712764_106.7917617"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "search for tng tông thai, thái c nh trong hm",
+    "relevant_ids": [
+      "10.8336745_106.75674424624174"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "search for the continental saigon",
+    "relevant_ids": [
+      "10.7768949_106.7025025"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "dinh ngt nht",
+    "relevant_ids": [
+      "10.7770348_106.69548803180103"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "find the khách sn ng khánh",
+    "relevant_ids": [
+      "10.7530967_106.6717936"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "search for a place to go swimming in nhà dân",
+    "relevant_ids": [
+      "10.772730032561206_106.64585394578886"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "ch bnh tây - cái th  ph",
+    "relevant_ids": [
+      "10.7492965_106.65072796223046"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "name of thuc phái thuc phái thuc mt công trnh kin trc pht giáo  s",
+    "relevant_ids": [
+      "10.8026983_106.7512806"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "héâm thông trc thành ph ch t ting nht",
+    "relevant_ids": [
+      "10.7768949_106.7025025"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "search for mt công giáo thuc tng giáo phn tp.hcm, qun tân ph",
+    "relevant_ids": [
+      "10.788095229546396_106.65053369729922"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "search for a place named nh an ph",
+    "relevant_ids": [
+      "10.7994694_106.7417616"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "search for bo tàng a cht tphcm, ta lc ti s 2 nguyn bnh khiêm, qun 1",
+    "relevant_ids": [
+      "10.7849957_106.7076753"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "chinese government building name",
+    "relevant_ids": [
+      "10.8473597_106.7639803"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "chng nh an phi ph",
+    "relevant_ids": [
+      "10.7994694_106.7417616"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "ca vietnam n tiêm n ng quang",
+    "relevant_ids": [
+      "10.8026983_106.7512806"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "search for bo tàng m thut thành ph h ch minh",
+    "relevant_ids": [
+      "10.7698707_106.69922421706391"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "có thành bn ci qun ng trnh kin trc tôn giáo n tng ti qun 3",
+    "relevant_ids": [
+      "10.7816458_106.6815551"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "tng tôm qun ng lâu công viên sài gn",
+    "relevant_ids": [
+      "10.7877437_106.7054618"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "search for a place to stay with a pool",
+    "relevant_ids": [
+      "10.780793700158094_106.61590496107476"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "n th nguyn nh th",
+    "relevant_ids": [
+      "10.82687565_106.61297740212134"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "i need a place with a good vibe",
+    "relevant_ids": [
+      "10.753461476958297_106.65280111725016"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "ng tành ph nhà th i nhà th công giáo lâu i",
+    "relevant_ids": [
+      "10.7622813_106.69839646791394"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "search for a place to get lunch",
+    "relevant_ids": [
+      "10.775667980811878_106.68948531725088"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "nhà hát ha bnh is a place to spend time with the h ch minh",
+    "relevant_ids": [
+      "10.77232415_106.673828226329"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "công viên khu m c quéo",
+    "relevant_ids": [
+      "10.77636545_106.77986972615024"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "vin pasteur tphcm",
+    "relevant_ids": [
+      "10.7861059_106.68887239223956"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "search for bnh vin t d",
+    "relevant_ids": [
+      "10.7684837_106.6853651"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "search for chùa xa li",
+    "relevant_ids": [
+      "10.777868_106.6863391"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "find ti tù ngi thành ph h ch minh t ngi pháp xây dng.",
+    "relevant_ids": [
+      "10.7773572_106.6693896"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "nh khánh hi",
+    "relevant_ids": [
+      "10.7642378_106.70818691487378"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "can someone tell me about giao x th c ?",
+    "relevant_ids": [
+      "10.851830799999998_106.75705167754067"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "search for something called bnh thun",
+    "relevant_ids": [
+      "10.791357125416129_106.60419155730276"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "mt ngôi c a chùa hn thng trc vc gia nh xa",
+    "relevant_ids": [
+      "10.7559576_106.6450799"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "find a place to walk through thai history",
+    "relevant_ids": [
+      "10.768614_106.688957"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "chung c cao thng",
+    "relevant_ids": [
+      "10.771745847388411_106.68007989498318"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "khu ch lâu i vi gian m thc a dng, bài viên xuài",
+    "relevant_ids": [
+      "10.7635238_106.70610328026284"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "bnh khánh and m tin hin trn quang o",
+    "relevant_ids": [
+      "10.64766615_106.78680995288772"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "search for a hostel that provides bo tàng a cht tphcm",
+    "relevant_ids": [
+      "10.7849957_106.7076753"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "the buildings named minh hng gia thnh hi quán",
+    "relevant_ids": [
+      "10.7522126_106.6612821"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "trng ca thi thành ph h ch minh bn gia phong t cách gia phong tinh ca",
+    "relevant_ids": [
+      "10.770037186423554_106.69881219549563"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "find mt di tch lch s - văn hóa cp quc gia trên cù lao bui tai, anh ch minh",
+    "relevant_ids": [
+      "10.72792725_106.64147178553551"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "nhn nhp",
+    "relevant_ids": [
+      "10.758108_106.67218157807716"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "look for công viên khu m c g quéo",
+    "relevant_ids": [
+      "10.77636545_106.77986972615024"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "ta tng giám mc si gn",
+    "relevant_ids": [
+      "10.7797885_106.69071494386463"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "chinese modern architecture",
+    "relevant_ids": [
+      "10.801106821914845_106.66523318280645"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "what is the name of the place where you can eat thai food",
+    "relevant_ids": [
+      "10.7673179_106.6944188"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "search for the street name of an historic house",
+    "relevant_ids": [
+      "10.78835975_106.69064176486911"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "thuc giáo phn tp.hcm",
+    "relevant_ids": [
+      "10.752436274988844_106.67617626597202"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "chic tp, hc tp, rèn luyn k năng",
+    "relevant_ids": [
+      "10.78396255_106.68889980443488"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "search for khu chung c",
+    "relevant_ids": [
+      "10.771745847388411_106.68007989498318"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "how far away is the thai restaurant phc an miu viet",
+    "relevant_ids": [
+      "10.7994694_106.7417616"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "search for places in si gn",
+    "relevant_ids": [
+      "10.7797885_106.69071494386463"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "name of khách sn ng hnh ca thnh ph b vc thnh ph tin 5",
+    "relevant_ids": [
+      "10.7530967_106.6717936"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "search for nh thn long ha",
+    "relevant_ids": [
+      "10.8448285_106.83064925183814"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "if i can go with my husband and have a nice time, i would like to go to pháp vin minh ăng quang",
+    "relevant_ids": [
+      "10.8026983_106.7512806"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "search for bo tàng o dài",
+    "relevant_ids": [
+      "10.808898637875734_106.85321587276567"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "i want to know about the tu pha công giáo chuyên monastery",
+    "relevant_ids": [
+      "10.78316475_106.7043358398439"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "search for nh thông tây hi",
+    "relevant_ids": [
+      "10.8399846_106.6647894"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "search for tông giáo thuc",
+    "relevant_ids": [
+      "10.780793700158094_106.61590496107476"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "bo tàng o dài",
+    "relevant_ids": [
+      "10.808898637875734_106.85321587276567"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "search for cp chin mt trong ngôi chùa c sn",
+    "relevant_ids": [
+      "10.87092_106.8398758"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "visit giáo x th thiêm",
+    "relevant_ids": [
+      "10.77298155_106.71044255601991"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "search for mt di tch lch s",
+    "relevant_ids": [
+      "10.72792725_106.64147178553551"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "what is the name of the first military post in vietnam?",
+    "relevant_ids": [
+      "10.7835135_106.7052214"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "search for a tradable model of giáo x ph trung",
+    "relevant_ids": [
+      "10.788095229546396_106.65053369729922"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "shopping for clothes",
+    "relevant_ids": [
+      "10.79506170385674_106.64908119451388"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "search for a place to stay and visit",
+    "relevant_ids": [
+      "10.77232415_106.673828226329"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "chùa pothiwong , mt trong ngôi chùa khmer",
+    "relevant_ids": [
+      "10.784554827973516_106.64807013384946"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "minh hng gia thnh hi quán",
+    "relevant_ids": [
+      "10.7522126_106.6612821"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "mt nhà tù ni ting ti tành ph h ch minh, năm 1943",
+    "relevant_ids": [
+      "10.7773572_106.6693896"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "which building has been designated a cultural monument",
+    "relevant_ids": [
+      "10.771745847388411_106.68007989498318"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "nhng hc chng tr thc tr tâm tói chng tói lng hi",
+    "relevant_ids": [
+      "10.753250751751624_106.66117158971338"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "list all buildings built in vietnam",
+    "relevant_ids": [
+      "10.772730032561206_106.64585394578886"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "mt ngôi ngôi c knh ta lc ti phng trng th, tp. th c, tp.hcm.",
+    "relevant_ids": [
+      "10.66879535_106.56807776241035"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "search for activities to do on the mnh h trng in thailand",
+    "relevant_ids": [
+      "10.753461476958297_106.65280111725016"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "du ngc hoàng thng  và các ti trung tâm qun 1",
+    "relevant_ids": [
+      "10.7920155_106.6981151"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "bit th phng nam",
+    "relevant_ids": [
+      "10.775667980811878_106.68948531725088"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "trng h bách khoa",
+    "relevant_ids": [
+      "10.772075_106.6579018"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "nam vin cat minh",
+    "relevant_ids": [
+      "10.78316475_106.7043358398439"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "mt trong nhng giáo x ln",
+    "relevant_ids": [
+      "10.79134052892826_106.63513978179796"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "khách sn ng khánh",
+    "relevant_ids": [
+      "10.7530967_106.6717936"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "làm li rng v nh v ng tâm tâm thành ph, ti tr c làm nh ng",
+    "relevant_ids": [
+      "10.7747441_106.7010053"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "nguyn n quang cn gi c có ngôi ngôi ngôi ngôi c tr quan trng trong công",
+    "relevant_ids": [
+      "10.76583375_106.67167786888947"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "giáo x thiên n",
+    "relevant_ids": [
+      "10.780793700158094_106.61590496107476"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "tai lnh th vin th vin th viet nam n hc in hnh kt",
+    "relevant_ids": [
+      "10.77513495_106.6989279073037"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "c hai u i chng vin thánh giuse",
+    "relevant_ids": [
+      "10.7844159_106.70504214208285"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "look up ng thng tam",
+    "relevant_ids": [
+      "10.41726275_106.97136363054858"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "cng ng ngi hoa gc tri thn ho anh thn quan trng i vi cng ng ngi hoa gc",
+    "relevant_ids": [
+      "10.7493723_106.65438745"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "name of the bar trang tâm thành ph h ch minh mt trong nhng ngôi nhà c nht sài gn vi",
+    "relevant_ids": [
+      "10.7797885_106.69071494386463"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "search for pháp vin minh ăng quang",
+    "relevant_ids": [
+      "10.8026983_106.7512806"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "chinese name of the temple in bnh mic tc b chinese name of the temple in ng tm t th bi",
+    "relevant_ids": [
+      "10.753461476958297_106.65280111725016"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "where is m ông binh b kim duyt ty, tha v lang h trn?",
+    "relevant_ids": [
+      "10.78363467396026_106.67485356183424"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "search for thánh trong cp thùng hng o",
+    "relevant_ids": [
+      "10.33162115_107.07503879482532"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "giao thuc bc ht nhun thành ph th",
+    "relevant_ids": [
+      "10.8473597_106.7639803"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "search for nh ph lc",
+    "relevant_ids": [
+      "10.71074245_106.6536273"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "cn c gi trng th i tông t",
+    "relevant_ids": [
+      "10.753461476958297_106.65280111725016"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "find a restaurant in thánh giuse",
+    "relevant_ids": [
+      "10.7844159_106.70504214208285"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "mt báo thng nhà c lâu xiêu trch thi qun 5, và trong ting trong tâm thng",
+    "relevant_ids": [
+      "10.75074148820402_106.65842756330764"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "ch thái bnh",
+    "relevant_ids": [
+      "10.7667302_106.6886914"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "trc knh sn si hoi  tc c ti tng tâm ni trong nhng khách sn continental s",
+    "relevant_ids": [
+      "10.7768949_106.7025025"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "search for h ch minh.",
+    "relevant_ids": [
+      "10.78138535_106.67306815948407"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "search for nhà thiu nhi qun 3",
+    "relevant_ids": [
+      "10.7750092_106.6865141"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "find the location of nh bnh ha",
+    "relevant_ids": [
+      "10.8117038_106.69643920071482"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "mt cng ng ngi hoa ti thành ph h ch minh",
+    "relevant_ids": [
+      "10.754999_106.6588661696466"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "search for nh bnh tr ông",
+    "relevant_ids": [
+      "10.75838525_106.60635905"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "search for ph hnh",
+    "relevant_ids": [
+      "10.80315705_106.68494786130157"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "find a place to eat",
+    "relevant_ids": [
+      "10.7682684_106.7068035387357"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "i hc sài gn c s 2 ta lc ti a ch 04 tôn c thng, phng bn nghé",
+    "relevant_ids": [
+      "10.78328515_106.70639157867404"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "where is the xhng tng tinh thng",
+    "relevant_ids": [
+      "10.7555057021611_106.6618628378452"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "ch u mi at an internet cafe",
+    "relevant_ids": [
+      "10.8502385_106.75419735"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "search for a hi quán nguyên ngha âu",
+    "relevant_ids": [
+      "10.75354585_106.66213327953938"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "trng ngi th ng tông mt ngha ngi",
+    "relevant_ids": [
+      "10.75354585_106.66213327953938"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "google search: s giao dch chng khoán tphcm",
+    "relevant_ids": [
+      "10.768402664568208_106.7018229954198"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "search for hi quán nghia nhuan in hnh không tành ph",
+    "relevant_ids": [
+      "10.7493723_106.65438745"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "mt hi quán th gi là chùa bn mt",
+    "relevant_ids": [
+      "10.7183837_106.6236992"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "search for benh vien nhi ng 2",
+    "relevant_ids": [
+      "10.78149175_106.70283245524486"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "can you recommend a place to stay in hanoi, vietnam?",
+    "relevant_ids": [
+      "10.75155845_106.65727598821748"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "tác hàng h có văn tng dng vào iêu v vo vào, hàng hàng t công tr",
+    "relevant_ids": [
+      "10.77674365_106.70324880088602"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "nhà sách c bà hoà bnh mt công giáo, chuyên cung cp",
+    "relevant_ids": [
+      "10.7786963_106.6992181"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "search for a có công thng in h ch minh",
+    "relevant_ids": [
+      "10.7777163_106.7009774"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "rp công nhân táo ln ri s thi thành ph h ch minh",
+    "relevant_ids": [
+      "10.7673179_106.6944188"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "search for hmcc",
+    "relevant_ids": [
+      "10.7693312_106.70362685389938"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "search for tai hi ngôi nhà c  chnh xoàn nh n hành chnh thành ph h",
+    "relevant_ids": [
+      "10.7797885_106.69071494386463"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "search for nhng an ph t tng an ph",
+    "relevant_ids": [
+      "10.7994694_106.7417616"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "tân nh chin tông i",
+    "relevant_ids": [
+      "10.78989975_106.69005125"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "can i do this search in google?",
+    "relevant_ids": [
+      "10.7570069_106.66739232264312"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "nhà sách c bà ha bnh",
+    "relevant_ids": [
+      "10.7786963_106.6992181"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "find a restaurant that serves vietnamese mc with ni gp g in saigon",
+    "relevant_ids": [
+      "10.784789413035352_106.70396093767155"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "search for a place to rent car",
+    "relevant_ids": [
+      "10.7540920680073_10.667034779178"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "search for chia an ph in a c mi bát trnh",
+    "relevant_ids": [
+      "10.747586324596828_106.66892778142672"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "bnh vin thai sn",
+    "relevant_ids": [
+      "10.7684837_106.6853651"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "search for the nh bnh tr ông",
+    "relevant_ids": [
+      "10.75838525_106.60635905"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "bnh vin a khoa sài gon",
+    "relevant_ids": [
+      "10.7721693_106.6993921"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "mt giáo x nhà th a minh ba chuong",
+    "relevant_ids": [
+      "10.7938295_106.6694208945269"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "search for thâm thao xy mt thanh an php trc ánh",
+    "relevant_ids": [
+      "10.9495114_106.69344411010948"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "search for ch tan bnh",
+    "relevant_ids": [
+      "10.9398453_106.7652497"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "ng thng  thành ph h ch minh có mt s khu chung c, t các ta nhà c có",
+    "relevant_ids": [
+      "10.771745847388411_106.68007989498318"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "what is the atmosphere like?",
+    "relevant_ids": [
+      "10.8336745_106.75674424624174"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "what nationality is the person who built this?",
+    "relevant_ids": [
+      "10.78835975_106.69064176486911"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "can you find the address of the place that is s thut and has the gc cn ng ng hoc miu qán.",
+    "relevant_ids": [
+      "10.88861925_106.59542215355"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "ph bnh ngh lng ti qun 11 tp.hcm  các h gia nh t sn xut trong con h",
+    "relevant_ids": [
+      "10.772730032561206_106.64585394578886"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "list thai restaurants",
+    "relevant_ids": [
+      "10.7938295_106.6694208945269"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "search for nh xuân ha - tch lch s",
+    "relevant_ids": [
+      "10.78651705_106.68485975"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "search for bng ln thng nh triu",
+    "relevant_ids": [
+      "10.8020535_106.69695898327026"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "name of the s khu chung c, who founded the khu chung c",
+    "relevant_ids": [
+      "10.771745847388411_106.68007989498318"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "ct c th ng",
+    "relevant_ids": [
+      "10.7698554_106.7063881"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "search for chun thng bi thai",
+    "relevant_ids": [
+      "10.7777163_106.7009774"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "chùa hi sn c b văn hóa vào năm 1993",
+    "relevant_ids": [
+      "10.87092_106.8398758"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "c xá 30 tháng 4",
+    "relevant_ids": [
+      "10.777592_106.686572"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "search for the thuc gian paht dim",
+    "relevant_ids": [
+      "10.8028511_106.6789518"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "the giáo x of anh tanh",
+    "relevant_ids": [
+      "10.752436274988844_106.67617626597202"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "if i want to watch some movies what should i do",
+    "relevant_ids": [
+      "10.750223_106.659248"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "search for trang giáo thuc by công giáo thuc tng giáo phn tp.hcm",
+    "relevant_ids": [
+      "10.780793700158094_106.61590496107476"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "năng chc vào v mt ta nhà vietnam th gia th  k 20, c hoàn thành vào",
+    "relevant_ids": [
+      "10.770176756020266_106.70459695552049"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "search for h trng",
+    "relevant_ids": [
+      "10.753461476958297_106.65280111725016"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "trng cng kun, công trnh kin trc, t ng phc kn",
+    "relevant_ids": [
+      "10.75695265_106.6748807024128"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "search for hi quán tu thành",
+    "relevant_ids": [
+      "10.75359045_106.6611832980988"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "trong công trnh kin trc ni bt và lâu i ti thành ph  xây dng",
+    "relevant_ids": [
+      "10.776539_106.7009132"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "tôi vin ca t minh v i sng chiêm nim",
+    "relevant_ids": [
+      "10.78316475_106.7043358398439"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "the i hc khoa hc t nhiên c s 2",
+    "relevant_ids": [
+      "10.87622755_106.7968524636958"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "search for v",
+    "relevant_ids": [
+      "10.770176756020266_106.70459695552049"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "a place to eat",
+    "relevant_ids": [
+      "10.77232415_106.673828226329"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "lookup nh ha bnh công viên ha bnh",
+    "relevant_ids": [
+      "10.760739650435305_106.67356938844084"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "long tai hi quán",
+    "relevant_ids": [
+      "10.88861925_106.59542215355"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "nh phong phai",
+    "relevant_ids": [
+      "10.74532455_106.66024250025396"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "list all places where you can do a craic",
+    "relevant_ids": [
+      "10.7736968_106.6941856"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "thai cuisine",
+    "relevant_ids": [
+      "10.7428703_106.61607778214356"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "looking for a place that was built in 1950.",
+    "relevant_ids": [
+      "10.7579927_106.68697389683784"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "giáo x th c có lch s lâu i",
+    "relevant_ids": [
+      "10.851830799999998_106.75705167754067"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "trng i hc bách khoa (hqg)",
+    "relevant_ids": [
+      "10.772075_106.6579018"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "search for a place to spend a weekend",
+    "relevant_ids": [
+      "10.76891675_106.69560556449032"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "what is the address of mu s tân?",
+    "relevant_ids": [
+      "1.08297615634213e+16_1.06691518546375e+16"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "find a place to buy a beer",
+    "relevant_ids": [
+      "10.86473235_106.8373555"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "bu in trung tâm ph th",
+    "relevant_ids": [
+      "10.7753398_106.6576633"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "search for the hostel nguyen tri phng",
+    "relevant_ids": [
+      "10.7540920680073_10.667034779178"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "ăng tiêu iêu hng hnh trang",
+    "relevant_ids": [
+      "10.77232415_106.673828226329"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "search for giáo x thiên n in chile",
+    "relevant_ids": [
+      "10.780793700158094_106.61590496107476"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "search for phan châu trinh",
+    "relevant_ids": [
+      "10.8042742_106.6619504"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "bt ta lc  cn giáo ng giáo x mc ty nho  công giáo ni bt",
+    "relevant_ids": [
+      "10.78623145_106.7010351206109"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "ng thng c ln ng - ng c hi",
+    "relevant_ids": [
+      "10.75074148820402_106.65842756330764"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "search for vnh hi",
+    "relevant_ids": [
+      "10.7622813_106.69839646791394"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "mt c s y t lâu i ti thành ph h ch minh, có lch s hnh thành",
+    "relevant_ids": [
+      "10.7721693_106.6993921"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "find chùa t nghiêm",
+    "relevant_ids": [
+      "10.602495_107.0626609"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "trung tâm sin chinese temple named trung tâm sin",
+    "relevant_ids": [
+      "10.7531898_106.65795205"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "search for what city has the best nightlife?",
+    "relevant_ids": [
+      "10.771745847388411_106.68007989498318"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "what kind of place is it to go to nhng anh lp",
+    "relevant_ids": [
+      "10.7790693_106.68363629592108"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "search for tp thy thn hu cung",
+    "relevant_ids": [
+      "10.753250751751624_106.66117158971338"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "a ru cnh o báo",
+    "relevant_ids": [
+      "10.808898637875734_106.85321587276567"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "if i can search for any place that has an atmosphere like this,what is it called?",
+    "relevant_ids": [
+      "10.7729754_106.66707394464696"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "find a location where you can visit không nghiên vào cách",
+    "relevant_ids": [
+      "10.770037186423554_106.69881219549563"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "tanh công tng du ch chn ph sng lên ngh ting ting báo vi thành p",
+    "relevant_ids": [
+      "10.33162115_107.07503879482532"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "name of the building that is nt on thi nhn",
+    "relevant_ids": [
+      "10.7625844_106.68169483128824"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "nhà th ch qán",
+    "relevant_ids": [
+      "10.757335_106.6817269105739"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "list of activities in hong kong",
+    "relevant_ids": [
+      "10.752959944924465_106.63631189300165"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "i quán chùa bà hi nam",
+    "relevant_ids": [
+      "10.7523593_106.6633235"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "the mt v d in hnh i thành ph h ch minh",
+    "relevant_ids": [
+      "10.77426565_106.6999496030344"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "liên tinh mc hay cn c bit n",
+    "relevant_ids": [
+      "10.8502385_106.75419735"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "whats the name of the mt. bnh khanh village",
+    "relevant_ids": [
+      "10.64766615_106.78680995288772"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "ca nh thng tam.",
+    "relevant_ids": [
+      "10.41726275_106.97136363054858"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "search for a local company called cheay hàng thc phm ti sng",
+    "relevant_ids": [
+      "10.7667302_106.6886914"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "nh ch hoà is the place to go for wine tasting, food and shopping.",
+    "relevant_ids": [
+      "10.78138535_106.67306815948407"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "bu in qun ca vietnam post bu in qun ca vietnam post ti thành ph",
+    "relevant_ids": [
+      "10.750223_106.659248"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "tin nhân v tin xa",
+    "relevant_ids": [
+      "10.480479187530538_106.76300671903466"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "ăng sài gn ăng cái tr s chnh",
+    "relevant_ids": [
+      "10.7765973_106.6836767"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "search for a place where a person can eat a soup, drink coffee, exercise and play games",
+    "relevant_ids": [
+      "10.753006055647186_106.6662493838506"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "visit thái li nhà",
+    "relevant_ids": [
+      "10.7759106_106.69962141634927"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "search for miu năm ba tao thn àn",
+    "relevant_ids": [
+      "10.7736968_106.6941856"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "search for bu in qun 5 in vi thnh ph h ch minh",
+    "relevant_ids": [
+      "10.750223_106.659248"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "mt khu dân c tháng 4 là mt khu dân c tháng 4 có v tr c a ti qun 3",
+    "relevant_ids": [
+      "10.777592_106.686572"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "indonesia hotels",
+    "relevant_ids": [
+      "10.7579927_106.68697389683784"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "i hc sài gon",
+    "relevant_ids": [
+      "10.78328515_106.70639157867404"
+    ],
+    "type": "Semantic (Vibe Persona)"
+  },
+  {
+    "query": "iu thiên hu",
+    "relevant_ids": [
+      "10.753250751751624_106.66117158971338"
+    ],
+    "type": "Semantic (Architect Persona)"
+  },
+  {
+    "query": "search for ng sách nguyn văn bnh.",
+    "relevant_ids": [
+      "10.7805644_106.6998246"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "search for n sri thendayuthapani",
+    "relevant_ids": [
+      "10.7735865_106.7016144764372"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "show me tours of ngân hàng thành ph h ch minh",
+    "relevant_ids": [
+      "10.7701603_106.7039075"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "search for nh xuân hip ti phng linh trung",
+    "relevant_ids": [
+      "10.877851_106.76536922271973"
+    ],
+    "type": "Semantic (Activity Persona)"
+  },
+  {
+    "query": "chùa ngi chng nam chùa mt ct - chùa ngi chng nam chùa mt ct - chùa hà ni ch",
+    "relevant_ids": [
+      "10.84359165_106.76316395"
+    ],
+    "type": "Semantic (Architect Persona)"
+  }
+]

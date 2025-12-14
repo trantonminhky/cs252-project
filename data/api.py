@@ -97,7 +97,7 @@ class SearchRequest(BaseModel):
     final_k: int = 3
     initial_k: int = 10  # Number of candidates to fetch from EACH source (Vector & BM25)
     filters: Optional[Dict[str, Any]] = None 
-    alpha: float = 0.5   # Weight for vector search (0.0 = Pure Keyword, 1.0 = Pure Vector)
+    alpha: float = 0.65   # Weight for vector search (0.0 = Pure Keyword, 1.0 = Pure Vector)
 
 # --- HELPER: RECURSIVE FILTER CLEANING ---
 def clean_filters_recursive(node: Any) -> Any:
@@ -180,7 +180,7 @@ async def search_locations(request: SearchRequest):
         fused_ids = reciprocal_rank_fusion(vector_ids, bm25_ids)
         
         # Limit to reasonable amount for Reranker (e.g. top 20 fused)
-        candidates_ids = fused_ids[:request.initial_k * 2]
+        candidates_ids = fused_ids[:request.initial_k]
 
         if not candidates_ids:
              return {"data": [], "meta": {"count": 0}}
@@ -218,9 +218,8 @@ async def search_locations(request: SearchRequest):
             item = {
                 "name": meta.get('name', 'Unknown'),
                 "description": doc,
-                "image_link": meta.get('image link', ''),
+                "image id": meta.get('image id', ''),
                 "relevance_score": float(score),
-                "source": "Hybrid", # Just a tag
                 "building_type": meta.get('building_type', 'unknown'),
                 # ... add other fields
             }
