@@ -1,2 +1,54 @@
 \section{Idea}
-\lipsum[1-2]
+
+The core concept of \textbf{CulTour} is to re-engineer how cultural tourism is consumed by shifting the paradigm from \textit{Location-Based Services} to a \textbf{Semantic and Visual Discovery Engine}.
+
+While the global travel industry is shifting towards experiential travel, digital tools have remained stagnant. Current platforms treat cultural sites as static geographical points, ignoring the rich historical and sociological context that defines them. CulTour decouples "culture" from mere location, breaking it down into granular, queryable data points such as \textit{Architecture Style}, \textit{Dynastic Era}, \textit{Religious Affiliation}, and \textit{Social Function}.
+
+By treating cultural attributes as structured data rather than unstructured text, CulTour aims to solve the ``Staged Authenticity'' problem. It empowers users to bypass the curated ``front-stage'' of mass tourism and algorithmically locate the ``back-stage'' reality of Vietnamese daily life using a \textbf{Utility-First} approach.
+
+\subsection{Problem Statement}
+
+The tourism sector in Vietnam suffers from a dual failure: a sociological failure of authenticity and a technical failure of information categorization.
+
+\subsubsection{The Sociological Problem}
+Cultural tourism often presents a sanitized, curated performance designed to meet perceived tourist expectations. This creates a ``front-stage'' reality where visitors interact with a manufactured version of Vietnam, while the ``back-stage''—the authentic, unstaged aspects of local life—remains hidden.
+\begin{itemize}
+  \item \textbf{The Gap:} Guided tours (e.g., ``We Show You Saigon!'') focus exclusively on high-traffic, commercialized zones.
+  \item \textbf{The Demand:} There is a massive market friction; 77\% of travelers explicitly seek authentic experiences\footnote{\href{https://news.booking.com/bookingcoms-2025-research-reveals-growing-traveler-awareness-of-tourism-impact-on-communities-both-at-home-and-abroad/}{Booking.com 2025 Travel Predictions}} \footnote{\href{https://stories.hilton.com/2025trends/slow-travel-the-growing-desire-to-travel-like-a-local}{Hilton 2025 Slow Travel}}, yet the market primarily supplies generic sightseeing.
+\end{itemize}
+
+\subsubsection{The Technical Problem}
+The primary barrier to finding authentic experiences is not a lack of existence, but a lack of \textit{discoverability}. Market leaders like Google Maps, Agoda, and Traveloka are optimized for logistics and commerce, leading to a ``flattening'' of cultural value.
+
+\begin{enumerate}
+  \item \textbf{The ``Pagoda Problem'' (Taxonomic Failure):} To a standard map algorithm, a 19th-century pagoda with rare Sino-Vietnamese architecture is categorized identically to a newly built concrete pagoda. The platforms lack the semantic depth to distinguish \textit{historical significance} from \textit{utility}.
+  \item \textbf{Algorithmic Bias via Popularity:} Recommendation engines on current platforms prioritize venues with high traffic and English reviews. This creates a feedback loop that continually pushes tourists toward ``tourist traps,'' burying authentic, quieter locations under a layer of noise.
+\end{enumerate}
+
+\subsubsection{The Information Asymmetry}
+Foreign travelers face a ``knowledge wall''.
+\begin{itemize}
+  \item \textbf{Local Sources:} High-quality blogs analyzing deep culture are predominantly written in Vietnamese, often verbose, and lack structured metadata.
+  \item \textbf{English Sources:} Available English resources are often superficial, repetitive, and lack the specific domain knowledge required to explain \textit{why} a location is culturally significant.
+\end{itemize}
+
+\subsection{Target Users}
+
+We define our users not just by demographics, but by their search behavior and intent
+
+\subsubsection{The Authenticity Seeker}
+Independent travelers or expatriates who want to understand the \textit{context} of what they are seeing. They are unsatisfied by the generic nature of Google Maps categories and are looking for a tool that filters for specific cultural nuance (e.g., ``Find me a temple that is currently active, not just a museum'').
+
+\subsubsection{The Culturally Overwhelmed}
+This user wants to engage with local culture but lacks the time or research skills to parse through hundreds of Vietnamese blogs. They find the current volume of unstructured information overwhelming and require a curated, trusted filter to guide them to high-value experiences.
+
+\subsection{System Objectives}
+
+To bridge the gap between foreign curiosity and local reality, the system has four distinct objectives:
+
+\begin{itemize}
+  \item \textbf{Construct a Cultural Knowledge Graph}: the system must move beyond keyword matching. It aims to build a semantic engine that understands the relationships between cultural entities.
+  \item \textbf{Granular, Attribute-based Search}: the system must solve the ``Pagoda Problem'' by allowing users to filter based on deep attributes rather than surface-level categories.
+  \item \textbf{Automated Curation via Preference Matching}: to address the ``overwhelmed'' user, the system will utilize user constraints to auto-curate itineraries.
+  \item \textbf{The ``Utility-First'' Adoption Strategy}: we assume that organizers of authentic local events are difficult to onboard immediately.
+\end{itemize}

@@ -1,3 +1,0 @@
-@startuml hello
-Alice -> Bob: test
-@enduml
