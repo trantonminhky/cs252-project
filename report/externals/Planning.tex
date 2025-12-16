@@ -1,2 +1,92 @@
 \section{Planning}
-\lipsum[1-2]
+
+\subsection{Phase 1: Minimum Viable Product (MVP)}
+The initial phase focuses on establishing the foundational features that differentiate Cultour from conventional travel applications, emphasizing intelligent search capabilities and community-driven event discovery. 
+
+\subsubsection{Granular Search System}
+\begin{itemize}
+    \item \textbf{Multi-modal Search Implementation}: Deploy advanced search functionality supporting text queries, category-based filters, and image-based location recognition.
+    \item \textbf{Technical Implementation}: Integration of fuzzy search algorithms and semantic search powered by Python backend services (\texttt{/search} and \texttt{/sea\-rch-by-image} endpoints).
+    \item \textbf{AI-Powered Query Processing}: Leverage natural language processing to interpret user intent and return contextually relevant results.
+    \item \textbf{Filter Architecture}:  Implement comprehensive filtering system including tags, location proximity, operating hours, and venue age/historical significance.
+\end{itemize}
+
+\subsubsection{Intelligent Recommendation System}
+\begin{itemize}
+    \item \textbf{Personalization Engine}: Develop machine learning models to analyze user preferences, search history, and interaction patterns.
+    \item \textbf{Collaborative Filtering}: Implement algorithms to suggest locations and events based on behavior of similar user profiles.
+    \item \textbf{Preference Management}:  Create user preference storage and updating mechanisms integrated with user session management.
+    \item \textbf{Dynamic Suggestions}: Real-time recommendation updates based on user location, time of day, and seasonal factors.
+\end{itemize}
+
+\subsubsection{Event Services Platform}
+\begin{itemize}
+    \item \textbf{Event Discovery}: Comprehensive event browsing interface with categorization and filtering capabilities.
+    \item \textbf{Event Creation}: Full-featured event creation workflow allowing users to establish public or private events with detailed metadata (name, location, description, start/end times, participant limits).
+    \item \textbf{Event Participation}: User subscription system enabling participants to join/leave events with real-time participant tracking.
+    \item \textbf{Event Management}:  CRUD operations for event lifecycle management through \texttt{EventService} API.
+\end{itemize}
+
+\subsection{Phase 2: Scaling \& Community Development}
+This phase transitions Cultour from a functional application to a comprehensive travel community platform capable of handling significant user traffic and fostering user-generated content.
+
+\subsubsection{Social Hub Development}
+\begin{itemize}
+    \item \textbf{User Review System}: Implement five-star rating system with text reviews, photo attachments, and review verification mechanisms.
+    \item \textbf{User-Generated Itineraries}: Enable users to create, share, and publish custom travel itineraries with day-by-day breakdowns and location recommendations.
+    \item \textbf{Travel Journals}: Develop journaling functionality allowing users to document trips with multimedia content, timestamps, and geolocation data.
+\end{itemize}
+
+\subsubsection{Infrastructure Scaling}
+\begin{itemize}
+    \item \textbf{Load Balancer Implementation}:  Deploy horizontal scaling architecture using containerized services (Docker infrastructure already established in codebase).
+    \item \textbf{Database Optimization}:  Implement database sharding, indexing strat\-egies, and caching layers to manage high-volume queries.
+    \item \textbf{CDN Integration}:  Utilize Content Delivery Networks for image and static asset distribution to reduce latency.
+    \item \textbf{API Gateway}: Establish API gateway with rate limiting, request routing, and microservices orchestration.
+\end{itemize}
+
+\subsubsection{Geographic Expansion}
+\begin{itemize}
+    \item \textbf{Regional Data Collection}: Systematic gathering of location data from underrepresented regions throughout Vietnam.
+    \item \textbf{Data Source Integration}: Partnership with local tourism boards, cultural organizations, and government databases.
+    \item \textbf{Crowdsourced Data}: Enable verified users to contribute location information, photos, and metadata with quality control processes.
+    \item \textbf{Multi-language Support}:  Implement internationalization for Vietnam\-ese, English, and additional languages.
+\end{itemize}
+
+\subsection{Phase 3: Monetization Strategy}
+Upon establishing a stable user base and comprehensive content library, Phase 3 introduces revenue generation mechanisms while preserving platform accessibility.
+
+\subsubsection{Premium Event Listings}
+\begin{itemize}
+    \item \textbf{Organizational Accounts}:  Create business-tier accounts for tourism organizations, hotels, and event companies.
+    \item \textbf{Featured Event Placement}: Offer prominent positioning in search results and recommendation feeds for a service fee.
+    \item \textbf{Analytics Dashboard}: Provide event organizers with participant demographics, engagement metrics, and conversion analytics.
+    \item \textbf{Tiered Pricing Model}: Implement flexible pricing based on event visibility duration, geographic reach, and promotional features.
+\end{itemize}
+
+\subsubsection{Affiliate Marketing Integration}
+\begin{itemize}
+    \item \textbf{Partnership Establishment}: Develop affiliate relationships with major booking platforms (Agoda, Klook, Booking.com).
+    \item \textbf{Deep Linking Implementation}: Seamless integration enabling users to book accommodations and activities directly through Cultour.
+\end{itemize}
+
+\subsection{Partner Verification \& Quality Assurance}
+To maintain platform credibility and ensure user safety, a comprehensive partner verification system will be implemented.
+
+\subsubsection{Verification Process Architecture}
+\begin{itemize}
+    \item Multi-Tier Verification System.
+\end{itemize}
+
+\subsubsection{Verification Requirements}
+\begin{itemize}
+    \item Documentation Standards.
+    \item Review Process.
+\end{itemize}
+
+\subsubsection{Badge \& Trust System}
+\begin{itemize}
+    \item Verification Badges.
+    \item Graduated Privileges.
+    \item Ongoing Monitoring.
+\end{itemize}
