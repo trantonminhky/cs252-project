@@ -1,3 +1,9 @@
-.aux
-*.synctex.gz
 *.jar
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.synctex.gz
+*.bbl
+*.blg
+*.out
