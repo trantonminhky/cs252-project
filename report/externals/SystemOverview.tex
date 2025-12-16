@@ -1,73 +1,52 @@
 \section{System Overview}
-
 \subsection{Main Stakeholders}
-The platform is designed to address the specific pain points of two primary user groups who currently face significant friction in discovering cultural experiences:
 
-\begin{itemize}
-    \item \textbf{Authenticity Seekers:} These are users driven by a desire for "backstage" elements of culture—local rituals, niche architecture, and specific ethnic history—that are often obscured by commercialized tourism. They struggle to find these experiences through generic search engines, which prioritize high-traffic, commercial venues over cultural depth.
-    
-    \item \textbf{International Visitors \& Expatriates:} This demographic often finds online travel information overwhelmed by SEO-optimized generic lists. They perceive existing recommendations as repetitive and lacking in local nuance, making it difficult to distinguish between genuine cultural spots and tourist traps.
-\end{itemize}
+\textbf{Authenticity seekers:} cannot find back-
+stage elements or specific cultural filters
+through generic search.
 
+\textbf{Foreigners:} Find online information
+about cultural spots overwhelming,
+generic, and repetitive.
 \subsection{Core Functions}
-
 \subsubsection{Granular Search Service}
-The search pipeline is built upon a hybrid architecture that combines semantic search and lexical search techniques to optimize both relevance and precision in results. The system supports \textbf{multimodal input}, allowing users to query the database using natural language prompts, image inputs for visual search, specific categorical filters, or direct entity name lookups. The key components of this pipeline are as follows:
 
-% \begin{enumerate}
-%   \item \textbf{Data Embedding and Indexing:} The system utilizes \textbf{ChromaDB} as a vector database. To enhance retrieval accuracy, raw data from architecture and restaurant CSVs is pre-processed into descriptively refined documents before being embedded. We utilize the state-of-the-art \texttt{BAAI/bge-m3} sentence transformer model to generate these vector embeddings.
+The search pipeline is built upon a hybrid architecture that combines semantic search and lexical search techniques to optimize both relevance and precision in results. The key components of this pipeline are as follows:
 
-%   \item \textbf{Hybrid Retrieval:} The retrieval phase fuses two distinct methodologies.
-%         \begin{itemize}
-%           \item \textit{Semantic Search:} Calculates \textbf{cosine similarity} between the user's query vector and stored document vectors to find the top 10 conceptually relevant results.
-%           \item \textit{Lexical Search:} Utilizes the \textbf{BM25} algorithm to identify the top 10 results based on exact keyword matching.
-%         \end{itemize}
-%         These results are combined using a weighted fusion mechanism with an alpha ratio ($\alpha$) of $0.65$. This weighting prioritizes semantic search (understanding user intent) while retaining the precision of keyword matching for specific entity names.
+\begin{enumerate}
+  \item \textbf{Data Embedding and Indexing:} The system utilizes \textbf{ChromaDB} as a vector database. To enhance retrieval accuracy, raw data from architecture and restaurant CSVs is pre-processed into descriptively refined documents before being embedded. We utilize the state-of-the-art \texttt{BAAI/bge-m3} sentence transformer model to generate these vector embeddings.
 
-%   \item \textbf{Reranking:} The combined pool of candidates undergoes a final filtering stage using the \texttt{BAAI/bge-reranker-v2-m3} model. This cross-encoder assesses the relevance of each candidate pair deeply, adding precision and selecting the final top 3 results to be returned to the client.
-% \end{enumerate}
+  \item \textbf{Hybrid Retrieval:} The retrieval phase fuses two distinct methodologies.
+        \begin{itemize}
+          \item \textit{Semantic Search:} Calculates \textbf{cosine similarity} between the user's query vector and stored document vectors to find the top 10 conceptually relevant results.
+          \item \textit{Lexical Search:} Utilizes the \textbf{BM25} algorithm to identify the top 10 results based on exact keyword matching.
+        \end{itemize}
+        These results are combined using a weighted fusion mechanism with an alpha ratio ($\alpha$) of $0.65$. This weighting prioritizes semantic search (understanding user intent) while retaining the precision of keyword matching for specific entity names.
 
+  \item \textbf{Reranking:} The combined pool of candidates undergoes a final filtering stage using the \texttt{BAAI/bge-reranker-v2-m3} model. This cross-encoder assesses the relevance of each candidate pair deeply, adding precision and selecting the final top 3 results to be returned to the client.
+\end{enumerate}
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.8\linewidth]{externals/uml/GranularSearchPipeline.png}
 \end{figure}
 
 \subsubsection{Community Event Service}
-This module functions as a dynamic bridge between local culture providers and users, fostering active participation rather than passive observation.
+\textbf{Passive Discovery:}
+Automatically surfaces
+active festivals based
+on the location's
+specific tags, history.
 
-\begin{itemize}
-    \item \textbf{Passive Discovery Engine:} The system automatically surfaces active festivals and events by correlating temporal data with location-specific tags. For example, a user browsing a specific pagoda will be notified of upcoming religious rites relevant to that location's history.
-    \item \textbf{Decentralized Event Hosting:} Cultural organizations and community leaders are provided with a "Self-hosting" portal. This allows them to create, manage, and broadcast community-driven events directly to interested users, bypassing traditional media gatekeepers.
-    \item \textbf{Cultural Differentiation:} Unlike standard event aggregators, this service focuses exclusively on participatory cultural activities, distinguishing the platform as a hub for deep community engagement rather than general entertainment.
-\end{itemize}
 
-\subsubsection{Recommendation System}
-The recommendation engine employs a hybrid filtering approach to personalize the user experience, transforming raw interaction data into curated cultural journeys.
+\textbf{Self-hosting:}
+Organizations can host
+cultural community
+events.
 
-\begin{itemize}
-    \item \textbf{Explicit \& Implicit Feedback Loops:} The system captures explicit signals (likes, dislikes) and implicit behaviors (visit history, dwell time, view counts). These inputs are used to build a dynamic user preference profile.
-    \item \textbf{Preference Clustering:} By analyzing frequently selected tags (e.g., "Gothic Architecture," "Cham Culture") and visited locations, the algorithm identifies user cohorts with similar tastes. This allows for collaborative filtering, where a user is recommended niche locations that were highly rated by others in their "taste cluster," facilitating serendipitous discovery of new cultural sites.
-\end{itemize}
-\subsection{Innovation Highlights}
-\textbf{Unified Multimodal Search Interface:} Unlike traditional travel platforms restricted to rigid keyword inputs, our system enables a seamless search-by-anything experience. Users can discover locations using natural language prompts, visual inputs, categorical filters, or direct entity names. This flexibility bridges the gap between vague user intent and specific cultural data.
- 
-% --- Example Table ---
-\begin{table}[htbp]
-\centering
-\caption{Examples of Multimodal Search Capabilities}
-\label{tab:query_examples}
-\renewcommand{\arraystretch}{1.3} % Adds padding to rows
-\begin{tabular}{|p{3.5cm}|p{10cm}|}
-\hline
-\textbf{Search Modality} & \textbf{Example User Inputs} \\
-\hline
-\textbf{Natural Language} & "Quiet places in Saigon to read a book with colonial architecture" \newline "Where can I see traditional water puppet shows?" \\
-\hline
-\textbf{Visual Input} & \textit{[User uploads photo of Notre Dame Cathedral]} $\rightarrow$ System finds similar Gothic/Romanesque churches. \\
-\hline
-\textbf{Categorical Filters} & \texttt{\{ "arch\_style": "French Colonial", "district": "1" \}} \newline \texttt{\{ "religion": "Buddhism", "active\_worship": true \}} \\
-\hline
-\textbf{Direct Entity Lookup} & "Ben Thanh Market" \newline "Ho Chi Minh City Fine Arts Museum" \\
-\hline
-\end{tabular}
-\end{table}
+
+\textbf{Differentiation:} allows
+users to participate in
+community-driven
+cultural activities
+\subsection{Feature Explanation}
+\subsection{Innovation Highliights}
