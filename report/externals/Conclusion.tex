@@ -1,1 +1,43 @@
 \section{Conclusion and Future Development}
+
+\subsection{Future Development}
+
+While the current MVP is restricted to the geographic scope of Ho Chi Minh City, the system architecture is designed for scalability. Our roadmap focuses on overcoming two primary challenges: \textbf{Data Density} (populating the map) and \textbf{Event Verification} (ensuring trust).
+
+\subsubsection{Scalability Strategy}
+To handle the projected growth from the MVP phase to mass adoption, the backend will evolve through staged upgrades:
+\begin{itemize}
+  \item \textbf{Infrastructure Migration:} Transitioning from basic hosting to a Virtual Private Server (VPS) to manage increased traffic.
+  \item \textbf{Load Balancing:} Upon reaching a user base of 10,000+, we will implement load balancers to distribute traffic and support up to 100,000 concurrent searches, ensuring latency remains low during high-demand queries.
+\end{itemize}
+
+\subsubsection{Expansion via AI-Driven Data Extraction}
+Expansion to other regions (e.g., Hanoi, Da Nang) relies on solving the \textbf{Data Density} problem without requiring manual entry for every site. We propose a semi-supervised learning pipeline:
+\begin{enumerate}
+  \item \textbf{Manual Labeling:} Creating a high-quality, manually labeled dataset of cultural sites in Ho Chi Minh City.
+  \item \textbf{Model Training:} Using this data to train an Image Tag Extraction model capable of identifying architectural and cultural attributes (e.g., distinguishing "Sino-Vietnamese" from "Khmer" architecture).
+  \item \textbf{Automated Expansion:} Leveraging the Google Maps API to fetch images from new regions and passing them through our trained model. This allows us to rapidly populate the database with "semantic tags" for locations across Vietnam with a target accuracy of 90\%.
+\end{enumerate}
+
+\subsubsection{Community Governance and Verification}
+As the platform introduces \textbf{User-Organized Events}, maintaining the platform's core value proposition—authenticity—is critical.
+\begin{itemize}
+  \item \textbf{Current State (Manual Moderation):} To prevent spam and ensure safety, all user-submitted events currently undergo manual review.
+  \item \textbf{Future State (Community Voting):} As the active user base grows (targeting 1,000 monthly active users), we will transition to a decentralized trust model. A "Community Voting" system will allow trusted users to verify events, reducing the bottleneck of central moderation.
+\end{itemize}
+
+\subsubsection{Roadmap \& Monetization}
+The long-term sustainability of CulTour relies on a three-phase evolution:
+\begin{itemize}
+  \item \textbf{Phase 1 (MVP):} establishing the Granular Search and Recommendation System.
+  \item \textbf{Phase 2 (Social Hub):} introducing user-generated itineraries, travel journals, and Q\&A forums to build a sticky community.
+  \item \textbf{Phase 3 (Monetization):} implementing revenue streams via small fees for organization-led events and affiliate marketing integrations with major aggregators like Agoda or Klook.
+\end{itemize}
+
+\subsection{Conclusion}
+
+The tourism industry's current reliance on generic, location-based data has created a "Staged Authenticity" trap, where travelers are funneled into curated performances rather than genuine experiences.
+
+\textbf{CulTour} addresses this by providing the necessary data layer to decouple culture from mere geography. By creating a tool that understands the semantic nuances of architecture, religion, and history, we empower travelers to bypass the "front-stage" and discover the "back-stage" reality of Vietnam.
+
+Our ultimate vision is not just to build a better search engine, but to foster a deeper appreciation of Vietnamese heritage. We hope that by reducing the friction of discovery, more travelers will confidently explore local culture, moving from passive observation to active, first-hand experience.
