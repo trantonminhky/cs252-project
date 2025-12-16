@@ -1,0 +1,81 @@
+classDiagram
+  direction LR
+
+  class App {
+    +expressApp
+    +routes
+  }
+
+  class RecommendationRoutes {
+    +GET_root()
+    +POST_feedback()
+  }
+
+  class RecommendationController {
+    +getRecommendations(req,res,next)
+    +sendFeedback(req,res,next)
+  }
+
+  class RecommendationService {
+    -baseURL : string
+    +getRecommendations(userID,lat,lon)
+    +sendFeedback(userID,itemID,action)
+  }
+
+  class ServiceResponse {
+    +success : bool
+    +statusCode : number
+    +payload : object
+    +get() object
+  }
+
+  class UserDB {
+    -db : Enmap
+    +get(key,path)
+    +set(key,val,path)
+    +has(key)
+    +clear()
+    +export()
+  }
+
+  class LocationDB {
+    -db : Enmap
+    +get()
+    +set()
+    +delete()
+    +clear()
+    +has()
+    +export()
+  }
+
+  class EventDB {
+    -db : Enmap
+    +autonum()
+    +get()
+    +set()
+    +delete()
+    +push()
+    +clear()
+    +has()
+    +export()
+  }
+
+  class Axios
+  class Enmap
+  class PythonRecAPI {
+    <<external>>
+    +POST_recommend()
+    +POST_feedback()
+  }
+
+  App --> RecommendationRoutes
+  RecommendationRoutes --> RecommendationController
+  RecommendationController ..> RecommendationService
+  RecommendationController ..> ServiceResponse
+  RecommendationService ..> UserDB
+  RecommendationService ..> ServiceResponse
+  RecommendationService ..> Axios
+  RecommendationService ..> PythonRecAPI : calls
+  UserDB --> Enmap
+  LocationDB --> Enmap
+  EventDB --> Enmap

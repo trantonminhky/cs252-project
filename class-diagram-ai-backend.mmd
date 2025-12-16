@@ -1,0 +1,62 @@
+classDiagram
+direction LR
+
+%% Top-level app
+class Main {
+  +app : FastAPI
+  +health_check() dict
+}
+
+class RecommendationRouter {
+  +router
+  +recommend(...)  %% endpoint handler
+}
+
+Main --> RecommendationRouter : include_router()
+
+%% Schemas (Pydantic models)
+class RecommendationRequest {
+  +user_id : str
+  +query : str
+  +top_k : int
+  +filters : dict
+}
+
+class RecommendationResponse {
+  +items : List~ItemScore~
+}
+
+class ItemScore {
+  +place_id : str
+  +score : float
+  +explanation : str
+}
+
+RecommendationRouter ..> RecommendationRequest
+RecommendationRouter ..> RecommendationResponse
+
+%% Core / Services
+class DataLoader {
+  +load_embeddings()
+  +load_metadata()
+}
+
+class FeatureExtractor {
+  +embed_text(text)
+  +load_model()
+}
+
+class RecommenderService {
+  +recommend(request) : RecommendationResponse
+}
+
+class UserProfileService {
+  +get_profile(user_id)
+  +update_preferences(user_id, prefs)
+}
+
+RecommendationRouter ..> RecommenderService
+RecommenderService ..> DataLoader
+RecommenderService ..> FeatureExtractor
+RecommenderService ..> UserProfileService
+UserProfileService ..> DataLoader : (if used for profiles)

@@ -1,0 +1,33 @@
+classDiagram
+direction LR
+
+class BaseColInfo {
+  +df : DataFrame
+  +documents : List~str~
+  +ids : List~str~
+  +metadatas : List~dict~
+  +__init__(csv_file)
+  +_process_doc()*
+  +_process_metadata_and_ids()
+}
+
+class ArchColInfo {
+  +__init__(csv_file)
+  +_process_doc()
+}
+
+class RestaurantColInfo {
+  +__init__(csv_file)
+  +_process_doc()
+}
+
+BaseColInfo <|-- ArchColInfo
+BaseColInfo <|-- RestaurantColInfo
+
+class SearchRequest {
+  +query : str
+  +final_k : int
+  +initial_k : int
+  +filters : Dict~str, Any~?
+  +alpha : float
+}
