@@ -1,0 +1,143 @@
+classDiagram
+direction LR
+
+namespace FE {
+  class MyApp {
+    +build(context) Widget
+  }
+
+  class IntroductionScreen {
+    +build(context) Widget
+  }
+
+  class HomeScreen {
+    +build(context) Widget
+    -fetchTopDestinations() Future<void>
+  }
+
+  class SearchScreen {
+    +build(context) Widget
+    -performSearch() Future<void>
+    -pickImageAndSearch() Future<void>
+  }
+
+  class RegionOverview {
+    +build(context) Widget
+    -loadPlaces(region) Future<void>
+  }
+
+  class PlaceOverview {
+    +build(context) Widget
+  }
+
+  class MapScreen {
+    +build(context) Widget
+    -moveToPlace(place) void
+  }
+}
+
+namespace Providers {
+  class UserSessionProvider {
+    +state : User?
+    +setUser(user) void
+    +clear() void
+    +fetchAndUpdatePreferences(userId) Future<void>
+  }
+
+  class SelectedPlaceProvider {
+    +state : Place?
+    +set(place) void
+    +clear() void
+  }
+
+  class NavigationIndexProvider {
+    +state : int
+    +set(index) void
+  }
+}
+
+namespace Services {
+  class PlaceService {
+    -dio : Dio
+    +getPlace(query, options, userId) Future<List<Place>>
+    +getPlaceByID(placeId) Future<Place>
+    +getPlaceByImage(bytes, filename) Future<List<Place>>
+  }
+
+  class ProfileService {
+    -dio : Dio
+    +getProfile(userId) Future<User>
+  }
+}
+
+namespace Models {
+  class Place {
+    +id : String
+    +name : String
+    +tags : Map<String, List<String>>
+    +lat : double
+    +lon : double
+    +description : String
+    +age : int
+    +openHours : List<String>?
+    +dayOff : String?
+    +address : String?
+    +fromJson(json) Place
+  }
+
+  class Region {
+    +id : String
+    +name : String
+    +placesId : List<String>
+    +fromJson(json) Region
+  }
+
+  class User {
+    +userID : String
+    +preferences : List<String>
+    +fromJson(json) User
+  }
+
+  class FilterType {
+    <<enumeration>>
+    region_overview
+    architecture
+    building_type
+    religion
+  }
+
+  class CategoryType {
+    <<enumeration>>
+    place_of_worship
+    community_centre
+    assembly_hall
+  }
+}
+
+MyApp --> IntroductionScreen
+IntroductionScreen --> HomeScreen
+HomeScreen --> SearchScreen
+HomeScreen --> RegionOverview
+RegionOverview --> PlaceOverview
+PlaceOverview --> MapScreen
+SearchScreen --> PlaceOverview
+SearchScreen --> MapScreen
+
+HomeScreen ..> UserSessionProvider : reads/watches
+SearchScreen ..> UserSessionProvider : reads/watches
+RegionOverview ..> UserSessionProvider : reads/watches
+MapScreen ..> SelectedPlaceProvider : listens
+PlaceOverview ..> SelectedPlaceProvider : sets
+HomeScreen ..> NavigationIndexProvider : sets
+
+UserSessionProvider ..> ProfileService
+SearchScreen ..> PlaceService
+RegionOverview ..> PlaceService
+PlaceOverview ..> PlaceService
+
+PlaceService --> Place
+RegionOverview --> Region
+UserSessionProvider --> User
+SearchScreen --> FilterType
+SearchScreen --> CategoryType
+RegionOverview --> FilterType

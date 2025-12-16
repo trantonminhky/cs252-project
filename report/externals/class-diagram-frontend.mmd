@@ -1,0 +1,131 @@
+classDiagram
+  direction LR
+
+  class MyApp {
+    +build(context)
+  }
+
+  class IntroductionScreen {
+    +build(context)
+  }
+
+  class SplashScreen {
+    +build(context)
+  }
+
+  class HomeScreen {
+    +build(context)
+  }
+
+  class MapScreen {
+    +build(context)
+  }
+
+  class ProfileScreen {
+    +build(context)
+  }
+
+  class TripScreen {
+    +build(context)
+  }
+
+  class NavigationProvider {
+    +state : int
+    +setIndex(index)
+  }
+
+  class SelectedPlaceProvider {
+    +state : Place?
+    +select(place)
+    +clear()
+  }
+
+  class TripProvider {
+    +state : Trip?
+    +setTrip(trip)
+  }
+
+  class UserInfoProvider {
+    +state : UserInfo
+    +setUserInfo(data)
+  }
+
+  class EventProvider {
+    +state : List<Event>
+    +setEvents(list)
+  }
+
+  class PlaceService {
+    -dio : Dio
+    +getPlaces(query)
+    +getPlace(id)
+  }
+
+  class EventService {
+    -dio : Dio
+    +getEvents()
+  }
+
+  class GeocodeService {
+    -dio : Dio
+    +geocode(address)
+  }
+
+  class MapService {
+    -dio : Dio
+    +getRoute(from,to)
+  }
+
+  class ReviewService {
+    -dio : Dio
+    +postReview(review)
+  }
+
+  class AuthService {
+    -dio : Dio
+    +login(creds)
+    +refreshToken()
+  }
+
+  class SearchCacheService {
+    +readCache(query)
+    +writeCache(query,data)
+  }
+
+  class ServiceHelpers {
+    +retryWithTokenRefresh(operation)
+    +handleDioError(error)
+  }
+
+  class Dio
+  class Place
+  class Trip
+  class Event
+  class UserInfo
+
+  MyApp --> IntroductionScreen
+  IntroductionScreen --> SplashScreen
+  SplashScreen --> HomeScreen
+  HomeScreen ..> NavigationProvider
+  HomeScreen ..> PlaceService
+  HomeScreen ..> SearchCacheService
+  MapScreen ..> SelectedPlaceProvider
+  MapScreen ..> MapService
+  MapScreen ..> GeocodeService
+  ProfileScreen ..> UserInfoProvider
+  ProfileScreen ..> AuthService
+  TripScreen ..> TripProvider
+  TripScreen ..> EventService
+  TripScreen ..> ReviewService
+  PlaceService --> Dio
+  EventService --> Dio
+  GeocodeService --> Dio
+  MapService --> Dio
+  ReviewService --> Dio
+  AuthService --> Dio
+  AuthService ..> ServiceHelpers
+  ServiceHelpers ..> UserInfoProvider
+  SelectedPlaceProvider ..> Place
+  TripProvider ..> Trip
+  EventProvider ..> Event
+  UserInfoProvider ..> UserInfo
