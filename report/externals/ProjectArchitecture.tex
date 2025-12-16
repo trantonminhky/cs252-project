@@ -1,3 +1,4 @@
+\section{Technical Solution and Architecture}
 The project, in its core, is a Flutter mobile application that utilizes a NodeJS backend with assistance from Python backend servers that form into a single clean API that the frontend can use. The project's overall architecture can be split into three main architecture styles: the system-level architecture, the client architecture and the backend architecture.
 
 \paragraph{System level architecture.} The interaction between the frontend and the backend is a classic three-tier client-server architecture. More specifically, the Flutter client, which we call the \textit{presentation}, utilizes the Node and Python API (the \textit{application}). The backend then utilizes the database and external services to parse upstream data and pass it to the downstream clients. This is the simplest architecture for an MVP achievable within a reasonable time frame.
@@ -7,5 +8,5 @@ The project, in its core, is a Flutter mobile application that utilizes a NodeJS
 \paragraph{Backend architecture.} The backend is a NodeJS express app comprising of multiple endpoints grouped into categories callable from the frontend via dio. In its core, it is an MVC architecture. An endpoint is structured by the core logic's within its service function, express handling and parameters fetching within its controller functions, and routing via an express's Router object. Middlewares for authorization and checking are also included, allowing decoupling and reducing code duplication. Other minor backend servers are also made for training AIs and AI-based searching, and the main backend calls these servers via Cloudflare tunnels. This allows for separation of duties and dependency decoupling.
 
 \begin{figure}[!h]
-	\includegraphics[width=\linewidth]{externals/uml/projectModules.png}
+  \includegraphics[width=\linewidth]{externals/uml/projectModules.png}
 \end{figure}
