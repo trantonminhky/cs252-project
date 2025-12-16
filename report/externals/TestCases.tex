@@ -1,2 +1,15 @@
 \section{Test Cases and Scenarios}
-\lipsum[1-3]
+\subsection{Stress Cases}
+We conducted stress tests to evaluate the system's performance limits and latency under heavy load.
+\begin{itemize}
+    \item \textbf{High Volume User Load:} We flooded the user base with 1 million simulated users to check query response times. The system remained stable, with response times consistently remaining \textbf{under 5ms}.
+    \item \textbf{Concurrent Search Capacity:} Stress testing revealed a specific throughput limit for search operations; the system can currently handle 87 searches simultaneously.
+    \item \textbf{Authentication Scalability:} We sent multiple concurrent sign-in/sign-up requests to test scalability. The response time was found to scale linearly with the volume of requests. At a load of 200 concurrent requests, the response time was recorded at 1000ms.
+\end{itemize}
+
+\subsection{Edge Cases}
+We evaluated specific edge cases to check the routing logic and search interpretation capabilities.
+\begin{itemize}
+    \item \textbf{Remote Routing:} We tested the routing algorithms against remote geographic locations. The result showed that coverage is not yet universal, as some remote places could not be successfully routed.
+    \item \textbf{Sophisticated Search Prompts:} We input niche and complex search prompts to test the search engine's semantic understanding. These prompts were processed successfully, indicating the system handles semantic search intent correctly.
+\end{itemize}
