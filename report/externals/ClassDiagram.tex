@@ -7,9 +7,9 @@ Our system's architecture employs a foursome design pattern, dividing the applic
 
 \subsection{Class Diagrams}
 \subsubsection{Overall Architecture}
-\begin{figure}[h]
+\begin{figure}[!h]
   \centering
-  \includegraphics[width=\linewidth]{uml/class-diagram.svg}
+  \includegraphics[width=\linewidth]{externals/uml/class-diagram.png}
   \caption{Overall architecture.}
 \end{figure}
 
@@ -17,36 +17,38 @@ Our system's architecture employs a foursome design pattern, dividing the applic
 \newpage
 
 \subsubsection{AI Backend, Backend, and Database}                                                                                                                                                       
-\begin{figure}[h]
+\begin{figure}[!h]
   \centering
-  \includegraphics[width=\linewidth]{uml/class-diagram-frontend.svg}
+  \includegraphics[width=\linewidth]{externals/uml/class-diagram-frontend.png}
   \caption{Frontend architecture.}
 \end{figure}
 
 \quad The Flutter frontend boots via `MyApp`, routing first to `IntroductionScreen` and then into the main flow (Splash, Home, Map, Profile, Trip). UI screens read Riverpod providers for navigation (`NavigationProvider`), selection (`SelectedPlaceProvider`), user/session (`UserInfoProvider`), trips (`TripProvider`), and events. Screens invoke service classes for API calls: `PlaceService`, `EventService`, `GeocodeService`, `MapService`, `ReviewService`, and `AuthService`, with `SearchCacheService` caching queries locally. All HTTP calls share a Dio client; `ServiceHelpers` centralizes error handling and token refresh before updating session state through providers.
 
 \newpage
-\begin{figure}[h]
+\begin{figure}[!h]
   \centering
-  \includegraphics[width=\linewidth]{uml/class-diagram-ai-backend.svg}
+  \includegraphics[width=\linewidth]{externals/uml/class-diagram-ai-backend.png}
   \caption{AI backend architecture.}
 \end{figure}
 
-\quad The ai_backend is a FastAPI app that exposes a recommendation endpoint. The entrypoint (Main) creates the FastAPI app, adds CORS middleware, and includes the RecommendationRouter. The router defines the recommend(...) endpoint, which accepts a RecommendationRequest (user_id, query, top_k, filters) and returns a RecommendationResponse containing a list of ItemScore (place_id, score, explanation).
+\quad The AI backend is a FastAPI app that exposes a recommendation endpoint. The entrypoint (Main) creates the FastAPI app, adds CORS middleware, and includes the RecommendationRouter. The router defines the recommend(...) endpoint, which accepts a RecommendationRequest (user\_id, query, top\_k, filters) and returns a RecommendationResponse containing a list of ItemScore (place\_id, score, explanation).
 
 \newpage
 
-\begin{figure}[h]
+\begin{figure}[!h]
   \centering
-  \includegraphics[width=\linewidth]{uml/class-diagram-backend.svg}
+  \includegraphics[width=\linewidth]{externals/uml/class-diagram-backend.png}
   \caption{Backend architecture.}
 \end{figure}
 
 \quad The backend is an Express app that wires routes to controllers and services. The entry `App` holds the Express instance and registers `RecommendationRoutes`, which map HTTP handlers to `RecommendationController`. Controllers delegate to `RecommendationService` to call the Python AI backend via Axios and wrap responses in `ServiceResponse`. Enmap-backed stores (`UserDB`, `LocationDB`, `EventDB`) provide simple persistence layers for user state, geocoded locations, and events. `RecommendationService` depends on these stores to enrich requests and cache results, while also calling the external `PythonRecAPI` for recommendations and feedback.
 
-\begin{figure}[h]
+\newpage 
+
+\begin{figure}[!h]
   \centering
-  \includegraphics[width=\linewidth]{uml/class-diagram-db.svg}
+  \includegraphics[width=\linewidth]{externals/uml/class-diagram-db.png}
   \caption{Database architecture.}
 \end{figure}
 
